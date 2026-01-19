@@ -336,3 +336,4 @@ This project is open source and available under the MIT License.
 - GitHub: [github.com/omorros](https://github.com/omorros)
 - LinkedIn: [linkedin.com/in/oriolmorros](https://linkedin.com/in/oriolmorros)
 - Email: oriolmorros25@gmail.com
+
