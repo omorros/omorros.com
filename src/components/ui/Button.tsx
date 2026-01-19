@@ -7,7 +7,7 @@ interface ButtonProps {
   children: ReactNode
   href?: string
   onClick?: () => void
-  variant?: 'primary' | 'secondary'
+  icon?: ReactNode
   className?: string
 }
 
@@ -15,18 +15,11 @@ export function Button({
   children,
   href,
   onClick,
-  variant = 'primary',
+  icon,
   className = '',
 }: ButtonProps) {
   const baseStyles =
-    'inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all duration-300'
-
-  const variants = {
-    primary:
-      'bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 hover:border-accent/40',
-    secondary:
-      'bg-white/5 text-white/80 border border-white/10 hover:bg-white/10 hover:text-white',
-  }
+    'inline-flex items-center gap-2 px-5 py-2.5 rounded-[1.5rem] text-sm font-medium transition-all duration-250 bg-transparent border border-[rgba(242,242,242,0.15)] text-[rgba(242,242,242,0.8)] hover:bg-[rgba(144,202,249,0.08)] hover:border-[rgba(144,202,249,0.3)] hover:text-[rgba(242,242,242,0.95)]'
 
   const Component = href ? motion.a : motion.button
 
@@ -34,12 +27,13 @@ export function Button({
     <Component
       href={href}
       onClick={onClick}
-      target={href ? '_blank' : undefined}
-      rel={href ? 'noopener noreferrer' : undefined}
-      className={`${baseStyles} ${variants[variant]} ${className}`}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      target={href?.startsWith('http') ? '_blank' : undefined}
+      rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+      className={`${baseStyles} ${className}`}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
     >
+      {icon && <span className="text-[rgba(242,242,242,0.8)]">{icon}</span>}
       {children}
     </Component>
   )
