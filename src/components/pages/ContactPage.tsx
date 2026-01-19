@@ -8,7 +8,7 @@ import { siteConfig } from '@/lib/constants'
 
 export function ContactPage() {
   const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const isInView = useInView(ref, { once: false, margin: '-100px' })
 
   const containerVariants = {
     hidden: { opacity: 0 },

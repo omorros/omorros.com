@@ -5,7 +5,7 @@ import { motion, useInView } from 'framer-motion'
 
 export function AboutPage() {
   const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const isInView = useInView(ref, { once: false, margin: '-100px' })
 
   const containerVariants = {
     hidden: { opacity: 0 },

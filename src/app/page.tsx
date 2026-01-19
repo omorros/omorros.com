@@ -18,7 +18,7 @@ export default function Home() {
       content: (
         <HomePage
           onExplore={() => {
-            document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })
+            window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }))
           }}
         />
       ),
@@ -29,7 +29,6 @@ export default function Home() {
       description: "Hey, I'm Oriol!",
       gradient: '/gradients/about.svg',
       glowColor: '#9e005d',
-      compact: true,
       content: <AboutPage />,
     },
     {
@@ -38,7 +37,6 @@ export default function Home() {
       description: 'My academic journey',
       gradient: '/gradients/experience.svg',
       glowColor: '#ff6b35',
-      compact: true,
       content: <ExperiencePage />,
     },
     {
@@ -63,7 +61,6 @@ export default function Home() {
       description: "Let's get in touch",
       gradient: '/gradients/contact.svg',
       glowColor: '#9e005d',
-      compact: true,
       content: <ContactPage />,
     },
   ]

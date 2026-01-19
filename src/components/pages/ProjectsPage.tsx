@@ -7,7 +7,7 @@ import { projects } from '@/data/projects'
 
 export function ProjectsPage() {
   const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const isInView = useInView(ref, { once: false, margin: '-100px' })
 
   return (
     <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 gap-4">
