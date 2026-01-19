@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 
 interface Experience {
   title: string
@@ -19,14 +20,21 @@ const experiences: Experience[] = [
 ]
 
 export function ExperiencePage() {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-100px' })
+
   return (
-    <div className="space-y-4">
+    <div ref={ref} className="space-y-4">
       {experiences.map((exp, index) => (
         <motion.div
           key={index}
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{
+            delay: index * 0.1,
+            duration: 0.5,
+            ease: [0.16, 1, 0.3, 1],
+          }}
           className="p-5 rounded-xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.06)] hover:bg-[rgba(255,255,255,0.05)] transition-colors"
         >
           <div className="flex items-start justify-between gap-4">

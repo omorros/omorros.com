@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { Github, Linkedin, Mail, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { siteConfig } from '@/lib/constants'
@@ -10,12 +11,26 @@ interface HomePageProps {
 }
 
 export function HomePage({ onExplore }: HomePageProps) {
+  const ref = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start start', 'end start'],
+  })
+
+  // Parallax fade-out effect as user scrolls away from home
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const y = useTransform(scrollYProgress, [0, 0.5], [0, -50])
+
   return (
-    <div className="flex flex-col items-center text-center">
+    <motion.div
+      ref={ref}
+      style={{ opacity, y }}
+      className="flex flex-col items-center text-center"
+    >
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
+        transition={{ delay: 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="text-4xl md:text-5xl lg:text-6xl font-bold text-[rgba(242,242,242,0.95)] mb-4"
       >
         {siteConfig.name}
@@ -24,7 +39,7 @@ export function HomePage({ onExplore }: HomePageProps) {
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+        transition={{ delay: 0.2, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="text-xl md:text-2xl font-semibold text-[rgba(242,242,242,0.7)] mb-8"
       >
         {siteConfig.subtitle}
@@ -33,7 +48,7 @@ export function HomePage({ onExplore }: HomePageProps) {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
+        transition={{ delay: 0.3, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="flex flex-wrap justify-center gap-3 mt-4"
       >
         <Button href={siteConfig.links.github} icon={<Github size={18} />}>
@@ -54,7 +69,7 @@ export function HomePage({ onExplore }: HomePageProps) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
+        transition={{ delay: 0.5, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="absolute bottom-16 left-1/2 -translate-x-1/2"
       >
         <button
@@ -68,6 +83,6 @@ export function HomePage({ onExplore }: HomePageProps) {
           />
         </button>
       </motion.div>
-    </div>
+    </motion.div>
   )
 }

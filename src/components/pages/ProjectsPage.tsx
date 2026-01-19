@@ -1,12 +1,16 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 import { ExternalLink } from 'lucide-react'
 import { projects } from '@/data/projects'
 
 export function ProjectsPage() {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-100px' })
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {projects.map((project, index) => (
         <motion.a
           key={project.title}
@@ -14,8 +18,12 @@ export function ProjectsPage() {
           target="_blank"
           rel="noopener noreferrer"
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.1 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{
+            delay: index * 0.1,
+            duration: 0.5,
+            ease: [0.16, 1, 0.3, 1],
+          }}
           className="group block p-5 rounded-xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.06)] hover:bg-[rgba(255,255,255,0.05)] hover:border-[rgba(255,255,255,0.1)] transition-all"
         >
           <div className="flex items-start justify-between mb-3">

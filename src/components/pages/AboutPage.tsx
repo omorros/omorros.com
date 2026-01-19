@@ -1,22 +1,65 @@
 'use client'
 
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+
 export function AboutPage() {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-100px' })
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+  }
+
   return (
-    <div className="space-y-6">
-      <p className="text-[rgba(242,242,242,0.8)] leading-8 font-medium">
+    <motion.div
+      ref={ref}
+      variants={containerVariants}
+      initial="hidden"
+      animate={isInView ? 'visible' : 'hidden'}
+      className="space-y-6"
+    >
+      <motion.p
+        variants={itemVariants}
+        className="text-[rgba(242,242,242,0.8)] leading-8 font-medium"
+      >
         I am a Software Engineering student at Anglia Ruskin University in
         Cambridge, passionate about building innovative solutions that make a
         difference.
-      </p>
-      <p className="text-[rgba(242,242,242,0.8)] leading-8 font-medium">
+      </motion.p>
+      <motion.p
+        variants={itemVariants}
+        className="text-[rgba(242,242,242,0.8)] leading-8 font-medium"
+      >
         My interests span across AI/ML, IoT, and full-stack development. I love
         tackling challenging problems and turning ideas into working products
         that solve real-world problems.
-      </p>
-      <p className="text-[rgba(242,242,242,0.8)] leading-8 font-medium">
+      </motion.p>
+      <motion.p
+        variants={itemVariants}
+        className="text-[rgba(242,242,242,0.8)] leading-8 font-medium"
+      >
         Originally from Barcelona, I moved to Cambridge to pursue my degree and
         have been exploring the vibrant tech scene ever since.
-      </p>
-    </div>
+      </motion.p>
+    </motion.div>
   )
 }
