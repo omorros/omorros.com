@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 993 824">
+  <defs>
+    <style>
+      .green{opacity:0.2;fill:url(#green-grad);}
+      .purple{opacity:0.2;fill:url(#purple-grad);}
+    </style>
+    <radialGradient id="green-grad" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#27c029"/>
+      <stop offset="16%" stop-color="#26bc28" stop-opacity="0.98"/>
+      <stop offset="30%" stop-color="#24b126" stop-opacity="0.92"/>
+      <stop offset="44%" stop-color="#209e22" stop-opacity="0.82"/>
+      <stop offset="58%" stop-color="#1b831c" stop-opacity="0.68"/>
+      <stop offset="72%" stop-color="#146115" stop-opacity="0.51"/>
+      <stop offset="85%" stop-color="#0b370c" stop-opacity="0.29"/>
+      <stop offset="98%" stop-color="#010601" stop-opacity="0.03"/>
+      <stop offset="100%" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="purple-grad" cx="40%" cy="60%" r="50%">
+      <stop offset="0%" stop-color="#8f46db"/>
+      <stop offset="15%" stop-color="#8d45d7" stop-opacity="0.98"/>
+      <stop offset="28%" stop-color="#8541cc" stop-opacity="0.93"/>
+      <stop offset="41%" stop-color="#793bb9" stop-opacity="0.84"/>
+      <stop offset="55%" stop-color="#67339e" stop-opacity="0.72"/>
+      <stop offset="67%" stop-color="#51287c" stop-opacity="0.57"/>
+      <stop offset="80%" stop-color="#351a52" stop-opacity="0.37"/>
+      <stop offset="93%" stop-color="#160b21" stop-opacity="0.15"/>
+      <stop offset="100%" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect class="green" x="192" y="0" width="801" height="691"/>
+  <rect class="purple" x="0" y="133" width="801" height="691"/>
+</svg>
