@@ -3,62 +3,91 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 
-interface Experience {
+interface Education {
   title: string
   organization: string
+  location: string
   period: string
+  description: string
   current?: boolean
 }
 
-const experiences: Experience[] = [
+const education: Education[] = [
   {
     title: 'BSc Software Engineering',
     organization: 'Anglia Ruskin University',
+    location: 'Cambridge, UK',
     period: 'Sep 2023 - Jun 2026',
+    description: 'Currently in my second year, focusing on software development, AI/ML, and full-stack technologies.',
     current: true,
+  },
+  {
+    title: 'Batxillerat Tecnològic',
+    organization: 'Joviat',
+    location: 'Manresa, Barcelona',
+    period: 'Sep 2021 - Jun 2023',
+    description: 'Technology-focused baccalaureate with emphasis on engineering, computer science, physics, and mathematics.',
+    current: false,
   },
 ]
 
 export function ExperiencePage() {
   const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const isInView = useInView(ref, { once: false, margin: '-100px' })
 
   return (
-    <div ref={ref} className="space-y-4">
-      {experiences.map((exp, index) => (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{
-            delay: index * 0.1,
-            duration: 0.5,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-          className="p-5 rounded-xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.06)] hover:bg-[rgba(255,255,255,0.05)] transition-colors"
-        >
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <h3 className="text-lg font-semibold text-[rgba(242,242,242,0.9)]">
-                {exp.title}
-              </h3>
-              <p className="text-[rgba(242,242,242,0.7)] mt-1">
-                {exp.organization}
-              </p>
-            </div>
-            <div className="text-right shrink-0">
-              <span className="text-sm text-[rgba(242,242,242,0.6)]">
-                {exp.period}
-              </span>
-              {exp.current && (
-                <span className="block mt-1 text-xs text-accent font-medium">
-                  Current
-                </span>
+    <div ref={ref} className="relative">
+      {/* Timeline line */}
+      <div className="absolute left-[7px] top-2 bottom-2 w-[2px] bg-[rgba(255,255,255,0.1)]" />
+
+      <div className="space-y-8">
+        {education.map((edu, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, x: -20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+            transition={{
+              delay: index * 0.15,
+              duration: 0.4,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="relative pl-8"
+          >
+            {/* Timeline dot */}
+            <div
+              className={`absolute left-0 top-[6px] w-4 h-4 rounded-full border-2 ${
+                edu.current
+                  ? 'bg-accent/20 border-accent'
+                  : 'bg-[rgba(255,255,255,0.1)] border-[rgba(255,255,255,0.3)]'
+              }`}
+            >
+              {edu.current && (
+                <>
+                  <div className="absolute inset-[3px] rounded-full bg-accent" />
+                  <div className="absolute inset-0 rounded-full bg-accent animate-ping opacity-75" />
+                </>
               )}
             </div>
-          </div>
-        </motion.div>
-      ))}
+
+            {/* Content */}
+            <div>
+              <h3 className="text-lg font-semibold text-[rgba(242,242,242,0.95)]">
+                {edu.title}
+              </h3>
+              <p className="text-[rgba(242,242,242,0.6)] mt-1">
+                <span className="text-accent/90">{edu.organization}</span>
+                <span className="mx-2">·</span>
+                <span>{edu.location}</span>
+                <span className="mx-2">·</span>
+                <span>{edu.period}</span>
+              </p>
+              <p className="text-[rgba(242,242,242,0.7)] mt-3 leading-relaxed">
+                {edu.description}
+              </p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
     </div>
   )
 }
