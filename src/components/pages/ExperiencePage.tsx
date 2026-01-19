@@ -29,6 +29,14 @@ const education: Education[] = [
     description: 'Technology-focused baccalaureate with emphasis on engineering, computer science, physics, and mathematics.',
     current: false,
   },
+  {
+    title: 'ESO Secondary Studies',
+    organization: 'Oms i de Prat - Fundació Catalunya La Pedrera',
+    location: 'Manresa, Barcelona',
+    period: 'Sep 2017 - Jun 2021',
+    description: 'Secondary education with a focus on science and technology.',
+    current: false,
+  },
 ]
 
 export function ExperiencePage() {
