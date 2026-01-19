@@ -18,7 +18,7 @@ const education: Education[] = [
     organization: 'Anglia Ruskin University',
     location: 'Cambridge, UK',
     period: 'Sep 2023 - Jun 2026',
-    description: 'Currently in my second year, focusing on software development, AI/ML, and full-stack technologies.',
+    description: 'Currently in my final year, focusing on software development, AI/ML, and full-stack technologies.',
     current: true,
   },
   {
