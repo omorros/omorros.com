@@ -8,6 +8,7 @@ export const skills: string[] = [
   'Next.js',
   'Node.js',
   'MySQL',
+  'PostgreSQL',
   'Docker',
   'Linux',
   'Git',
