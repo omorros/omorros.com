@@ -4,7 +4,7 @@ export const siteConfig = {
   title: 'Oriol Morros Vilaseca | Software Engineer',
   description:
     'Software Engineering student at ARU, Cambridge. AI/ML Enthusiast building innovative solutions.',
-  url: 'https://omorros.tech',
+  url: 'https://omorros.com',
   links: {
     github: 'https://github.com/omorros',
     linkedin: 'https://linkedin.com/in/oriolmorros',

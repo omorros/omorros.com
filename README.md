@@ -2,7 +2,7 @@
 
 A minimalist, high-performance personal portfolio website built with modern web technologies. The site features a unique full-page scroll navigation system with smooth transitions, dynamic gradient backgrounds, and an interactive cursor glow effect.
 
-**Live Site:** [omorros.tech](https://omorros.tech)
+**Live Site:** [omorros.com](https://omorros.com)
 
 ---
 
