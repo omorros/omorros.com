@@ -2,48 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #0a0a0a;
-  --foreground: #ffffff;
-  --accent: #90caf9;
-}
-
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  min-height: 100vh;
-}
-
-/* Smooth scrolling */
 html {
-  scroll-behavior: smooth;
+  overflow: hidden;
+  width: 100%;
+  overscroll-behavior-y: contain;
+  background-color: #000000;
 }
 
-/* Selection color */
+body {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  max-width: 100vw;
+  overscroll-behavior-y: contain;
+  background-color: #000000;
+  color-scheme: dark;
+}
+
+#__next {
+  width: 100%;
+  height: 100%;
+}
+
+h1 {
+  color: rgba(242, 242, 242, 0.95);
+  font-weight: 700;
+}
+
+h2 {
+  color: rgba(242, 242, 242, 0.8);
+  font-weight: 600;
+}
+
+p {
+  color: rgba(242, 242, 242, 0.8);
+  line-height: 2rem;
+  font-weight: 500;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+}
+
 ::selection {
   background: rgba(144, 202, 249, 0.3);
   color: #ffffff;
 }
 
-/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {

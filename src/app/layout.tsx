@@ -5,6 +5,7 @@ import { siteConfig } from '@/lib/constants'
 
 const inter = Inter({
   subsets: ['latin'],
+  weight: ['500', '600', '700'],
   variable: '--font-inter',
 })
 
