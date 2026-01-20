@@ -3,7 +3,7 @@
 import { PageWrapper } from '@/components/PageWrapper'
 import { HomePage } from '@/components/pages/HomePage'
 import { AboutPage } from '@/components/pages/AboutPage'
-import { ExperiencePage } from '@/components/pages/ExperiencePage'
+import { EducationPage } from '@/components/pages/EducationPage'
 import { SkillsPage } from '@/components/pages/SkillsPage'
 import { ProjectsPage } from '@/components/pages/ProjectsPage'
 import { ContactPage } from '@/components/pages/ContactPage'
@@ -37,7 +37,7 @@ export default function Home() {
       description: 'My academic journey',
       gradient: '/gradients/experience.svg',
       glowColor: '#ff6b35',
-      content: <ExperiencePage />,
+      content: <EducationPage />,
     },
     {
       id: 'skills',

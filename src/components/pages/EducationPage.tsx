@@ -39,7 +39,7 @@ const education: Education[] = [
   },
 ]
 
-export function ExperiencePage() {
+export function EducationPage() {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: false, margin: '-100px' })
 
