@@ -30,6 +30,28 @@ export function PageWrapper({ pages }: PageWrapperProps) {
   const touchStartY = useRef(0)
   const lastScrollTime = useRef(0)
 
+  // Sync state with URL hash on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.replace('#', '')
+      const index = pages.findIndex((p) => p.id === hash)
+      if (index > 0) {
+        setCurrentPage(index)
+      }
+    }
+  }, [pages])
+
+  // Update URL hash when page changes
+  useEffect(() => {
+    const page = pages[currentPage]
+    if (page && typeof window !== 'undefined') {
+      const hash = `#${page.id}`
+      if (window.location.hash !== hash) {
+        window.history.replaceState(null, '', hash)
+      }
+    }
+  }, [currentPage, pages])
+
   const goToPage = useCallback(
     (newPage: number) => {
       if (isAnimating) return
@@ -72,6 +94,21 @@ export function PageWrapper({ pages }: PageWrapperProps) {
 
   const handleWheel = useCallback(
     (e: WheelEvent) => {
+      // Check if we are scrolling inside a scrollable element
+      let target = e.target as HTMLElement
+      while (target && target !== wrapperRef.current) {
+        if (target.scrollHeight > target.clientHeight) {
+          const isAtTop = target.scrollTop === 0
+          const isAtBottom = Math.abs(target.scrollHeight - target.scrollTop - target.clientHeight) < 1
+
+          // If scrolling down and not at bottom, or scrolling up and not at top, let native scroll happen
+          if ((e.deltaY > 0 && !isAtBottom) || (e.deltaY < 0 && !isAtTop)) {
+            return
+          }
+        }
+        target = target.parentElement as HTMLElement
+      }
+
       e.preventDefault()
       const now = Date.now()
       if (now - lastScrollTime.current < 600) return
@@ -100,7 +137,25 @@ export function PageWrapper({ pages }: PageWrapperProps) {
 
   const handleTouchEnd = (e: React.TouchEvent) => {
     const deltaY = e.changedTouches[0].clientY - touchStartY.current
-    const threshold = 50
+    const threshold = 50 // Reduced threshold for better responsiveness
+
+    // Check for scrollable ancestors same as wheel
+    let target = e.target as HTMLElement
+    let isScrollable = false
+    while (target && target !== wrapperRef.current) {
+      if (target.scrollHeight > target.clientHeight) {
+        // If movement is significant inside a scrollable area, we assume user meant to scroll content
+        // But we only block page nav if they CAN scroll in that direction
+        const isAtTop = target.scrollTop === 0
+        const isAtBottom = Math.abs(target.scrollHeight - target.scrollTop - target.clientHeight) < 1
+
+        if (deltaY < 0 && !isAtBottom) isScrollable = true // Swipe up (scroll down)
+        if (deltaY > 0 && !isAtTop) isScrollable = true // Swipe down (scroll up)
+      }
+      target = target.parentElement as HTMLElement
+    }
+
+    if (isScrollable) return
 
     if (Math.abs(deltaY) > threshold) {
       if (deltaY < 0) {
@@ -279,14 +334,31 @@ export function PageWrapper({ pages }: PageWrapperProps) {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className={`flex-1 px-6 md:px-12 ${
-              page.isHome
-                ? 'flex items-center justify-center'
-                : 'pt-8 pb-20 overflow-y-auto'
-            }`}
+            className={`flex-1 px-6 md:px-12 ${page.isHome
+              ? 'flex items-center justify-center'
+              : 'pt-8 pb-20 overflow-y-auto'
+              }`}
           >
             <div className={`max-w-4xl mx-auto w-full ${page.isHome ? '' : 'relative z-10'}`}>
               {page.content}
+
+              {!page.isHome && currentPage < pages.length - 1 && (
+                <div className="flex justify-center py-12 opacity-60 hover:opacity-100 transition-opacity duration-300">
+                  <button
+                    onClick={goNext}
+                    className="flex flex-col items-center gap-2 group"
+                    aria-label="Wait, scroll down to next section"
+                  >
+                    <span className="text-xs font-light tracking-[0.2em] uppercase text-white/50 group-hover:text-white/90 transition-colors">
+                      Scroll
+                    </span>
+                    <ChevronDown
+                      size={20}
+                      className="text-white/50 group-hover:text-white/90 transition-colors animate-bounce"
+                    />
+                  </button>
+                </div>
+              )}
             </div>
           </motion.div>
         </motion.div>

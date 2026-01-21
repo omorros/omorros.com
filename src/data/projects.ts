@@ -5,24 +5,25 @@ export interface Project {
   link: string
 }
 
+
 export const projects: Project[] = [
   {
     title: 'bk-shoot',
-    description: 'IoT basketball shot detector using IR + vibration sensors',
+    description: 'IoT basketball shot detector using IR + vibration sensors, paired with an Android app',
     tags: ['C++', 'IoT', 'Arduino'],
     link: 'https://github.com/omorros/bk-shoot',
   },
   {
     title: 'SnapShelf',
-    description: 'Grocery inventory mobile app with expiry tracking',
-    tags: ['TypeScript', 'React Native'],
+    description: 'Mobile grocery tracker with fast item scanning, expiry reminders, and recipe recommendations',
+    tags: ['TypeScript', 'Python', 'React Native'],
     link: 'https://github.com/omorros/SnapShelf',
   },
   {
     title: 'AI Response Classifier',
-    description: 'ML chatbot classifier trained on 1,500+ conversations',
+    description: 'ML classifier for AI-generated responses built for Japeto',
     tags: ['Python', 'NLP', 'ML'],
-    link: 'https://github.com/omorros/ai-response-classifier',
+    link: 'https://github.com/omorros/AI_Response_Classifier_for_Japeto',
   },
   {
     title: 'wikipedia_scraper',
@@ -33,7 +34,7 @@ export const projects: Project[] = [
   {
     title: 'UniversityLibrarySystem',
     description: 'Library management system with full CRUD operations',
-    tags: ['Java', 'MySQL'],
+    tags: ['Java'],
     link: 'https://github.com/omorros/UniversityLibrarySystem',
   },
 ]
