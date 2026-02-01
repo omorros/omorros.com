@@ -65,12 +65,12 @@ export function HomePage({ onExplore }: HomePageProps) {
         </Button>
       </motion.div>
 
-      {/* Explore button at bottom */}
+      {/* Explore button - flow positioned instead of absolute to prevent overlap */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute bottom-16 left-1/2 -translate-x-1/2"
+        className="mt-20 md:mt-32"
       >
         <button
           onClick={onExplore}
