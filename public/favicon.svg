@@ -1,4 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" rx="20" fill="#0a0a0a"/>
-  <text x="50" y="68" font-family="system-ui, sans-serif" font-size="50" font-weight="600" fill="#90caf9" text-anchor="middle">O</text>
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Interactive-feeling dark background -->
+  <rect width="100" height="100" rx="24" fill="#050505"/>
+  
+  <!-- Defines the gradient based on your site colors -->
+  <defs>
+    <linearGradient id="grad1" x1="20" y1="20" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#90caf9"/> <!-- Your Accent Blue -->
+      <stop offset="100%" stop-color="#8f46db"/> <!-- Your Glow Purple -->
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Ring (Software/Loop Concept) -->
+  <circle cx="50" cy="50" r="28" stroke="url(#grad1)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Inner Dot (Focus/Target) -->
+  <circle cx="50" cy="50" r="10" fill="url(#grad1)"/>
 </svg>
