@@ -131,14 +131,14 @@ export function PageWrapper({ pages }: PageWrapperProps) {
                 <div className="flex items-center gap-1">
                   <button
                     onClick={goPrev}
-                    className="p-2 hover:text-white transition-colors"
+                    className="p-2 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-accent rounded-md"
                     aria-label="Previous section"
                   >
                     <ChevronUp />
                   </button>
                   <button
                     onClick={goNext}
-                    className="p-2 hover:text-white transition-colors"
+                    className="p-2 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-accent rounded-md"
                     aria-label="Next section"
                   >
                     <ChevronDown />

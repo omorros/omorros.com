@@ -31,7 +31,7 @@ export function Button({
       onClick={onClick}
       target={isExternal ? '_blank' : undefined}
       rel={isExternal ? 'noopener noreferrer' : undefined}
-      className={`${baseStyles} ${className}`}
+      className={`${baseStyles} ${className} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent`}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >

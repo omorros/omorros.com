@@ -74,7 +74,7 @@ export function HomePage({ onExplore }: HomePageProps) {
       >
         <button
           onClick={onExplore}
-          className="flex flex-col items-center gap-3 text-foreground-muted hover:text-foreground transition-colors cursor-pointer group"
+          className="flex flex-col items-center gap-3 text-foreground-muted hover:text-foreground transition-colors cursor-pointer group focus-visible:ring-2 focus-visible:ring-accent rounded-lg p-2"
         >
           <span className="text-base font-semibold">Explore</span>
           <ChevronDown

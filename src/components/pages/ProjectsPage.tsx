@@ -25,7 +25,7 @@ export function ProjectsPage() {
             duration: 0.5,
             ease: [0.16, 1, 0.3, 1],
           }}
-          className="group block relative overflow-hidden rounded-xl bg-glass border border-glass-border hover:bg-glass-hover hover:border-glass-hover-border transition-all"
+          className="group block relative overflow-hidden rounded-xl bg-glass border border-glass-border hover:bg-glass-hover hover:border-glass-hover-border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         >
           <span className="sr-only">(opens in a new tab)</span>
 
