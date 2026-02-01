@@ -73,7 +73,7 @@ export function PageWrapper({ pages }: PageWrapperProps) {
 
   return (
     <div
-      className="relative w-full bg-black text-[rgba(242,242,242,0.8)]"
+      className="relative w-full bg-black text-foreground-muted"
       onMouseMove={handleMouseMove}
     >
       <div className="fixed inset-0 z-0 pointer-events-none">
@@ -163,11 +163,11 @@ export function PageWrapper({ pages }: PageWrapperProps) {
             <div className="w-full max-w-4xl mx-auto flex flex-col h-full justify-center">
               {!p.isHome && (
                 <div className="mb-6 md:mb-10">
-                  <h2 className="text-3xl md:text-5xl font-bold text-[rgba(242,242,242,0.95)] mb-2 md:mb-4">
+                  <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-2 md:mb-4">
                     <AnimatedWords text={p.title || ''} />
                   </h2>
                   {p.description && (
-                    <p className="text-xl text-[rgba(242,242,242,0.6)]">
+                    <p className="text-xl text-foreground-dim">
                       <AnimatedWords text={p.description} delay={0.1} />
                     </p>
                   )}

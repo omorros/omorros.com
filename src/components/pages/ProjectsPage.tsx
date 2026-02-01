@@ -25,9 +25,9 @@ export function ProjectsPage() {
             duration: 0.5,
             ease: [0.16, 1, 0.3, 1],
           }}
-          className="group block relative overflow-hidden rounded-xl bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] hover:bg-[rgba(255,255,255,0.08)] hover:border-[rgba(255,255,255,0.2)] transition-all"
+          className="group block relative overflow-hidden rounded-xl bg-glass border border-glass-border hover:bg-glass-hover hover:border-glass-hover-border transition-all"
         >
-
+          <span className="sr-only">(opens in a new tab)</span>
 
           <div className="p-5">
             <div className="flex items-start justify-between mb-3">
@@ -40,7 +40,7 @@ export function ProjectsPage() {
               />
             </div>
 
-            <p className="text-sm text-[rgba(242,242,242,0.6)] mb-4 line-clamp-2">
+            <p className="text-sm text-foreground-dim mb-4 line-clamp-2">
               {project.description}
             </p>
 
@@ -48,7 +48,7 @@ export function ProjectsPage() {
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-2.5 py-1 text-xs rounded-full bg-[rgba(144,202,249,0.1)] text-accent/80 border border-[rgba(144,202,249,0.2)]"
+                  className="px-2.5 py-1 text-xs rounded-full bg-accent-glass text-accent/80 border border-accent-glass-border"
                 >
                   {tag}
                 </span>

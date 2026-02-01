@@ -1,12 +1,14 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { PageWrapper } from '@/components/PageWrapper'
 import { HomePage } from '@/components/pages/HomePage'
-import { AboutPage } from '@/components/pages/AboutPage'
-import { EducationPage } from '@/components/pages/EducationPage'
-import { SkillsPage } from '@/components/pages/SkillsPage'
-import { ProjectsPage } from '@/components/pages/ProjectsPage'
-import { ContactPage } from '@/components/pages/ContactPage'
+
+const AboutPage = dynamic(() => import('@/components/pages/AboutPage').then(mod => mod.AboutPage))
+const EducationPage = dynamic(() => import('@/components/pages/EducationPage').then(mod => mod.EducationPage))
+const SkillsPage = dynamic(() => import('@/components/pages/SkillsPage').then(mod => mod.SkillsPage))
+const ProjectsPage = dynamic(() => import('@/components/pages/ProjectsPage').then(mod => mod.ProjectsPage))
+const ContactPage = dynamic(() => import('@/components/pages/ContactPage').then(mod => mod.ContactPage))
 
 export default function Home() {
   const pages = [

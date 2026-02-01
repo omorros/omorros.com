@@ -46,7 +46,7 @@ export function EducationPage() {
   return (
     <div ref={ref} className="relative">
       {/* Timeline line */}
-      <div className="absolute left-[7px] top-2 bottom-2 w-[2px] bg-[rgba(255,255,255,0.1)]" />
+      <div className="absolute left-[7px] top-2 bottom-2 w-[2px] bg-glass-border" />
 
       <div className="space-y-8">
         {education.map((edu, index) => (
@@ -66,7 +66,7 @@ export function EducationPage() {
               className={`absolute left-0 top-[6px] w-4 h-4 rounded-full border-2 ${
                 edu.current
                   ? 'bg-accent/20 border-accent'
-                  : 'bg-[rgba(255,255,255,0.1)] border-[rgba(255,255,255,0.3)]'
+                  : 'bg-glass-border border-[rgba(255,255,255,0.3)]'
               }`}
             >
               {edu.current && (
@@ -79,10 +79,10 @@ export function EducationPage() {
 
             {/* Content */}
             <div>
-              <h3 className="text-lg font-semibold text-[rgba(242,242,242,0.95)]">
+              <h3 className="text-lg font-semibold text-foreground">
                 {edu.title}
               </h3>
-              <p className="text-[rgba(242,242,242,0.6)] mt-1">
+              <p className="text-foreground-dim mt-1">
                 <span className="text-accent/90">{edu.organization}</span>
                 <span className="mx-2">·</span>
                 <span>{edu.location}</span>

@@ -8,18 +8,25 @@ interface ProgressDotsProps {
 
 export function ProgressDots({ total, current, onDotClick }: ProgressDotsProps) {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-1" role="tablist" aria-label="Page navigation">
       {Array.from({ length: total }).map((_, idx) => (
         <button
           key={idx}
           onClick={() => onDotClick?.(idx)}
-          className={`w-2 h-2 rounded-full transition-all duration-300 ${
-            idx === current
-              ? 'bg-[rgba(242,242,242,0.8)] scale-110'
-              : 'bg-[rgba(242,242,242,0.2)] hover:bg-[rgba(242,242,242,0.4)]'
-          } ${onDotClick ? 'cursor-pointer' : ''}`}
+          className="p-3 group focus:outline-none"
           aria-label={`Go to section ${idx + 1}`}
-        />
+          aria-current={idx === current ? 'step' : undefined}
+          role="tab"
+          aria-selected={idx === current}
+        >
+          <div 
+             className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              idx === current
+                ? 'bg-foreground-muted scale-125'
+                : 'bg-white/20 group-hover:bg-white/40'
+            }`}
+          />
+        </button>
       ))}
     </div>
   )

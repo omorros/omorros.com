@@ -42,7 +42,7 @@ export function ContactPage() {
     >
       <motion.p
         variants={itemVariants}
-        className="text-[rgba(242,242,242,0.8)] leading-8 font-medium"
+        className="text-foreground-muted leading-8 font-medium"
       >
         I&apos;m always open to discussing new opportunities, interesting
         projects, or just having a chat about technology. Feel free to reach out
@@ -66,7 +66,7 @@ export function ContactPage() {
 
       <motion.p
         variants={itemVariants}
-        className="text-sm text-[rgba(242,242,242,0.5)] pt-8"
+        className="text-sm text-foreground-faint pt-8"
       >
         &copy; {new Date().getFullYear()} {siteConfig.name}
       </motion.p>
