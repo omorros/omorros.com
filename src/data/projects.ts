@@ -8,33 +8,45 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    title: 'bk-shoot',
-    description: 'IoT basketball shot detector using IR + vibration sensors, paired with an Android app',
-    tags: ['C++', 'IoT', 'Arduino'],
-    link: 'https://github.com/omorros/bk-shoot',
-  },
-  {
     title: 'SnapShelf',
-    description: 'Mobile grocery tracker with fast item scanning, expiry reminders, and recipe recommendations',
-    tags: ['TypeScript', 'Python', 'React Native'],
+    description: 'Mobile grocery tracker with fast item scanning, expiry reminders, and recipe recommendations to reduce food waste.',
+    tags: ['TypeScript', 'React Native', 'Python', 'PostgreSQL'],
     link: 'https://github.com/omorros/SnapShelf',
   },
   {
+    title: 'bk-shoot',
+    description: 'Low-cost IoT device that detects basketball makes/misses in real time using IR + vibration sensor fusion.',
+    tags: ['C++', 'IoT', 'Arduino', 'React Native'],
+    link: 'https://github.com/omorros/bk-shoot',
+  },
+  {
+    title: 'deep-learning-cnn-comparison',
+    description: 'Comparative study of CNN architectures (Custom, EfficientNetB0, ResNet50) for food image classification.',
+    tags: ['Jupyter Notebook', 'Python', 'TensorFlow', 'Deep Learning'],
+    link: 'https://github.com/omorros/deep-learning-cnn-comparison',
+  },
+  {
+    title: 'omorros.com',
+    description: 'Modern personal portfolio website built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.',
+    tags: ['TypeScript', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
+    link: 'https://github.com/omorros/omorros.com',
+  },
+  {
     title: 'AI Response Classifier',
-    description: 'ML classifier for AI-generated responses built for Japeto',
-    tags: ['Python', 'NLP', 'ML'],
+    description: 'ML classifier for Japeto Chat to categorize AI-generated responses, trained on 1,500+ tagged conversations.',
+    tags: ['Jupyter Notebook', 'Python', 'NLP', 'ML'],
     link: 'https://github.com/omorros/AI_Response_Classifier_for_Japeto',
   },
   {
-    title: 'wikipedia_scraper',
-    description: 'Web scraping utility for Wikipedia data extraction',
-    tags: ['Python'],
-    link: 'https://github.com/omorros/wikipedia_scraper',
-  },
-  {
     title: 'UniversityLibrarySystem',
-    description: 'Library management system with full CRUD operations',
+    description: 'Library management system with full CRUD operations and admin functionality.',
     tags: ['Java'],
     link: 'https://github.com/omorros/UniversityLibrarySystem',
+  },
+  {
+    title: 'wikipedia_scraper',
+    description: 'Web scraping utility for Wikipedia data extraction and analysis.',
+    tags: ['Python'],
+    link: 'https://github.com/omorros/wikipedia_scraper',
   },
 ]
