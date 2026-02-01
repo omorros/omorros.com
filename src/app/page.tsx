@@ -18,7 +18,10 @@ export default function Home() {
       content: (
         <HomePage
           onExplore={() => {
-            window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }))
+            const aboutSection = document.getElementById('about');
+            if (aboutSection) {
+              aboutSection.scrollIntoView({ behavior: 'smooth' });
+            }
           }}
         />
       ),

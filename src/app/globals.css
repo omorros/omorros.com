@@ -9,15 +9,12 @@
 }
 
 html {
-  overflow: hidden;
   width: 100%;
   overscroll-behavior-y: contain;
   background-color: #000000;
 }
 
 body {
-  position: fixed;
-  height: 100%;
   width: 100%;
   max-width: 100vw;
   overscroll-behavior-y: contain;
