@@ -27,7 +27,11 @@ const jsonLd = {
 }
 
 export const metadata: Metadata = {
-  title: siteConfig.title,
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.name}`,
+  },
   description: siteConfig.description,
   keywords: [
     'Software Engineer',
@@ -38,8 +42,15 @@ export const metadata: Metadata = {
     'Machine Learning',
     'Full Stack',
     'Oriol Morros',
+    'React',
+    'Next.js',
+    'TypeScript',
   ],
-  authors: [{ name: siteConfig.name }],
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
+  creator: siteConfig.name,
+  alternates: {
+    canonical: '/',
+  },
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },
@@ -48,20 +59,38 @@ export const metadata: Metadata = {
     apple: '/favicon.svg',
   },
   openGraph: {
+    type: 'website',
+    locale: 'en_GB',
+    url: siteConfig.url,
     title: siteConfig.title,
     description: siteConfig.description,
-    url: siteConfig.url,
     siteName: siteConfig.name,
-    type: 'website',
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: siteConfig.title,
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: siteConfig.title,
     description: siteConfig.description,
+    images: ['/opengraph-image'],
+    creator: '@omorros', // Assuming handle, user can update
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 
