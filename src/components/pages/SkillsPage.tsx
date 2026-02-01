@@ -23,7 +23,7 @@ export function SkillsPage() {
           >
             {category.title}
           </motion.h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+          <div className="flex flex-wrap gap-3">
             {category.items.map((skill, index) => (
               <motion.div
                 key={skill}
@@ -34,7 +34,7 @@ export function SkillsPage() {
                   duration: 0.4,
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                className="px-4 py-3 rounded-xl bg-glass-highlight border border-glass-hover text-center text-foreground-muted font-medium hover:bg-accent-glass hover:border-accent-glass-border hover:text-foreground transition-all cursor-default"
+                className="flex-1 min-w-[140px] px-4 py-3 rounded-xl bg-glass-highlight border border-glass-hover text-center text-foreground-muted font-medium hover:bg-accent-glass hover:border-accent-glass-border hover:text-foreground transition-all cursor-default whitespace-nowrap"
               >
                 {skill}
               </motion.div>
