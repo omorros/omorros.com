@@ -10,7 +10,7 @@ export const skills: SkillCategory[] = [
   },
   {
     title: 'Frontend & Mobile',
-    items: ['React', 'React Native', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
+    items: ['React', 'React Native', 'Next.js', 'Tailwind CSS', 'Framer Motion', 'JavaFX'],
   },
   {
     title: 'Backend & Database',
@@ -18,10 +18,10 @@ export const skills: SkillCategory[] = [
   },
   {
     title: 'AI & Data Science',
-    items: ['TensorFlow', 'Jupyter Notebook', 'Deep Learning', 'NLP'],
+    items: ['TensorFlow', 'Keras', 'Computer Vision', 'Deep Learning', 'NLP'],
   },
   {
     title: 'DevOps & Tools',
-    items: ['Git', 'Docker', 'AWS', 'Linux', 'Arduino'],
+    items: ['Git', 'Docker', 'AWS', 'Linux', 'Arduino', 'IoT'],
   },
 ]
