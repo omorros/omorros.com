@@ -31,7 +31,7 @@ export function HomePage({ onExplore }: HomePageProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="text-4xl md:text-5xl lg:text-6xl font-bold text-[rgba(242,242,242,0.95)] mb-4"
+        className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4"
       >
         {siteConfig.name}
       </motion.h1>
@@ -40,7 +40,7 @@ export function HomePage({ onExplore }: HomePageProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="text-xl md:text-2xl font-semibold text-[rgba(242,242,242,0.7)] mb-8"
+        className="text-xl md:text-2xl font-semibold text-foreground-muted mb-8"
       >
         {siteConfig.subtitle}
       </motion.h2>
@@ -65,16 +65,16 @@ export function HomePage({ onExplore }: HomePageProps) {
         </Button>
       </motion.div>
 
-      {/* Explore button at bottom */}
+      {/* Explore button - flow positioned instead of absolute to prevent overlap */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute bottom-16 left-1/2 -translate-x-1/2"
+        className="mt-20 md:mt-32"
       >
         <button
           onClick={onExplore}
-          className="flex flex-col items-center gap-3 text-[rgba(242,242,242,0.8)] hover:text-[rgba(242,242,242,1)] transition-colors cursor-pointer group"
+          className="flex flex-col items-center gap-3 text-foreground-muted hover:text-foreground transition-colors cursor-pointer group focus-visible:ring-2 focus-visible:ring-accent rounded-lg p-2"
         >
           <span className="text-base font-semibold">Explore</span>
           <ChevronDown

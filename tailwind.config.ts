@@ -11,6 +11,24 @@ const config: Config = {
       colors: {
         background: '#000000',
         accent: '#90caf9',
+        foreground: {
+          DEFAULT: 'rgba(242, 242, 242, 0.95)',
+          muted: 'rgba(242, 242, 242, 0.8)',
+          dim: 'rgba(242, 242, 242, 0.6)',
+          faint: 'rgba(242, 242, 242, 0.5)',
+        },
+        glass: {
+          DEFAULT: 'rgba(255, 255, 255, 0.05)',
+          border: 'rgba(255, 255, 255, 0.1)',
+          hover: 'rgba(255, 255, 255, 0.08)',
+          'hover-border': 'rgba(255, 255, 255, 0.2)',
+          highlight: 'rgba(255, 255, 255, 0.03)',
+        },
+        'accent-glass': {
+          DEFAULT: 'rgba(144, 202, 249, 0.08)',
+          border: 'rgba(144, 202, 249, 0.2)', // fixed from 0.3 based on context usage
+          strong: 'rgba(144, 202, 249, 0.3)',
+        }
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],

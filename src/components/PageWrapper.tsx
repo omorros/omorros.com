@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef, ReactNode } from 'react'
+import { useState, useEffect, useRef, ReactNode } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronUp, ChevronDown } from 'lucide-react'
 import { ProgressDots } from './ProgressDots'
@@ -22,217 +22,84 @@ interface PageWrapperProps {
 
 export function PageWrapper({ pages }: PageWrapperProps) {
   const [currentPage, setCurrentPage] = useState(0)
-  const [direction, setDirection] = useState(0)
-  const [isAnimating, setIsAnimating] = useState(false)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
-  const [gradientOffset, setGradientOffset] = useState({ x: 0, y: 0 })
-  const wrapperRef = useRef<HTMLDivElement>(null)
-  const touchStartY = useRef(0)
-  const lastScrollTime = useRef(0)
-
-  // Sync state with URL hash on mount
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const hash = window.location.hash.replace('#', '')
-      const index = pages.findIndex((p) => p.id === hash)
-      if (index > 0) {
-        setCurrentPage(index)
-      }
-    }
-  }, [pages])
-
-  // Update URL hash when page changes
-  useEffect(() => {
-    const page = pages[currentPage]
-    if (page && typeof window !== 'undefined') {
-      const hash = `#${page.id}`
-      if (window.location.hash !== hash) {
-        window.history.replaceState(null, '', hash)
-      }
-    }
-  }, [currentPage, pages])
-
-  const goToPage = useCallback(
-    (newPage: number) => {
-      if (isAnimating) return
-      if (newPage < 0 || newPage >= pages.length) return
-
-      setDirection(newPage > currentPage ? 1 : -1)
-      setIsAnimating(true)
-      setCurrentPage(newPage)
-    },
-    [currentPage, isAnimating, pages.length]
-  )
-
-  const goNext = useCallback(() => {
-    if (currentPage < pages.length - 1) {
-      goToPage(currentPage + 1)
-    }
-  }, [currentPage, pages.length, goToPage])
-
-  const goPrev = useCallback(() => {
-    if (currentPage > 0) {
-      goToPage(currentPage - 1)
-    }
-  }, [currentPage, goToPage])
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.repeat) return
-      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-        e.preventDefault()
-        goNext()
-      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-        e.preventDefault()
-        goPrev()
-      }
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [goNext, goPrev])
-
-  const handleWheel = useCallback(
-    (e: WheelEvent) => {
-      // Check if we are scrolling inside a scrollable element
-      let target = e.target as HTMLElement
-      while (target && target !== wrapperRef.current) {
-        if (target.scrollHeight > target.clientHeight) {
-          const isAtTop = target.scrollTop === 0
-          const isAtBottom = Math.abs(target.scrollHeight - target.scrollTop - target.clientHeight) < 1
-
-          // If scrolling down and not at bottom, or scrolling up and not at top, let native scroll happen
-          if ((e.deltaY > 0 && !isAtBottom) || (e.deltaY < 0 && !isAtTop)) {
-            return
-          }
-        }
-        target = target.parentElement as HTMLElement
-      }
-
-      e.preventDefault()
-      const now = Date.now()
-      if (now - lastScrollTime.current < 600) return
-      lastScrollTime.current = now
-
-      if (e.deltaY > 0) {
-        goNext()
-      } else if (e.deltaY < 0) {
-        goPrev()
-      }
-    },
-    [goNext, goPrev]
-  )
-
-  useEffect(() => {
-    const wrapper = wrapperRef.current
-    if (wrapper) {
-      wrapper.addEventListener('wheel', handleWheel, { passive: false })
-      return () => wrapper.removeEventListener('wheel', handleWheel)
-    }
-  }, [handleWheel])
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartY.current = e.touches[0].clientY
-  }
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    const deltaY = e.changedTouches[0].clientY - touchStartY.current
-    const threshold = 50 // Reduced threshold for better responsiveness
-
-    // Check for scrollable ancestors same as wheel
-    let target = e.target as HTMLElement
-    let isScrollable = false
-    while (target && target !== wrapperRef.current) {
-      if (target.scrollHeight > target.clientHeight) {
-        // If movement is significant inside a scrollable area, we assume user meant to scroll content
-        // But we only block page nav if they CAN scroll in that direction
-        const isAtTop = target.scrollTop === 0
-        const isAtBottom = Math.abs(target.scrollHeight - target.scrollTop - target.clientHeight) < 1
-
-        if (deltaY < 0 && !isAtBottom) isScrollable = true // Swipe up (scroll down)
-        if (deltaY > 0 && !isAtTop) isScrollable = true // Swipe down (scroll up)
-      }
-      target = target.parentElement as HTMLElement
-    }
-
-    if (isScrollable) return
-
-    if (Math.abs(deltaY) > threshold) {
-      if (deltaY < 0) {
-        goNext()
-      } else {
-        goPrev()
-      }
-    }
-  }
+  const sectionRefs = useRef<(HTMLElement | null)[]>([])
 
   const handleMouseMove = (e: React.MouseEvent) => {
     setMousePos({ x: e.clientX, y: e.clientY })
-
-    // Parallax effect for gradient
-    const centerX = window.innerWidth / 2
-    const centerY = window.innerHeight / 2
-    const deltaX = (e.clientX - centerX) / 25
-    const deltaY = (e.clientY - centerY) / 25
-    setGradientOffset({ x: deltaX, y: deltaY })
   }
 
-  const pageVariants = {
-    enter: (dir: number) => ({
-      y: dir > 0 ? '30%' : '-30%',
-      opacity: 0,
-    }),
-    center: {
-      y: 0,
-      opacity: 1,
-    },
-    exit: (dir: number) => ({
-      y: dir > 0 ? '-20%' : '20%',
-      opacity: 0,
-    }),
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = pages.findIndex((p) => p.id === entry.target.id)
+            if (index !== -1) {
+              setCurrentPage(index)
+              if (window.location.hash !== `#${pages[index].id}`) {
+                window.history.replaceState(null, '', `#${pages[index].id}`)
+              }
+            }
+          }
+        })
+      },
+      { threshold: 0.4 }
+    )
+
+    sectionRefs.current.forEach((section) => {
+      if (section) observer.observe(section)
+    })
+
+    return () => observer.disconnect()
+  }, [pages])
+
+  const scrollToPage = (index: number) => {
+    const section = document.getElementById(pages[index].id)
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
-  const page = pages[currentPage]
+  const goNext = () => {
+    if (currentPage < pages.length - 1) scrollToPage(currentPage + 1)
+  }
+
+  const goPrev = () => {
+    if (currentPage > 0) scrollToPage(currentPage - 1)
+  }
+
+  const activePage = pages[currentPage]
 
   return (
     <div
-      ref={wrapperRef}
-      className="fixed inset-0 w-full h-full overflow-hidden bg-black"
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
+      className="relative w-full bg-black text-foreground-muted"
       onMouseMove={handleMouseMove}
     >
-      {/* Cursor Glow Effect */}
-      <div
-        className="pointer-events-none fixed z-50 transition-opacity duration-300"
-        style={{
-          left: mousePos.x,
-          top: mousePos.y,
-          transform: 'translate(-50%, -50%)',
-        }}
-      >
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <div
-          className="w-[500px] h-[500px] rounded-full opacity-30 blur-[80px] transition-all duration-500"
+          className="absolute z-10 transition-opacity duration-300"
           style={{
-            background: `radial-gradient(circle, ${page.glowColor} 0%, transparent 65%)`,
+            left: mousePos.x,
+            top: mousePos.y,
+            transform: 'translate(-50%, -50%)',
           }}
-        />
-      </div>
+        >
+          <div
+            className="w-[500px] h-[500px] rounded-full opacity-30 blur-[80px] transition-all duration-500"
+            style={{
+              background: `radial-gradient(circle, ${activePage?.glowColor || '#8f46db'} 0%, transparent 65%)`,
+            }}
+          />
+        </div>
 
-      {/* Gradient Backgrounds with Crossfade */}
-      <div className="fixed inset-0 z-0">
         {pages.map((p, idx) => (
           <motion.div
             key={p.id}
             initial={{ opacity: 0 }}
-            animate={{
-              opacity: idx === currentPage ? 1 : 0,
-            }}
-            transition={{
-              duration: 0.5,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            className="absolute inset-0 flex items-center justify-center pointer-events-none"
+            animate={{ opacity: idx === currentPage ? 1 : 0 }}
+            transition={{ duration: 1, ease: 'linear' }}
+            className="absolute inset-0 flex items-center justify-center"
           >
             <Image
               src={p.gradient}
@@ -240,134 +107,82 @@ export function PageWrapper({ pages }: PageWrapperProps) {
               width={600}
               height={600}
               priority={idx <= 1}
-              className="animate-spin-slow"
-              style={{
-                transform: `translate(${gradientOffset.x}px, ${gradientOffset.y}px)`,
-                transition: 'transform 0.3s ease-out',
-                animationDuration: '25s',
-              }}
-              draggable={false}
+              className="animate-spin-slow opacity-60"
             />
           </motion.div>
         ))}
       </div>
 
-      {/* Navigation Header - Show on non-home pages */}
-      <AnimatePresence>
-        {!page.isHome && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed top-0 left-0 right-0 z-20 px-6 md:px-12 py-6"
-          >
-            <div className="max-w-4xl mx-auto flex items-center justify-between">
-              <ProgressDots
-                total={pages.length}
-                current={currentPage}
-                onDotClick={goToPage}
-              />
-              <div className="flex items-center gap-1">
-                {currentPage > 0 && (
+      <div className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6 pointer-events-none">
+        <div className="max-w-4xl mx-auto flex items-center justify-between pointer-events-auto">
+          <AnimatePresence>
+            {currentPage > 0 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex items-center gap-4 w-full justify-between"
+              >
+                <ProgressDots
+                  total={pages.length}
+                  current={currentPage}
+                  onDotClick={scrollToPage}
+                />
+                <div className="flex items-center gap-1">
                   <button
                     onClick={goPrev}
-                    className="p-2 text-white/60 hover:text-white/90 transition-colors duration-200"
-                    aria-label="Previous page"
+                    className="p-2 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-accent rounded-md"
+                    aria-label="Previous section"
                   >
-                    <ChevronUp size={20} />
+                    <ChevronUp />
                   </button>
-                )}
-                {currentPage < pages.length - 1 && (
                   <button
                     onClick={goNext}
-                    className="p-2 text-white/60 hover:text-white/90 transition-colors duration-200"
-                    aria-label="Next page"
+                    className="p-2 hover:text-white transition-colors focus-visible:ring-2 focus-visible:ring-accent rounded-md"
+                    aria-label="Next section"
                   >
-                    <ChevronDown size={20} />
-                  </button>
-                )}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Page Content */}
-      <AnimatePresence
-        mode="wait"
-        custom={direction}
-        onExitComplete={() => setIsAnimating(false)}
-      >
-        <motion.div
-          key={page.id}
-          custom={direction}
-          variants={pageVariants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{
-            type: 'tween',
-            duration: 0.35,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-          className="absolute inset-0 flex flex-col"
-        >
-          {/* Page Header for non-home pages */}
-          {!page.isHome && page.title && (
-            <div className="pt-24 md:pt-28 px-6 md:px-12">
-              <div className="max-w-4xl mx-auto">
-                <h2 className="text-2xl font-semibold text-[rgba(242,242,242,0.9)]">
-                  <AnimatedWords text={page.title} />
-                </h2>
-                {page.description && (
-                  <p className="mt-4 text-lg text-[rgba(242,242,242,0.6)]">
-                    <AnimatedWords text={page.description} delay={0.08} />
-                  </p>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* Main Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.05, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className={`flex-1 px-6 md:px-12 ${page.isHome
-              ? 'flex items-center justify-center'
-              : 'pt-8 pb-20 overflow-y-auto'
-              }`}
-          >
-            <div className={`max-w-4xl mx-auto w-full ${page.isHome ? '' : 'relative z-10'}`}>
-              {page.content}
-
-              {!page.isHome && currentPage < pages.length - 1 && (
-                <div className="flex justify-center py-12 opacity-60 hover:opacity-100 transition-opacity duration-300">
-                  <button
-                    onClick={goNext}
-                    className="flex flex-col items-center gap-2 group"
-                    aria-label="Wait, scroll down to next section"
-                  >
-                    <span className="text-xs font-light tracking-[0.2em] uppercase text-white/50 group-hover:text-white/90 transition-colors">
-                      Scroll
-                    </span>
-                    <ChevronDown
-                      size={20}
-                      className="text-white/50 group-hover:text-white/90 transition-colors animate-bounce"
-                    />
+                    <ChevronDown />
                   </button>
                 </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+
+      <main className="h-screen w-full overflow-y-auto snap-y snap-mandatory scroll-smooth relative z-10 no-scrollbar">
+        {pages.map((p, idx) => (
+          <section
+            key={p.id}
+            id={p.id}
+            ref={(el) => {
+              if (el) sectionRefs.current[idx] = el
+            }}
+            className="h-screen w-full snap-start flex flex-col items-center justify-center relative px-6 md:px-12 py-10"
+          >
+            <div className="w-full max-w-4xl mx-auto flex flex-col h-full justify-center">
+              {!p.isHome && (
+                <div className="mb-6 md:mb-10">
+                  <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-2 md:mb-4">
+                    <AnimatedWords text={p.title || ''} />
+                  </h2>
+                  {p.description && (
+                    <p className="text-xl text-foreground-dim">
+                      <AnimatedWords text={p.description} delay={0.1} />
+                    </p>
+                  )}
+                </div>
               )}
+
+              <div className="w-full relative z-10">{p.content}</div>
             </div>
-          </motion.div>
-        </motion.div>
-      </AnimatePresence>
+          </section>
+        ))}
+      </main>
     </div>
   )
 }
 
-// Word-by-word animation component
 function AnimatedWords({ text, delay = 0 }: { text: string; delay?: number }) {
   const words = text.split(' ')
 
@@ -377,7 +192,8 @@ function AnimatedWords({ text, delay = 0 }: { text: string; delay?: number }) {
         <motion.span
           key={index}
           initial={{ opacity: 0, y: 10, filter: 'blur(3px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true }}
           transition={{
             duration: 0.25,
             delay: delay + index * 0.04,

@@ -20,7 +20,7 @@ export function SkillsPage() {
             duration: 0.4,
             ease: [0.16, 1, 0.3, 1],
           }}
-          className="px-4 py-3 rounded-xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.06)] text-center text-[rgba(242,242,242,0.8)] font-medium hover:bg-[rgba(144,202,249,0.08)] hover:border-[rgba(144,202,249,0.2)] hover:text-[rgba(242,242,242,0.95)] transition-all cursor-default"
+          className="px-4 py-3 rounded-xl bg-glass-highlight border border-glass-hover text-center text-foreground-muted font-medium hover:bg-accent-glass hover:border-accent-glass-border hover:text-foreground transition-all cursor-default"
         >
           {skill}
         </motion.div>
