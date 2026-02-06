@@ -19,6 +19,10 @@ export function ContactForm() {
     
     if (accessKey) {
         formData.append("access_key", accessKey);
+        // Essential: Prevent redirect to ensure we get JSON response for the UI
+        formData.append("redirect", "false"); 
+        // Optional: Spam protection (honeypot)
+        formData.append("botcheck", "");
     } else {
         setStatus('error')
         setErrorMessage('Form configuration error. Please contact me via LinkedIn.')
