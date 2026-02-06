@@ -14,7 +14,14 @@ export function ContactForm() {
     
     const formData = new FormData(e.currentTarget)
     // Add Web3Forms access key
-    formData.append("access_key", "31877434-de4c-4137-9c99-7b3bce6116d9"); 
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+    if (accessKey) {
+        formData.append("access_key", accessKey);
+    } else {
+        setStatus('error')
+        setErrorMessage('Form configuration error. Please contact me via LinkedIn.')
+        return
+    }
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
