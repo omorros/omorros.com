@@ -14,7 +14,9 @@ export function ContactForm() {
     
     const formData = new FormData(e.currentTarget)
     // Add Web3Forms access key
-    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+    // Fallback to direct key if env var is missing (fixes "Form configuration error")
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "31877434-de4c-4137-9c99-7b3bce6116d9";
+    
     if (accessKey) {
         formData.append("access_key", accessKey);
     } else {
