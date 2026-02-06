@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Github, Linkedin, Mail, ChevronDown } from 'lucide-react'
+import { Github, Linkedin, Mail, ChevronDown, FileText } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { siteConfig } from '@/lib/constants'
 
@@ -56,6 +56,9 @@ export function HomePage({ onExplore }: HomePageProps) {
         </Button>
         <Button href={siteConfig.links.linkedin} icon={<Linkedin size={18} />}>
           LinkedIn
+        </Button>
+        <Button href={siteConfig.links.resume} icon={<FileText size={18} />}>
+          Download CV
         </Button>
         <Button
           href={`mailto:${siteConfig.links.email}`}
