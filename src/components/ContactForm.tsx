@@ -12,7 +12,8 @@ export function ContactForm() {
     e.preventDefault()
     setStatus('loading')
     
-    const formData = new FormData(e.currentTarget)
+    const form = e.currentTarget
+    const formData = new FormData(form)
     // Add Web3Forms access key
     // Fallback to direct key if env var is missing (fixes "Form configuration error")
     const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "31877434-de4c-4137-9c99-7b3bce6116d9";
@@ -49,7 +50,7 @@ export function ContactForm() {
       if (data.success) {
         setStatus('success')
         // Reset form
-        e.currentTarget.reset()
+        form.reset()
       } else {
         setStatus('error')
         setErrorMessage(data.message || 'Something went wrong. Please try again.')
