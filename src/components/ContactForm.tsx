@@ -19,8 +19,9 @@ export function ContactForm() {
     
     if (accessKey) {
         formData.append("access_key", accessKey);
-        // Essential: Prevent redirect to ensure we get JSON response for the UI
+        // Explicitly request no redirect
         formData.append("redirect", "false"); 
+        formData.append("subject", "New Message from Portfolio Website");
         // Optional: Spam protection (honeypot)
         formData.append("botcheck", "");
     } else {
@@ -30,9 +31,17 @@ export function ContactForm() {
     }
 
     try {
+      // Convert FormData to JSON object
+      const object = Object.fromEntries(formData);
+      const json = JSON.stringify(object);
+
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: formData
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: json
       });
 
       const data = await response.json();
