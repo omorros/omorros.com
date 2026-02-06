@@ -9,5 +9,6 @@ export const siteConfig = {
     github: 'https://github.com/omorros',
     linkedin: 'https://linkedin.com/in/oriolmorros',
     email: 'oriolmorros25@gmail.com',
+    resume: '/resume.pdf',
   },
 }

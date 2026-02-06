@@ -82,13 +82,13 @@ export function EducationPage() {
               <h3 className="text-lg font-semibold text-foreground">
                 {edu.title}
               </h3>
-              <p className="text-foreground-dim mt-1">
+              <div className="flex flex-col sm:flex-row sm:items-center text-foreground-dim mt-1 gap-1 sm:gap-0">
                 <span className="text-accent/90">{edu.organization}</span>
-                <span className="mx-2">·</span>
+                <span className="hidden sm:inline mx-2">·</span>
                 <span>{edu.location}</span>
-                <span className="mx-2">·</span>
+                <span className="hidden sm:inline mx-2">·</span>
                 <span>{edu.period}</span>
-              </p>
+              </div>
               <p className="text-[rgba(242,242,242,0.7)] mt-3 leading-relaxed">
                 {edu.description}
               </p>

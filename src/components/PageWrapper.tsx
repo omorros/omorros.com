@@ -25,6 +25,11 @@ export function PageWrapper({ pages }: PageWrapperProps) {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const sectionRefs = useRef<(HTMLElement | null)[]>([])
 
+  useEffect(() => {
+    // Initialize mouse position to center for mobile/initial load
+    setMousePos({ x: window.innerWidth / 2, y: window.innerHeight / 2 })
+  }, [])
+
   const handleMouseMove = (e: React.MouseEvent) => {
     setMousePos({ x: e.clientX, y: e.clientY })
   }
@@ -113,7 +118,7 @@ export function PageWrapper({ pages }: PageWrapperProps) {
         ))}
       </div>
 
-      <div className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6 pointer-events-none">
+      <div className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6 pointer-events-none hidden md:block">
         <div className="max-w-4xl mx-auto flex items-center justify-between pointer-events-auto">
           <AnimatePresence>
             {currentPage > 0 && (
@@ -150,7 +155,7 @@ export function PageWrapper({ pages }: PageWrapperProps) {
         </div>
       </div>
 
-      <main className="h-screen w-full overflow-y-auto snap-y snap-mandatory scroll-smooth relative z-10 no-scrollbar">
+      <main className="w-full relative z-10 md:h-screen md:overflow-y-auto md:snap-y md:snap-mandatory md:scroll-smooth md:no-scrollbar">
         {pages.map((p, idx) => (
           <section
             key={p.id}
@@ -158,9 +163,9 @@ export function PageWrapper({ pages }: PageWrapperProps) {
             ref={(el) => {
               if (el) sectionRefs.current[idx] = el
             }}
-            className="h-screen w-full snap-start flex flex-col items-center justify-center relative px-6 md:px-12 py-10"
+            className="w-full min-h-[100dvh] md:min-h-0 md:h-screen md:snap-start flex flex-col items-center justify-center relative px-6 py-20 md:px-12 md:py-10"
           >
-            <div className="w-full max-w-4xl mx-auto flex flex-col h-full justify-center">
+            <div className="w-full max-w-4xl mx-auto flex flex-col justify-center">
               {!p.isHome && (
                 <div className="mb-6 md:mb-10">
                   <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-2 md:mb-4">

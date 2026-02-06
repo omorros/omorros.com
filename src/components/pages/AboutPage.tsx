@@ -2,7 +2,10 @@
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { FileText } from 'lucide-react'
 import { useIsMobile } from '@/hooks/useIsMobile'
+import { Button } from '@/components/ui/Button'
+import { siteConfig } from '@/lib/constants'
 
 export function AboutPage() {
   const ref = useRef<HTMLDivElement>(null)
@@ -62,6 +65,12 @@ export function AboutPage() {
         Originally from Barcelona, I moved to Cambridge to pursue my degree and
         have been exploring the vibrant tech scene ever since.
       </motion.p>
+      
+      <motion.div variants={itemVariants} className="pt-4">
+        <Button href={siteConfig.links.resume} icon={<FileText size={18} />}>
+          Download Resume
+        </Button>
+      </motion.div>
     </motion.div>
   )
 }
