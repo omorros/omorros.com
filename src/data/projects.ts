@@ -3,6 +3,13 @@ export interface Project {
   description: string
   tags: string[]
   link: string
+  slug?: string
+  caseStudy?: {
+    problem: string
+    solution: string
+    features?: string[]
+    screenshots?: string[]
+  }
 }
 
 
@@ -12,6 +19,17 @@ export const projects: Project[] = [
     description: 'Mobile grocery tracker with fast item scanning, expiry reminders, and recipe recommendations to reduce food waste.',
     tags: ['TypeScript', 'React Native', 'Python', 'PostgreSQL'],
     link: 'https://github.com/omorros/SnapShelf',
+    slug: 'snapshelf',
+    caseStudy: {
+      problem: 'Food waste is a major issue for households, often caused by forgetting what items are in the pantry or when they expire. Existing solutions require tedious manual entry, making them difficult to sustain.',
+      solution: 'SnapShelf simplifies inventory management with barcode scanning and receipt parsing. It automatically tracks expiry dates, sends timely reminders, and suggests recipes based on ingredients you already have, making it effortless to reduce waste and save money.',
+      features: [
+        'Barcode scanning for instant item addition',
+        'Receipt parsing to bulk-add groceries',
+        'Smart expiry notifications',
+        'Recipe suggestions based on available ingredients'
+      ]
+    }
   },
   {
     title: 'bk-shoot',
