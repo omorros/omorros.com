@@ -153,6 +153,23 @@ export const projects: Project[] = [
     }
   },
   {
+    title: 'wikipedia_scraper',
+    description: 'High-performance asynchronous web scraper designed to crawl and extract Wikipedia links under strict time constraints.',
+    tags: ['Python', 'Asyncio', 'Aiohttp', 'BeautifulSoup'],
+    link: 'https://github.com/omorros/wikipedia_scraper',
+    slug: 'wikipedia-scraper',
+    caseStudy: {
+      problem: 'Efficiently crawling large-scale websites requires balancing speed with politeness and resource management. I wanted to build a scraper that could maximize data extraction within a strictly enforced time window, demonstrating how asynchronous programming can drastically outperform traditional blocking I/O approaches.',
+      solution: 'I engineered a high-concurrency asynchronous crawler using Python\'s `asyncio` and `aiohttp`. The system spawns 100 concurrent workers that share a global deadline state, ensuring immediate termination exactly when the budget expires. It features a robust URL normalization pipeline to handle protocol-relative links and a set-based deduplication layer to prevent redundant processing, all operating within a non-blocking event loop.',
+      features: [
+        'Massive Concurrency: Orchestrates 100 concurrent worker tasks to saturate network bandwidth and mask I/O latency.',
+        'Strict Time Budgeting: Implemented a global deadline propagation mechanism that cancels all pending tasks exactly at the 20-second mark.',
+        'Robust Parsing Pipeline: Uses BeautifulSoup to extract, normalize, and filter links, handling edge cases like root-relative and protocol-relative URLs.',
+        'Efficient State Management: Maintains a hash set of visited URLs to guarantee O(1) lookup time for deduplication, preventing infinite loops.'
+      ]
+    }
+  },
+  {
     title: 'AI Response Classifier',
     description: 'ML classifier for Japeto Chat to categorize AI-generated responses, trained on 1,500+ tagged conversations.',
     tags: ['Jupyter Notebook', 'Python', 'NLP', 'ML'],
@@ -163,11 +180,5 @@ export const projects: Project[] = [
     description: 'Library management system with full CRUD operations and admin functionality.',
     tags: ['Java'],
     link: 'https://github.com/omorros/UniversityLibrarySystem',
-  },
-  {
-    title: 'wikipedia_scraper',
-    description: 'Web scraping utility for Wikipedia data extraction and analysis.',
-    tags: ['Python'],
-    link: 'https://github.com/omorros/wikipedia_scraper',
   },
 ]
