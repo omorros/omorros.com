@@ -170,12 +170,6 @@ export const projects: Project[] = [
     }
   },
   {
-    title: 'AI Response Classifier',
-    description: 'ML classifier for Japeto Chat to categorize AI-generated responses, trained on 1,500+ tagged conversations.',
-    tags: ['Jupyter Notebook', 'Python', 'NLP', 'ML'],
-    link: 'https://github.com/omorros/AI_Response_Classifier_for_Japeto',
-  },
-  {
     title: 'UniversityLibrarySystem',
     description: 'Library management system with full CRUD operations and admin functionality.',
     tags: ['Java'],
