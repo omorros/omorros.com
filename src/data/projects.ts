@@ -21,13 +21,13 @@ export const projects: Project[] = [
     link: 'https://github.com/omorros/SnapShelf',
     slug: 'snapshelf',
     caseStudy: {
-      problem: 'Food waste is a major issue for households, often caused by forgetting what items are in the pantry or when they expire. Existing solutions require tedious manual entry, making them difficult to sustain.',
-      solution: 'SnapShelf simplifies inventory management with barcode scanning and receipt parsing. It automatically tracks expiry dates, sends timely reminders, and suggests recipes based on ingredients you already have, making it effortless to reduce waste and save money.',
+      problem: 'Food waste is a global challenge, with households often discarding items simply because they forget they exist or when they expire. Traditional inventory apps fail because they demand tedious manual entry—a high-friction process that users rarely sustain. I needed a solution that made tracking effortless while solving the "trust issue" inherent in AI-generated data.',
+      solution: 'SnapShelf transforms inventory management into a frictionless experience by leveraging GPT-4o Vision and barcode scanning for instant data entry. I architected a "Trust-First" system where AI acts as a drafter, placing items in a staging area for quick user confirmation—ensuring speed without compromising data integrity. The backend-driven architecture (FastAPI + PostgreSQL) handles complex logic like expiry prediction, keeping the React Native client lightweight and responsive.',
       features: [
-        'Barcode scanning for instant item addition',
-        'Receipt parsing to bulk-add groceries',
-        'Smart expiry notifications',
-        'Recipe suggestions based on available ingredients'
+        'AI-Powered Ingestion: Integrates GPT-4o Vision to identify food items from photos and OpenFoodFacts for real-time barcode scanning.',
+        'Draft-to-Inventory Workflow: A unique intermediate state for AI suggestions, preventing "hallucinations" from polluting trusted inventory data.',
+        'Smart Expiry Prediction: Uses historical data and category heuristics to automatically estimate shelf life.',
+        'Production-Ready Backend: Built with FastAPI and SQLAlchemy, featuring comprehensive Pytest coverage and JWT security.'
       ]
     }
   },
