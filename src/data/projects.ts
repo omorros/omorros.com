@@ -43,7 +43,7 @@ export const projects: Project[] = [
     }
   },
   {
-    title: 'bk-shoot',
+    title: 'BK-Shoot',
     description: 'Low-cost IoT device that detects basketball makes/misses in real time using IR + vibration sensor fusion.',
     tags: ['C++', 'IoT', 'Arduino', 'Android'],
     link: 'https://github.com/omorros/bk-shoot',
@@ -75,7 +75,7 @@ export const projects: Project[] = [
     }
   },
   {
-    title: 'deep-learning-cnn-comparison',
+    title: 'CNN Architecture Comparison',
     description: 'Comparative study of CNN architectures (Custom, EfficientNetB0, ResNet50) for food image classification.',
     tags: ['Jupyter Notebook', 'Python', 'TensorFlow', 'Deep Learning'],
     link: 'https://github.com/omorros/deep-learning-cnn-comparison',
@@ -113,11 +113,11 @@ export const projects: Project[] = [
     }
   },
   {
-    title: 'omorros.com',
-    description: 'Modern personal portfolio website built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.',
+    title: 'Personal Web Portfolio',
+    description: 'Modern personal portfolio website (omorros.com) built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.',
     tags: ['TypeScript', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
     link: 'https://github.com/omorros/omorros.com',
-    slug: 'omorros-com',
+    slug: 'personal-web-portfolio',
     caseStudy: {
       problem: 'Traditional scrolling portfolios often feel monotonous and fail to guide the user\'s attention effectively. I wanted to create a distinctive digital presence that would stand out to recruiters while demonstrating mastery of modern frontend performance techniques. The challenge was to build a rich, immersive experience with complex animations that still achieved perfect Lighthouse scores.',
       solution: 'I architected a single-page application with a custom full-page section navigation system. Instead of standard routing, I implemented a state-driven "PageWrapper" component that manages transitions, deep-linking, and input handling across mouse, touch, and keyboard. The visual design features dynamic gradient backgrounds that respond to cursor movement and crossfade smoothly between sections, creating a cohesive, app-like feel.',
@@ -154,7 +154,7 @@ export const projects: Project[] = [
     }
   },
   {
-    title: 'wikipedia_scraper',
+    title: 'Wikipedia Scraper',
     description: 'High-performance asynchronous web scraper designed to crawl and extract Wikipedia links under strict time constraints.',
     tags: ['Python', 'Asyncio', 'Aiohttp', 'BeautifulSoup'],
     link: 'https://github.com/omorros/wikipedia_scraper',
@@ -171,7 +171,7 @@ export const projects: Project[] = [
     }
   },
   {
-    title: 'UniversityLibrarySystem',
+    title: 'University Library System',
     description: 'Object-Oriented Java application for managing library resources, users, and loan transactions with file persistence.',
     tags: ['Java', 'OOP', 'JUnit', 'File I/O'],
     link: 'https://github.com/omorros/UniversityLibrarySystem',
@@ -187,7 +187,7 @@ export const projects: Project[] = [
       ],
       reportUrl: '/reports/MOD004883_Component2_Report_2270056.pdf',
       screenshots: [
-        '/images/Picture1.jpg'
+        '/images/university-library-ui.jpg'
       ],
       awards: [
         {

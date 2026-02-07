@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ExternalLink, Trophy, Maximize2, FileText } from 'lucide-react'
+import Image from 'next/image'
 import { Project } from '@/data/projects'
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -164,12 +165,14 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                         className="rounded-xl overflow-hidden border border-white/10 aspect-video relative bg-black/40 cursor-zoom-in group"
                         onClick={() => setZoomedImage(src)}
                       >
-                        <img 
+                        <Image 
                           src={src} 
                           alt={`${project.title} screenshot ${i + 1}`} 
-                          className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" 
+                          fill
+                          className="object-contain transition-transform duration-300 group-hover:scale-105" 
+                          sizes="(max-width: 768px) 100vw, 50vw"
                         />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100 z-10">
                           <Maximize2 className="text-white drop-shadow-md" size={32} />
                         </div>
                       </div>
@@ -219,15 +222,23 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             >
               <X size={24} />
             </button>
-            <motion.img
+            <motion.div
               initial={{ scale: 0.9 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
-              src={zoomedImage}
-              alt="Zoomed preview"
-              className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+              className="relative w-full h-full max-w-7xl max-h-[90vh] flex items-center justify-center p-4"
               onClick={(e) => e.stopPropagation()}
-            />
+            >
+              <div className="relative w-full h-full">
+                 <Image
+                  src={zoomedImage}
+                  alt="Zoomed preview"
+                  fill
+                  className="object-contain drop-shadow-2xl"
+                  sizes="100vw"
+                />
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
