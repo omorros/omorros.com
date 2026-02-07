@@ -116,6 +116,41 @@ export const projects: Project[] = [
     description: 'Modern personal portfolio website built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.',
     tags: ['TypeScript', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
     link: 'https://github.com/omorros/omorros.com',
+    slug: 'omorros-com',
+    caseStudy: {
+      problem: 'Traditional scrolling portfolios often feel monotonous and fail to guide the user\'s attention effectively. I wanted to create a distinctive digital presence that would stand out to recruiters while demonstrating mastery of modern frontend performance techniques. The challenge was to build a rich, immersive experience with complex animations that still achieved perfect Lighthouse scores.',
+      solution: 'I architected a single-page application with a custom full-page section navigation system. Instead of standard routing, I implemented a state-driven "PageWrapper" component that manages transitions, deep-linking, and input handling across mouse, touch, and keyboard. The visual design features dynamic gradient backgrounds that respond to cursor movement and crossfade smoothly between sections, creating a cohesive, app-like feel.',
+      features: [
+        'Custom Navigation Engine: Built a debounce-protected event handler system to manage full-page transitions via scroll, swipe, and keyboard inputs.',
+        'Performance-First Animation: Leveraged Framer Motion for declarative transitions and GPU-accelerated CSS transforms for background gradients, ensuring 60fps performance.',
+        'Interactive Visuals: Implemented a 500px radial glow effect that follows the cursor and adapts its color to match the active section\'s theme.',
+        'Optimized Architecture: Achieved 95+ Lighthouse scores by using SVG gradients instead of heavy images and Next.js App Router for optimal bundle splitting.'
+      ],
+      tables: [
+        {
+          title: 'Technology Stack',
+          headers: ['Category', 'Technology', 'Purpose'],
+          rows: [
+            ['Framework', 'Next.js 14', 'App Router architecture'],
+            ['Language', 'TypeScript', 'Type safety'],
+            ['Styling', 'Tailwind CSS', 'Utility-first styling'],
+            ['Animation', 'Framer Motion', 'Complex state transitions'],
+            ['Deployment', 'Vercel', 'Edge network hosting']
+          ]
+        },
+        {
+          title: 'Design System',
+          headers: ['Section', 'Primary Color', 'Theme Hex'],
+          rows: [
+            ['Home', 'Green/Purple', '#27c029 / #8f46db'],
+            ['About', 'Magenta', '#9e005d'],
+            ['Education', 'Orange', '#ff6b35'],
+            ['Skills', 'Burgundy', '#83394c'],
+            ['Projects', 'Deep Blue', '#001b70']
+          ]
+        }
+      ]
+    }
   },
   {
     title: 'AI Response Classifier',
