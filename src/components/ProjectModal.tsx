@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, ExternalLink, Trophy, Maximize2 } from 'lucide-react'
+import { X, ExternalLink, Trophy, Maximize2, FileText } from 'lucide-react'
 import { Project } from '@/data/projects'
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -178,7 +178,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 </section>
               )}
 
-              <div className="pt-8 border-t border-white/10">
+              <div className="pt-8 border-t border-white/10 flex flex-wrap gap-4">
                 <a
                   href={project.link}
                   target="_blank"
@@ -187,6 +187,17 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 >
                   View Code on GitHub <ExternalLink className="ml-2 h-4 w-4" />
                 </a>
+
+                {caseStudy.reportUrl && (
+                  <a
+                    href={caseStudy.reportUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-6 py-3 rounded-lg bg-white/10 text-white font-medium hover:bg-white/20 transition-colors border border-white/20"
+                  >
+                    Read Technical Report <FileText className="ml-2 h-4 w-4" />
+                  </a>
+                )}
               </div>
             </div>
           </div>

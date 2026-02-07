@@ -10,6 +10,7 @@ export interface Project {
     features?: string[]
     screenshots?: string[]
     videoUrl?: string
+    reportUrl?: string
     awards?: {
       title: string
       description: string
@@ -31,8 +32,8 @@ export const projects: Project[] = [
     link: 'https://github.com/omorros/SnapShelf',
     slug: 'snapshelf',
     caseStudy: {
-      problem: 'Food waste is a global challenge, with households often discarding items simply because they forget they exist or when they expire. Traditional inventory apps fail because they demand tedious manual entry—a high-friction process that users rarely sustain. I needed a solution that made tracking effortless while solving the "trust issue" inherent in AI-generated data.',
-      solution: 'SnapShelf transforms inventory management into a frictionless experience by leveraging GPT-4o Vision and barcode scanning for instant data entry. I architected a "Trust-First" system where AI acts as a drafter, placing items in a staging area for quick user confirmation—ensuring speed without compromising data integrity. The backend-driven architecture (FastAPI + PostgreSQL) handles complex logic like expiry prediction, keeping the React Native client lightweight and responsive.',
+      problem: 'Food waste is a global challenge, with households often discarding items simply because they forget they exist or when they expire. Traditional inventory apps fail because they demand tedious manual entry, a high-friction process that users rarely sustain. I needed a solution that made tracking effortless while solving the "trust issue" inherent in AI-generated data.',
+      solution: 'SnapShelf transforms inventory management into a frictionless experience by leveraging GPT-4o Vision and barcode scanning for instant data entry. I architected a "Trust-First" system where AI acts as a drafter, placing items in a staging area for quick user confirmation, ensuring speed without compromising data integrity. The backend-driven architecture (FastAPI + PostgreSQL) handles complex logic like expiry prediction, keeping the React Native client lightweight and responsive.',
       features: [
         'AI-Powered Ingestion: Integrates GPT-4o Vision to identify food items from photos and OpenFoodFacts for real-time barcode scanning.',
         'Draft-to-Inventory Workflow: A unique intermediate state for AI suggestions, preventing "hallucinations" from polluting trusted inventory data.',
@@ -53,7 +54,7 @@ export const projects: Project[] = [
       features: [
         'Sensor Fusion Algorithm: Developed a custom C++ algorithm that correlates IR triggers and vibration spikes within a 1000ms window to classify shot outcomes.',
         'Cost-Effective Hardware: Built using Arduino Uno, E18-D80NK IR sensors, and SW-420 vibration modules, proving that high-accuracy tracking doesn\'t require high-end hardware.',
-        'End-to-End System: Designed the full stack—circuitry, embedded firmware, Bluetooth serial protocol, and an Android app for data visualization.',
+        'End-to-End System: Designed the full stack (circuitry, embedded firmware, Bluetooth serial protocol, and an Android app) for data visualization.',
         'Validated Reliability: Field-tested with 20+ participants and ~2,000 shots, achieving statistical significance.'
       ],
       videoUrl: 'https://github.com/user-attachments/assets/b2f04fc3-4c96-47cb-862c-22dc06aca971',
@@ -171,8 +172,49 @@ export const projects: Project[] = [
   },
   {
     title: 'UniversityLibrarySystem',
-    description: 'Library management system with full CRUD operations and admin functionality.',
-    tags: ['Java'],
+    description: 'Object-Oriented Java application for managing library resources, users, and loan transactions with file persistence.',
+    tags: ['Java', 'OOP', 'JUnit', 'File I/O'],
     link: 'https://github.com/omorros/UniversityLibrarySystem',
+    slug: 'university-library-system',
+    caseStudy: {
+      problem: 'Designing a library management system requires handling complex relationships between diverse entity types (Books, DVDs, Journals) and user roles (Students, Staff, Librarians). The challenge was to create a flexible, maintainable Object-Oriented architecture that could enforce specific business rules, such as loan limits and fines, while persisting state across sessions without a database.',
+      solution: 'I developed a Java console application following a lightweight MVC architecture to separate domain logic from the UI. I utilized robust OOP principles, including Inheritance, Polymorphism, and Singleton patterns, to model complex relationships like the Adult-Child guardian dependency. The system implements a custom `DataLoader` for CSV persistence and refines earlier architectural decisions by encapsulating loan logic within the `User` class to ensure consistency.',
+      features: [
+        'MVC & OOP Architecture: Implemented a Model-View-Controller structure with extensive use of Inheritance (Abstract User/Product) and Composition (Guardian-Child relationships).',
+        'Custom Persistence Engine: Built a `DataLoader` to serialize complex object graphs to CSV, decoupling business logic from data storage.',
+        'Strict Business Rules: Enforced user-specific constraints (e.g., 10-item limit for Adults, 3 for Children) and complex states like "Suspended" or "Guardian Required" via polymorphism.',
+        'Hybrid Testing Strategy: Combined black-box functional testing for user workflows with rigorous JUnit white-box testing for core logic, achieving high reliability.'
+      ],
+      reportUrl: '/reports/MOD004883_Component2_Report_2270056.pdf',
+      screenshots: [
+        '/images/Picture1.jpg'
+      ],
+      awards: [
+        {
+          title: 'Distinction Grade (80%)',
+          description: 'Achieved a First-Class mark for software architecture quality, clean code practices, and comprehensive documentation.'
+        }
+      ],
+      tables: [
+        {
+          title: 'Class Hierarchy',
+          headers: ['Base Class', 'Subclasses', 'Key Responsibilities'],
+          rows: [
+            ['Product (Abstract)', 'Book, CD, DVD, Audiobook', 'Stores metadata (ISBN, Title), manages loan status'],
+            ['User (Abstract)', 'Student, ChildUser, AdultUser', 'Manages personal info, active loans, and permissions'],
+            ['Loan', 'N/A', 'Links Users to Products, tracks due dates and fines']
+          ]
+        },
+        {
+          title: 'Testing Verification',
+          headers: ['Test Type', 'Scope', 'Key Scenarios Verified'],
+          rows: [
+            ['Functional', 'End-to-End User Flows', 'Login, Product Visibility (DVDs hidden for Students), Error Handling'],
+            ['Unit (JUnit)', 'Core Business Logic', 'Borrowing Limits (10/5/3), Guardian Assignment, ID Uniqueness'],
+            ['Regression', 'Bug Fix Verification', 'Loan state consistency between Controller and User classes']
+          ]
+        }
+      ]
+    }
   },
 ]
