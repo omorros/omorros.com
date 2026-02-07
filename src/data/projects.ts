@@ -9,6 +9,11 @@ export interface Project {
     solution: string
     features?: string[]
     screenshots?: string[]
+    videoUrl?: string
+    awards?: {
+      title: string
+      description: string
+    }[]
   }
 }
 
@@ -34,8 +39,34 @@ export const projects: Project[] = [
   {
     title: 'bk-shoot',
     description: 'Low-cost IoT device that detects basketball makes/misses in real time using IR + vibration sensor fusion.',
-    tags: ['C++', 'IoT', 'Arduino', 'React Native'],
+    tags: ['C++', 'IoT', 'Arduino', 'Android'],
     link: 'https://github.com/omorros/bk-shoot',
+    slug: 'bk-shoot',
+    caseStudy: {
+      problem: 'Basketball training often relies on subjective feedback or expensive proprietary systems (ShotTracker, Noah), making analytics inaccessible to amateur players. I wanted to democratize sports technology by building a low-cost, portable solution that could provide real-time shooting metrics without requiring permanent installation or expensive cameras.',
+      solution: 'I engineered "bk-shoot", a <€25 IoT device that fuses data from an IR sensor (ball detection) and a vibration sensor (rim impact) to distinguish between "swishes," "off-rim makes," and "misses" with ~95% accuracy. The system transmits data via Bluetooth to a custom Android app, where I implemented a statistics engine to visualize field goal percentage and shot distribution in real time.',
+      features: [
+        'Sensor Fusion Algorithm: Developed a custom C++ algorithm that correlates IR triggers and vibration spikes within a 1000ms window to classify shot outcomes.',
+        'Cost-Effective Hardware: Built using Arduino Uno, E18-D80NK IR sensors, and SW-420 vibration modules, proving that high-accuracy tracking doesn\'t require high-end hardware.',
+        'End-to-End System: Designed the full stack—circuitry, embedded firmware, Bluetooth serial protocol, and an Android app for data visualization.',
+        'Validated Reliability: Field-tested with 20+ participants and ~2,000 shots, achieving statistical significance.'
+      ],
+      videoUrl: 'https://github.com/user-attachments/assets/b2f04fc3-4c96-47cb-862c-22dc06aca971',
+      screenshots: [
+        'https://raw.githubusercontent.com/omorros/bk-shoot/master/hardware/circuit_image.png',
+        'https://raw.githubusercontent.com/omorros/bk-shoot/master/testing/01_setup_guide.png'
+      ],
+      awards: [
+        {
+          title: 'Honourable Mention - 12th Planter de Sondeigs i Experiments',
+          description: 'Awarded by UPC, UAB, UB, and Idescat for "combining statistics, Big Data, AI, and programming with sports".'
+        },
+        {
+          title: 'ICFO Young Photonics Congress',
+          description: 'Selected to present research on sensor fusion and optical detection to industry experts.'
+        }
+      ]
+    }
   },
   {
     title: 'deep-learning-cnn-comparison',
