@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, ExternalLink, Trophy, Maximize2 } from 'lucide-react'
 import { Project } from '@/data/projects'
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 interface ProjectModalProps {
   project: Project
@@ -12,21 +13,23 @@ interface ProjectModalProps {
 
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const [zoomedImage, setZoomedImage] = useState<string | null>(null)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     document.body.style.overflow = 'hidden'
     return () => {
       document.body.style.overflow = 'unset'
     }
   }, [])
 
-  if (!project.caseStudy) return null
+  if (!project.caseStudy || !mounted) return null
 
   const { caseStudy } = project
 
-  return (
+  return createPortal(
     <>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8">
+      <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-8">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -166,7 +169,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 backdrop-blur-xl p-4"
+            className="fixed inset-0 z-[70] flex items-center justify-center bg-black/90 backdrop-blur-xl p-4"
             onClick={() => setZoomedImage(null)}
           >
             <button
@@ -187,6 +190,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </>,
+    document.body
   )
 }
