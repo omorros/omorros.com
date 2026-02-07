@@ -118,7 +118,7 @@ export function PageWrapper({ pages }: PageWrapperProps) {
         ))}
       </div>
 
-      <div className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-3 pointer-events-none hidden md:block backdrop-blur-sm bg-black/10">
+      <div className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-3 pointer-events-none hidden md:block">
         <div className="max-w-4xl mx-auto flex items-center justify-between pointer-events-auto">
           <AnimatePresence>
             {currentPage > 0 && (
@@ -163,9 +163,9 @@ export function PageWrapper({ pages }: PageWrapperProps) {
             ref={(el) => {
               if (el) sectionRefs.current[idx] = el
             }}
-            className="w-full min-h-[100dvh] md:min-h-0 md:h-screen md:snap-start flex flex-col items-center justify-center relative px-6 py-20 md:px-12 md:py-16 md:pt-24"
+            className="w-full min-h-[100dvh] md:min-h-0 md:h-screen md:snap-start flex flex-col items-center relative px-6 py-20 md:px-12 md:py-16 md:pt-24"
           >
-            <div className="w-full max-w-4xl mx-auto flex flex-col justify-center">
+            <div className="w-full max-w-4xl mx-auto flex flex-col justify-center my-auto">
               {!p.isHome && (
                 <div className="mb-6 md:mb-10 mt-4 md:mt-0">
                   <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-2 md:mb-4">
