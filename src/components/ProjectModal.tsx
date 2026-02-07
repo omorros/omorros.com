@@ -111,6 +111,36 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 </p>
               </section>
 
+              {caseStudy.tables && caseStudy.tables.map((table, i) => (
+                <section key={i} className="bg-white/5 rounded-2xl p-6 md:p-8 border border-white/10 overflow-hidden">
+                  <h3 className="text-xl font-semibold mb-6 text-white">{table.title}</h3>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="border-b border-white/10">
+                          {table.headers.map((header, j) => (
+                            <th key={j} className="py-3 px-4 text-sm font-semibold text-accent uppercase tracking-wider">
+                              {header}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-white/5">
+                        {table.rows.map((row, j) => (
+                          <tr key={j} className="hover:bg-white/5 transition-colors">
+                            {row.map((cell, k) => (
+                              <td key={k} className="py-3 px-4 text-gray-300 text-sm whitespace-nowrap">
+                                {cell}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+              ))}
+
               {caseStudy.features && (
                 <section>
                   <h3 className="text-xl font-semibold mb-6 text-white">Key Features</h3>

@@ -14,6 +14,11 @@ export interface Project {
       title: string
       description: string
     }[]
+    tables?: {
+      title: string
+      headers: string[]
+      rows: string[][]
+    }[]
   }
 }
 
@@ -73,6 +78,38 @@ export const projects: Project[] = [
     description: 'Comparative study of CNN architectures (Custom, EfficientNetB0, ResNet50) for food image classification.',
     tags: ['Jupyter Notebook', 'Python', 'TensorFlow', 'Deep Learning'],
     link: 'https://github.com/omorros/deep-learning-cnn-comparison',
+    slug: 'deep-learning-cnn-comparison',
+    caseStudy: {
+      problem: 'Food image classification is a challenging computer vision task due to high intra-class variability and subtle inter-class differences. I aimed to determine if modern lightweight architectures (like EfficientNet) could match the performance of heavy industry standards (like ResNet) on a specific domain task, while minimizing computational resources for edge deployment.',
+      solution: 'I conducted a rigorous comparative study of three distinct CNN architectures: a custom VGG-style model built from scratch, and transfer learning implementations of EfficientNetB0 and ResNet-50. Using a curated dataset of 120k+ images across 14 classes, I established a standardized training pipeline in TensorFlow to evaluate them on accuracy, parameter efficiency, and training time.',
+      features: [
+        'Rigorous Data Pipeline: Merged three Kaggle sources with SHA-256 deduplication and stratified splitting to prevent data leakage and ensure validity.',
+        'Transfer Learning Efficacy: Proved that pre-trained models outperformed the custom architecture by ~1.8%, with EfficientNetB0 achieving 99.75% accuracy.',
+        'Efficiency Analysis: Identified EfficientNetB0 as the optimal deployment choice, matching ResNet-50\'s accuracy while being 5.9x smaller and 35% faster to train.',
+        'Imbalance Handling: Implemented class weighting to maintain >0.98 F1 scores even on minority classes (113:1 imbalance ratio).'
+      ],
+      tables: [
+        {
+          title: 'Model Performance Comparison',
+          headers: ['Model', 'Test Accuracy', 'Parameters', 'Size', 'Training Time'],
+          rows: [
+            ['Custom CNN', '97.97%', '4.96M', '56.9 MB', '14.8h'],
+            ['EfficientNetB0', '99.75%', '4.07M', '40.0 MB', '6.7h'],
+            ['ResNet-50', '99.76%', '24.13M', '211.0 MB', '10.3h']
+          ]
+        },
+        {
+          title: 'Dataset Specifications',
+          headers: ['Property', 'Value'],
+          rows: [
+            ['Total Images', '120,842 (deduplicated)'],
+            ['Classes', '14 (Fruits & Vegetables)'],
+            ['Split (Train/Val/Test)', '84,582 / 18,119 / 18,141'],
+            ['Resolution', '224×224 RGB']
+          ]
+        }
+      ]
+    }
   },
   {
     title: 'omorros.com',
