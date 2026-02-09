@@ -46,24 +46,19 @@ export function AboutPage() {
         variants={itemVariants}
         className="text-foreground-muted leading-8 font-medium"
       >
-        I am a Software Engineering student at Anglia Ruskin University in
-        Cambridge, passionate about building innovative solutions that make a
-        difference.
+        I&apos;m a Software Engineering student at Anglia Ruskin University in
+        Cambridge, originally from Barcelona. I enjoy building things that are
+        actually useful to me, from full-stack apps to IoT devices with sensor
+        fusion, and I&apos;m currently diving deeper into AI, software
+        engineering, and systems design.
       </motion.p>
       <motion.p
         variants={itemVariants}
         className="text-foreground-muted leading-8 font-medium"
       >
-        My interests span across AI/ML, IoT, and full-stack development. I love
-        tackling challenging problems and turning ideas into working products
-        that solve real-world problems.
-      </motion.p>
-      <motion.p
-        variants={itemVariants}
-        className="text-foreground-muted leading-8 font-medium"
-      >
-        Originally from Barcelona, I moved to Cambridge to pursue my degree and
-        have been exploring the vibrant tech scene ever since.
+        Outside of code, basketball has been my favourite sport for as long as I
+        can remember. I also spend a lot of time at the gym, enjoy cooking, and
+        play chess whenever I have some free time.
       </motion.p>
       
       <motion.div variants={itemVariants} className="pt-4">
