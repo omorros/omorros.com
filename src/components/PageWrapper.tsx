@@ -31,6 +31,10 @@ export function PageWrapper({ pages }: PageWrapperProps) {
   }, [])
 
   const handleMouseMove = (e: React.MouseEvent) => {
+    // Optimization: Disable cursor tracking on mobile (<768px) to prevent
+    // scroll jank caused by heavy repaints of the gradient glow during touch interactions.
+    // Desktop experience remains 100% identical.
+    if (typeof window !== 'undefined' && window.innerWidth < 768) return
     setMousePos({ x: e.clientX, y: e.clientY })
   }
 
