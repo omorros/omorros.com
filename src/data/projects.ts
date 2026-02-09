@@ -5,9 +5,9 @@ export interface Project {
   link: string
   slug?: string
   caseStudy?: {
-    problem: string
-    solution: string
-    features?: string[]
+    challenge: string
+    approach: string
+    features?: { title: string; description: string }[]
     screenshots?: string[]
     videoUrl?: string
     reportUrl?: string
@@ -27,18 +27,18 @@ export interface Project {
 export const projects: Project[] = [
   {
     title: 'SnapShelf',
-    description: 'Mobile grocery tracker with fast item scanning, expiry reminders, and recipe recommendations to reduce food waste.',
+    description: 'Mobile grocery tracker with AI-powered item scanning, expiry reminders, and a trust-first workflow to reduce food waste.',
     tags: ['TypeScript', 'React Native', 'Python', 'PostgreSQL'],
     link: 'https://github.com/omorros/SnapShelf',
     slug: 'snapshelf',
     caseStudy: {
-      problem: 'Food waste is a global challenge, with households often discarding items simply because they forget they exist or when they expire. Traditional inventory apps fail because they demand tedious manual entry, a high-friction process that users rarely sustain. I needed a solution that made tracking effortless while solving the "trust issue" inherent in AI-generated data.',
-      solution: 'SnapShelf transforms inventory management into a frictionless experience by leveraging GPT-4o Vision and barcode scanning for instant data entry. I architected a "Trust-First" system where AI acts as a drafter, placing items in a staging area for quick user confirmation, ensuring speed without compromising data integrity. The backend-driven architecture (FastAPI + PostgreSQL) handles complex logic like expiry prediction, keeping the React Native client lightweight and responsive.',
+      challenge: 'Household food waste is driven by forgotten inventory. Existing tracking apps fail because manual data entry is too tedious to sustain.',
+      approach: 'Built a React Native app using GPT-4o Vision and barcode scanning for instant item capture. A draft-to-inventory workflow lets AI suggest entries while users retain control over their data.',
       features: [
-        'AI-Powered Ingestion: Integrates GPT-4o Vision to identify food items from photos and OpenFoodFacts for real-time barcode scanning.',
-        'Draft-to-Inventory Workflow: A unique intermediate state for AI suggestions, preventing "hallucinations" from polluting trusted inventory data.',
-        'Smart Expiry Prediction: Uses historical data and category heuristics to automatically estimate shelf life.',
-        'Production-Ready Backend: Built with FastAPI and SQLAlchemy, featuring comprehensive Pytest coverage and JWT security.'
+        { title: 'AI-Powered Capture', description: 'GPT-4o Vision identifies items from photos; OpenFoodFacts handles barcode lookups.' },
+        { title: 'Trust-First Workflow', description: 'AI suggestions land in a staging area for quick user confirmation before entering inventory.' },
+        { title: 'Smart Expiry Prediction', description: 'Uses historical data and category heuristics to automatically estimate shelf life.' },
+        { title: 'Production Backend', description: 'FastAPI + SQLAlchemy with comprehensive Pytest coverage and JWT security.' }
       ]
     }
   },
@@ -49,13 +49,13 @@ export const projects: Project[] = [
     link: 'https://github.com/omorros/bk-shoot',
     slug: 'bk-shoot',
     caseStudy: {
-      problem: 'Basketball training often relies on subjective feedback or expensive proprietary systems (ShotTracker, Noah), making analytics inaccessible to amateur players. I wanted to democratize sports technology by building a low-cost, portable solution that could provide real-time shooting metrics without requiring permanent installation or expensive cameras.',
-      solution: 'I engineered "bk-shoot", a <€25 IoT device that fuses data from an IR sensor (ball detection) and a vibration sensor (rim impact) to distinguish between "swishes," "off-rim makes," and "misses" with ~95% accuracy. The system transmits data via Bluetooth to a custom Android app, where I implemented a statistics engine to visualize field goal percentage and shot distribution in real time.',
+      challenge: 'Basketball analytics rely on expensive proprietary systems, making real-time shooting metrics inaccessible to amateur players.',
+      approach: 'Engineered a <€25 IoT device fusing IR and vibration sensors to classify makes, misses, and swishes at ~95% accuracy. Stats stream via Bluetooth to a custom Android app.',
       features: [
-        'Sensor Fusion Algorithm: Developed a custom C++ algorithm that correlates IR triggers and vibration spikes within a 1000ms window to classify shot outcomes.',
-        'Cost-Effective Hardware: Built using Arduino Uno, E18-D80NK IR sensors, and SW-420 vibration modules, proving that high-accuracy tracking doesn\'t require high-end hardware.',
-        'End-to-End System: Designed the full stack (circuitry, embedded firmware, Bluetooth serial protocol, and an Android app) for data visualization.',
-        'Validated Reliability: Field-tested with 20+ participants and ~2,000 shots, achieving statistical significance.'
+        { title: 'Sensor Fusion Algorithm', description: 'Custom C++ algorithm correlates IR triggers and vibration spikes within a 1000ms window.' },
+        { title: 'Cost-Effective Hardware', description: 'Built with Arduino Uno, IR sensors, and vibration modules for under €25.' },
+        { title: 'Full-Stack System', description: 'Designed circuitry, embedded firmware, Bluetooth protocol, and Android app end-to-end.' },
+        { title: 'Field-Validated', description: 'Tested with 20+ participants and ~2,000 shots achieving statistical significance.' }
       ],
       videoUrl: 'https://github.com/user-attachments/assets/b2f04fc3-4c96-47cb-862c-22dc06aca971',
       screenshots: [
@@ -76,18 +76,18 @@ export const projects: Project[] = [
   },
   {
     title: 'CNN Architecture Comparison',
-    description: 'Comparative study of CNN architectures (Custom, EfficientNetB0, ResNet50) for food image classification.',
+    description: 'Benchmarked three CNN architectures on 120K+ food images, proving EfficientNetB0 matches ResNet-50 while being 5.9x smaller.',
     tags: ['Jupyter Notebook', 'Python', 'TensorFlow', 'Deep Learning'],
     link: 'https://github.com/omorros/deep-learning-cnn-comparison',
     slug: 'deep-learning-cnn-comparison',
     caseStudy: {
-      problem: 'Food image classification is a challenging computer vision task due to high intra-class variability and subtle inter-class differences. I aimed to determine if modern lightweight architectures (like EfficientNet) could match the performance of heavy industry standards (like ResNet) on a specific domain task, while minimizing computational resources for edge deployment.',
-      solution: 'I conducted a rigorous comparative study of three distinct CNN architectures: a custom VGG-style model built from scratch, and transfer learning implementations of EfficientNetB0 and ResNet-50. Using a curated dataset of 120k+ images across 14 classes, I established a standardized training pipeline in TensorFlow to evaluate them on accuracy, parameter efficiency, and training time.',
+      challenge: 'Determining whether lightweight CNNs can match heavy architectures for domain-specific image classification while minimizing compute cost.',
+      approach: 'Benchmarked three CNN architectures on 120K+ food images. EfficientNetB0 matched ResNet-50\'s 99.75% accuracy while being 5.9x smaller and 35% faster to train.',
       features: [
-        'Rigorous Data Pipeline: Merged three Kaggle sources with SHA-256 deduplication and stratified splitting to prevent data leakage and ensure validity.',
-        'Transfer Learning Efficacy: Proved that pre-trained models outperformed the custom architecture by ~1.8%, with EfficientNetB0 achieving 99.75% accuracy.',
-        'Efficiency Analysis: Identified EfficientNetB0 as the optimal deployment choice, matching ResNet-50\'s accuracy while being 5.9x smaller and 35% faster to train.',
-        'Imbalance Handling: Implemented class weighting to maintain >0.98 F1 scores even on minority classes (113:1 imbalance ratio).'
+        { title: '120K+ Image Pipeline', description: 'Merged three Kaggle sources with SHA-256 deduplication and stratified splitting.' },
+        { title: '99.75% Accuracy', description: 'EfficientNetB0 matched ResNet-50 via transfer learning on domain-specific data.' },
+        { title: '5.9x Model Compression', description: 'EfficientNetB0 achieved parity at 40 MB vs ResNet-50\'s 211 MB.' },
+        { title: 'Class-Weighted Training', description: 'Maintained >0.98 F1 scores even on minority classes with 113:1 imbalance.' }
       ],
       tables: [
         {
@@ -114,18 +114,18 @@ export const projects: Project[] = [
   },
   {
     title: 'Personal Web Portfolio',
-    description: 'Modern personal portfolio website (omorros.com) built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.',
+    description: 'Single-page portfolio with custom full-page navigation, cursor-reactive gradients, and 95+ Lighthouse scores.',
     tags: ['TypeScript', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
     link: 'https://github.com/omorros/omorros.com',
     slug: 'personal-web-portfolio',
     caseStudy: {
-      problem: 'Traditional scrolling portfolios often feel monotonous and fail to guide the user\'s attention effectively. I wanted to create a distinctive digital presence that would stand out to recruiters while demonstrating mastery of modern frontend performance techniques. The challenge was to build a rich, immersive experience with complex animations that still achieved perfect Lighthouse scores.',
-      solution: 'I architected a single-page application with a custom full-page section navigation system. Instead of standard routing, I implemented a state-driven "PageWrapper" component that manages transitions, deep-linking, and input handling across mouse, touch, and keyboard. The visual design features dynamic gradient backgrounds that respond to cursor movement and crossfade smoothly between sections, creating a cohesive, app-like feel.',
+      challenge: 'Traditional scrolling portfolios feel generic and fail to guide user attention effectively.',
+      approach: 'Built a single-page app with custom full-page navigation, cursor-reactive gradient backgrounds, and GPU-accelerated section transitions. Scores 95+ on all Lighthouse metrics.',
       features: [
-        'Custom Navigation Engine: Built a debounce-protected event handler system to manage full-page transitions via scroll, swipe, and keyboard inputs.',
-        'Performance-First Animation: Leveraged Framer Motion for declarative transitions and GPU-accelerated CSS transforms for background gradients, ensuring 60fps performance.',
-        'Interactive Visuals: Implemented a 500px radial glow effect that follows the cursor and adapts its color to match the active section\'s theme.',
-        'Optimized Architecture: Achieved 95+ Lighthouse scores by using SVG gradients instead of heavy images and Next.js App Router for optimal bundle splitting.'
+        { title: 'Custom Navigation Engine', description: 'Debounce-protected handler manages full-page transitions via scroll, swipe, and keyboard.' },
+        { title: '60fps Animations', description: 'Framer Motion transitions and GPU-accelerated CSS transforms for smooth performance.' },
+        { title: 'Cursor-Following Glow', description: '500px radial glow follows the cursor and adapts color to the active section theme.' },
+        { title: '95+ Lighthouse Scores', description: 'SVG gradients and Next.js App Router for optimal bundle splitting and performance.' }
       ],
       tables: [
         {
@@ -155,35 +155,35 @@ export const projects: Project[] = [
   },
   {
     title: 'Wikipedia Scraper',
-    description: 'High-performance asynchronous web scraper designed to crawl and extract Wikipedia links under strict time constraints.',
+    description: 'Async crawler with 100 concurrent workers, O(1) URL deduplication, and a 20-second global deadline.',
     tags: ['Python', 'Asyncio', 'Aiohttp', 'BeautifulSoup'],
     link: 'https://github.com/omorros/wikipedia_scraper',
     slug: 'wikipedia-scraper',
     caseStudy: {
-      problem: 'Efficiently crawling large-scale websites requires balancing speed with politeness and resource management. I wanted to build a scraper that could maximize data extraction within a strictly enforced time window, demonstrating how asynchronous programming can drastically outperform traditional blocking I/O approaches.',
-      solution: 'I engineered a high-concurrency asynchronous crawler using Python\'s `asyncio` and `aiohttp`. The system spawns 100 concurrent workers that share a global deadline state, ensuring immediate termination exactly when the budget expires. It features a robust URL normalization pipeline to handle protocol-relative links and a set-based deduplication layer to prevent redundant processing, all operating within a non-blocking event loop.',
+      challenge: 'Efficiently crawling large-scale websites requires balancing speed with resource management under strict time constraints.',
+      approach: 'Built a high-concurrency async crawler with 100 workers, O(1) URL deduplication, and a global 20-second deadline using Python\'s asyncio and aiohttp.',
       features: [
-        'Massive Concurrency: Orchestrates 100 concurrent worker tasks to saturate network bandwidth and mask I/O latency.',
-        'Strict Time Budgeting: Implemented a global deadline propagation mechanism that cancels all pending tasks exactly at the 20-second mark.',
-        'Robust Parsing Pipeline: Uses BeautifulSoup to extract, normalize, and filter links, handling edge cases like root-relative and protocol-relative URLs.',
-        'Efficient State Management: Maintains a hash set of visited URLs to guarantee O(1) lookup time for deduplication, preventing infinite loops.'
+        { title: '100 Concurrent Workers', description: 'Saturates network bandwidth and masks I/O latency with massive parallelism.' },
+        { title: '20s Deadline Enforcement', description: 'Global deadline propagation cancels all pending tasks exactly at the time limit.' },
+        { title: 'URL Deduplication', description: 'Hash set guarantees O(1) lookup time, preventing redundant processing and infinite loops.' },
+        { title: 'Non-Blocking Architecture', description: 'Full async event loop with robust link normalization and protocol handling.' }
       ]
     }
   },
   {
     title: 'University Library System',
-    description: 'Object-Oriented Java application for managing library resources, users, and loan transactions with file persistence.',
+    description: 'Java MVC console app with inheritance hierarchies, polymorphic loan rules, and custom CSV persistence.',
     tags: ['Java', 'OOP', 'JUnit', 'File I/O'],
     link: 'https://github.com/omorros/UniversityLibrarySystem',
     slug: 'university-library-system',
     caseStudy: {
-      problem: 'Designing a library management system requires handling complex relationships between diverse entity types (Books, DVDs, Journals) and user roles (Students, Staff, Librarians). The challenge was to create a flexible, maintainable Object-Oriented architecture that could enforce specific business rules, such as loan limits and fines, while persisting state across sessions without a database.',
-      solution: 'I developed a Java console application following a lightweight MVC architecture to separate domain logic from the UI. I utilized robust OOP principles, including Inheritance, Polymorphism, and Singleton patterns, to model complex relationships like the Adult-Child guardian dependency. The system implements a custom `DataLoader` for CSV persistence and refines earlier architectural decisions by encapsulating loan logic within the `User` class to ensure consistency.',
+      challenge: 'Modelling complex entity relationships and enforcing role-specific business rules with file-based persistence and no database.',
+      approach: 'Developed a Java MVC console app using inheritance hierarchies, polymorphic loan rules, and a custom CSV persistence engine.',
       features: [
-        'MVC & OOP Architecture: Implemented a Model-View-Controller structure with extensive use of Inheritance (Abstract User/Product) and Composition (Guardian-Child relationships).',
-        'Custom Persistence Engine: Built a `DataLoader` to serialize complex object graphs to CSV, decoupling business logic from data storage.',
-        'Strict Business Rules: Enforced user-specific constraints (e.g., 10-item limit for Adults, 3 for Children) and complex states like "Suspended" or "Guardian Required" via polymorphism.',
-        'Hybrid Testing Strategy: Combined black-box functional testing for user workflows with rigorous JUnit white-box testing for core logic, achieving high reliability.'
+        { title: 'MVC + OOP Architecture', description: 'Model-View-Controller with abstract base classes and composition patterns.' },
+        { title: 'CSV Persistence Engine', description: 'Custom DataLoader serializes complex object graphs, decoupling logic from storage.' },
+        { title: 'Role-Based Loan Rules', description: 'Polymorphic constraints enforce per-role limits (10 Adult, 3 Child) and suspension states.' },
+        { title: 'JUnit + Functional Tests', description: 'White-box unit tests for core logic combined with end-to-end workflow testing.' }
       ],
       reportUrl: '/reports/MOD004883_Component2_Report_2270056.pdf',
       screenshots: [
