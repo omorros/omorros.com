@@ -1,10 +1,10 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, ExternalLink, Trophy, Maximize2, FileText } from 'lucide-react'
+import { X, ExternalLink, Trophy, Maximize2, FileText, Play } from 'lucide-react'
 import Image from 'next/image'
 import { Project } from '@/data/projects'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { createPortal } from 'react-dom'
 
 interface ProjectModalProps {
@@ -15,6 +15,9 @@ interface ProjectModalProps {
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const [zoomedImage, setZoomedImage] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [hasStarted, setHasStarted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -91,13 +94,35 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
               {/* 3. Video */}
               {caseStudy.videoUrl && (
-                <div className="rounded-2xl overflow-hidden border border-white/10 bg-black aspect-video">
+                <div 
+                  className="relative rounded-2xl overflow-hidden border border-white/10 bg-black aspect-video group cursor-pointer"
+                  onClick={() => {
+                    if (!hasStarted && videoRef.current) {
+                      videoRef.current.play()
+                    }
+                  }}
+                >
                   <video
+                    ref={videoRef}
                     src={caseStudy.videoUrl}
-                    controls
+                    controls={hasStarted}
                     className="w-full h-full object-contain"
-                    poster={caseStudy.screenshots?.[0]}
+                    poster={caseStudy.thumbnail || caseStudy.screenshots?.[0]}
+                    onPlay={() => {
+                      setIsPlaying(true)
+                      setHasStarted(true)
+                    }}
+                    onPause={() => setIsPlaying(false)}
                   />
+                  
+                  {/* Play Button Overlay */}
+                  {(!isPlaying || !hasStarted) && (
+                    <div className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${hasStarted ? 'pointer-events-none bg-transparent' : 'bg-black/20 hover:bg-black/30'}`}>
+                      <div className={`bg-white/10 backdrop-blur-sm p-5 rounded-full border border-white/20 shadow-2xl transition-transform duration-300 ${!hasStarted && 'group-hover:scale-110'}`}>
+                        <Play className="w-8 h-8 text-white fill-white opacity-90 ml-1" />
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
