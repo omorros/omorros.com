@@ -83,7 +83,7 @@ export function ContactForm() {
             name="email"
             id="email"
             required
-            placeholder="Your email"
+            placeholder="Your Email"
             className="w-full bg-glass-highlight border border-glass-border rounded-xl px-4 py-3 text-foreground placeholder:text-foreground-faint focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent-glass-strong transition-all"
           />
         </div>
