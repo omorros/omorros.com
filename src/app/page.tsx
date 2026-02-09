@@ -37,10 +37,10 @@ export default function Home() {
       content: <AboutPage />,
     },
     {
-      id: 'experience',
+      id: 'education',
       title: 'Education',
       description: 'My academic journey',
-      gradient: '/gradients/experience.svg',
+      gradient: '/gradients/education.svg',
       glowColor: '#ff6b35',
       content: <EducationPage />,
     },
