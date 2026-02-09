@@ -10,6 +10,7 @@ export interface Project {
     features?: { title: string; description: string }[]
     screenshots?: string[]
     videoUrl?: string
+    thumbnail?: string
     reportUrl?: string
     awards?: {
       title: string
@@ -58,6 +59,7 @@ export const projects: Project[] = [
         { title: 'Field-Validated', description: 'Tested with 20+ participants and ~2,000 shots achieving statistical significance.' }
       ],
       videoUrl: 'https://github.com/user-attachments/assets/b2f04fc3-4c96-47cb-862c-22dc06aca971',
+      thumbnail: '/gradients/projects.svg',
       screenshots: [
         'https://raw.githubusercontent.com/omorros/bk-shoot/master/hardware/circuit_image.png',
         'https://raw.githubusercontent.com/omorros/bk-shoot/master/testing/01_setup_guide.png'
