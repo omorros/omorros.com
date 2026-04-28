@@ -198,10 +198,7 @@ Corpus rebuilt and re-embedded as part of the build pipeline. Embedding cost on 
 
 1. **"Lazy to scroll?" affordance design** — **LOCKED: (A)**. Notion-style callout block with tinted bg, icon, and embedded input. On submit, expands inline into a streaming chat panel. **(C)** (floating `Press /` hint) deferred to v1.1 polish.
 2. **Accent color** — used only on hover/active states. Options: muted blue (Notion-native), electric blue (sharper), off-yellow (warmer), strict grayscale (most restrained). Single choice; can change later.
-3. **Default theme** — three options:
-   - Light default (Notion-native).
-   - Dark default (the earlier instinct; reads more "engineer").
-   - **Respect system preference** with persisted user toggle. *Recommendation: this option — most pro move.*
+3. **Default theme** — **LOCKED: dark default with light/dark toggle**. User-set theme persists in localStorage. No system-preference detection — first-time visitors land on dark; can switch to light via the toggle.
 4. **Photo** — does Oriol have a usable shot, or does one need to be taken? Preferred treatment: clean rectangular crop, grayscale → hover reveals color (or stay grayscale).
 5. **Personal Web Portfolio entry** in Build Log — cut (recommended, the new site speaks for itself), or keep with a "v1 archive" tag?
 6. **Soft launch target** — is there *any* internal deadline, or genuinely open-ended?
