@@ -42,7 +42,7 @@ export function Hackathons() {
               <div className="flex items-baseline gap-4">
                 <span className="w-10 shrink-0" />
                 <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
-                  — {h.placement}
+                  - {h.placement}
                 </span>
               </div>
             )}

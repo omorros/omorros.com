@@ -13,7 +13,7 @@ export function Footer() {
   const mark = deriveMark(siteConfig.name) || 'OM'
   const year = new Date().getFullYear()
 
-  // Static "page visits" stub — wired to a real counter later.
+  // Static "page visits" stub - wired to a real counter later.
   const visitors = '1,247'
 
   return (

@@ -1,6 +1,6 @@
 'use client'
 
-// Cursor-tracking link preview — when the user hovers the link, a small
+// Cursor-tracking link preview - when the user hovers the link, a small
 // thumbnail follows the cursor at the offset above the text. Pattern follows
 // Aceternity UI's LinkPreview (MIT). Pure framer-motion, no external deps.
 

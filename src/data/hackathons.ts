@@ -12,7 +12,7 @@ export const hackathons: Hackathon[] = [
     year: '2025',
     event: 'HackUPC',
     location: 'Barcelona',
-    built: 'Multimodal accessibility tool — vision LLM describes scenes and reads them back via voice.',
+    built: 'Multimodal accessibility tool - vision LLM describes scenes and reads them back via voice.',
     placement: 'Top 10 finalist',
   },
   {

@@ -24,13 +24,13 @@ import StellarBuddy from '@/components/nav/StellarBuddy'
  * Faithful port of syedsubhan.in's DynamicNavigation pill.
  *
  * Three visual states share a single morphing button (Framer `layout`):
- *   1. Trigger (top of page): wide pill — StellarBuddy + MENU label
- *   2. Island  (scrolled past threshold): narrow rounded pill — section
+ *   1. Trigger (top of page): wide pill - StellarBuddy + MENU label
+ *   2. Island  (scrolled past threshold): narrow rounded pill - section
  *      title + ChevronDown + scroll % NumberTicker + circular progress ring
  *   3. Expanded island: same pill, taller, dropdown TOC of sections
  *   4. Open menu: pill widens back, separate Playfair menu panel drops below
  *
- * AppleDock and the standalone ThemeToggle are NOT rendered here — they're
+ * AppleDock and the standalone ThemeToggle are NOT rendered here - they're
  * mounted separately from `app/page.tsx` to avoid double-rendering.
  *
  * All props are optional with sensible defaults so `<DynamicNavigation />`
@@ -61,6 +61,7 @@ const DEFAULT_SECTIONS: Section[] = [
   { id: 'work', title: 'Work' },
   { id: 'skills', title: 'Tech' },
   { id: 'projects', title: 'Projects' },
+  { id: 'education', title: 'Education' },
   { id: 'contact', title: 'Contact' },
 ]
 
@@ -75,7 +76,7 @@ const SPRING_TRANSITION = {
 }
 
 // ---------------------------------------------------------------------------
-// Default behaviour helpers — used only when the parent doesn't pass props.
+// Default behaviour helpers - used only when the parent doesn't pass props.
 // ---------------------------------------------------------------------------
 
 function defaultToggleTheme() {
@@ -344,7 +345,7 @@ export default function DynamicNavigation({
   }, [isIslandMode])
 
   // -------------------------------------------------------------------------
-  // Sizing — same numbers as the reference.
+  // Sizing - same numbers as the reference.
   // -------------------------------------------------------------------------
   const getOpenWidth = (): number | string => (isMobile ? '90vw' : 540)
   const getClosedWidth = () => (isMobile ? 200 : 290)
@@ -365,7 +366,7 @@ export default function DynamicNavigation({
 
   return (
     <>
-      {/* Backdrop behind the open menu — click to dismiss. */}
+      {/* Backdrop behind the open menu - click to dismiss. */}
       <div
         className={cn(
           'fixed inset-0 z-40 bg-black/40 backdrop-blur-sm transition-opacity duration-300',
@@ -389,7 +390,7 @@ export default function DynamicNavigation({
               className={cn(
                 'relative flex items-center overflow-hidden border transition-colors duration-300',
                 'shadow-[0_8px_32px_rgba(0,0,0,0.35)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.55)]',
-                // Pill matches the page tone — subtle lift, never inverted.
+                // Pill matches the page tone - subtle lift, never inverted.
                 'bg-background-soft border-border',
                 'hover:bg-background-soft/80',
                 isIslandMode ? 'rounded-[29px]' : 'rounded-[14px]',
@@ -591,7 +592,7 @@ export default function DynamicNavigation({
       {/*
         Re-export of theme handler so external code (e.g. the standalone
         ThemeToggle) can opt in if it ever needs the same behaviour. We don't
-        render a button here on purpose — page.tsx already mounts ThemeToggle.
+        render a button here on purpose - page.tsx already mounts ThemeToggle.
       */}
       <span className="hidden" aria-hidden data-isdark={String(isDark)} onClick={handleToggleTheme} />
     </>
@@ -599,7 +600,7 @@ export default function DynamicNavigation({
 }
 
 /**
- * MENU ↔ CLOSE flipper. Pure CSS translate — the inner stack slides up by 18px
+ * MENU ↔ CLOSE flipper. Pure CSS translate - the inner stack slides up by 18px
  * when open to reveal the CLOSE label.
  */
 function Flipper({ isOpen }: { isOpen: boolean }) {

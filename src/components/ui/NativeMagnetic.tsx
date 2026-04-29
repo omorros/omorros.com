@@ -19,7 +19,7 @@ type NativeMagneticProps = {
  * element, the inner content translates toward the cursor by `strength` of
  * the offset, clamped to ~35% of the element's largest dimension.
  *
- * Pure framer-motion — no GSAP dependency.
+ * Pure framer-motion - no GSAP dependency.
  */
 export function NativeMagnetic({
   children,

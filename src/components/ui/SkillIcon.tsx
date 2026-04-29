@@ -1,11 +1,9 @@
 'use client'
 
-// Single brand-colored icon with hover opacity reveal.
-// Earlier version stacked two <img> tags with grayscale/invert chains, which
-// failed for any icon whose default color matched the active theme background
-// (e.g. OpenAI's near-black SVG was invisible in dark mode). Switching to
-// Iconify's `logos:` namespace gives us full-brand-color SVGs that read on
-// both themes; we just modulate opacity for the ghost → vibrant feel.
+// Naked-icon style: no pill chrome, just an icon + label floating in the
+// marquee, desaturated by default and brightening on hover. Color logos from
+// Iconify's `logos:` namespace are filtered to grayscale so they read as a
+// uniform muted set, then drop the filter on hover for a "wake-up" reveal.
 
 import { cn } from '@/lib/utils'
 
@@ -19,22 +17,20 @@ export function SkillIcon({ name, iconUrl, className }: SkillIconProps) {
   return (
     <div
       className={cn(
-        'group inline-flex items-center gap-2 px-3 py-1.5 mx-1.5 rounded-full',
-        'border border-border-soft hover:border-border',
-        'bg-background-soft/40 hover:bg-background-soft',
+        'group inline-flex items-center gap-2.5 px-5 py-2',
         'transition-all duration-300',
-        className
+        className,
       )}
     >
-      <div className="relative w-4 h-4 shrink-0">
+      <div className="relative w-5 h-5 shrink-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={iconUrl}
           alt={name}
-          className="w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+          className="w-full h-full object-contain grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
         />
       </div>
-      <span className="text-xs font-medium text-foreground-muted group-hover:text-foreground whitespace-nowrap transition-colors">
+      <span className="text-base font-medium text-foreground/40 group-hover:text-foreground whitespace-nowrap transition-colors duration-300">
         {name}
       </span>
     </div>

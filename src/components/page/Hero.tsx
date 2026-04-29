@@ -1,6 +1,6 @@
 'use client'
 
-// Hero / About section — mirrors syedsubhan.in's hero structure exactly.
+// Hero / About section - mirrors syedsubhan.in's hero structure exactly.
 // Profile pic right (md:order-last) draggable, available pill, name + verified badge,
 // typewriter role, bio paragraph. The hero IS the "about" section (id="about").
 
@@ -22,7 +22,7 @@ export function Hero() {
   return (
     <section id="about" className="mb-16 scroll-mt-32">
       <div className="flex flex-col md:flex-row justify-between items-start gap-8 md:gap-10">
-        {/* Profile pic — top on mobile, right on desktop */}
+        {/* Profile pic - top on mobile, right on desktop */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}

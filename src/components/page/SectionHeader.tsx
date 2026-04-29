@@ -1,4 +1,4 @@
-// Section header — h2 with inline horizontal rule (Subhan pattern), optional mono caption below.
+// Section header - h2 with inline horizontal rule (Subhan pattern), optional mono caption below.
 
 interface SectionHeaderProps {
   title: string

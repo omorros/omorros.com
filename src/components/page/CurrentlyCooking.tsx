@@ -1,6 +1,6 @@
 'use client'
 
-// Shimmer-gradient banner — verbatim from syedsubhan.in's "Cooking more..."
+// Shimmer-gradient banner - verbatim from syedsubhan.in's "Cooking more..."
 // (PortfolioHome.tsx line ~397). The `animate-shimmer` keyframes live in globals.css.
 
 import { motion } from 'framer-motion'

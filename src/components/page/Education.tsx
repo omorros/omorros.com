@@ -19,7 +19,7 @@ export function Education() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="py-12"
+      className="pt-12 pb-32"
     >
       <SectionHeader title="Education" caption="Academic background." />
       <ul className="mt-6 -mx-3">

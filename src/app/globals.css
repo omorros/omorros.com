@@ -26,7 +26,7 @@
 
 .dark {
   --background: 0 0 0;
-  --background-soft: 17 17 17;           /* #111 — Subhan's canonical dark card */
+  --background-soft: 17 17 17;           /* #111 - Subhan's canonical dark card */
   --foreground: 255 255 255;
   --foreground-muted: 209 213 219;       /* gray-300 */
   --foreground-faint: 156 163 175;       /* gray-400 */
@@ -75,7 +75,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ============================================================
-   View Transitions API — diamond clip-path reveal on theme swap.
+   View Transitions API - diamond clip-path reveal on theme swap.
    Ported from syedsubhan.in.
    ============================================================ */
 ::view-transition-group(root) {
@@ -116,7 +116,7 @@ a { color: inherit; text-decoration: none; }
   animation-delay: var(--delay, 0s);
 }
 
-/* Shimmer text — used for "cooking more..." style accents (future) */
+/* Shimmer text - used for "cooking more..." style accents (future) */
 @keyframes shimmer {
   from { background-position: 200% 0; }
   to   { background-position: -200% 0; }

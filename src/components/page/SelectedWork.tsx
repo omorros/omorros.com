@@ -1,6 +1,6 @@
 'use client'
 
-// "Selected Projects" — mirrors syedsubhan.in's projects section pattern:
+// "Selected Projects" - mirrors syedsubhan.in's projects section pattern:
 // h2 with inline rule, 2-col grid of ProjectCards, "Cooking more..." shimmer below.
 
 import { useState } from 'react'
@@ -58,7 +58,7 @@ export function SelectedWork() {
         })}
       </div>
 
-      {/* Cooking more — shimmer text */}
+      {/* Cooking more - shimmer text */}
       <div className="mt-12 flex justify-center">
         <p className="text-sm font-mono font-medium animate-shimmer bg-[linear-gradient(110deg,#939393,45%,#1e1e1e,55%,#939393)] dark:bg-[linear-gradient(110deg,#939393,45%,#e5e5e5,55%,#939393)] bg-[length:200%_100%] bg-clip-text text-transparent">
           Cooking more...

@@ -1,6 +1,6 @@
 'use client'
 
-// "Lazy to scroll? Ask me anything." — the chat affordance.
+// "Lazy to scroll? Ask me anything." - the chat affordance.
 // Magic UI Border Beam telegraphs interactivity. Chat wires up in Phase 2.
 
 import { motion } from 'framer-motion'

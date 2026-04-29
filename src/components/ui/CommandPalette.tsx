@@ -77,7 +77,7 @@ export function CommandPalette() {
 
   return (
     <>
-      {/* No floating button — palette opens via ⌘K / Ctrl+K only. */}
+      {/* No floating button - palette opens via ⌘K / Ctrl+K only. */}
 
       {/* Modal */}
       <AnimatePresence>

@@ -1,7 +1,7 @@
 'use client'
 
 // Twitter-style verified badge with the canonical 24-point sunburst border.
-// SVG path is the public-domain Twitter Verified Badge geometry — same shape
+// SVG path is the public-domain Twitter Verified Badge geometry - same shape
 // used by the X/Twitter UI, embeddable React badge components, and Subhan's
 // reference site (which loads it as a static PNG).
 

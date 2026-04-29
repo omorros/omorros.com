@@ -1,6 +1,6 @@
 'use client'
 
-// Left side rail — ported from syedsubhan.in/components/Timeline.tsx.
+// Left side rail - ported from syedsubhan.in/components/Timeline.tsx.
 // xl-only (hidden below 1280px). Vertical row of dots that scale dock-style on
 // hover; the active section is detected via a scroll-position closest-to-top
 // algorithm (more deterministic than IntersectionObserver, no flicker).
@@ -18,6 +18,7 @@ const SECTIONS: TimelineSection[] = [
   { id: 'work', title: 'Career Path' },
   { id: 'skills', title: 'Tech Stack' },
   { id: 'projects', title: 'Projects' },
+  { id: 'education', title: 'Education' },
   { id: 'contact', title: 'Contact' },
 ]
 
@@ -32,8 +33,21 @@ export function Timeline() {
 
     const update = () => {
       raf = 0
+
+      // At-bottom guard: if the document can't scroll any further, force the
+      // last section active. (Short final sections - Contact, Footer - often
+      // can't get their header above the SCROLL_OFFSET line before the page
+      // runs out, so the closest-to-top algorithm below would otherwise miss.)
+      const atBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 4
+      if (atBottom && SECTIONS.length > 0) {
+        const last = SECTIONS[SECTIONS.length - 1].id
+        setActiveId((prev) => (prev === last ? prev : last))
+        return
+      }
+
       // Pick the section whose top is closest to (just below) the offset line.
-      // This is deterministic and won't flip back and forth like IO can.
       let bestId: string | null = null
       let bestDelta = Number.POSITIVE_INFINITY
 
@@ -42,8 +56,6 @@ export function Timeline() {
         if (!el) continue
         const rect = el.getBoundingClientRect()
         const top = rect.top
-        // Section is "active" while its top is at or above the scroll line and
-        // its bottom is below it. Score by distance of top from line.
         if (top <= SCROLL_OFFSET) {
           const delta = SCROLL_OFFSET - top
           if (delta < bestDelta) {

@@ -2,7 +2,7 @@
 
 // Multilingual greeting splash. Ported from syedsubhan.in's Preloader.tsx
 // (https://github.com/Subhan-code/My-Portfolio-/blob/main/components/Preloader.tsx)
-// — adapted to project tokens, Next.js 14, sessionStorage skip, and self-unmount.
+// - adapted to project tokens, Next.js 14, sessionStorage skip, and self-unmount.
 
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -33,14 +33,14 @@ export function Preloader() {
       if (sessionStorage.getItem(SESSION_KEY) === '1') return
       sessionStorage.setItem(SESSION_KEY, '1')
     } catch {
-      // sessionStorage unavailable (SSR / privacy mode) — show preloader anyway.
+      // sessionStorage unavailable (SSR / privacy mode) - show preloader anyway.
     }
     setVisible(true)
   }, [])
 
-  // Body scroll lock — scoped to `visible` so cleanup fires the moment we flip off.
-  // (The component itself doesn't unmount when visible becomes false — AnimatePresence
-  // only unmounts the inner motion.div — so we cannot rely on Preloader's unmount
+  // Body scroll lock - scoped to `visible` so cleanup fires the moment we flip off.
+  // (The component itself doesn't unmount when visible becomes false - AnimatePresence
+  // only unmounts the inner motion.div - so we cannot rely on Preloader's unmount
   // for cleanup. This keyed effect makes the lock release atomically with visible=false.)
   useEffect(() => {
     if (!visible) return
@@ -53,7 +53,7 @@ export function Preloader() {
   useEffect(() => {
     if (!visible) return
     if (index >= GREETINGS.length - 1) {
-      // Final greeting — hold briefly, then exit.
+      // Final greeting - hold briefly, then exit.
       const t = setTimeout(() => setVisible(false), 450)
       return () => clearTimeout(t)
     }
@@ -61,7 +61,7 @@ export function Preloader() {
     return () => clearTimeout(t)
   }, [index, visible])
 
-  // Hard cap — total cycle ~2.5s — guarantees we never trap the page.
+  // Hard cap - total cycle ~2.5s - guarantees we never trap the page.
   useEffect(() => {
     if (!visible) return
     const cap = setTimeout(() => setVisible(false), 2500)
@@ -98,7 +98,7 @@ export function Preloader() {
             </motion.span>
           </AnimatePresence>
 
-          {/* Curve tail — drips below the splash on exit */}
+          {/* Curve tail - drips below the splash on exit */}
           <svg
             className="absolute top-full w-full h-[20vh] fill-background pointer-events-none"
             preserveAspectRatio="none"

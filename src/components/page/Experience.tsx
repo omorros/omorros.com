@@ -17,19 +17,48 @@ type ExperienceEntry = {
 
 const EXPERIENCE: ExperienceEntry[] = [
   {
-    company: 'Self-directed',
-    role: 'AI Engineering Projects',
-    date: '2024 — present',
-    location: 'Cambridge, UK',
-    logo: null,
+    company: 'University of Cambridge',
+    role: 'Digital Technician',
+    date: 'Mar 2026 - present',
+    location: 'Cambridge, UK · On-site',
+    logo: '/cambridge-logo.jpg',
     description:
-      'Building AI-integrated products end-to-end — retrieval pipelines, agentic systems, evals.',
+      'Rehired based on previous 2025 performance. Continued delivering multi-venue IT infrastructure support, ensuring 100% system availability during peak operational periods.',
     bullets: [
-      'Shipped SnapShelf — React Native + GPT-4o Vision pantry tracker.',
-      'Benchmarked CNN architectures on 120K+ food images, surfaced 5.9× model-size reduction.',
-      'Currently building this portfolio as a working RAG-powered AI product.',
+      'Multi-venue IT infrastructure support across university sites.',
+      '100% system availability sustained through peak operational periods.',
+      'IT Hardware Support · Computer Hardware Troubleshooting.',
     ],
-    link: 'https://github.com/omorros',
+  },
+  {
+    company: 'Festival Sant Fruitós',
+    role: 'Web Developer',
+    date: 'Feb 2026 - Apr 2026',
+    location: 'Catalonia, Spain · Remote',
+    logo: '/festival-sf-logo.png',
+    description:
+      'Redesigned and engineered the website for the XXXII International Classical Music Festival end-to-end, replacing a legacy WordPress template with a modern static-export Next.js + TypeScript app. Shipped with a full CI pipeline that gates merges on cross-browser end-to-end tests.',
+    bullets: [
+      'Next.js 16 + React 19 + TypeScript (strict) + Tailwind 4 CSS-first.',
+      'JSON-driven content model - future editions update without code changes.',
+      'GitHub Actions CI: lint, typecheck, build, Playwright e2e on Chromium + WebKit.',
+      'Static export, JSON-LD, PWA, accessibility-first with reduced-motion support.',
+    ],
+    link: 'https://github.com/Festival-Sant-Fruitos/website',
+  },
+  {
+    company: 'University of Cambridge',
+    role: 'Digital Technician',
+    date: 'Apr 2025 - Jun 2025',
+    location: 'Cambridge, UK · On-site',
+    logo: '/cambridge-logo.jpg',
+    description:
+      'Diagnosed and resolved hardware, software, and network issues across 250+ PCs in high-pressure, zero-downtime environments. Performed systematic device imaging, configuration, and deployment for fleet of devices.',
+    bullets: [
+      'Diagnosed hardware, software, and network issues across 250+ PCs.',
+      'Zero-downtime environments under high operational pressure.',
+      'Systematic device imaging, configuration, and fleet deployment.',
+    ],
   },
 ]
 

@@ -5,7 +5,7 @@
 // velocity (useScroll → useVelocity → useSpring → useTransform). Scrolling
 // down speeds the marquee in its base direction; scrolling up flips it.
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import {
   motion,
   useScroll,
@@ -49,8 +49,11 @@ function MarqueeRow({ skills, baseVelocity }: MarqueeRowProps) {
   // always covered regardless of where in the wrap range we are.
   const x = useTransform(baseX, (v) => `${wrap(-25, -45, v)}%`)
   const directionFactor = useRef(1)
+  const [isHovered, setIsHovered] = useState(false)
 
   useAnimationFrame((_, delta) => {
+    if (isHovered) return // pause-on-hover: skip translation while cursor is over the row
+
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000)
 
     // Velocity polarity flips marquee direction on scroll-up.
@@ -65,7 +68,11 @@ function MarqueeRow({ skills, baseVelocity }: MarqueeRowProps) {
   })
 
   return (
-    <div className="overflow-hidden whitespace-nowrap [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="overflow-hidden whitespace-nowrap [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
+    >
       <motion.div className="inline-flex items-center" style={{ x }}>
         {[...skills, ...skills, ...skills, ...skills].map((s, i) => (
           <SkillIcon key={`${s.name}-${i}`} name={s.name} iconUrl={s.iconUrl} />

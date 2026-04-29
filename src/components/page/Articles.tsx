@@ -1,6 +1,6 @@
 'use client'
 
-// Articles section — cards with cursor-tracking thumbnail previews on hover.
+// Articles section - cards with cursor-tracking thumbnail previews on hover.
 
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'

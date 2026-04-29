@@ -1,5 +1,5 @@
 // Status pill: emerald dot with pulse + ping ring.
-// Pattern lifted from syedsubhan.in's PortfolioHome — emerald reads as universal "open".
+// Pattern lifted from syedsubhan.in's PortfolioHome - emerald reads as universal "open".
 
 interface AvailablePillProps {
   label?: string

@@ -14,14 +14,14 @@ const YEARS: Record<string, string> = {
   'university-library-system': '2023',
 }
 
-const EXCLUDED_SLUGS = ['personal-web-portfolio'] // PRD §11 Q5 — cut
+const EXCLUDED_SLUGS = ['personal-web-portfolio'] // PRD §11 Q5 - cut
 
 export function BuildLog() {
   const items: TimelineItem[] = projects
     .filter((p) => p.slug && !EXCLUDED_SLUGS.includes(p.slug))
     .map((p) => ({
       id: p.slug!,
-      date: YEARS[p.slug!] ?? '—',
+      date: YEARS[p.slug!] ?? '-',
       title: p.title,
       subtitle:
         p.description.length > 80

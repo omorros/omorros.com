@@ -1,4 +1,4 @@
-// Page composition — Subhan-style flow, full section list:
+// Page composition - Subhan-style flow, full section list:
 //   hero → ask-block → experience (work) → tech-stack (skills) → articles →
 //   selected-projects → philosophy quote (scroll-fill) → build-log →
 //   hackathons → education → now → page-visits → contact
@@ -8,7 +8,6 @@ import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import DynamicNavigation from '@/components/nav/DynamicNavigation'
 import { Timeline } from '@/components/nav/Timeline'
 import { CommandPalette } from '@/components/ui/CommandPalette'
-import { ScrollFillText } from '@/components/ui/ScrollFillText'
 import { Hero } from '@/components/page/Hero'
 import { Experience } from '@/components/page/Experience'
 import { TechStack } from '@/components/page/TechStack'
@@ -49,11 +48,10 @@ export default function Page() {
           <SelectedWork />
         </div>
 
-        {/* Scroll-fill philosophy quote */}
-        <ScrollFillText text="Build with rigor. Ship with soul. Care about the gap between demo and product." />
-
         {/* Education */}
-        <Education />
+        <div id="education" className="scroll-mt-32">
+          <Education />
+        </div>
 
         {/* Contact (id="contact") */}
         <ContactNow />

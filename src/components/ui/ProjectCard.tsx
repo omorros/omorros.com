@@ -81,12 +81,12 @@ export function ProjectCard({
           : 'grayscale-0 opacity-100 blur-0'
       )}
     >
-      {/* Hover Glow — neutral, picks up the foreground tone */}
+      {/* Hover Glow - neutral, picks up the foreground tone */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
         <div className="absolute inset-[-20%] bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.06)_0%,transparent_50%)] dark:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.06)_0%,transparent_50%)]" />
       </div>
 
-      {/* Visual media — top 55% */}
+      {/* Visual media - top 55% */}
       <div className="relative w-full h-[200px] md:h-[55%] overflow-hidden bg-background-soft">
         {videoUrl ? (
           <video
@@ -116,7 +116,7 @@ export function ProjectCard({
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
       </div>
 
-      {/* Content — bottom 45% */}
+      {/* Content - bottom 45% */}
       <div className="flex flex-col flex-1 p-5 md:p-6 relative">
         <div className="flex items-start justify-between mb-2 gap-3">
           <h3 className="text-xl md:text-2xl font-bold text-foreground leading-tight tracking-tight">
@@ -129,7 +129,7 @@ export function ProjectCard({
                 href={githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`${title} — view code`}
+                aria-label={`${title} - view code`}
                 className="p-1.5 rounded-full bg-background-soft text-foreground-muted hover:bg-foreground hover:text-background transition-all duration-300 hover:scale-110 active:scale-95"
                 onClick={(e) => {
                   e.stopPropagation()
@@ -144,7 +144,7 @@ export function ProjectCard({
                 href={link}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`${title} — view live`}
+                aria-label={`${title} - view live`}
                 className="p-1.5 rounded-full bg-accent text-white hover:opacity-90 shadow-md hover:shadow-lg hover:shadow-accent/30 transition-all duration-300 hover:scale-110 active:scale-95"
                 onClick={(e) => {
                   e.stopPropagation()

@@ -1,6 +1,6 @@
 'use client'
 
-// Tech Stack section — SectionHeader + two-row velocity-reactive marquee of
+// Tech Stack section - SectionHeader + two-row velocity-reactive marquee of
 // skill icons. Skill data is hardcoded here for now; will move to a data file
 // when the list grows.
 
@@ -8,7 +8,7 @@ import { motion } from 'framer-motion'
 import { SectionHeader } from './SectionHeader'
 import { SkillsMarquee } from '@/components/ui/SkillsMarquee'
 
-// Iconify `logos:` namespace — full-brand-color SVGs that render correctly
+// Iconify `logos:` namespace - full-brand-color SVGs that render correctly
 // in both light and dark themes (no invert filter chain required).
 const SKILLS = [
   { name: 'TypeScript', iconUrl: 'https://api.iconify.design/logos:typescript-icon.svg' },

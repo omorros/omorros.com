@@ -4,7 +4,7 @@
 // Subhan's uses LiquidMetalButton (paper-design shader) + NumberFlow + a real
 // /api/visitors endpoint. We approximate the look with a yellow/gold ring on a
 // dark-soft fill, and increment a localStorage counter per browser to make the
-// number feel alive. Stub for now — swap to a real endpoint later.
+// number feel alive. Stub for now - swap to a real endpoint later.
 
 import { useEffect, useState } from 'react'
 

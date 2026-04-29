@@ -1,4 +1,4 @@
-// Magic UI — Border Beam
+// Magic UI - Border Beam
 // Animated beam that travels along a container's border. Used on the AskBlock input
 // to telegraph "this is interactive / special".
 

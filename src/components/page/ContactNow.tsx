@@ -1,6 +1,6 @@
 'use client'
 
-// Contact section — full port of syedsubhan.in's contact pattern:
+// Contact section - full port of syedsubhan.in's contact pattern:
 //   "Socials" label pill → centered Playfair heading → Caveat handwriting line →
 //   SocialDock (icon row) → italic Playfair quote → bottom credit row.
 

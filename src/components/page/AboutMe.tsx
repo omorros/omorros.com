@@ -21,7 +21,7 @@ export function AboutMe() {
           <span className="text-foreground">ARU Cambridge</span> focused on AI
           integration. My current obsession is{' '}
           <em className="font-display italic text-accent">building with AI</em>{' '}
-          — from RAG pipelines and agent loops to the eval harnesses that keep
+          - from RAG pipelines and agent loops to the eval harnesses that keep
           them honest.
         </p>
         <p>

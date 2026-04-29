@@ -29,7 +29,7 @@ export function NowStatus() {
 
         <div className="flex items-center gap-3 text-sm text-foreground-muted">
           <Code2 className="w-4 h-4 text-foreground-faint shrink-0" />
-          <span>Shipping SnapShelf v2 — vision-LLM pantry tracker</span>
+          <span>Shipping SnapShelf v2 - vision-LLM pantry tracker</span>
         </div>
 
         <div className="flex items-center gap-3 text-sm text-foreground-muted">

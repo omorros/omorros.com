@@ -142,9 +142,9 @@ export function WorkTimeline({ items, className }: WorkTimelineProps) {
 
   return (
     <div ref={containerRef} className={cn('relative', className)}>
-      {/* Track — full grey */}
+      {/* Track - full grey */}
       <div className="absolute left-[23px] top-4 bottom-0 w-[2px] bg-foreground/5 z-0" />
-      {/* Track — fill that animates with scroll progress */}
+      {/* Track - fill that animates with scroll progress */}
       <div className="absolute left-[23px] top-4 bottom-0 w-[2px] z-0 overflow-hidden">
         <motion.div
           className="w-full bg-accent origin-top"
