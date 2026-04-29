@@ -2,17 +2,58 @@
 
 import { motion } from 'framer-motion'
 import { SectionHeader } from './SectionHeader'
+import { WorkTimeline, type TimelineItem } from '@/components/ui/WorkTimeline'
 
-const ENTRIES = [
+type EducationEntry = {
+  institution: string
+  degree: string
+  date: string
+  location: string
+  logo: string | null
+  description: string
+  bullets: string[]
+  tags?: string[]
+  link?: string
+}
+
+const EDUCATION: EducationEntry[] = [
   {
-    year: '2023–26',
-    degree: 'BSc Software Engineering',
-    institution: 'Anglia Ruskin University · Cambridge',
-    note: 'First-class trajectory · Distinction in OOP modules.',
+    institution: 'Anglia Ruskin University',
+    degree: 'BSc (Hons) Software Engineering · Cambridge',
+    date: '2023 - May 2026',
+    location: 'Cambridge, UK · On-site',
+    logo: '/aru-logo.jpg',
+    description: 'Final-year BSc, expected May 2026.',
+    bullets: [
+      'Predicted First-Class Honours (1st).',
+      'Basketball scholarship athlete.',
+      'Dissertation "Comparative Evaluation of CV Pipelines for Food Recognition": benchmarked fine-tuned YOLOv8s, a YOLO + EfficientNetB0 hybrid, and GPT-5.2 across a 14-class produce task, 4 image conditions, and 1,440 inferences. Winning pipeline integrated into a full-stack app.',
+    ],
+    tags: [
+      'Machine Learning',
+      'Advanced OOP',
+      'Algorithms & Data Structures',
+      'Cloud Computing',
+      'Database Design',
+      'Digital Security',
+      'HCI',
+    ],
   },
 ]
 
 export function Education() {
+  const items: TimelineItem[] = EDUCATION.map((e, i) => ({
+    id: `${e.institution}-${i}`,
+    date: e.date,
+    title: e.institution,
+    subtitle: e.degree,
+    logo: e.logo,
+    description: e.description,
+    bullets: e.bullets,
+    tags: e.tags,
+    link: e.link,
+  }))
+
   return (
     <motion.section
       initial={{ opacity: 0, y: 16 }}
@@ -22,32 +63,9 @@ export function Education() {
       className="pt-12 pb-32"
     >
       <SectionHeader title="Education" caption="Academic background." />
-      <ul className="mt-6 -mx-3">
-        {ENTRIES.map((e, i) => (
-          <li key={i} className="flex flex-col gap-1 px-3 py-3">
-            <div className="flex items-baseline gap-4">
-              <span className="font-mono text-[11px] tabular-nums text-foreground-faint w-12 shrink-0">
-                {e.year}
-              </span>
-              <span className="text-[15px] text-foreground tracking-tight">
-                {e.degree}
-              </span>
-            </div>
-            <div className="flex items-baseline gap-4">
-              <span className="w-12 shrink-0" />
-              <span className="text-[13px] text-foreground-muted">
-                {e.institution}
-              </span>
-            </div>
-            <div className="flex items-baseline gap-4">
-              <span className="w-12 shrink-0" />
-              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-faint">
-                {e.note}
-              </span>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <div className="mt-6">
+        <WorkTimeline items={items} />
+      </div>
     </motion.section>
   )
 }

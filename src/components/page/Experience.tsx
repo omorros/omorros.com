@@ -44,7 +44,7 @@ const EXPERIENCE: ExperienceEntry[] = [
       'GitHub Actions CI: lint, typecheck, build, Playwright e2e on Chromium + WebKit.',
       'Static export, JSON-LD, PWA, accessibility-first with reduced-motion support.',
     ],
-    link: 'https://github.com/Festival-Sant-Fruitos/website',
+    link: 'https://www.festivalsantfruitos.com/',
   },
   {
     company: 'University of Cambridge',
