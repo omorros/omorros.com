@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -9,39 +10,31 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: '#000000',
-        accent: '#90caf9',
+        background: {
+          DEFAULT: 'rgb(var(--background) / <alpha-value>)',
+          soft: 'rgb(var(--background-soft) / <alpha-value>)',
+        },
         foreground: {
-          DEFAULT: 'rgba(242, 242, 242, 0.95)',
-          muted: 'rgba(242, 242, 242, 0.8)',
-          dim: 'rgba(242, 242, 242, 0.6)',
-          faint: 'rgba(242, 242, 242, 0.5)',
+          DEFAULT: 'rgb(var(--foreground) / <alpha-value>)',
+          muted: 'rgb(var(--foreground-muted) / <alpha-value>)',
+          faint: 'rgb(var(--foreground-faint) / <alpha-value>)',
         },
-        glass: {
-          DEFAULT: 'rgba(255, 255, 255, 0.05)',
-          border: 'rgba(255, 255, 255, 0.1)',
-          hover: 'rgba(255, 255, 255, 0.08)',
-          'hover-border': 'rgba(255, 255, 255, 0.2)',
-          highlight: 'rgba(255, 255, 255, 0.03)',
+        border: {
+          DEFAULT: 'rgb(var(--border) / <alpha-value>)',
+          soft: 'rgb(var(--border-soft) / <alpha-value>)',
         },
-        'accent-glass': {
-          DEFAULT: 'rgba(144, 202, 249, 0.08)',
-          border: 'rgba(144, 202, 249, 0.2)', // fixed from 0.3 based on context usage
-          strong: 'rgba(144, 202, 249, 0.3)',
-        }
+        accent: {
+          DEFAULT: 'rgb(var(--accent) / <alpha-value>)',
+        },
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-playfair)', 'ui-serif', 'Georgia', 'serif'],
+        sans: ['var(--font-inter)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-jetbrains)', 'ui-monospace', 'monospace'],
+        handwriting: ['var(--font-caveat)', 'cursive'],
       },
-      animation: {
-        'spin-slow': 'spin 20s linear infinite',
-        'bounce-slow': 'bounce-gentle 4s ease-in-out infinite',
-      },
-      keyframes: {
-        'bounce-gentle': {
-          '0%, 20%, 100%': { transform: 'translateY(0)' },
-          '10%': { transform: 'translateY(1rem)' },
-        },
+      transitionTimingFunction: {
+        'expo-out': 'cubic-bezier(0.16, 1, 0.3, 1)',
       },
     },
   },

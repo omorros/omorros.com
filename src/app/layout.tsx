@@ -1,14 +1,38 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Playfair_Display, JetBrains_Mono, Caveat } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 import { siteConfig } from '@/lib/constants'
+import { SmoothScrollProvider } from '@/components/ui/SmoothScrollProvider'
 
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['500', '600', '700'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-inter',
+  display: 'swap',
+})
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-playfair',
+  display: 'swap',
+})
+
+const jetbrains = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-jetbrains',
+  display: 'swap',
+})
+
+const caveat = Caveat({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-caveat',
+  display: 'swap',
 })
 
 const jsonLd = {
@@ -35,6 +59,7 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: [
     'Software Engineer',
+    'AI Engineer',
     'Developer',
     'Cambridge',
     'ARU',
@@ -48,16 +73,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
   creator: siteConfig.name,
-  alternates: {
-    canonical: '/',
-  },
-  icons: {
-    icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-    ],
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
-  },
+  alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
     locale: 'en_GB',
@@ -79,7 +95,7 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     images: ['/opengraph-image'],
-    creator: '@omorros', // Assuming handle, user can update
+    creator: '@omorros',
   },
   robots: {
     index: true,
@@ -94,19 +110,28 @@ export const metadata: Metadata = {
   },
 }
 
+// Apply theme class on <html> before paint to avoid flash.
+// Default (and design lock) = dark.
+const themeInitScript = `(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.remove('dark');}else{document.documentElement.classList.add('dark');}}catch(e){document.documentElement.classList.add('dark');}})();`
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="font-sans antialiased">
+    <html
+      lang="en"
+      className={`dark ${inter.variable} ${playfair.variable} ${jetbrains.variable} ${caveat.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="font-sans antialiased bg-background text-foreground selection:bg-accent/20">
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {children}
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
         <Analytics />
         <SpeedInsights />
       </body>
