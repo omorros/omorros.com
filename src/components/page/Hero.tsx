@@ -14,8 +14,6 @@ const ROLES = [
   'AI Engineer',
   'Software Engineer',
   'Full-Stack Developer',
-  'Hackathon Builder',
-  'Problem Solver',
 ]
 
 export function Hero() {
