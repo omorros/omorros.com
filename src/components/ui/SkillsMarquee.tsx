@@ -24,7 +24,8 @@ interface Skill {
 }
 
 interface SkillsMarqueeProps {
-  skills: Skill[]
+  topRow: Skill[]
+  bottomRow: Skill[]
 }
 
 interface MarqueeRowProps {
@@ -44,10 +45,10 @@ function MarqueeRow({ skills, baseVelocity }: MarqueeRowProps) {
     clamp: false,
   })
 
-  // Wrap baseX into the range [-25%, -45%] so the duplicated track loops
-  // seamlessly. We render the skills 4× below to make sure the visible row is
-  // always covered regardless of where in the wrap range we are.
-  const x = useTransform(baseX, (v) => `${wrap(-25, -45, v)}%`)
+  // Wrap range must equal exactly one copy of the duplicated track for the
+  // loop to be seamless. We render the list 4× below, so one copy = 25% of
+  // the track width — hence wrap(-25, -50).
+  const x = useTransform(baseX, (v) => `${wrap(-25, -50, v)}%`)
   const directionFactor = useRef(1)
   const [isHovered, setIsHovered] = useState(false)
 
@@ -82,11 +83,11 @@ function MarqueeRow({ skills, baseVelocity }: MarqueeRowProps) {
   )
 }
 
-export function SkillsMarquee({ skills }: SkillsMarqueeProps) {
+export function SkillsMarquee({ topRow, bottomRow }: SkillsMarqueeProps) {
   return (
     <div className="space-y-3">
-      <MarqueeRow skills={skills} baseVelocity={-1} />
-      <MarqueeRow skills={[...skills].reverse()} baseVelocity={1} />
+      <MarqueeRow skills={topRow} baseVelocity={-1} />
+      <MarqueeRow skills={bottomRow} baseVelocity={1} />
     </div>
   )
 }
