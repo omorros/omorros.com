@@ -27,6 +27,94 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    title: 'TrueVoice',
+    description: 'Clinical voice intelligence platform that flags discrepancies between patient words and vocal biomarkers in real time during medical consultations.',
+    tags: ['TypeScript', 'Next.js', 'Python', 'Claude API'],
+    link: 'https://github.com/omorros/TrueVoice',
+    slug: 'truevoice',
+    caseStudy: {
+      challenge: 'Patients routinely minimize symptoms during consultations, leaving clinicians with an incomplete picture. Voice biomarkers carry that signal but sit on a separate diagnostic surface from the live transcript.',
+      approach: 'Built a real-time clinical platform fusing medical-grade transcription with three parallel voice biomarker streams (distress, mood/energy, affect), reconciled by a concordance engine that surfaces minimisation flags in under a second.',
+      features: [
+        { title: 'Concordance Engine', description: 'Matches minimisation phrases against live biomarker evidence to flag word/voice discrepancies in <1s.' },
+        { title: 'Three Biomarker Streams', description: 'Parallel distress, mood/energy, and affect signals via Thymia Sentinel.' },
+        { title: 'Two Consultation Modes', description: 'Telehealth (separate devices) and in-person (single microphone) with diarized transcription.' },
+        { title: 'Evidence Reports', description: 'End-of-consultation summaries synthesised by Claude with cited concordance gaps.' }
+      ],
+      thumbnail: 'https://raw.githubusercontent.com/omorros/TrueVoice/main/docs/images/landing.png',
+      screenshots: [
+        'https://raw.githubusercontent.com/omorros/TrueVoice/main/docs/images/dashboard.png',
+        'https://raw.githubusercontent.com/omorros/TrueVoice/main/docs/images/telehealth.png',
+        'https://raw.githubusercontent.com/omorros/TrueVoice/main/docs/images/report.png'
+      ],
+      awards: [
+        {
+          title: 'Overall Winner - Voice AI Hack London 2026',
+          description: 'First place across the full event in the Voice & Medical track sponsored by Thymia and Speechmatics.'
+        }
+      ]
+    }
+  },
+  {
+    title: 'WILDSCAN',
+    description: 'Autonomous six-agent system that detects wildlife trafficking on regional marketplaces via automated scraping, multilingual code-word matching, vision species ID, and risk scoring.',
+    tags: ['Python', 'LangGraph', 'Next.js', 'PostGIS'],
+    link: 'https://github.com/omorros/WILDSCAN',
+    slug: 'wildscan',
+    caseStudy: {
+      challenge: 'Wildlife trafficking moves through fragmented regional marketplaces in dozens of languages, faster than human investigators can monitor. Existing tooling stops at translation.',
+      approach: 'Built a six-agent LangGraph pipeline running on Bright Data Web MCP, paired with a 500-term coded-language lexicon across 8 languages and deterministic risk scoring against CITES/IUCN classifications.',
+      features: [
+        { title: '6-Agent LangGraph Pipeline', description: 'Scanner, Triage, Linguist, Image Analyst, Species Classifier, and Risk Scorer running fully autonomously.' },
+        { title: 'Multilingual Lexicon', description: '500 coded trafficking terms across 8 languages with fuzzy matching for obfuscated listings.' },
+        { title: 'Deterministic Risk Scoring', description: '0-100 scores from 8 weighted signals, correlated against 6,000 historical seizure records.' },
+        { title: 'Globe Visualization', description: 'Real-time Mapbox globe plotting detections geographically with on-demand intelligence briefs.' }
+      ],
+      thumbnail: 'https://raw.githubusercontent.com/omorros/WILDSCAN/main/docs/images/landing.png',
+      screenshots: [
+        'https://raw.githubusercontent.com/omorros/WILDSCAN/main/docs/images/command-center.png',
+        'https://raw.githubusercontent.com/omorros/WILDSCAN/main/docs/images/scan-results.png',
+        'https://raw.githubusercontent.com/omorros/WILDSCAN/main/docs/images/detection-detail.png'
+      ],
+      awards: [
+        {
+          title: 'Overall Winner - Unicorn Mafia x Techbible Hack Night 2026',
+          description: 'Built in 90 minutes; awarded the overall prize at the London hack night (Web MCP Agents track), March 2026.'
+        }
+      ]
+    }
+  },
+  {
+    title: 'DarkFleet',
+    description: 'AI-powered maritime surveillance system that consolidates seven data sources to detect illegal fishing vessels via deterministic risk scoring and Claude-generated intelligence briefs.',
+    tags: ['Python', 'Claude API', 'PostGIS', 'Mapbox'],
+    link: 'https://github.com/omorros/DarkFleet',
+    slug: 'darkfleet',
+    caseStudy: {
+      challenge: 'Illegal fishing fleets hide across fragmented signal sources - AIS dark gaps, RFMO records, sanctions lists, ownership chains. No analyst can correlate them in real time.',
+      approach: 'Unified seven open data sources (Global Fishing Watch, WDPA, RFMO registries, OpenSanctions, and more) under a single risk dashboard with 7-signal weighted scoring and a Claude-driven analyst persona for follow-up investigation.',
+      features: [
+        { title: '7-Signal Risk Engine', description: 'Encounters, AIS dark gaps, RFMO status, loitering, flag changes, ownership opacity, and sanctions matches.' },
+        { title: 'Tiered Alerts', description: 'Red ≥80, Amber ≥60, Clear <60 - ranked across the global fleet in real time.' },
+        { title: 'Claude as Analyst', description: 'Streaming chat persona answers analyst follow-ups and produces structured vessel assessments.' },
+        { title: 'Incident Reports', description: 'Auto-generated PDF briefs synthesising every signal into a single shareable artifact.' }
+      ],
+      thumbnail: 'https://raw.githubusercontent.com/omorros/DarkFleet/main/docs/screenshots/globe-overview.png',
+      screenshots: [
+        'https://raw.githubusercontent.com/omorros/DarkFleet/main/docs/screenshots/vessel-detail-red.png',
+        'https://raw.githubusercontent.com/omorros/DarkFleet/main/docs/screenshots/vessel-detail-amber.png',
+        'https://raw.githubusercontent.com/omorros/DarkFleet/main/docs/screenshots/ai-chat.png',
+        'https://raw.githubusercontent.com/omorros/DarkFleet/main/docs/screenshots/incident-report.png'
+      ],
+      awards: [
+        {
+          title: '6th of 64 - Claude Hackathon, Imperial College London',
+          description: 'Top-10 finish out of 64 teams at the Anthropic-sponsored hackathon at Imperial College London.'
+        }
+      ]
+    }
+  },
+  {
     title: 'SnapShelf',
     description: 'Mobile grocery tracker with AI-powered item scanning, expiry reminders, and a trust-first workflow to reduce food waste.',
     tags: ['TypeScript', 'React Native', 'Python', 'PostgreSQL'],

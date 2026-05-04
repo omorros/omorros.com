@@ -11,10 +11,10 @@ import { ProjectCard } from '@/components/ui/ProjectCard'
 import { siteConfig } from '@/lib/constants'
 
 const FEATURED_SLUGS = [
-  'snapshelf',
+  'truevoice',
+  'wildscan',
+  'darkfleet',
   'bk-shoot',
-  'deep-learning-cnn-comparison',
-  'wikipedia-scraper',
 ]
 
 export function SelectedWork() {
