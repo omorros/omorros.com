@@ -4,6 +4,8 @@ export interface Project {
   tags: string[]
   link: string
   slug?: string
+  category: 'personal' | 'hackathon'
+  event?: string
   caseStudy?: {
     challenge: string
     approach: string
@@ -32,6 +34,8 @@ export const projects: Project[] = [
     tags: ['TypeScript', 'Next.js', 'Python', 'Claude API'],
     link: 'https://github.com/omorros/TrueVoice',
     slug: 'truevoice',
+    category: 'hackathon',
+    event: 'Voice AI Hack · London 2026',
     caseStudy: {
       challenge: 'Patients routinely minimize symptoms during consultations, leaving clinicians with an incomplete picture. Voice biomarkers carry that signal but sit on a separate diagnostic surface from the live transcript.',
       approach: 'Built a real-time clinical platform fusing medical-grade transcription with three parallel voice biomarker streams (distress, mood/energy, affect), reconciled by a concordance engine that surfaces minimisation flags in under a second.',
@@ -61,6 +65,8 @@ export const projects: Project[] = [
     tags: ['Python', 'LangGraph', 'Next.js', 'PostGIS'],
     link: 'https://github.com/omorros/WILDSCAN',
     slug: 'wildscan',
+    category: 'hackathon',
+    event: 'Unicorn Mafia × Techbible Hack Night · London 2026',
     caseStudy: {
       challenge: 'Wildlife trafficking moves through fragmented regional marketplaces in dozens of languages, faster than human investigators can monitor. Existing tooling stops at translation.',
       approach: 'Built a six-agent LangGraph pipeline running on Bright Data Web MCP, paired with a 500-term coded-language lexicon across 8 languages and deterministic risk scoring against CITES/IUCN classifications.',
@@ -90,6 +96,8 @@ export const projects: Project[] = [
     tags: ['Python', 'Claude API', 'PostGIS', 'Mapbox'],
     link: 'https://github.com/omorros/DarkFleet',
     slug: 'darkfleet',
+    category: 'hackathon',
+    event: 'Claude Hackathon · Imperial College London 2026',
     caseStudy: {
       challenge: 'Illegal fishing fleets hide across fragmented signal sources - AIS dark gaps, RFMO records, sanctions lists, ownership chains. No analyst can correlate them in real time.',
       approach: 'Unified seven open data sources (Global Fishing Watch, WDPA, RFMO registries, OpenSanctions, and more) under a single risk dashboard with 7-signal weighted scoring and a Claude-driven analyst persona for follow-up investigation.',
@@ -115,11 +123,52 @@ export const projects: Project[] = [
     }
   },
   {
+    title: 'GASLIT',
+    description: 'Belief-layer security system that intercepts memory poisoning attacks against AI agents using four coordinated agents, HMAC verification, and adaptive retrieval contracts.',
+    tags: ['Python', 'FastAPI', 'Next.js', 'MongoDB'],
+    link: 'https://github.com/omorros/GASLIT',
+    slug: 'gaslit',
+    category: 'hackathon',
+    event: 'MongoDB Agentic Evolution · London 2026',
+    caseStudy: {
+      challenge: 'Memory poisoning attacks bypass traditional kernel sandboxes and LLM guardrails because individual queries appear benign — the malicious pattern only emerges across an agent\'s long-term memory.',
+      approach: 'Built a belief-layer interceptor sitting between MongoDB and the LLM context, with four specialized agents coordinating through change streams to detect injection attempts via cohort statistical analysis, HMAC verification, and adaptive retrieval contracts.',
+      thumbnail: 'https://raw.githubusercontent.com/omorros/GASLIT/main/docs/screenshots/landing.png',
+      screenshots: [
+        'https://raw.githubusercontent.com/omorros/GASLIT/main/docs/screenshots/agents.png',
+        'https://raw.githubusercontent.com/omorros/GASLIT/main/docs/screenshots/divergence.png',
+        'https://raw.githubusercontent.com/omorros/GASLIT/main/docs/screenshots/console.jpg',
+        'https://raw.githubusercontent.com/omorros/GASLIT/main/docs/mongodb-cluster-screenshot.png'
+      ]
+    }
+  },
+  {
+    title: 'Atlas',
+    description: 'Real-time treasury control room that reads every transaction, scores every counterparty, and spawns autonomous research agents to brief human decision-makers on complex cases.',
+    tags: ['Python', 'FastAPI', 'Next.js', 'Claude API'],
+    link: 'https://github.com/omorros/Atlas',
+    slug: 'atlas',
+    category: 'hackathon',
+    event: 'Cursor × Briefcase · London 2026',
+    caseStudy: {
+      challenge: 'Treasury teams drown in transaction noise while genuine counterparty risk hides in long-tail signals that no single deterministic rule or single LLM pass can catch.',
+      approach: 'Built a hybrid pipeline combining deterministic rules with Claude Haiku triage and Claude Sonnet analysis; complex cases auto-spawn a Cursor Cloud Agent to run forensic research and produce a memo for the human reviewer.',
+      thumbnail: 'https://raw.githubusercontent.com/omorros/Atlas/main/docs/screenshots/landing.png',
+      screenshots: [
+        'https://raw.githubusercontent.com/omorros/Atlas/main/docs/screenshots/warroom.png',
+        'https://raw.githubusercontent.com/omorros/Atlas/main/docs/screenshots/brief.png',
+        'https://raw.githubusercontent.com/omorros/Atlas/main/docs/screenshots/investigation.png',
+        'https://raw.githubusercontent.com/omorros/Atlas/main/docs/screenshots/memo.png'
+      ]
+    }
+  },
+  {
     title: 'SnapShelf',
     description: 'Mobile grocery tracker with AI-powered item scanning, expiry reminders, and a trust-first workflow to reduce food waste.',
     tags: ['TypeScript', 'React Native', 'Python', 'PostgreSQL'],
     link: 'https://github.com/omorros/SnapShelf',
     slug: 'snapshelf',
+    category: 'personal',
     caseStudy: {
       challenge: 'Household food waste is driven by forgotten inventory. Existing tracking apps fail because manual data entry is too tedious to sustain.',
       approach: 'Built a React Native app using GPT-4o Vision and barcode scanning for instant item capture. A draft-to-inventory workflow lets AI suggest entries while users retain control over their data.',
@@ -137,6 +186,7 @@ export const projects: Project[] = [
     tags: ['C++', 'IoT', 'Arduino', 'Android'],
     link: 'https://github.com/omorros/bk-shoot',
     slug: 'bk-shoot',
+    category: 'personal',
     caseStudy: {
       challenge: 'Basketball analytics rely on expensive proprietary systems, making real-time shooting metrics inaccessible to amateur players.',
       approach: 'Engineered a <€25 IoT device fusing IR and vibration sensors to classify makes, misses, and swishes at ~95% accuracy. Stats stream via Bluetooth to a custom Android app.',
@@ -170,6 +220,7 @@ export const projects: Project[] = [
     tags: ['Jupyter Notebook', 'Python', 'TensorFlow', 'Deep Learning'],
     link: 'https://github.com/omorros/deep-learning-cnn-comparison',
     slug: 'deep-learning-cnn-comparison',
+    category: 'personal',
     caseStudy: {
       challenge: 'Determining whether lightweight CNNs can match heavy architectures for domain-specific image classification while minimizing compute cost.',
       approach: 'Benchmarked three CNN architectures on 120K+ food images. EfficientNetB0 matched ResNet-50\'s 99.75% accuracy while being 5.9x smaller and 35% faster to train.',
@@ -208,6 +259,7 @@ export const projects: Project[] = [
     tags: ['TypeScript', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
     link: 'https://github.com/omorros/omorros.com',
     slug: 'personal-web-portfolio',
+    category: 'personal',
     caseStudy: {
       challenge: 'Traditional scrolling portfolios feel generic and fail to guide user attention effectively.',
       approach: 'Built a single-page app with custom full-page navigation, cursor-reactive gradient backgrounds, and GPU-accelerated section transitions. Scores 95+ on all Lighthouse metrics.',
@@ -249,6 +301,7 @@ export const projects: Project[] = [
     tags: ['Python', 'Asyncio', 'Aiohttp', 'BeautifulSoup'],
     link: 'https://github.com/omorros/wikipedia_scraper',
     slug: 'wikipedia-scraper',
+    category: 'personal',
     caseStudy: {
       challenge: 'Efficiently crawling large-scale websites requires balancing speed with resource management under strict time constraints.',
       approach: 'Built a high-concurrency async crawler with 100 workers, O(1) URL deduplication, and a global 20-second deadline using Python\'s asyncio and aiohttp.',
@@ -266,6 +319,7 @@ export const projects: Project[] = [
     tags: ['Java', 'OOP', 'JUnit', 'File I/O'],
     link: 'https://github.com/omorros/UniversityLibrarySystem',
     slug: 'university-library-system',
+    category: 'personal',
     caseStudy: {
       challenge: 'Modelling complex entity relationships and enforcing role-specific business rules with file-based persistence and no database.',
       approach: 'Developed a Java MVC console app using inheritance hierarchies, polymorphic loan rules, and a custom CSV persistence engine.',

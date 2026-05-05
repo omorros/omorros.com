@@ -5,8 +5,9 @@
 // when neither videoUrl nor imageUrl is provided (most of our projects don't have media yet).
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { motion, useSpring } from 'framer-motion'
-import { ExternalLink, Github } from 'lucide-react'
+import { ExternalLink, Github, Trophy } from 'lucide-react'
 import { cn, triggerHaptic } from '@/lib/utils'
 
 interface ProjectCardProps {
@@ -21,6 +22,9 @@ interface ProjectCardProps {
   isDimmed?: boolean
   onHover?: () => void
   onLeave?: () => void
+  award?: { title: string; description: string }
+  detailHref?: string
+  event?: string
 }
 
 export function ProjectCard({
@@ -35,6 +39,9 @@ export function ProjectCard({
   isDimmed,
   onHover,
   onLeave,
+  award,
+  detailHref,
+  event,
 }: ProjectCardProps) {
   const [, setIsHovered] = useState(false)
 
@@ -86,6 +93,15 @@ export function ProjectCard({
         <div className="absolute inset-[-20%] bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.06)_0%,transparent_50%)] dark:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.06)_0%,transparent_50%)]" />
       </div>
 
+      {/* Whole-card link to detail page (sits beneath corner buttons) */}
+      {detailHref && (
+        <Link
+          href={detailHref}
+          aria-label={`${title} case study`}
+          className="absolute inset-0 z-10"
+        />
+      )}
+
       {/* Visual media - top 55% */}
       <div className="relative w-full h-[200px] md:h-[55%] overflow-hidden bg-background-soft">
         {videoUrl ? (
@@ -114,6 +130,14 @@ export function ProjectCard({
         )}
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+
+        {/* Award badge */}
+        {award && (
+          <div className="absolute top-3 left-3 z-20 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-background/85 backdrop-blur-sm border border-border-soft text-[10px] font-mono font-medium text-foreground tracking-wide max-w-[calc(100%-1.5rem)]">
+            <Trophy size={10} className="text-amber-500 shrink-0" />
+            <span className="truncate">{award.title.split(' - ')[0]}</span>
+          </div>
+        )}
       </div>
 
       {/* Content - bottom 45% */}
@@ -123,7 +147,7 @@ export function ProjectCard({
             {title}
           </h3>
 
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-2 shrink-0 relative z-20">
             {githubUrl && (
               <a
                 href={githubUrl}
@@ -162,6 +186,11 @@ export function ProjectCard({
         </p>
 
         <div className="mt-auto">
+          {event && (
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-faint truncate">
+              {event}
+            </p>
+          )}
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (
               <span

@@ -4,11 +4,11 @@
 // h2 with inline rule, 2-col grid of ProjectCards, "Cooking more..." shimmer below.
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { projects } from '@/data/projects'
 import { ProjectCard } from '@/components/ui/ProjectCard'
-import { siteConfig } from '@/lib/constants'
 
 const FEATURED_SLUGS = [
   'truevoice',
@@ -40,6 +40,7 @@ export function SelectedWork() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {featured.map((p, i) => {
           const media = p.caseStudy?.thumbnail || p.caseStudy?.screenshots?.[0]
+          const award = p.caseStudy?.awards?.[0]
           return (
             <ProjectCard
               key={p.slug}
@@ -50,6 +51,9 @@ export function SelectedWork() {
               githubUrl={p.link}
               imageUrl={media}
               videoUrl={p.caseStudy?.videoUrl}
+              award={award}
+              event={p.event}
+              detailHref={p.slug ? `/projects/${p.slug}` : undefined}
               isDimmed={hoveredProject !== null && hoveredProject !== i}
               onHover={() => setHoveredProject(i)}
               onLeave={() => setHoveredProject(null)}
@@ -66,10 +70,8 @@ export function SelectedWork() {
       </div>
 
       <div className="mt-4 flex justify-center">
-        <a
-          href={siteConfig.links.github}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href="/projects"
           className="group flex items-center gap-2 px-6 py-2 rounded-full border border-border text-sm text-foreground-muted hover:bg-foreground/5 transition-colors active:scale-95"
         >
           View all projects
@@ -77,7 +79,7 @@ export function SelectedWork() {
             size={14}
             className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
           />
-        </a>
+        </Link>
       </div>
     </motion.section>
   )

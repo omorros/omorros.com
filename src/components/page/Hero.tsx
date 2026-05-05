@@ -6,6 +6,7 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { Github, Linkedin, FileText, Mail } from 'lucide-react'
 import { siteConfig } from '@/lib/constants'
 import { Typewriter } from '@/components/ui/Typewriter'
 import { AvailablePill } from '@/components/ui/AvailablePill'
@@ -83,20 +84,25 @@ export function Hero() {
               {/* Mono link row */}
               <div className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-[11px] uppercase tracking-[0.18em]">
                 {[
-                  { href: siteConfig.links.github, label: 'GitHub' },
-                  { href: siteConfig.links.linkedin, label: 'LinkedIn' },
-                  { href: siteConfig.links.resume, label: 'CV' },
-                  { href: `mailto:${siteConfig.links.email}`, label: 'Email' },
+                  { href: siteConfig.links.github, label: 'GitHub', Icon: Github },
+                  { href: siteConfig.links.linkedin, label: 'LinkedIn', Icon: Linkedin },
+                  { href: siteConfig.links.resume, label: 'CV', Icon: FileText },
+                  { href: `mailto:${siteConfig.links.email}`, label: 'Email', Icon: Mail },
                 ].map((l) => (
                   <a
                     key={l.label}
                     href={l.href}
+                    target={l.href.startsWith('mailto:') ? undefined : '_blank'}
+                    rel={l.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
                     className="group inline-flex items-center gap-1.5 text-foreground-muted hover:text-foreground transition-colors"
                   >
+                    <l.Icon
+                      size={12}
+                      strokeWidth={2}
+                      className="text-foreground-faint group-hover:text-foreground transition-colors"
+                      aria-hidden="true"
+                    />
                     <span>{l.label}</span>
-                    <span className="text-foreground-faint group-hover:text-foreground transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5">
-                      ↗
-                    </span>
                   </a>
                 ))}
               </div>
