@@ -3,8 +3,8 @@
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowLeft } from 'lucide-react'
-import { projects } from '@/data/projects'
+import { ArrowLeft, Trophy } from 'lucide-react'
+import { projects, FEATURED_SLUGS, type Project } from '@/data/projects'
 import { ProjectCard } from '@/components/ui/ProjectCard'
 import { cn } from '@/lib/utils'
 
@@ -16,26 +16,40 @@ const FILTERS: { value: Filter; label: string }[] = [
   { value: 'hackathon', label: 'Hackathons' },
 ]
 
+const featuredRank = (p: Project): number => {
+  const idx = (FEATURED_SLUGS as readonly string[]).indexOf(p.slug ?? '')
+  return idx === -1 ? Number.POSITIVE_INFINITY : idx
+}
+
+const hasAward = (p: Project): boolean =>
+  Boolean(p.caseStudy?.awards && p.caseStudy.awards.length > 0)
+
+const sortFeaturedFirst = (list: Project[]): Project[] =>
+  [...list].sort((a, b) => featuredRank(a) - featuredRank(b))
+
 export default function ProjectsPage() {
   const [filter, setFilter] = useState<Filter>('all')
   const [hovered, setHovered] = useState<number | null>(null)
 
   const counts = useMemo(
     () => ({
-      all: projects.length,
-      personal: projects.filter((p) => p.category === 'personal').length,
-      hackathon: projects.filter((p) => p.category === 'hackathon').length,
+      all: { total: projects.length, awards: projects.filter(hasAward).length },
+      personal: {
+        total: projects.filter((p) => p.category === 'personal').length,
+        awards: projects.filter((p) => p.category === 'personal' && hasAward(p)).length,
+      },
+      hackathon: {
+        total: projects.filter((p) => p.category === 'hackathon').length,
+        awards: projects.filter((p) => p.category === 'hackathon' && hasAward(p)).length,
+      },
     }),
-    []
+    [],
   )
 
-  const filtered = useMemo(
-    () =>
-      filter === 'all'
-        ? projects
-        : projects.filter((p) => p.category === filter),
-    [filter]
-  )
+  const filtered = useMemo(() => {
+    const list = filter === 'all' ? projects : projects.filter((p) => p.category === filter)
+    return sortFeaturedFirst(list)
+  }, [filter])
 
   return (
     <main className="relative max-w-4xl mx-auto px-6 pt-24 md:pt-32 pb-20 z-10">
@@ -57,14 +71,14 @@ export default function ProjectsPage() {
           All projects
         </h1>
         <p className="text-foreground-muted leading-relaxed text-sm md:text-base max-w-xl">
-          A growing archive of personal builds and hackathon work — sorted with
-          the most recent on top.
+          A growing archive of personal builds and hackathon work — featured projects appear first.
         </p>
       </motion.header>
 
       <div className="flex flex-wrap items-center gap-2 mb-10">
         {FILTERS.map((f) => {
           const active = filter === f.value
+          const c = counts[f.value]
           return (
             <button
               key={f.value}
@@ -73,18 +87,24 @@ export default function ProjectsPage() {
                 'inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-[11px] font-mono uppercase tracking-[0.18em] transition-all active:scale-95',
                 active
                   ? 'border-foreground bg-foreground text-background'
-                  : 'border-border text-foreground-muted hover:text-foreground hover:border-foreground/40'
+                  : 'border-border text-foreground-muted hover:text-foreground hover:border-foreground/40',
               )}
             >
               <span>{f.label}</span>
-              <span
-                className={cn(
-                  'text-[10px]',
-                  active ? 'opacity-70' : 'opacity-50'
-                )}
-              >
-                {counts[f.value]}
+              <span className={cn('text-[10px]', active ? 'opacity-70' : 'opacity-50')}>
+                {c.total}
               </span>
+              {c.awards > 0 && (
+                <span
+                  className={cn(
+                    'inline-flex items-center gap-0.5 text-[10px]',
+                    active ? 'opacity-90' : 'opacity-70',
+                  )}
+                >
+                  <Trophy size={9} className="text-amber-500" />
+                  {c.awards}
+                </span>
+              )}
             </button>
           )
         })}
@@ -106,6 +126,7 @@ export default function ProjectsPage() {
               videoUrl={p.caseStudy?.videoUrl}
               award={award}
               event={p.event}
+              year={p.year}
               detailHref={p.slug ? `/projects/${p.slug}` : undefined}
               isDimmed={hovered !== null && hovered !== i}
               onHover={() => setHovered(i)}
@@ -116,9 +137,7 @@ export default function ProjectsPage() {
       </div>
 
       {filtered.length === 0 && (
-        <p className="text-center text-sm text-foreground-muted py-16">
-          Nothing here yet.
-        </p>
+        <p className="text-center text-sm text-foreground-muted py-16">Nothing here yet.</p>
       )}
     </main>
   )

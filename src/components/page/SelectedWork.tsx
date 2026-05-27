@@ -1,37 +1,21 @@
 'use client'
 
-// "Selected Projects" - mirrors syedsubhan.in's projects section pattern:
-// h2 with inline rule, 2-col grid of ProjectCards, "Cooking more..." shimmer below.
-
 import { useState } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
-import { projects } from '@/data/projects'
+import { projects, FEATURED_SLUGS } from '@/data/projects'
 import { ProjectCard } from '@/components/ui/ProjectCard'
-
-const FEATURED_SLUGS = [
-  'truevoice',
-  'wildscan',
-  'darkfleet',
-  'bk-shoot',
-]
+import { RevealOnScroll } from '@/components/ui/RevealOnScroll'
 
 export function SelectedWork() {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
 
   const featured = FEATURED_SLUGS.map((slug) =>
-    projects.find((p) => p.slug === slug)
+    projects.find((p) => p.slug === slug),
   ).filter(Boolean) as typeof projects
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="mb-16"
-    >
+    <RevealOnScroll as="section" className="mb-16">
       <h2 className="text-2xl font-display text-foreground mb-8 flex items-center gap-3">
         Selected Projects
         <div className="h-px flex-1 bg-border-soft" />
@@ -53,6 +37,7 @@ export function SelectedWork() {
               videoUrl={p.caseStudy?.videoUrl}
               award={award}
               event={p.event}
+              year={p.year}
               detailHref={p.slug ? `/projects/${p.slug}` : undefined}
               isDimmed={hoveredProject !== null && hoveredProject !== i}
               onHover={() => setHoveredProject(i)}
@@ -81,6 +66,6 @@ export function SelectedWork() {
           />
         </Link>
       </div>
-    </motion.section>
+    </RevealOnScroll>
   )
 }

@@ -25,6 +25,7 @@ interface ProjectCardProps {
   award?: { title: string; description: string }
   detailHref?: string
   event?: string
+  year?: string
 }
 
 export function ProjectCard({
@@ -42,6 +43,7 @@ export function ProjectCard({
   award,
   detailHref,
   event,
+  year,
 }: ProjectCardProps) {
   const [, setIsHovered] = useState(false)
 
@@ -84,8 +86,8 @@ export function ProjectCard({
       className={cn(
         'group relative flex flex-col w-full bg-background rounded-2xl border border-border overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-black/5 dark:hover:shadow-white/5 transition-all duration-500 will-change-transform h-auto md:h-[420px]',
         isDimmed
-          ? 'grayscale opacity-40 blur-[1px] scale-95'
-          : 'grayscale-0 opacity-100 blur-0'
+          ? 'grayscale opacity-60 scale-[0.98]'
+          : 'grayscale-0 opacity-100'
       )}
     >
       {/* Hover Glow - neutral, picks up the foreground tone */}
@@ -133,9 +135,16 @@ export function ProjectCard({
 
         {/* Award badge */}
         {award && (
-          <div className="absolute top-3 left-3 z-20 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-background/85 backdrop-blur-sm border border-border-soft text-[10px] font-mono font-medium text-foreground tracking-wide max-w-[calc(100%-1.5rem)]">
-            <Trophy size={10} className="text-amber-500 shrink-0" />
+          <div className="absolute top-3 left-3 z-20 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-background/90 backdrop-blur-sm border border-amber-500/30 text-[11px] font-mono font-semibold text-foreground tracking-wide max-w-[calc(100%-1.5rem)]">
+            <Trophy size={11} className="text-amber-500 shrink-0" />
             <span className="truncate">{award.title.split(' - ')[0]}</span>
+          </div>
+        )}
+
+        {/* Year badge */}
+        {year && (
+          <div className="absolute top-3 right-3 z-20 inline-flex items-center px-2 py-0.5 rounded-full bg-background/85 backdrop-blur-sm border border-border-soft font-mono text-[10.5px] font-medium text-foreground-muted tracking-[0.06em]">
+            {year}
           </div>
         )}
       </div>

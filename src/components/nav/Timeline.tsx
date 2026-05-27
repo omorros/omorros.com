@@ -15,7 +15,7 @@ interface TimelineSection {
 
 const SECTIONS: TimelineSection[] = [
   { id: 'about', title: 'About' },
-  { id: 'work', title: 'Career Path' },
+  { id: 'work', title: 'Experience' },
   { id: 'skills', title: 'Tech Stack' },
   { id: 'projects', title: 'Projects' },
   { id: 'education', title: 'Education' },

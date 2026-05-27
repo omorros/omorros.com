@@ -1,24 +1,17 @@
 'use client'
 
-// Contact section - full port of syedsubhan.in's contact pattern:
-//   "Socials" label pill → centered Playfair heading → Caveat handwriting line →
-//   SocialDock (icon row) → italic Playfair quote → bottom credit row.
-
-import { motion } from 'framer-motion'
 import { siteConfig } from '@/lib/constants'
 import { SocialDock } from '@/components/ui/SocialDock'
+import { RevealOnScroll } from '@/components/ui/RevealOnScroll'
 import { triggerHaptic } from '@/lib/utils'
 
 export function ContactNow() {
   const year = new Date().getFullYear()
 
   return (
-    <motion.section
+    <RevealOnScroll
+      as="section"
       id="contact"
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       className="mb-0 scroll-mt-32 pb-0"
     >
       <div className="flex flex-col items-center text-center">
@@ -58,6 +51,6 @@ export function ContactNow() {
           </div>
         </div>
       </div>
-    </motion.section>
+    </RevealOnScroll>
   )
 }

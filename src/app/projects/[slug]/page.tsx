@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import {
   ArrowLeft,
+  ArrowRight,
   ExternalLink,
   Github,
   Trophy,
@@ -15,9 +16,7 @@ interface PageProps {
 }
 
 export function generateStaticParams() {
-  return projects
-    .filter((p) => p.slug)
-    .map((p) => ({ slug: p.slug! }))
+  return projects.filter((p) => p.slug).map((p) => ({ slug: p.slug! }))
 }
 
 export function generateMetadata({ params }: PageProps): Metadata {
@@ -35,8 +34,13 @@ export default function ProjectDetailPage({ params }: PageProps) {
 
   const cs = project.caseStudy
   const heroMedia = cs?.thumbnail || cs?.screenshots?.[0]
-  const galleryScreens =
-    cs?.screenshots?.filter((s) => s !== heroMedia) ?? []
+  const galleryScreens = cs?.screenshots?.filter((s) => s !== heroMedia) ?? []
+
+  // Prev / next within the projects array (skip projects without a slug)
+  const slugged = projects.filter((p) => p.slug)
+  const idx = slugged.findIndex((p) => p.slug === project.slug)
+  const prev = idx > 0 ? slugged[idx - 1] : null
+  const next = idx >= 0 && idx < slugged.length - 1 ? slugged[idx + 1] : null
 
   return (
     <main className="relative max-w-4xl mx-auto px-6 pt-24 md:pt-32 pb-24 z-10">
@@ -50,14 +54,17 @@ export default function ProjectDetailPage({ params }: PageProps) {
 
       {/* Header */}
       <header className="mb-10">
-        <div className="flex flex-wrap items-center gap-3 mb-4">
-          <span className="px-2.5 py-1 rounded-full bg-background-soft border border-border-soft text-[10px] font-mono uppercase tracking-[0.18em] text-foreground-muted">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-4 font-mono text-[10px] uppercase tracking-[0.18em]">
+          <span className="px-2.5 py-1 rounded-full bg-background-soft border border-border-soft text-foreground-muted">
             {project.category === 'hackathon' ? 'Hackathon' : 'Personal'}
           </span>
-          {project.event && (
-            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-faint">
-              {project.event}
+          {project.year && (
+            <span className="px-2.5 py-1 rounded-full bg-background-soft border border-border-soft text-foreground-muted">
+              {project.year}
             </span>
+          )}
+          {project.event && (
+            <span className="text-foreground-faint">{project.event}</span>
           )}
         </div>
 
@@ -148,19 +155,13 @@ export default function ProjectDetailPage({ params }: PageProps) {
             />
           ) : (
             // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={heroMedia!}
-              alt={project.title}
-              className="w-full h-auto block"
-            />
+            <img src={heroMedia!} alt={project.title} className="w-full h-auto block" />
           )}
         </div>
       )}
 
       {/* Challenge */}
-      {cs?.challenge && (
-        <Section label="Challenge" body={cs.challenge} />
-      )}
+      {cs?.challenge && <Section label="Challenge" body={cs.challenge} />}
 
       {/* Approach */}
       {cs?.approach && <Section label="Approach" body={cs.approach} />}
@@ -226,15 +227,9 @@ export default function ProjectDetailPage({ params }: PageProps) {
                 </thead>
                 <tbody>
                   {t.rows.map((row, i) => (
-                    <tr
-                      key={i}
-                      className="border-b border-border-soft last:border-0"
-                    >
+                    <tr key={i} className="border-b border-border-soft last:border-0">
                       {row.map((cell, j) => (
-                        <td
-                          key={j}
-                          className="px-4 py-3 text-foreground-muted"
-                        >
+                        <td key={j} className="px-4 py-3 text-foreground-muted">
                           {cell}
                         </td>
                       ))}
@@ -247,15 +242,67 @@ export default function ProjectDetailPage({ params }: PageProps) {
         </section>
       ))}
 
-      {/* Footer nav */}
-      <div className="pt-8 border-t border-border-soft">
-        <Link
-          href="/projects"
-          className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground-muted hover:text-foreground transition-colors"
-        >
-          <ArrowLeft size={12} />
-          <span>Back to all projects</span>
-        </Link>
+      {/* Footer: GitHub CTA + prev/next nav */}
+      <div className="pt-8 mt-4 border-t border-border-soft">
+        {project.link && (
+          <div className="mb-8 flex flex-wrap items-center gap-3">
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-border text-xs font-mono uppercase tracking-[0.15em] text-foreground-muted hover:text-foreground hover:border-foreground/40 transition-all active:scale-95"
+            >
+              <Github size={12} />
+              <span>View on GitHub</span>
+              <ExternalLink size={10} className="opacity-60" />
+            </a>
+          </div>
+        )}
+
+        <nav className="grid grid-cols-1 md:grid-cols-2 gap-3" aria-label="Project navigation">
+          {prev ? (
+            <Link
+              href={`/projects/${prev.slug}`}
+              className="group rounded-xl border border-border-soft hover:border-border bg-background-soft/40 hover:bg-background-soft/70 p-4 transition-colors"
+            >
+              <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-faint mb-1 flex items-center gap-1.5">
+                <ArrowLeft size={11} />
+                Previous
+              </div>
+              <div className="text-sm font-semibold text-foreground group-hover:text-accent transition-colors truncate">
+                {prev.title}
+              </div>
+            </Link>
+          ) : (
+            <div />
+          )}
+          {next ? (
+            <Link
+              href={`/projects/${next.slug}`}
+              className="group rounded-xl border border-border-soft hover:border-border bg-background-soft/40 hover:bg-background-soft/70 p-4 transition-colors md:text-right"
+            >
+              <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-faint mb-1 flex items-center gap-1.5 md:justify-end">
+                Next
+                <ArrowRight size={11} />
+              </div>
+              <div className="text-sm font-semibold text-foreground group-hover:text-accent transition-colors truncate">
+                {next.title}
+              </div>
+            </Link>
+          ) : (
+            <div />
+          )}
+        </nav>
+
+        <div className="mt-8">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground-muted hover:text-foreground transition-colors"
+          >
+            <ArrowLeft size={12} />
+            <span>Back to all projects</span>
+          </Link>
+        </div>
       </div>
     </main>
   )

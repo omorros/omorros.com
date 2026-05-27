@@ -1,27 +1,15 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { SectionHeader } from './SectionHeader'
+import { RevealOnScroll } from '@/components/ui/RevealOnScroll'
 import { WorkTimeline, type TimelineItem } from '@/components/ui/WorkTimeline'
 
-type EducationEntry = {
-  institution: string
-  degree: string
-  date: string
-  location: string
-  logo: string | null
-  description: string
-  bullets: string[]
-  tags?: string[]
-  link?: string
-}
-
-const EDUCATION: EducationEntry[] = [
+const EDUCATION: TimelineItem[] = [
   {
-    institution: 'Anglia Ruskin University',
-    degree: 'BSc (Hons) Software Engineering · Cambridge',
+    id: 'aru-bsc',
     date: '2023 - May 2026',
-    location: 'Cambridge, UK · On-site',
+    title: 'Anglia Ruskin University',
+    subtitle: 'BSc (Hons) Software Engineering · Cambridge',
     logo: '/aru-logo.jpg',
     description: 'Final-year BSc, expected May 2026.',
     bullets: [
@@ -42,30 +30,12 @@ const EDUCATION: EducationEntry[] = [
 ]
 
 export function Education() {
-  const items: TimelineItem[] = EDUCATION.map((e, i) => ({
-    id: `${e.institution}-${i}`,
-    date: e.date,
-    title: e.institution,
-    subtitle: e.degree,
-    logo: e.logo,
-    description: e.description,
-    bullets: e.bullets,
-    tags: e.tags,
-    link: e.link,
-  }))
-
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="pt-12 pb-32"
-    >
-      <SectionHeader title="Education" caption="Academic background." />
+    <RevealOnScroll as="section" className="pt-12 pb-32">
+      <SectionHeader title="Education" />
       <div className="mt-6">
-        <WorkTimeline items={items} />
+        <WorkTimeline items={EDUCATION} />
       </div>
-    </motion.section>
+    </RevealOnScroll>
   )
 }

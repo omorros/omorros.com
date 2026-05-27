@@ -1,9 +1,9 @@
 export const siteConfig = {
   name: 'Oriol Morros Vilaseca',
-  subtitle: 'Software Engineer in Cambridge, UK',
+  subtitle: 'Software Engineer · London / Cambridge, UK',
   title: 'Oriol Morros Vilaseca | Software Engineer',
   description:
-    'Software Engineering student at ARU, Cambridge. AI/ML Enthusiast building innovative solutions.',
+    'Software Engineer building infrastructure for AI agents. Currently at Eli by Techbible (London) and finishing a BSc at ARU Cambridge (predicted First-Class Honours).',
   url: 'https://omorros.com',
   links: {
     github: 'https://github.com/omorros',

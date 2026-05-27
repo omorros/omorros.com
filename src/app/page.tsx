@@ -1,7 +1,4 @@
-// Page composition - Subhan-style flow, full section list:
-//   hero → ask-block → experience (work) → tech-stack (skills) → articles →
-//   selected-projects → philosophy quote (scroll-fill) → build-log →
-//   hackathons → education → now → page-visits → contact
+// Page composition: hero -> experience -> tech-stack -> projects -> education -> contact
 
 import { AmbientBackground } from '@/components/ui/AmbientBackground'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
@@ -14,12 +11,10 @@ import { TechStack } from '@/components/page/TechStack'
 import { SelectedWork } from '@/components/page/SelectedWork'
 import { Education } from '@/components/page/Education'
 import { ContactNow } from '@/components/page/ContactNow'
-import { Preloader } from '@/components/page/Preloader'
 
 export default function Page() {
   return (
     <>
-      <Preloader />
       <AmbientBackground />
       <DynamicNavigation />
       <Timeline />

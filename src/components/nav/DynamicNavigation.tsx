@@ -30,8 +30,8 @@ import StellarBuddy from '@/components/nav/StellarBuddy'
  *   3. Expanded island: same pill, taller, dropdown TOC of sections
  *   4. Open menu: pill widens back, separate Playfair menu panel drops below
  *
- * AppleDock and the standalone ThemeToggle are NOT rendered here - they're
- * mounted separately from `app/page.tsx` to avoid double-rendering.
+ * The standalone ThemeToggle is NOT rendered here - it's mounted separately
+ * from `app/page.tsx` to avoid double-rendering.
  *
  * All props are optional with sensible defaults so `<DynamicNavigation />`
  * with no props "just works" and tracks window scroll.
@@ -58,7 +58,7 @@ type DynamicNavigationProps = {
 
 const DEFAULT_SECTIONS: Section[] = [
   { id: 'about', title: 'About' },
-  { id: 'work', title: 'Work' },
+  { id: 'work', title: 'Experience' },
   { id: 'skills', title: 'Tech' },
   { id: 'projects', title: 'Projects' },
   { id: 'education', title: 'Education' },

@@ -2,8 +2,15 @@
 
 import { useRef } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
-import { Calendar, Briefcase } from 'lucide-react'
+import { Calendar, Briefcase, ArrowUpRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
+
+export type PRCardItem = {
+  number: string // e.g. "#3371"
+  badge: { label: string; tone: 'red' | 'blue' | 'amber' }
+  summary: string
+  url: string
+}
 
 export type TimelineItem = {
   id: string
@@ -13,8 +20,16 @@ export type TimelineItem = {
   logo?: string | null
   description?: string
   bullets?: string[]
+  prCards?: PRCardItem[]
+  prFooter?: { label: string; url: string }
   tags?: string[]
   link?: string
+}
+
+const TONE_CLASSES: Record<PRCardItem['badge']['tone'], string> = {
+  red: 'bg-red-500/10 text-red-700 dark:text-red-300 border-red-500/20',
+  blue: 'bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/20',
+  amber: 'bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/20',
 }
 
 interface WorkTimelineProps {
@@ -99,6 +114,52 @@ function TimelineRow({ item, index }: RowProps) {
                     </li>
                   ))}
                 </ul>
+              )}
+              {item.prCards && item.prCards.length > 0 && (
+                <ul className="space-y-2 pt-1">
+                  {item.prCards.map((pr) => (
+                    <li key={pr.number}>
+                      <a
+                        href={pr.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="group/pr flex items-start gap-2.5 rounded-md border border-border-soft p-2.5 hover:border-border hover:bg-foreground/[0.02] transition-colors"
+                      >
+                        <span
+                          className={cn(
+                            'shrink-0 px-1.5 py-0.5 rounded border font-mono text-[9.5px] uppercase tracking-[0.12em] font-semibold leading-tight',
+                            TONE_CLASSES[pr.badge.tone],
+                          )}
+                        >
+                          {pr.badge.label}
+                        </span>
+                        <span className="font-mono text-[11px] text-foreground shrink-0 leading-tight pt-[2px]">
+                          {pr.number}
+                        </span>
+                        <span className="flex-1 text-[12.5px] text-foreground-muted leading-snug">
+                          {pr.summary}
+                        </span>
+                        <ArrowUpRight
+                          size={12}
+                          className="shrink-0 mt-[2px] text-foreground-faint group-hover/pr:text-foreground transition-colors"
+                        />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {item.prFooter && (
+                <a
+                  href={item.prFooter.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex items-center gap-1 font-mono text-[10.5px] uppercase tracking-[0.18em] text-foreground-muted hover:text-foreground transition-colors pt-1"
+                >
+                  {item.prFooter.label}
+                  <ArrowUpRight size={11} />
+                </a>
               )}
               {item.tags && item.tags.length > 0 && (
                 <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-foreground-faint pt-2">

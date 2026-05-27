@@ -107,15 +107,6 @@ a { color: inherit; text-decoration: none; }
   to   { clip-path: polygon(171% 50%, 50% 171%, -50% 71%, 50% -71%); }
 }
 
-/* Magic UI Border Beam keyframes (kept for AskBlock) */
-@keyframes border-beam {
-  100% { offset-distance: 100%; }
-}
-.animate-border-beam {
-  animation: border-beam var(--duration, 15s) infinite linear;
-  animation-delay: var(--delay, 0s);
-}
-
 /* Shimmer text - used for "cooking more..." style accents (future) */
 @keyframes shimmer {
   from { background-position: 200% 0; }

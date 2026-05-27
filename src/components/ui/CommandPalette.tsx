@@ -7,10 +7,10 @@ import { cn } from '@/lib/utils'
 
 const NAV_ITEMS = [
   { id: 'about', label: 'Hero / About', href: '#about' },
-  { id: 'work', label: 'Career Path', href: '#work' },
+  { id: 'work', label: 'Experience', href: '#work' },
   { id: 'skills', label: 'Tech Stack', href: '#skills' },
-  { id: 'articles', label: 'Articles', href: '#articles' },
   { id: 'projects', label: 'Selected Projects', href: '#projects' },
+  { id: 'education', label: 'Education', href: '#education' },
   { id: 'contact', label: 'Contact', href: '#contact' },
 ]
 

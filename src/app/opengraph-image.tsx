@@ -3,7 +3,7 @@ import { siteConfig } from '@/lib/constants'
 
 export const runtime = 'edge'
 
-export const alt = siteConfig.name
+export const alt = `${siteConfig.name} — ${siteConfig.subtitle}`
 export const size = {
   width: 1200,
   height: 630,
@@ -16,61 +16,120 @@ export default async function Image() {
     (
       <div
         style={{
-          background: 'linear-gradient(to bottom right, #050505, #111111)',
           width: '100%',
           height: '100%',
+          background: '#000',
+          color: '#fff',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontFamily: 'sans-serif',
+          justifyContent: 'space-between',
+          padding: '64px 72px',
+          fontFamily: 'system-ui, -apple-system, "Segoe UI", sans-serif',
         }}
       >
+        {/* Top row: domain + availability */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            fontSize: 18,
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+            fontFamily: 'ui-monospace, "SF Mono", Menlo, monospace',
+          }}
+        >
+          <span style={{ color: '#9ca3af' }}>omorros.com</span>
+          <span
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              color: '#d1d5db',
+              border: '1px solid #262626',
+              borderRadius: 999,
+              padding: '8px 18px',
+              fontSize: 15,
+            }}
+          >
+            <span
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: '50%',
+                background: '#22c55e',
+                display: 'flex',
+              }}
+            />
+            Available
+          </span>
+        </div>
+
+        {/* Center: name + positioning */}
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            borderRadius: '20px',
-            padding: '40px 80px',
-            background: 'rgba(255, 255, 255, 0.03)',
-            boxShadow: '0 0 80px -20px #8f46db',
+            gap: 18,
           }}
         >
           <div
             style={{
-              fontSize: 64,
-              fontWeight: 800,
-              background: 'linear-gradient(to bottom right, #ffffff, #999999)',
-              backgroundClip: 'text',
-              color: 'transparent',
-              marginBottom: 20,
-              letterSpacing: '-0.02em',
+              fontSize: 96,
+              fontWeight: 600,
+              letterSpacing: '-0.03em',
+              lineHeight: 1.02,
+              color: '#fff',
             }}
           >
-            {siteConfig.name}
+            Oriol Morros Vilaseca
           </div>
           <div
             style={{
               fontSize: 32,
-              color: '#90caf9',
-              fontWeight: 600,
+              lineHeight: 1.3,
+              color: '#d1d5db',
               letterSpacing: '-0.01em',
+              display: 'flex',
+              alignItems: 'baseline',
+              gap: 14,
             }}
           >
-            {siteConfig.subtitle}
+            <span>Software Engineer</span>
+            <span style={{ color: '#525252' }}>|</span>
+            <span style={{ color: '#fff', fontWeight: 500 }}>
+              Building infrastructure for AI agents.
+            </span>
           </div>
         </div>
-        
-        {/* Simple decorative elements */}
-        <div style={{ position: 'absolute', top: 40, left: 40, width: 20, height: 20, borderRadius: '50%', background: '#8f46db', opacity: 0.5 }} />
-        <div style={{ position: 'absolute', bottom: 40, right: 40, width: 20, height: 20, borderRadius: '50%', background: '#90caf9', opacity: 0.5 }} />
+
+        {/* Bottom: credibility strip */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 18,
+            fontSize: 18,
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+            fontFamily: 'ui-monospace, "SF Mono", Menlo, monospace',
+            color: '#9ca3af',
+          }}
+        >
+          <span>
+            <span style={{ color: '#fff' }}>2×</span> Hackathon Winner
+          </span>
+          <span style={{ color: '#404040' }}>·</span>
+          <span>
+            <span style={{ color: '#fff' }}>18</span> PRs to IBM MCP Context Forge
+          </span>
+          <span style={{ color: '#404040' }}>·</span>
+          <span>Eli by Techbible</span>
+        </div>
       </div>
     ),
     {
       ...size,
-    }
+    },
   )
 }
