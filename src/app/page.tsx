@@ -122,18 +122,22 @@ export default function Page() {
 
       <div>
         <div className="mx-auto mt-16 xl:max-w-6xl">
-          <ImageCard src="/life/london.svg" title="London" date="2026–Present" />
+          <ImageCard
+            src="/images/life/london.svg"
+            title="London"
+            date="2026–Present"
+          />
           <div className="flex xl:mt-10 xl:-mx-6">
             <div className="w-1/2 xl:px-6">
               <ImageCard
-                src="/life/cambridge-square.svg"
+                src="/images/life/cambridge-square.svg"
                 title="Cambridge"
                 date="2023–2026"
               />
             </div>
             <div className="w-1/2 xl:px-6">
               <ImageCard
-                src="/life/manresa-square.svg"
+                src="/images/life/manresa-square.svg"
                 title="Manresa"
                 date="2005–2023"
               />
