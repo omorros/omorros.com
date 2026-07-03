@@ -26,6 +26,7 @@ function CardImage({ slug }: { slug: string }) {
   const p = bySlug(slug)
   if (!p) return null
   const src =
+    p.caseStudy?.cardImage ||
     p.caseStudy?.thumbnail ||
     p.caseStudy?.screenshots?.[0] ||
     '/images/card-placeholder.svg'

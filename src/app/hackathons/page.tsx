@@ -20,7 +20,10 @@ function bySlug(slug: string) {
 function CardImage({ slug }: { slug: string }) {
   const p = bySlug(slug)
   if (!p) return null
-  const src = p.caseStudy?.thumbnail || p.caseStudy?.screenshots?.[0]
+  const src =
+    p.caseStudy?.cardImage ||
+    p.caseStudy?.thumbnail ||
+    p.caseStudy?.screenshots?.[0]
   return (
     <Link href={`/projects/${p.slug}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
