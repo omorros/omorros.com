@@ -117,10 +117,6 @@ export default async function Image() {
           }}
         >
           <span>
-            <span style={{ color: '#fff' }}>2×</span> Hackathon Winner
-          </span>
-          <span style={{ color: '#404040' }}>·</span>
-          <span>
             <span style={{ color: '#fff' }}>18</span> PRs to IBM MCP Context Forge
           </span>
           <span style={{ color: '#404040' }}>·</span>

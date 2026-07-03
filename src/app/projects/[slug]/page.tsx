@@ -59,10 +59,13 @@ export default function ProjectDetailPage({ params }: PageProps) {
         </p>
 
         {cs?.awards && cs.awards.length > 0 && (
-          <ul className="mt-4 space-y-1">
+          <ul className="mt-4 space-y-2">
             {cs.awards.map((a) => (
-              <li key={a.title} className="text-sm text-accent">
-                {a.title}
+              <li key={a.title} className="max-w-measure">
+                <p className="text-sm text-accent">{a.title}</p>
+                {a.description && (
+                  <p className="text-sm text-foreground-muted">{a.description}</p>
+                )}
               </li>
             ))}
           </ul>
