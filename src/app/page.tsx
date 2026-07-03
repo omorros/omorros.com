@@ -1,10 +1,8 @@
 import Link from 'next/link'
-import { Github, Linkedin, FileText, Mail } from 'lucide-react'
+import { ChevronRight, FileText, Github, Linkedin, Mail } from 'lucide-react'
 import { siteConfig } from '@/lib/constants'
-import { projects } from '@/data/projects'
-import { Life } from '@/components/site/Life'
 
-const FEATURED = ['truevoice', 'offbabel', 'wildscan', 'darkfleet']
+// Layout, spacing and type classes follow the samselikoff.com homepage.
 
 const SOCIAL = [
   { href: siteConfig.links.github, label: 'GitHub', Icon: Github },
@@ -13,136 +11,265 @@ const SOCIAL = [
   { href: `mailto:${siteConfig.links.email}`, label: 'Email', Icon: Mail },
 ]
 
-const WORK = [
-  {
-    place: 'Eli by Techbible',
-    role: 'Software engineer, infrastructure for AI agents',
-    dates: '2026 to now',
-  },
-  {
-    place: 'University of Cambridge',
-    role: 'Digital technician',
-    dates: '2025 to 2026',
-  },
-  {
-    place: 'IBM MCP Context Forge',
-    role: 'Open source contributor, 18 merged PRs',
-    dates: '2026',
-  },
-  {
-    place: 'Festival Sant Fruitós',
-    role: 'Web developer',
-    dates: '2026',
-  },
-]
-
 export default function Page() {
-  const featured = FEATURED.map((slug) =>
-    projects.find((p) => p.slug === slug),
-  ).filter((p): p is NonNullable<typeof p> => Boolean(p))
-
   return (
-    <main className="max-w-2xl mx-auto px-6 pt-16 md:pt-24">
-      <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
-        Hello!
-      </h1>
+    <main>
+      <Container>
+        <Spacer size="xl" />
 
-      <div className="mt-6 space-y-4 max-w-measure text-foreground-muted text-lg">
-        <p>
-          I’m Oriol Morros, a software engineer in London. I build
-          infrastructure for AI agents at Eli by Techbible.
-        </p>
-        <p>
-          I studied software engineering at ARU in Cambridge and graduated
-          with First Class Honours in 2026.
-        </p>
+        <Title>Hello!</Title>
+
+        <Spacer size="lg" />
+
+        <Lead>
+          I’m Oriol Morros, a software engineer building infrastructure for AI
+          agents at Eli by Techbible in London.
+        </Lead>
+      </Container>
+
+      <div className="mt-6 sm:hidden">
+        <HomepageImage />
       </div>
 
-      <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
-        {SOCIAL.map((l) => (
-          <a
-            key={l.label}
-            href={l.href}
-            target={l.href.startsWith('mailto:') ? undefined : '_blank'}
-            rel={l.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-            className="inline-flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors"
-          >
-            <l.Icon size={14} aria-hidden="true" />
-            <span>{l.label}</span>
-          </a>
-        ))}
-      </div>
-
-      <section className="mt-20">
-        <h2 className="text-xl font-semibold text-foreground">Projects</h2>
-        <p className="mt-4 max-w-measure text-foreground-muted">
-          I build things at hackathons and on my own time. Some recent ones:
-        </p>
-        <ul className="mt-6 space-y-5">
-          {featured.map((p) => {
-            const award = p.caseStudy?.awards?.[0]
-            return (
-              <li key={p.slug}>
-                <Link
-                  href={`/projects/${p.slug}`}
-                  className="font-medium text-foreground hover:text-accent transition-colors"
-                >
-                  {p.title}
-                </Link>
-                {award && (
-                  <p className="text-sm text-accent mt-0.5">{award.title}</p>
-                )}
-                <p className="mt-1 text-sm text-foreground-muted max-w-measure">
-                  {p.description}
-                </p>
-              </li>
-            )
-          })}
-        </ul>
-        <Link
-          href="/projects"
-          className="mt-6 inline-block text-sm text-accent hover:underline"
-        >
-          All projects
-        </Link>
-      </section>
-
-      <section className="mt-20">
-        <h2 className="text-xl font-semibold text-foreground">Work</h2>
-        <ul className="mt-6 space-y-4">
-          {WORK.map((w) => (
-            <li key={w.place} className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-x-4">
-              <div>
-                <span className="font-medium text-foreground">{w.place}</span>
-                <span className="text-foreground-muted"> · {w.role}</span>
-              </div>
-              <span className="text-sm text-foreground-faint shrink-0">
-                {w.dates}
-              </span>
-            </li>
+      <Container>
+        <div className="flex items-center justify-between mt-5 text-xs font-medium text-gray-700 sm:justify-start smm:justify-center smm:text-sm lg:text-base lg:mt-8">
+          {SOCIAL.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              target={l.href.startsWith('mailto:') ? undefined : '_blank'}
+              rel={
+                l.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'
+              }
+              className="flex items-center hover:text-gray-800 smm:px-4 sm:pl-0 sm:pr-6 lg:pr-8"
+            >
+              <l.Icon className="h-4 w-4 mr-2" aria-hidden="true" />
+              <span>{l.label}</span>
+            </a>
           ))}
-        </ul>
-        <p className="mt-6 text-sm text-foreground-muted max-w-measure">
-          BSc Software Engineering, ARU Cambridge, First Class Honours, 2023
-          to 2026. I mostly work with TypeScript, Next.js, and Python.
-        </p>
-      </section>
+        </div>
 
-      <section className="mt-20">
-        <h2 className="text-xl font-semibold text-foreground">Blog</h2>
-        <p className="mt-4 max-w-measure text-foreground-muted">
-          I’m starting to write about software, AI, and what I’m building.
-        </p>
-        <Link
-          href="/blog"
-          className="mt-4 inline-block text-sm text-accent hover:underline"
-        >
-          Read the blog
-        </Link>
-      </section>
+        <div className="hidden mt-12 sm:block">
+          <HomepageImage className="rounded-lg" />
+        </div>
 
-      <Life />
+        <div className="mt-16 md:text-lg lg:flex lg:flex-wrap lg:-mx-4">
+          <div className="lg:w-1/2 lg:px-4">
+            <Section>
+              <SectionTitle link="/projects">Projects</SectionTitle>
+              <SectionBody>
+                <p>
+                  I build things on my own time, like{' '}
+                  <A href="/projects/snapshelf">SnapShelf</A> and{' '}
+                  <A href="/projects/darkfleet">DarkFleet</A>. You can find all
+                  of them <A href="/projects">here</A>.
+                </p>
+              </SectionBody>
+            </Section>
+          </div>
+
+          <div className="lg:w-1/2 lg:px-4">
+            <Section>
+              <SectionTitle>Hackathons</SectionTitle>
+              <SectionBody>
+                <p>
+                  I compete in hackathons around London, building projects like{' '}
+                  <A href="/projects/truevoice">TrueVoice</A> and{' '}
+                  <A href="/projects/offbabel">OffBabel</A> in a weekend.
+                </p>
+              </SectionBody>
+            </Section>
+          </div>
+
+          <div className="lg:w-1/2 lg:px-4">
+            <Section>
+              <SectionTitle>Awards</SectionTitle>
+              <SectionBody>
+                <p>
+                  Overall winner at Voice AI Hack London 2026 and Cosine track
+                  winner at the On-Device Agent Hackathon.
+                </p>
+              </SectionBody>
+            </Section>
+          </div>
+
+          <div className="lg:w-1/2 lg:px-4">
+            <Section>
+              <SectionTitle>Work</SectionTitle>
+              <SectionBody>
+                <p>
+                  Before Eli I worked at the University of Cambridge and
+                  contributed to IBM’s MCP Context Forge open source project.
+                </p>
+              </SectionBody>
+            </Section>
+          </div>
+        </div>
+      </Container>
+
+      <div className="mt-20 md:mt-32 lg:mt-48">
+        <Container>
+          <Title size="sm">Life</Title>
+          <Lead>
+            I grew up in Manresa, a small city near Barcelona, and moved to
+            England in 2023 to study in Cambridge.
+          </Lead>
+          <Lead>I currently live in London + absolutely love it here!</Lead>
+        </Container>
+      </div>
+
+      <div>
+        <div className="mx-auto mt-16 xl:max-w-6xl">
+          <ImageCard src="/life/london.svg" title="London" date="2026–Present" />
+          <div className="flex xl:mt-10 xl:-mx-6">
+            <div className="w-1/2 xl:px-6">
+              <ImageCard
+                src="/life/cambridge-square.svg"
+                title="Cambridge"
+                date="2023–2026"
+              />
+            </div>
+            <div className="w-1/2 xl:px-6">
+              <ImageCard
+                src="/life/manresa-square.svg"
+                title="Manresa"
+                date="2005–2023"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-16" />
     </main>
   )
 }
 
+function Container({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="max-w-xl px-6 mx-auto lg:max-w-3xl lg:px-0">{children}</div>
+  )
+}
+
+function Spacer({ size = 'md' }: { size?: 'md' | 'lg' | 'xl' }) {
+  const styles = {
+    md: 'mt-8',
+    lg: 'mt-8 md:mt-10 xl:mt-16',
+    xl: 'mt-8 md:mt-16 xl:mt-24',
+  }
+  return <div className={styles[size]} />
+}
+
+function Title({
+  size = 'md',
+  children,
+}: {
+  size?: 'sm' | 'md'
+  children: React.ReactNode
+}) {
+  const styles = {
+    sm: 'text-4xl font-semibold leading-tight text-gray-800 md:text-5xl lg:text-6xl lg:leading-none lg:font-medium xl:text-7xl',
+    md: 'text-5xl font-semibold leading-tight text-gray-800 md:text-6xl md:leading-none lg:text-7xl lg:font-medium xl:text-8xl',
+  }
+  return <h1 className={styles[size]}>{children}</h1>
+}
+
+function Lead({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="mt-6 text-lg text-gray-700 md:text-xl lg:text-2xl">
+      {children}
+    </p>
+  )
+}
+
+function A({ href, children }: { href: string; children: React.ReactNode }) {
+  const className =
+    'font-medium text-blue-500 border-b border-blue-300 hover:border-blue-400'
+  if (href.startsWith('/')) {
+    return (
+      <Link href={href} className={className}>
+        {children}
+      </Link>
+    )
+  }
+  return (
+    <a href={href} className={className}>
+      {children}
+    </a>
+  )
+}
+
+function HomepageImage({ className = '' }: { className?: string }) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/images/hero.svg"
+      alt="Oriol Morros"
+      className={`${className} h-full w-full object-cover object-top`}
+    />
+  )
+}
+
+function Section({ children }: { children: React.ReactNode }) {
+  return <section className="mt-10 md:mt-16 lg:mt-20">{children}</section>
+}
+
+function SectionTitle({
+  link,
+  children,
+}: {
+  link?: string
+  children: React.ReactNode
+}) {
+  const heading = (
+    <h2 className="text-2xl font-semibold text-gray-900 md:text-2xl lg:text-2-5xl">
+      {children}
+      {link && (
+        <ChevronRight
+          className="inline w-4 h-4 ml-1 md:w-5 md:h-5 lg:w-6 lg:h-6"
+          aria-hidden="true"
+        />
+      )}
+    </h2>
+  )
+
+  if (link) {
+    return (
+      <Link href={link} className="inline-block">
+        {heading}
+      </Link>
+    )
+  }
+  return heading
+}
+
+function SectionBody({ children }: { children: React.ReactNode }) {
+  return <div className="mt-2 md:mt-4 lg:mt-6">{children}</div>
+}
+
+function ImageCard({
+  src,
+  title,
+  date,
+}: {
+  src: string
+  title: string
+  date: string
+}) {
+  return (
+    <div className="relative">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        className="object-cover w-full h-full xl:rounded-lg"
+        src={src}
+        alt={title}
+      />
+      <div className="absolute bottom-0 w-full py-2 pl-3 text-white md:pl-4 md:py-4 bg-gradient-to-t from-black-85 xl:bg-none xl:static xl:text-gray-900 xl:px-0">
+        <p className="text-sm font-semibold sm:text-base xl:text-lg xl:font-medium">
+          {title}
+        </p>
+        <p className="text-xs sm:text-sm xl:text-gray-700">{date}</p>
+      </div>
+    </div>
+  )
+}

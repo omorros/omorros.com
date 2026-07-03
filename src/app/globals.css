@@ -16,33 +16,15 @@
   --accent: 37 99 235;              /* blue-600 */
 }
 
-.dark {
-  --background: 24 24 27;           /* zinc-900 */
-  --background-soft: 39 39 42;      /* zinc-800 */
-  --foreground: 244 244 245;        /* zinc-100 */
-  --foreground-muted: 161 161 170;  /* zinc-400 */
-  --foreground-faint: 113 113 122;  /* zinc-500 */
-  --border: 63 63 70;               /* zinc-700 */
-  --border-soft: 39 39 42;          /* zinc-800 */
-  --accent: 96 165 250;             /* blue-400 */
-}
-
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 
 html {
-  background: rgb(var(--background));
+  background: #fff;
   color-scheme: light;
 }
-html.dark { color-scheme: dark; }
 
 body {
-  background: rgb(var(--background));
-  color: rgb(var(--foreground));
-  font-size: 17px;
-  line-height: 1.6;
-  letter-spacing: -0.011em;
-  -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 

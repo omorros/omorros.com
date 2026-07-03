@@ -5,7 +5,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 import { siteConfig } from '@/lib/constants'
 import { Nav } from '@/components/site/Nav'
-import { Footer } from '@/components/site/Footer'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -88,25 +87,20 @@ export const metadata: Metadata = {
   },
 }
 
-// Apply saved theme before paint. Default is light.
-const themeInitScript = `(function(){try{if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark')}}catch(e){}})();`
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <body className="font-sans antialiased bg-background text-foreground">
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+    <html lang="en" className={inter.variable}>
+      <body className="font-sans text-base antialiased text-gray-800 bg-white">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <Nav />
         {children}
-        <Footer />
         <Analytics />
         <SpeedInsights />
       </body>

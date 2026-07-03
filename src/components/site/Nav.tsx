@@ -1,32 +1,32 @@
 import Link from 'next/link'
-import { ThemeToggle } from './ThemeToggle'
 
-const LINKS = [
-  { href: '/projects', label: 'Projects' },
-  { href: '/blog', label: 'Blog' },
-]
+// Header structure and classes follow samselikoff.com.
+const LINKS = [{ href: '/projects', label: 'Projects' }]
 
 export function Nav() {
   return (
-    <header className="max-w-2xl mx-auto px-6 pt-8 flex items-center justify-between">
-      <Link
-        href="/"
-        className="text-sm font-semibold text-foreground hover:text-accent transition-colors"
-      >
-        Oriol Morros
-      </Link>
-      <nav className="flex items-center gap-6">
-        {LINKS.map((l) => (
+    <header className="px-6">
+      <div className="pt-4 mx-auto max-w-7xl md:pt-6 xl:pt-8">
+        <div className="flex justify-between pb-4 md:pb-0 md:border-b md:border-gray-200 md:justify-start">
           <Link
-            key={l.href}
-            href={l.href}
-            className="text-sm text-foreground-muted hover:text-foreground transition-colors"
+            href="/"
+            className="text-sm font-light tracking-wide uppercase md:text-base lg:text-xl"
           >
-            {l.label}
+            Oriol<span className="font-bold">Morros</span>
           </Link>
-        ))}
-        <ThemeToggle />
-      </nav>
+          <div className="flex items-center ml-auto">
+            {LINKS.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="pb-4 ml-6 -mb-px text-gray-600 border-b border-transparent xl:pb-6 lg:ml-8 lg:text-base xl:text-lg hover:text-gray-900"
+              >
+                {l.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
     </header>
   )
 }
