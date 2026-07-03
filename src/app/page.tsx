@@ -19,7 +19,7 @@ export default function Page() {
       <Container>
         <Spacer size="xl" />
 
-        <Title>Hello!</Title>
+        <Title>Hola!</Title>
 
         <Spacer size="lg" />
 
@@ -133,13 +133,15 @@ export default function Page() {
                 src="/images/life/cambridge-square.svg"
                 title="Cambridge"
                 date="2023–2026"
+                aspect="aspect-square"
               />
             </div>
             <div className="w-1/2 xl:px-6">
               <ImageCard
-                src="/images/life/manresa-square.svg"
+                src="/images/life/manresa.jpg"
                 title="Manresa"
                 date="2005–2023"
+                aspect="aspect-square"
               />
             </div>
           </div>
@@ -203,16 +205,18 @@ function ImageCard({
   src,
   title,
   date,
+  aspect = 'aspect-[16/9]',
 }: {
   src: string
   title: string
   date: string
+  aspect?: string
 }) {
   return (
     <div className="relative">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        className="object-cover w-full h-full xl:rounded-lg"
+        className={`object-cover w-full h-full xl:rounded-lg ${aspect}`}
         src={src}
         alt={title}
       />
