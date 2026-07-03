@@ -1,13 +1,14 @@
 import Link from 'next/link'
-import { ChevronRight, FileText, Github, Linkedin, Mail } from 'lucide-react'
+import { ChevronRight } from 'lucide-react'
 import { siteConfig } from '@/lib/constants'
+import { GitHub, LinkedIn, Mail, CV } from '@/components/site/logos'
 
 // Layout, spacing and type classes follow the samselikoff.com homepage.
 
 const SOCIAL = [
-  { href: siteConfig.links.github, label: 'GitHub', Icon: Github },
-  { href: siteConfig.links.linkedin, label: 'LinkedIn', Icon: Linkedin },
-  { href: siteConfig.links.resume, label: 'CV', Icon: FileText },
+  { href: siteConfig.links.github, label: 'GitHub', Icon: GitHub },
+  { href: siteConfig.links.linkedin, label: 'LinkedIn', Icon: LinkedIn },
+  { href: siteConfig.links.resume, label: 'CV', Icon: CV },
   { href: `mailto:${siteConfig.links.email}`, label: 'Email', Icon: Mail },
 ]
 
@@ -43,7 +44,7 @@ export default function Page() {
               }
               className="flex items-center hover:text-gray-800 smm:px-4 sm:pl-0 sm:pr-6 lg:pr-8"
             >
-              <l.Icon className="h-4 w-4 mr-2" aria-hidden="true" />
+              <l.Icon className="h-4 w-4 mr-2" />
               <span>{l.label}</span>
             </a>
           ))}
