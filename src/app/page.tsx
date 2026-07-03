@@ -141,7 +141,7 @@ export default function Page() {
                 src="/images/life/manresa.jpg"
                 title="Manresa"
                 date="2005–2023"
-                aspect="aspect-square object-[70%_center]"
+                aspect="aspect-square object-[80%_center]"
               />
             </div>
           </div>
