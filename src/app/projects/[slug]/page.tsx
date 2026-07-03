@@ -1,14 +1,6 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import {
-  ArrowLeft,
-  ArrowRight,
-  ExternalLink,
-  Github,
-  Trophy,
-  FileText,
-} from 'lucide-react'
 import { projects } from '@/data/projects'
 
 interface PageProps {
@@ -28,6 +20,12 @@ export function generateMetadata({ params }: PageProps): Metadata {
   }
 }
 
+function SectionHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="text-xl font-semibold text-foreground mb-4">{children}</h2>
+  )
+}
+
 export default function ProjectDetailPage({ params }: PageProps) {
   const project = projects.find((p) => p.slug === params.slug)
   if (!project) notFound()
@@ -36,57 +34,49 @@ export default function ProjectDetailPage({ params }: PageProps) {
   const heroMedia = cs?.thumbnail || cs?.screenshots?.[0]
   const galleryScreens = cs?.screenshots?.filter((s) => s !== heroMedia) ?? []
 
-  // Prev / next within the projects array (skip projects without a slug)
   const slugged = projects.filter((p) => p.slug)
   const idx = slugged.findIndex((p) => p.slug === project.slug)
   const prev = idx > 0 ? slugged[idx - 1] : null
   const next = idx >= 0 && idx < slugged.length - 1 ? slugged[idx + 1] : null
 
+  const metaLine = [
+    project.category === 'hackathon' ? 'Hackathon' : 'Personal project',
+    project.year,
+    project.event,
+  ]
+    .filter(Boolean)
+    .join(' · ')
+
   return (
-    <main className="relative max-w-4xl mx-auto px-6 pt-24 md:pt-32 pb-24 z-10">
-      <Link
-        href="/projects"
-        className="inline-flex items-center gap-1.5 mb-10 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground-muted hover:text-foreground transition-colors"
-      >
-        <ArrowLeft size={12} />
-        <span>All projects</span>
-      </Link>
-
-      {/* Header */}
-      <header className="mb-10">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-4 font-mono text-[10px] uppercase tracking-[0.18em]">
-          <span className="px-2.5 py-1 rounded-full bg-background-soft border border-border-soft text-foreground-muted">
-            {project.category === 'hackathon' ? 'Hackathon' : 'Personal'}
-          </span>
-          {project.year && (
-            <span className="px-2.5 py-1 rounded-full bg-background-soft border border-border-soft text-foreground-muted">
-              {project.year}
-            </span>
-          )}
-          {project.event && (
-            <span className="text-foreground-faint">{project.event}</span>
-          )}
-        </div>
-
-        <h1 className="text-3xl md:text-5xl font-display font-medium text-foreground mb-4 leading-tight tracking-tight">
+    <main className="max-w-2xl mx-auto px-6 pt-16 md:pt-24">
+      <header>
+        <p className="text-sm text-foreground-faint">{metaLine}</p>
+        <h1 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight text-foreground">
           {project.title}
         </h1>
-
-        <p className="text-foreground-muted leading-relaxed text-base md:text-lg max-w-2xl mb-6">
+        <p className="mt-4 max-w-measure text-foreground-muted text-lg">
           {project.description}
         </p>
 
-        <div className="flex flex-wrap items-center gap-3">
+        {cs?.awards && cs.awards.length > 0 && (
+          <ul className="mt-4 space-y-1">
+            {cs.awards.map((a) => (
+              <li key={a.title} className="text-sm text-accent">
+                {a.title}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm">
           {project.link && (
             <a
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-border text-xs font-mono uppercase tracking-[0.15em] text-foreground-muted hover:text-foreground hover:border-foreground/40 transition-all active:scale-95"
+              className="text-accent hover:underline"
             >
-              <Github size={12} />
-              <span>Code</span>
-              <ExternalLink size={10} className="opacity-60" />
+              View code on GitHub
             </a>
           )}
           {cs?.reportUrl && (
@@ -94,56 +84,20 @@ export default function ProjectDetailPage({ params }: PageProps) {
               href={cs.reportUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-border text-xs font-mono uppercase tracking-[0.15em] text-foreground-muted hover:text-foreground hover:border-foreground/40 transition-all active:scale-95"
+              className="text-accent hover:underline"
             >
-              <FileText size={12} />
-              <span>Report</span>
+              Read the report
             </a>
           )}
         </div>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 mt-6">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-2.5 py-1 rounded-full bg-background-soft border border-border-soft text-[10px] font-semibold text-foreground-muted tracking-wide"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
+        <p className="mt-4 text-xs text-foreground-faint">
+          {project.tags.join(' · ')}
+        </p>
       </header>
 
-      {/* Awards */}
-      {cs?.awards && cs.awards.length > 0 && (
-        <section className="mb-12 grid grid-cols-1 md:grid-cols-2 gap-4">
-          {cs.awards.map((a) => (
-            <div
-              key={a.title}
-              className="rounded-2xl border border-amber-500/20 bg-amber-500/[0.03] p-5"
-            >
-              <div className="flex items-start gap-3">
-                <div className="shrink-0 w-9 h-9 rounded-full bg-amber-500/15 flex items-center justify-center">
-                  <Trophy size={16} className="text-amber-500" />
-                </div>
-                <div className="min-w-0">
-                  <h3 className="text-sm font-semibold text-foreground leading-snug mb-1">
-                    {a.title}
-                  </h3>
-                  <p className="text-xs text-foreground-muted leading-relaxed">
-                    {a.description}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </section>
-      )}
-
-      {/* Hero media */}
       {(heroMedia || cs?.videoUrl) && (
-        <div className="mb-12 rounded-2xl overflow-hidden border border-border bg-background-soft">
+        <div className="mt-10 rounded-lg overflow-hidden border border-border-soft bg-background-soft">
           {cs?.videoUrl ? (
             <video
               src={cs.videoUrl}
@@ -160,43 +114,42 @@ export default function ProjectDetailPage({ params }: PageProps) {
         </div>
       )}
 
-      {/* Challenge */}
-      {cs?.challenge && <Section label="Challenge" body={cs.challenge} />}
-
-      {/* Approach */}
-      {cs?.approach && <Section label="Approach" body={cs.approach} />}
-
-      {/* Features */}
-      {cs?.features && cs.features.length > 0 && (
-        <section className="mb-14">
-          <SectionLabel>What it does</SectionLabel>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {cs.features.map((f) => (
-              <div
-                key={f.title}
-                className="rounded-2xl border border-border-soft bg-background-soft/40 p-5"
-              >
-                <h3 className="text-sm font-semibold text-foreground mb-2 leading-snug">
-                  {f.title}
-                </h3>
-                <p className="text-sm text-foreground-muted leading-relaxed">
-                  {f.description}
-                </p>
-              </div>
-            ))}
-          </div>
+      {cs?.challenge && (
+        <section className="mt-14">
+          <SectionHeading>Challenge</SectionHeading>
+          <p className="max-w-measure text-foreground-muted">{cs.challenge}</p>
         </section>
       )}
 
-      {/* Screenshots gallery */}
+      {cs?.approach && (
+        <section className="mt-14">
+          <SectionHeading>Approach</SectionHeading>
+          <p className="max-w-measure text-foreground-muted">{cs.approach}</p>
+        </section>
+      )}
+
+      {cs?.features && cs.features.length > 0 && (
+        <section className="mt-14">
+          <SectionHeading>What it does</SectionHeading>
+          <ul className="space-y-4">
+            {cs.features.map((f) => (
+              <li key={f.title} className="max-w-measure">
+                <span className="font-medium text-foreground">{f.title}.</span>{' '}
+                <span className="text-foreground-muted">{f.description}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       {galleryScreens.length > 0 && (
-        <section className="mb-14">
-          <SectionLabel>Gallery</SectionLabel>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <section className="mt-14">
+          <SectionHeading>Gallery</SectionHeading>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {galleryScreens.map((src) => (
               <div
                 key={src}
-                className="rounded-2xl overflow-hidden border border-border bg-background-soft"
+                className="rounded-lg overflow-hidden border border-border-soft bg-background-soft"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={src} alt="" className="w-full h-auto block" />
@@ -206,123 +159,87 @@ export default function ProjectDetailPage({ params }: PageProps) {
         </section>
       )}
 
-      {/* Tables */}
+      {cs?.photos && cs.photos.length > 0 && (
+        <section className="mt-14">
+          <SectionHeading>Photos</SectionHeading>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {cs.photos.map((photo) => (
+              <figure key={photo.src}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={photo.src}
+                  alt={photo.caption ?? ''}
+                  className="w-full h-auto block rounded-lg border border-border-soft"
+                />
+                {photo.caption && (
+                  <figcaption className="mt-2 text-sm text-foreground-muted">
+                    {photo.caption}
+                  </figcaption>
+                )}
+              </figure>
+            ))}
+          </div>
+        </section>
+      )}
+
       {cs?.tables?.map((t) => (
-        <section key={t.title} className="mb-14">
-          <SectionLabel>{t.title}</SectionLabel>
-          <div className="rounded-2xl border border-border-soft overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="bg-background-soft/60 border-b border-border-soft">
-                    {t.headers.map((h) => (
-                      <th
-                        key={h}
-                        className="text-left px-4 py-3 font-mono text-[10px] uppercase tracking-[0.15em] text-foreground-muted"
-                      >
-                        {h}
-                      </th>
+        <section key={t.title} className="mt-14">
+          <SectionHeading>{t.title}</SectionHeading>
+          <div className="overflow-x-auto rounded-lg border border-border-soft">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border-soft bg-background-soft">
+                  {t.headers.map((h) => (
+                    <th
+                      key={h}
+                      className="text-left px-4 py-3 font-medium text-foreground"
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {t.rows.map((row, i) => (
+                  <tr key={i} className="border-b border-border-soft last:border-0">
+                    {row.map((cell, j) => (
+                      <td key={j} className="px-4 py-3 text-foreground-muted">
+                        {cell}
+                      </td>
                     ))}
                   </tr>
-                </thead>
-                <tbody>
-                  {t.rows.map((row, i) => (
-                    <tr key={i} className="border-b border-border-soft last:border-0">
-                      {row.map((cell, j) => (
-                        <td key={j} className="px-4 py-3 text-foreground-muted">
-                          {cell}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                ))}
+              </tbody>
+            </table>
           </div>
         </section>
       ))}
 
-      {/* Footer: GitHub CTA + prev/next nav */}
-      <div className="pt-8 mt-4 border-t border-border-soft">
-        {project.link && (
-          <div className="mb-8 flex flex-wrap items-center gap-3">
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-border text-xs font-mono uppercase tracking-[0.15em] text-foreground-muted hover:text-foreground hover:border-foreground/40 transition-all active:scale-95"
-            >
-              <Github size={12} />
-              <span>View on GitHub</span>
-              <ExternalLink size={10} className="opacity-60" />
-            </a>
-          </div>
-        )}
-
-        <nav className="grid grid-cols-1 md:grid-cols-2 gap-3" aria-label="Project navigation">
-          {prev ? (
-            <Link
-              href={`/projects/${prev.slug}`}
-              className="group rounded-xl border border-border-soft hover:border-border bg-background-soft/40 hover:bg-background-soft/70 p-4 transition-colors"
-            >
-              <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-faint mb-1 flex items-center gap-1.5">
-                <ArrowLeft size={11} />
-                Previous
-              </div>
-              <div className="text-sm font-semibold text-foreground group-hover:text-accent transition-colors truncate">
-                {prev.title}
-              </div>
-            </Link>
-          ) : (
-            <div />
-          )}
-          {next ? (
-            <Link
-              href={`/projects/${next.slug}`}
-              className="group rounded-xl border border-border-soft hover:border-border bg-background-soft/40 hover:bg-background-soft/70 p-4 transition-colors md:text-right"
-            >
-              <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-foreground-faint mb-1 flex items-center gap-1.5 md:justify-end">
-                Next
-                <ArrowRight size={11} />
-              </div>
-              <div className="text-sm font-semibold text-foreground group-hover:text-accent transition-colors truncate">
-                {next.title}
-              </div>
-            </Link>
-          ) : (
-            <div />
-          )}
-        </nav>
-
-        <div className="mt-8">
+      <nav
+        className="mt-16 pt-8 border-t border-border-soft flex justify-between gap-4 text-sm"
+        aria-label="Project navigation"
+      >
+        {prev ? (
           <Link
-            href="/projects"
-            className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-foreground-muted hover:text-foreground transition-colors"
+            href={`/projects/${prev.slug}`}
+            className="text-accent hover:underline"
           >
-            <ArrowLeft size={12} />
-            <span>Back to all projects</span>
+            ← {prev.title}
           </Link>
-        </div>
-      </div>
+        ) : (
+          <span />
+        )}
+        {next ? (
+          <Link
+            href={`/projects/${next.slug}`}
+            className="text-accent hover:underline text-right"
+          >
+            {next.title} →
+          </Link>
+        ) : (
+          <span />
+        )}
+      </nav>
     </main>
-  )
-}
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 className="font-mono text-[11px] uppercase tracking-[0.18em] text-foreground-faint mb-4">
-      {children}
-    </h2>
-  )
-}
-
-function Section({ label, body }: { label: string; body: string }) {
-  return (
-    <section className="mb-12 max-w-2xl">
-      <SectionLabel>{label}</SectionLabel>
-      <p className="text-base md:text-lg text-foreground leading-relaxed text-pretty">
-        {body}
-      </p>
-    </section>
   )
 }
