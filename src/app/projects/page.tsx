@@ -33,7 +33,11 @@ function CardImage({ slug }: { slug: string }) {
   return (
     <Link href={`/projects/${p.slug}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={p.title} className="rounded-lg shadow-lg" />
+      <img
+        src={src}
+        alt={p.title}
+        className="rounded-lg shadow-lg w-full aspect-[16/10] object-cover"
+      />
     </Link>
   )
 }
