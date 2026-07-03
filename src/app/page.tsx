@@ -151,9 +151,9 @@ function HomepageImage({ className = '' }: { className?: string }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/images/hero.svg"
+      src="/images/oriol.jpeg"
       alt="Oriol Morros"
-      className={`${className} h-full w-full object-cover object-top`}
+      className={`${className} w-full aspect-[3/2] object-cover object-top`}
     />
   )
 }
