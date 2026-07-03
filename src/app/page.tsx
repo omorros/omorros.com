@@ -1,5 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { Github, Linkedin, FileText, Mail } from 'lucide-react'
 import { siteConfig } from '@/lib/constants'
 import { projects } from '@/data/projects'
@@ -31,7 +30,7 @@ const WORK = [
     dates: '2026',
   },
   {
-    place: 'Festival Sant Fruitós',
+    place: 'Festival Sant FruitÃ³s',
     role: 'Web developer',
     dates: '2026',
   },
@@ -50,7 +49,7 @@ export default function Page() {
 
       <div className="mt-6 space-y-4 max-w-measure text-foreground-muted text-lg">
         <p>
-          I'm Oriol Morros, a software engineer in London. I build
+          I’m Oriol Morros, a software engineer in London. I build
           infrastructure for AI agents at Eli by Techbible.
         </p>
         <p>
@@ -115,7 +114,7 @@ export default function Page() {
             <li key={w.place} className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-x-4">
               <div>
                 <span className="font-medium text-foreground">{w.place}</span>
-                <span className="text-foreground-muted"> · {w.role}</span>
+                <span className="text-foreground-muted"> Â· {w.role}</span>
               </div>
               <span className="text-sm text-foreground-faint shrink-0">
                 {w.dates}
@@ -132,7 +131,7 @@ export default function Page() {
       <section className="mt-20">
         <h2 className="text-xl font-semibold text-foreground">Blog</h2>
         <p className="mt-4 max-w-measure text-foreground-muted">
-          I'm starting to write about software, AI, and what I'm building.
+          I’m starting to write about software, AI, and what I’m building.
         </p>
         <Link
           href="/blog"
@@ -146,3 +145,4 @@ export default function Page() {
     </main>
   )
 }
+
