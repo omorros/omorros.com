@@ -1,7 +1,10 @@
 import Link from 'next/link'
 
 // Header structure and classes follow samselikoff.com.
-const LINKS = [{ href: '/projects', label: 'Projects' }]
+const LINKS = [
+  { href: '/projects', label: 'Projects' },
+  { href: '/hackathons', label: 'Hackathons' },
+]
 
 export function Nav() {
   return (

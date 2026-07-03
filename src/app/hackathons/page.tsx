@@ -4,19 +4,14 @@ import { A, Container, Lead, Spacer, Title } from '@/components/site/ui'
 import { projects } from '@/data/projects'
 
 export const metadata: Metadata = {
-  title: 'Projects',
-  description: 'Personal projects by Oriol Morros.',
+  title: 'Hackathons',
+  description: 'Hackathon projects and wins by Oriol Morros.',
 }
 
 // Page structure and classes follow pages/projects.js on samselikoff.com.
 
-const FEATURED = ['snapshelf', 'bk-shoot']
-const MORE = [
-  'deep-learning-cnn-comparison',
-  'personal-web-portfolio',
-  'wikipedia-scraper',
-  'university-library-system',
-]
+const FEATURED = ['truevoice', 'offbabel', 'wildscan', 'darkfleet']
+const MORE = ['gaslit', 'atlas']
 
 function bySlug(slug: string) {
   return projects.find((p) => p.slug === slug)
@@ -25,10 +20,7 @@ function bySlug(slug: string) {
 function CardImage({ slug }: { slug: string }) {
   const p = bySlug(slug)
   if (!p) return null
-  const src =
-    p.caseStudy?.thumbnail ||
-    p.caseStudy?.screenshots?.[0] ||
-    '/images/card-placeholder.svg'
+  const src = p.caseStudy?.thumbnail || p.caseStudy?.screenshots?.[0]
   return (
     <Link href={`/projects/${p.slug}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -50,46 +42,56 @@ function SmallCard({ slug }: { slug: string }) {
   )
 }
 
-export default function ProjectsPage() {
+export default function HackathonsPage() {
   return (
     <main className="pb-8">
       <Container>
         <Spacer size="xl" />
 
-        <Title>Projects</Title>
+        <Title>Hackathons</Title>
 
         <Spacer size="lg" />
 
         <Lead>
-          My favourite personal build is{' '}
-          <A href="/projects/snapshelf">SnapShelf</A>, an app that tracks your
-          kitchen inventory from photos and barcodes so less food goes to
-          waste.
+          I spend a lot of weekends at hackathons around London, building a
+          working product in a day or two.
         </Lead>
 
         <Lead>
-          Before that I built <A href="/projects/bk-shoot">BK-Shoot</A>, a
-          basketball shot tracker made of Arduino sensors and an Android app,
-          tested on about 2,000 real shots.
+          Two of them ended in wins: <A href="/projects/truevoice">TrueVoice</A>{' '}
+          took first place at Voice AI Hack London 2026, and{' '}
+          <A href="/projects/offbabel">OffBabel</A> won the Cosine track at the
+          On-Device Agent Hackathon.
         </Lead>
 
         <Lead>
-          The rest ranges from deep learning experiments to scrapers and
-          university systems. All of them are on{' '}
-          <A href={`https://github.com/omorros`}>my GitHub</A>.
+          <A href="/projects/wildscan">WILDSCAN</A> won the Unicorn Mafia and
+          Techbible hack night, and <A href="/projects/darkfleet">DarkFleet</A>{' '}
+          placed 6th of 64 teams at the Claude Hackathon at Imperial College.
         </Lead>
 
         <div className="md:mt-4">
           <div className="md:flex md:-mx-4">
-            {FEATURED.map((slug) => (
-              <div key={slug} className="mt-12 md:w-1/2 md:mx-4">
-                <CardImage slug={slug} />
-              </div>
-            ))}
+            <div className="mt-12 md:w-1/2 md:mx-4">
+              <CardImage slug={FEATURED[0]} />
+            </div>
+            <div className="mt-12 md:w-1/2 md:mx-4">
+              <CardImage slug={FEATURED[1]} />
+            </div>
+          </div>
+          <div className="md:flex md:-mx-4">
+            <div className="mt-12 md:w-1/2 md:mx-4">
+              <CardImage slug={FEATURED[2]} />
+            </div>
+            <div className="mt-12 md:w-1/2 md:mx-4">
+              <CardImage slug={FEATURED[3]} />
+            </div>
           </div>
 
           <div className="mt-16 mb-32 md:mt-24">
-            <p className="text-2xl font-semibold md:text-2xl">Previous work</p>
+            <p className="text-2xl font-semibold md:text-2xl">
+              More hackathons
+            </p>
 
             <div className="flex flex-wrap mt-4 -mx-2">
               {MORE.map((slug) => (
