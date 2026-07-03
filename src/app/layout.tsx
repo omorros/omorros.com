@@ -1,37 +1,14 @@
 import type { Metadata } from 'next'
-import { Inter, Playfair_Display, JetBrains_Mono, Caveat } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 import { siteConfig } from '@/lib/constants'
-import { SmoothScrollProvider } from '@/components/ui/SmoothScrollProvider'
 
 const inter = Inter({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-inter',
-  display: 'swap',
-})
-
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-  variable: '--font-playfair',
-  display: 'swap',
-})
-
-const jetbrains = JetBrains_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-jetbrains',
-  display: 'swap',
-})
-
-const caveat = Caveat({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-caveat',
   display: 'swap',
 })
 
@@ -45,7 +22,7 @@ const jsonLd = {
   jobTitle: 'Software Engineer',
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'Cambridge',
+    addressLocality: 'London',
     addressCountry: 'UK',
   },
 }
@@ -61,8 +38,7 @@ export const metadata: Metadata = {
     'Software Engineer',
     'AI Engineer',
     'Developer',
-    'Cambridge',
-    'ARU',
+    'London',
     'AI',
     'Machine Learning',
     'Full Stack',
@@ -110,9 +86,8 @@ export const metadata: Metadata = {
   },
 }
 
-// Apply theme class on <html> before paint to avoid flash.
-// Default (and design lock) = dark.
-const themeInitScript = `(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.remove('dark');}else{document.documentElement.classList.add('dark');}}catch(e){document.documentElement.classList.add('dark');}})();`
+// Apply saved theme before paint. Default is light.
+const themeInitScript = `(function(){try{if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark')}}catch(e){}})();`
 
 export default function RootLayout({
   children,
@@ -120,18 +95,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html
-      lang="en"
-      className={`dark ${inter.variable} ${playfair.variable} ${jetbrains.variable} ${caveat.variable}`}
-      suppressHydrationWarning
-    >
-      <body className="font-sans antialiased bg-background text-foreground selection:bg-accent/20">
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
+      <body className="font-sans antialiased bg-background text-foreground">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        {children}
         <Analytics />
         <SpeedInsights />
       </body>

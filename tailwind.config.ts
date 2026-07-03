@@ -28,13 +28,10 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ['var(--font-playfair)', 'ui-serif', 'Georgia', 'serif'],
         sans: ['var(--font-inter)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-jetbrains)', 'ui-monospace', 'monospace'],
-        handwriting: ['var(--font-caveat)', 'cursive'],
       },
-      transitionTimingFunction: {
-        'expo-out': 'cubic-bezier(0.16, 1, 0.3, 1)',
+      maxWidth: {
+        measure: '34em',
       },
     },
   },

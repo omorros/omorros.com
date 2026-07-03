@@ -2,37 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ============================================================
-   Base palette mirrors syedsubhan.in:
-   - Light = white + gray-900 + blue-600 accent
-   - Dark  = pure black + #111 surfaces + white text + blue-500 accent
-   We use CSS vars (rgb triplets) so Tailwind alpha modifiers work,
-   AND we toggle via the `.dark` class on <html> (Tailwind native).
-   ============================================================ */
+/* Light-first gray palette in the style of samselikoff.com.
+   CSS vars as rgb triplets so Tailwind alpha modifiers work. */
 
 :root {
-  /* light defaults */
   --background: 255 255 255;
-  --background-soft: 249 250 251;        /* gray-50 */
-  --foreground: 17 24 39;                /* gray-900 */
-  --foreground-muted: 75 85 99;          /* gray-600 */
-  --foreground-faint: 107 114 128;       /* gray-500 */
-  --border: 229 231 235;                 /* gray-200 */
-  --border-soft: 243 244 246;            /* gray-100 */
-  --accent: 37 99 235;                   /* blue-600 */
-
-  --expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --background-soft: 249 250 251;   /* gray-50 */
+  --foreground: 17 24 39;           /* gray-900 */
+  --foreground-muted: 75 85 99;     /* gray-600 */
+  --foreground-faint: 107 114 128;  /* gray-500 */
+  --border: 229 231 235;            /* gray-200 */
+  --border-soft: 243 244 246;       /* gray-100 */
+  --accent: 37 99 235;              /* blue-600 */
 }
 
 .dark {
-  --background: 0 0 0;
-  --background-soft: 17 17 17;           /* #111 - Subhan's canonical dark card */
-  --foreground: 255 255 255;
-  --foreground-muted: 209 213 219;       /* gray-300 */
-  --foreground-faint: 156 163 175;       /* gray-400 */
-  --border: 38 38 38;
-  --border-soft: 23 23 23;
-  --accent: 59 130 246;                  /* blue-500 */
+  --background: 24 24 27;           /* zinc-900 */
+  --background-soft: 39 39 42;      /* zinc-800 */
+  --foreground: 244 244 245;        /* zinc-100 */
+  --foreground-muted: 161 161 170;  /* zinc-400 */
+  --foreground-faint: 113 113 122;  /* zinc-500 */
+  --border: 63 63 70;               /* zinc-700 */
+  --border-soft: 39 39 42;          /* zinc-800 */
+  --accent: 96 165 250;             /* blue-400 */
 }
 
 * { box-sizing: border-box; }
@@ -47,17 +39,11 @@ html.dark { color-scheme: dark; }
 body {
   background: rgb(var(--background));
   color: rgb(var(--foreground));
-  font-family: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
-  font-size: 15px;
-  line-height: 1.65;
-  letter-spacing: -0.005em;
+  font-size: 17px;
+  line-height: 1.6;
+  letter-spacing: -0.011em;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-h1, h2, h3, h4 {
-  font-family: var(--font-playfair), ui-serif, Georgia, serif;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -66,53 +52,6 @@ a { color: inherit; text-decoration: none; }
   background: rgb(var(--accent) / 0.2);
   color: rgb(var(--foreground));
 }
-
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-  background: rgb(var(--foreground) / 0.12);
-  border-radius: 4px;
-}
-
-/* ============================================================
-   View Transitions API - diamond clip-path reveal on theme swap.
-   Ported from syedsubhan.in.
-   ============================================================ */
-::view-transition-group(root) {
-  animation-duration: 0.7s;
-  animation-timing-function: var(--expo-out);
-}
-::view-transition-new(root) {
-  animation-name: reveal-light;
-  animation-fill-mode: both;
-  mix-blend-mode: normal;
-}
-::view-transition-old(root),
-.dark::view-transition-old(root) {
-  animation: none;
-  animation-fill-mode: both;
-  z-index: -1;
-}
-.dark::view-transition-new(root) {
-  animation-name: reveal-dark;
-  animation-fill-mode: both;
-  mix-blend-mode: normal;
-}
-@keyframes reveal-dark {
-  from { clip-path: polygon(50% -71%, -50% 71%, -50% 71%, 50% -71%); }
-  to   { clip-path: polygon(50% -71%, -50% 71%, 50% 171%, 171% 50%); }
-}
-@keyframes reveal-light {
-  from { clip-path: polygon(171% 50%, 50% 171%, 50% 171%, 171% 50%); }
-  to   { clip-path: polygon(171% 50%, 50% 171%, -50% 71%, 50% -71%); }
-}
-
-/* Shimmer text - used for "cooking more..." style accents (future) */
-@keyframes shimmer {
-  from { background-position: 200% 0; }
-  to   { background-position: -200% 0; }
-}
-.animate-shimmer { animation: shimmer 3s linear infinite; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
