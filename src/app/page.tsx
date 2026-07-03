@@ -153,7 +153,7 @@ function HomepageImage({ className = '' }: { className?: string }) {
     <img
       src="/images/oriol.jpeg"
       alt="Oriol Morros"
-      className={`${className} w-full aspect-[3/2] object-cover object-top`}
+      className={`${className} w-full aspect-[3/2] object-cover object-[center_65%]`}
     />
   )
 }
