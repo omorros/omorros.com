@@ -130,10 +130,10 @@ export default function Page() {
           <div className="flex xl:mt-10 xl:-mx-6">
             <div className="w-1/2 xl:px-6">
               <ImageCard
-                src="/images/life/cambridge-square.svg"
+                src="/images/life/cambridge.jpg"
                 title="Cambridge"
                 date="2023–2026"
-                aspect="aspect-square"
+                aspect="aspect-square object-[center_60%]"
               />
             </div>
             <div className="w-1/2 xl:px-6">
