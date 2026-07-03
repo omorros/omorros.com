@@ -28,10 +28,10 @@ Replace the current effect-heavy single page with a minimal, professional, multi
 
 1. **Intro.** "Hello! I'm Oriol Morros." Two or three sentences: software engineer building infrastructure for AI agents at Eli by Techbible in London. BSc Software Engineering from ARU Cambridge, 2023 to 2026, graduated. Inline text links with small icons: GitHub, LinkedIn, CV, Email.
 2. **Projects blurb.** One short paragraph plus 4 strongest projects as a simple linked list (TrueVoice, OffBabel, WILDSCAN, DarkFleet, adjustable during iteration). Hackathon wins stated as plain facts. Link to /projects.
-3. **Work blurb.** Compact experience list, one line each with dates: Eli by Techbible, University of Cambridge, IBM MCP Context Forge open source, Festival Sant Fruitós. Education as one line: ARU BSc, graduated 2026. Degree classification: confirm with user before stating First Class as fact. No logos, no timeline graphics, no PR cards.
+3. **Work blurb.** Compact experience list, one line each with dates: Eli by Techbible, University of Cambridge, IBM MCP Context Forge open source, Festival Sant Fruitós. Education as one line: ARU BSc, graduated 2026 with First Class Honours (confirmed by user). No logos, no timeline graphics, no PR cards.
 4. **Blog blurb.** One sentence, link to /blog.
 5. **Life.** Replica of Sam's Life section. Heading, short paragraph telling the arc, then three places stacked with years and one photo each:
-   - Hometown near Barcelona, name and years from user, placeholder until provided
+   - Manresa, 2005 to 2023. Born January 2005, grew up there, left for England in August 2023. The story text says it is a city near Barcelona. The place label is Manresa.
    - Cambridge, 2023 to 2026
    - London, 2026 to present
 
@@ -52,10 +52,7 @@ Skills and tech stack: no icon wall. Tools appear as plain text tags per project
 
 ## Content the user provides
 
-- Hometown name and years lived there
-- Three photos, one per city, casual snapshots preferred
-- Degree classification confirmation
-- Placeholders used until these arrive, nothing blocks on them
+- Three photos, one per city, casual snapshots preferred. User will upload later. Placeholders used until then, nothing blocks on them.
 
 ## Out of scope for the first pass
 
