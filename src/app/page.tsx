@@ -1,4 +1,4 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import { Github, Linkedin, FileText, Mail } from 'lucide-react'
 import { siteConfig } from '@/lib/constants'
 import { projects } from '@/data/projects'
@@ -30,7 +30,7 @@ const WORK = [
     dates: '2026',
   },
   {
-    place: 'Festival Sant FruitÃ³s',
+    place: 'Festival Sant Fruitós',
     role: 'Web developer',
     dates: '2026',
   },
@@ -114,7 +114,7 @@ export default function Page() {
             <li key={w.place} className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-x-4">
               <div>
                 <span className="font-medium text-foreground">{w.place}</span>
-                <span className="text-foreground-muted"> Â· {w.role}</span>
+                <span className="text-foreground-muted"> · {w.role}</span>
               </div>
               <span className="text-sm text-foreground-faint shrink-0">
                 {w.dates}
