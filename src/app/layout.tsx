@@ -4,6 +4,8 @@ import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 import { siteConfig } from '@/lib/constants'
+import { Nav } from '@/components/site/Nav'
+import { Footer } from '@/components/site/Footer'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -102,7 +104,9 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <Nav />
         {children}
+        <Footer />
         <Analytics />
         <SpeedInsights />
       </body>
