@@ -99,23 +99,23 @@ export default function ProjectDetailPage({ params }: PageProps) {
         </p>
       </header>
 
-      {(heroMedia || cs?.videoUrl) && (
+      {heroMedia ? (
         <div className="mt-10 rounded-lg overflow-hidden border border-border-soft bg-background-soft">
-          {cs?.videoUrl ? (
-            <video
-              src={cs.videoUrl}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full h-auto block"
-            />
-          ) : (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={heroMedia!} alt={project.title} className="w-full h-auto block" />
-          )}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={heroMedia} alt={project.title} className="w-full h-auto block" />
         </div>
-      )}
+      ) : cs?.videoUrl ? (
+        <div className="mt-10 rounded-lg overflow-hidden border border-border-soft bg-background-soft">
+          <video
+            src={cs.videoUrl}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-auto block"
+          />
+        </div>
+      ) : null}
 
       {cs?.challenge && (
         <section className="mt-14">
@@ -142,6 +142,23 @@ export default function ProjectDetailPage({ params }: PageProps) {
               </li>
             ))}
           </ul>
+        </section>
+      )}
+
+      {cs?.videoUrl && heroMedia && (
+        <section className="mt-14">
+          <SectionHeading>Demo</SectionHeading>
+          <div className="rounded-lg overflow-hidden border border-border-soft bg-background-soft">
+            <video
+              src={cs.videoUrl}
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls
+              className="w-full h-auto block"
+            />
+          </div>
         </section>
       )}
 
