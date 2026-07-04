@@ -123,7 +123,7 @@ export default function Page() {
       <div>
         <div className="mx-auto mt-16 xl:max-w-6xl">
           <ImageCard
-            src="/images/life/london.svg"
+            src="/images/life/london.jpg"
             title="London"
             date="2026–Present"
           />
@@ -141,7 +141,7 @@ export default function Page() {
                 src="/images/life/manresa.jpg"
                 title="Manresa"
                 date="2005–2023"
-                aspect="aspect-square object-[80%_center]"
+                aspect="aspect-square object-[90%_center]"
               />
             </div>
           </div>
