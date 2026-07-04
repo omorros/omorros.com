@@ -31,7 +31,8 @@ export default function ProjectDetailPage({ params }: PageProps) {
   if (!project) notFound()
 
   const cs = project.caseStudy
-  const heroMedia = cs?.thumbnail || cs?.screenshots?.[0]
+  // Hero is the thumbnail when set; with no thumbnail the demo video leads.
+  const heroMedia = cs?.thumbnail
   const galleryScreens = cs?.screenshots?.filter((s) => s !== heroMedia) ?? []
 
   const slugged = projects.filter((p) => p.slug)
