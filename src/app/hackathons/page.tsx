@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ChevronRight } from 'lucide-react'
 import { A, Container, Lead, Spacer, Title } from '@/components/site/ui'
 import { projects } from '@/data/projects'
 
@@ -10,8 +11,8 @@ export const metadata: Metadata = {
 
 // Page structure and classes follow pages/projects.js on samselikoff.com.
 
-const FEATURED = ['truevoice', 'offbabel', 'basket', 'darkfleet']
-const MORE = ['wildscan', 'gaslit', 'atlas']
+const FEATURED = ['truevoice', 'offbabel', 'basket', 'wildscan']
+const MORE = ['darkfleet', 'gaslit', 'atlas']
 
 function bySlug(slug: string) {
   return projects.find((p) => p.slug === slug)
@@ -24,14 +25,25 @@ function CardImage({ slug }: { slug: string }) {
     p.caseStudy?.cardImage ||
     p.caseStudy?.thumbnail ||
     p.caseStudy?.screenshots?.[0]
+  const subtitle = p.caseStudy?.awards?.[0]?.title ?? p.event
   return (
-    <Link href={`/projects/${p.slug}`}>
+    <Link href={`/projects/${p.slug}`} className="group block">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
         alt={p.title}
-        className={`rounded-lg shadow-lg w-full aspect-[16/10] object-cover ${p.caseStudy?.cardImagePos ?? ''}`}
+        className={`rounded-lg shadow-lg w-full aspect-[16/10] object-cover group-hover:shadow-xl transition-shadow ${p.caseStudy?.cardImagePos ?? ''}`}
       />
+      <div className="mt-3">
+        <p className="font-semibold text-gray-900 group-hover:text-blue-500 transition-colors">
+          {p.title}
+          <ChevronRight
+            className="inline w-4 h-4 ml-1 align-[-2px]"
+            aria-hidden="true"
+          />
+        </p>
+        {subtitle && <p className="text-sm text-gray-700">{subtitle}</p>}
+      </div>
     </Link>
   )
 }
