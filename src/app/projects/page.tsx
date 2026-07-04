@@ -36,7 +36,7 @@ function CardImage({ slug }: { slug: string }) {
       <img
         src={src}
         alt={p.title}
-        className="rounded-lg shadow-lg w-full aspect-[16/10] object-cover"
+        className={`rounded-lg shadow-lg w-full aspect-[16/10] object-cover ${p.caseStudy?.cardImagePos ?? ''}`}
       />
     </Link>
   )
