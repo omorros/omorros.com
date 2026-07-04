@@ -35,14 +35,23 @@ function CardImage({ slug }: { slug: string }) {
     p.caseStudy?.awards?.[0]?.title ??
     p.event ??
     (p.year ? `Personal project · ${p.year}` : 'Personal project')
+  const mediaClass = `rounded-lg shadow-lg w-full aspect-[16/10] object-cover group-hover:shadow-xl transition-shadow ${p.caseStudy?.cardImagePos ?? ''}`
   return (
     <Link href={`/projects/${p.slug}`} className="group block">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={src}
-        alt={p.title}
-        className={`rounded-lg shadow-lg w-full aspect-[16/10] object-cover group-hover:shadow-xl transition-shadow ${p.caseStudy?.cardImagePos ?? ''}`}
-      />
+      {p.caseStudy?.cardVideo ? (
+        <video
+          src={p.caseStudy.cardVideo}
+          poster={p.caseStudy?.cardImage}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className={mediaClass}
+        />
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={src} alt={p.title} className={mediaClass} />
+      )}
       <div className="mt-3">
         <p className="font-semibold text-gray-900 group-hover:text-blue-500 transition-colors">
           {p.title}
