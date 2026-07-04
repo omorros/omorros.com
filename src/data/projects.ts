@@ -1,4 +1,4 @@
-export const FEATURED_SLUGS = ['truevoice', 'wildscan', 'darkfleet', 'bk-shoot'] as const
+export const FEATURED_SLUGS = ['truevoice', 'wildscan', 'offbabel', 'darkfleet', 'bk-shoot', 'snapshelf'] as const
 
 export interface Project {
   title: string
@@ -14,8 +14,18 @@ export interface Project {
     approach: string
     features?: { title: string; description: string }[]
     screenshots?: string[]
+    photos?: { src: string; caption?: string }[]
     videoUrl?: string
     thumbnail?: string
+    // Personal photo shown on the projects and hackathons cards.
+    // Falls back to thumbnail when not set.
+    cardImage?: string
+    // Optional Tailwind object-position class to frame the card crop,
+    // e.g. 'object-[center_60%]'. Defaults to center.
+    cardImagePos?: string
+    // Optional short muted clip that loops on the card instead of a
+    // static image. cardImage doubles as its poster frame.
+    cardVideo?: string
     reportUrl?: string
     awards?: {
       title: string
@@ -31,6 +41,47 @@ export interface Project {
 
 
 export const projects: Project[] = [
+  {
+    title: 'OffBabel',
+    description: 'An offline language tutor that runs on a Reachy Mini robot. You learn by speaking Spanish or English, or by fingerspelling British Sign Language, and it all works without internet.',
+    tags: ['Python', 'React', 'Local LLM', 'MediaPipe'],
+    link: 'https://github.com/omorros/OffBabel',
+    slug: 'offbabel',
+    category: 'hackathon',
+    event: 'Localhost: On-Device Agent Hackathon · London 2026',
+    year: '2026',
+    caseStudy: {
+      challenge: 'Most apps and schools focus on grammar and writing, not on real conversation. When I moved to England I was fine with grammar and reading, but I still found it hard to speak fluently. That gap is what OffBabel sets out to fix.',
+      approach: 'OffBabel runs fully on a Reachy Mini robot with no internet. You can practise by speaking Spanish or English and get feedback, or by fingerspelling British Sign Language to a webcam. It also keeps track of your mistakes and brings them back later so you practise them more.',
+      features: [
+        { title: 'Works Offline', description: 'The speech, the language model, and the sign reading all run on the device. Nothing is sent to the internet.' },
+        { title: 'Two Ways to Learn', description: 'Speak in Spanish or English, or fingerspell British Sign Language to a webcam.' },
+        { title: 'Reads Sign Language', description: 'It uses MediaPipe hand tracking and a KNN model to read your BSL fingerspelling as you sign.' },
+        { title: 'Remembers Mistakes', description: 'It saves the mistakes you make and brings them back later so you get more practice on the hard ones.' },
+      ],
+      thumbnail: '/images/offbabel/presenting.png',
+      screenshots: [
+        'https://raw.githubusercontent.com/omorros/OffBabel/main/docs/img/home.png',
+        'https://raw.githubusercontent.com/omorros/OffBabel/main/docs/img/speak.png',
+        'https://raw.githubusercontent.com/omorros/OffBabel/main/docs/img/progress.png',
+        'https://raw.githubusercontent.com/omorros/OffBabel/main/docs/img/summary.png',
+      ],
+      videoUrl: '/images/offbabel/bsl-test.mp4',
+      cardImage: '/images/offbabel/robot.jpg',
+      photos: [
+        {
+          src: '/images/offbabel/robot.jpg',
+          caption: 'The Reachy Mini running OffBabel between our two laptops, with the hackathon in full swing behind it.',
+        },
+      ],
+      awards: [
+        {
+          title: 'Cosine and ExoLabs Track Winner - On-Device Agent Hackathon',
+          description: 'The event had no overall prize, just tracks. OffBabel won two of them, Cosine and ExoLabs, with the second announced at the last minute.',
+        },
+      ],
+    },
+  },
   {
     title: 'TrueVoice',
     description: 'Clinical voice intelligence platform that flags discrepancies between patient words and vocal biomarkers in real time during medical consultations.',
@@ -49,11 +100,23 @@ export const projects: Project[] = [
         { title: 'Two Consultation Modes', description: 'Telehealth (separate devices) and in-person (single microphone) with diarized transcription.' },
         { title: 'Evidence Reports', description: 'End-of-consultation summaries synthesised by Claude with cited concordance gaps.' }
       ],
-      thumbnail: 'https://raw.githubusercontent.com/omorros/TrueVoice/main/docs/images/landing.png',
+      thumbnail: '/images/truevoice/presenting.jpg',
+      cardImage: '/images/truevoice/team-check.jpg',
       screenshots: [
+        'https://raw.githubusercontent.com/omorros/TrueVoice/main/docs/images/landing.png',
         'https://raw.githubusercontent.com/omorros/TrueVoice/main/docs/images/dashboard.png',
         'https://raw.githubusercontent.com/omorros/TrueVoice/main/docs/images/telehealth.png',
         'https://raw.githubusercontent.com/omorros/TrueVoice/main/docs/images/report.png'
+      ],
+      photos: [
+        {
+          src: '/images/truevoice/team-check.jpg',
+          caption: 'Holding the winner cheque after taking first place.',
+        },
+        {
+          src: '/images/truevoice/credits.jpg',
+          caption: 'The Speechmatics golden ticket, another 1,000 pounds in credits on top of the cheque.',
+        },
       ],
       awards: [
         {
@@ -62,6 +125,47 @@ export const projects: Project[] = [
         }
       ]
     }
+  },
+  {
+    title: 'Basket',
+    description: 'A team of five AI agents that spots product reformulations by watching complaints on the web, so brands find out in weeks instead of waiting for quarterly sales data.',
+    tags: ['Python', 'FastAPI', 'Next.js', 'ClickHouse'],
+    link: 'https://github.com/omorros/Basket',
+    slug: 'basket',
+    category: 'hackathon',
+    event: 'Tokens LDN Multi-Agent Hackathon · London 2026',
+    year: '2026',
+    caseStudy: {
+      challenge: 'When a brand quietly changes a recipe, the backlash lands on the web within days but only shows up in sales data months later. By the time a category manager sees it in a quarterly review, the damage is done.',
+      approach: 'Basket is a pipeline of five agents run by a FastAPI orchestrator. Give it a product name and it finds the reformulation date, pulls complaints from news and the web, classifies them with traceable rules, rolls them up week by week in ClickHouse, and publishes a sourced alert the moment complaints spike.',
+      features: [
+        { title: 'Five-Agent Pipeline', description: 'A date finder, a retriever, a classifier, an aggregator, and a publisher, each with one job, coordinated by an orchestrator.' },
+        { title: 'Finds the Turning Point', description: 'ClickHouse rolls complaints up by week and flags the inflection where a spike starts.' },
+        { title: 'Every Claim Has a Source', description: 'Complaints are classified with traceable rules and every published alert links back to the original mentions.' },
+        { title: 'Survives Demo Day', description: 'Local fallbacks kick in if any external service goes down, so the pipeline keeps running.' },
+      ],
+      thumbnail: 'https://raw.githubusercontent.com/omorros/Basket/main/docs/hero.png',
+      cardImage: '/images/basket/demo.jpg',
+      screenshots: [
+        'https://raw.githubusercontent.com/omorros/Basket/main/docs/pipeline.png',
+      ],
+      photos: [
+        {
+          src: '/images/basket/demo.jpg',
+          caption: 'Running the live demo in front of everyone at the Tokens LDN Multi-Agent Hackathon.',
+        },
+        {
+          src: '/images/basket/chatting.jpg',
+          caption: 'Talking builds with another hacker between sessions.',
+        },
+      ],
+      awards: [
+        {
+          title: 'Track Winner - Tokens LDN Multi-Agent Hackathon 2026',
+          description: 'First place on our track at the Tokens LDN Multi-Agent Hackathon in London, 2026.',
+        },
+      ],
+    },
   },
   {
     title: 'WILDSCAN',
@@ -114,6 +218,18 @@ export const projects: Project[] = [
         { title: 'Incident Reports', description: 'Auto-generated PDF briefs synthesising every signal into a single shareable artifact.' }
       ],
       thumbnail: 'https://raw.githubusercontent.com/omorros/DarkFleet/main/docs/screenshots/globe-overview.png',
+      cardImage: '/images/darkfleet/selfie.jpg',
+      cardImagePos: 'object-[center_55%]',
+      photos: [
+        {
+          src: '/images/darkfleet/selfie.jpg',
+          caption: 'Hacking away with DarkFleet running on the laptop at Imperial College.',
+        },
+        {
+          src: '/images/darkfleet/claude-sign.jpg',
+          caption: 'With the Claude banner and the thinking caps we got for placing 6th of 64 teams.',
+        },
+      ],
       screenshots: [
         'https://raw.githubusercontent.com/omorros/DarkFleet/main/docs/screenshots/vessel-detail-red.png',
         'https://raw.githubusercontent.com/omorros/DarkFleet/main/docs/screenshots/vessel-detail-amber.png',
@@ -138,7 +254,7 @@ export const projects: Project[] = [
     event: 'MongoDB Agentic Evolution · London 2026',
     year: '2026',
     caseStudy: {
-      challenge: 'Memory poisoning attacks bypass traditional kernel sandboxes and LLM guardrails because individual queries appear benign — the malicious pattern only emerges across an agent\'s long-term memory.',
+      challenge: 'Memory poisoning attacks bypass traditional kernel sandboxes and LLM guardrails because individual queries appear benign. The malicious pattern only emerges across an agent\'s long-term memory.',
       approach: 'Built a belief-layer interceptor sitting between MongoDB and the LLM context, with four specialized agents coordinating through change streams to detect injection attempts via cohort statistical analysis, HMAC verification, and adaptive retrieval contracts.',
       thumbnail: 'https://raw.githubusercontent.com/omorros/GASLIT/main/docs/screenshots/landing.png',
       screenshots: [
@@ -196,7 +312,7 @@ export const projects: Project[] = [
     link: 'https://github.com/omorros/bk-shoot',
     slug: 'bk-shoot',
     category: 'personal',
-    year: '2024',
+    year: '2021',
     caseStudy: {
       challenge: 'Basketball analytics rely on expensive proprietary systems, making real-time shooting metrics inaccessible to amateur players.',
       approach: 'Engineered a <€25 IoT device fusing IR and vibration sensors to classify makes, misses, and swishes at ~95% accuracy. Stats stream via Bluetooth to a custom Android app.',
@@ -206,11 +322,12 @@ export const projects: Project[] = [
         { title: 'Full-Stack System', description: 'Designed circuitry, embedded firmware, Bluetooth protocol, and Android app end-to-end.' },
         { title: 'Field-Validated', description: 'Tested with 20+ participants and ~2,000 shots achieving statistical significance.' }
       ],
-      videoUrl: 'https://github.com/user-attachments/assets/b2f04fc3-4c96-47cb-862c-22dc06aca971',
-      thumbnail: '/gradients/projects.svg',
+      videoUrl: '/images/bk-shoot/testing.mp4',
+      cardImage: '/images/bk-shoot/card.jpg',
+      cardVideo: '/images/bk-shoot/card.mp4',
       screenshots: [
-        'https://raw.githubusercontent.com/omorros/bk-shoot/master/hardware/circuit_image.png',
-        'https://raw.githubusercontent.com/omorros/bk-shoot/master/testing/01_setup_guide.png'
+        'https://raw.githubusercontent.com/omorros/bk-shoot/main/testing/01_setup_guide.png',
+        'https://raw.githubusercontent.com/omorros/bk-shoot/main/hardware/circuit_image.png',
       ],
       awards: [
         {
@@ -231,7 +348,7 @@ export const projects: Project[] = [
     link: 'https://github.com/omorros/deep-learning-cnn-comparison',
     slug: 'deep-learning-cnn-comparison',
     category: 'personal',
-    year: '2025',
+    year: '2026',
     caseStudy: {
       challenge: 'Determining whether lightweight CNNs can match heavy architectures for domain-specific image classification while minimizing compute cost.',
       approach: 'Benchmarked three CNN architectures on 120K+ food images. EfficientNetB0 matched ResNet-50\'s 99.75% accuracy while being 5.9x smaller and 35% faster to train.',
@@ -271,7 +388,7 @@ export const projects: Project[] = [
     link: 'https://github.com/omorros/omorros.com',
     slug: 'personal-web-portfolio',
     category: 'personal',
-    year: '2025',
+    year: '2026',
     caseStudy: {
       challenge: 'Traditional scrolling portfolios feel generic and fail to guide user attention effectively.',
       approach: 'Built a single-page app with custom full-page navigation, cursor-reactive gradient backgrounds, and GPU-accelerated section transitions. Scores 95+ on all Lighthouse metrics.',
@@ -314,7 +431,7 @@ export const projects: Project[] = [
     link: 'https://github.com/omorros/wikipedia_scraper',
     slug: 'wikipedia-scraper',
     category: 'personal',
-    year: '2024',
+    year: '2025',
     caseStudy: {
       challenge: 'Efficiently crawling large-scale websites requires balancing speed with resource management under strict time constraints.',
       approach: 'Built a high-concurrency async crawler with 100 workers, O(1) URL deduplication, and a global 20-second deadline using Python\'s asyncio and aiohttp.',
@@ -333,7 +450,7 @@ export const projects: Project[] = [
     link: 'https://github.com/omorros/UniversityLibrarySystem',
     slug: 'university-library-system',
     category: 'personal',
-    year: '2024',
+    year: '2025',
     caseStudy: {
       challenge: 'Modelling complex entity relationships and enforcing role-specific business rules with file-based persistence and no database.',
       approach: 'Developed a Java MVC console app using inheritance hierarchies, polymorphic loan rules, and a custom CSV persistence engine.',
@@ -345,7 +462,7 @@ export const projects: Project[] = [
       ],
       reportUrl: '/reports/MOD004883_Component2_Report_2270056.pdf',
       screenshots: [
-        '/images/university-library-ui.jpg'
+        '/images/university-library/ui.jpg'
       ],
       awards: [
         {
