@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 
 // Page structure and classes follow pages/projects.js on samselikoff.com.
 
-const FEATURED = ['truevoice', 'offbabel', 'wildscan', 'darkfleet']
-const MORE = ['gaslit', 'atlas']
+const FEATURED = ['truevoice', 'offbabel', 'basket', 'darkfleet']
+const MORE = ['wildscan', 'gaslit', 'atlas']
 
 function bySlug(slug: string) {
   return projects.find((p) => p.slug === slug)
@@ -65,16 +65,18 @@ export default function HackathonsPage() {
         </Lead>
 
         <Lead>
-          Two of them ended in wins: <A href="/projects/truevoice">TrueVoice</A>{' '}
-          took first place at Voice AI Hack London 2026, and{' '}
+          Four of them ended in wins: <A href="/projects/truevoice">TrueVoice</A>{' '}
+          took first place at Voice AI Hack London 2026,{' '}
           <A href="/projects/offbabel">OffBabel</A> won the Cosine track at the
-          On-Device Agent Hackathon.
+          On-Device Agent Hackathon, <A href="/projects/basket">Basket</A> won
+          its track at the Tokens LDN Multi-Agent Hackathon, and{' '}
+          <A href="/projects/wildscan">WILDSCAN</A> won the Unicorn Mafia and
+          Techbible hack night.
         </Lead>
 
         <Lead>
-          <A href="/projects/wildscan">WILDSCAN</A> won the Unicorn Mafia and
-          Techbible hack night, and <A href="/projects/darkfleet">DarkFleet</A>{' '}
-          placed 6th of 64 teams at the Claude Hackathon at Imperial College.
+          <A href="/projects/darkfleet">DarkFleet</A> placed 6th of 64 teams at
+          the Claude Hackathon at Imperial College.
         </Lead>
 
         <div className="md:mt-4">
