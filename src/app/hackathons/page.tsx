@@ -79,8 +79,9 @@ export default function HackathonsPage() {
         <Lead>
           Four of them ended in wins: <A href="/projects/truevoice">TrueVoice</A>{' '}
           took first place at Voice AI Hack London 2026,{' '}
-          <A href="/projects/offbabel">OffBabel</A> won the Cosine track at the
-          On-Device Agent Hackathon, <A href="/projects/basket">Basket</A> won
+          <A href="/projects/offbabel">OffBabel</A> won both the Cosine and
+          EXOLAPSE tracks at the On-Device Agent Hackathon,{' '}
+          <A href="/projects/basket">Basket</A> won
           its track at the Tokens LDN Multi-Agent Hackathon, and{' '}
           <A href="/projects/wildscan">WILDSCAN</A> won the Unicorn Mafia and
           Techbible hack night.
