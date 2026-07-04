@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { projects } from '@/data/projects'
+import { ZoomImage } from '@/components/site/ZoomImage'
 
 interface PageProps {
   params: { slug: string }
@@ -172,8 +173,11 @@ export default function ProjectDetailPage({ params }: PageProps) {
                 key={src}
                 className="rounded-lg overflow-hidden border border-border-soft bg-background-soft"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={src} alt="" className="w-full h-auto block" />
+                <ZoomImage
+                  src={src}
+                  alt={`${project.title} screenshot`}
+                  className="w-full h-auto block"
+                />
               </div>
             ))}
           </div>
@@ -186,8 +190,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {cs.photos.map((photo) => (
               <figure key={photo.src}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <ZoomImage
                   src={photo.src}
                   alt={photo.caption ?? ''}
                   className="w-full h-auto block rounded-lg border border-border-soft"
