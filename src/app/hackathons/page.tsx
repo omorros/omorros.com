@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 // Page structure and classes follow pages/projects.js on samselikoff.com.
 
-const FEATURED = ['truevoice', 'offbabel', 'basket', 'wildscan']
+const FEATURED = ['truevoice', 'offbabel', 'wildscan', 'basket']
 const MORE = ['darkfleet', 'gaslit', 'atlas']
 
 function bySlug(slug: string) {
