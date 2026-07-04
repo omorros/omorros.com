@@ -4,6 +4,7 @@ import Link from 'next/link'
 const LINKS = [
   { href: '/projects', label: 'Projects' },
   { href: '/hackathons', label: 'Hackathons' },
+  { href: '/journal', label: 'Journal' },
 ]
 
 export function Nav() {

@@ -85,11 +85,11 @@ export default function Page() {
 
           <div className="lg:w-1/2 lg:px-4">
             <Section>
-              <SectionTitle>Awards</SectionTitle>
+              <SectionTitle link="/journal">Journal</SectionTitle>
               <SectionBody>
                 <p>
-                  Overall winner at Voice AI Hack London 2026 and Cosine track
-                  winner at the On-Device Agent Hackathon.
+                  Stories from away from the keyboard, like playing basketball
+                  as a scholarship athlete while studying.
                 </p>
               </SectionBody>
             </Section>

@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import { siteConfig } from '@/lib/constants'
 import { projects } from '@/data/projects'
+import { journal } from '@/data/journal'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const projectPages = projects
@@ -11,6 +12,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }))
+
+  const journalPages = journal.map((e) => ({
+    url: `${siteConfig.url}/journal/${e.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.5,
+  }))
 
   return [
     {
@@ -31,6 +39,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    {
+      url: `${siteConfig.url}/journal`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
     ...projectPages,
+    ...journalPages,
   ]
 }
