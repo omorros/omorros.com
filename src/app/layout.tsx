@@ -17,10 +17,30 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: siteConfig.name,
+  alternateName: 'Oriol Morros',
   url: siteConfig.url,
   description: siteConfig.description,
   sameAs: [siteConfig.links.github, siteConfig.links.linkedin],
   jobTitle: 'Software Engineer',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Eli by Techbible',
+  },
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Anglia Ruskin University',
+  },
+  birthPlace: {
+    '@type': 'Place',
+    name: 'Manresa, Spain',
+  },
+  knowsAbout: [
+    'AI agents',
+    'Software engineering',
+    'TypeScript',
+    'Python',
+    'Next.js',
+  ],
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'London',
