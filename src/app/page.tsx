@@ -157,7 +157,7 @@ function HomepageImage({ className = '' }: { className?: string }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/images/oriol.jpeg"
+      src="/images/oriol-market.jpeg"
       alt="Oriol Morros"
       className={`${className} w-full`}
     />
