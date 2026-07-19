@@ -61,12 +61,10 @@ export default function Page() {
               <SectionTitle link="/projects">Projects</SectionTitle>
               <SectionBody>
                 <p>
-                  I build things on my own time, like{' '}
-                  <A href="/projects/snapshelf">SnapShelf</A>, and compete in
-                  hackathons around London, winning with projects like{' '}
-                  <A href="/projects/truevoice">TrueVoice</A> and{' '}
-                  <A href="/projects/offbabel">OffBabel</A>. You can find all
-                  of them <A href="/projects">here</A>.
+                  Things I build on my own time, like{' '}
+                  <A href="/projects/snapshelf">SnapShelf</A>, and hackathon
+                  winners like <A href="/projects/truevoice">TrueVoice</A> and{' '}
+                  <A href="/projects/offbabel">OffBabel</A>.
                 </p>
               </SectionBody>
             </Section>
@@ -77,8 +75,8 @@ export default function Page() {
               <SectionTitle link="/journal">Journal</SectionTitle>
               <SectionBody>
                 <p>
-                  Stories from away from the keyboard, like playing basketball
-                  as a scholarship athlete while studying.
+                  Life away from the keyboard: basketball, growing a TikTok to
+                  1.5M followers, and more.
                 </p>
               </SectionBody>
             </Section>
@@ -86,11 +84,11 @@ export default function Page() {
 
           <div className="lg:w-1/2 lg:px-4">
             <Section>
-              <SectionTitle>Work</SectionTitle>
+              <SectionTitle link="/work">Work</SectionTitle>
               <SectionBody>
                 <p>
-                  Before Eli I worked at the University of Cambridge and
-                  contributed to IBM’s MCP Context Forge open source project.
+                  Before Eli: the University of Cambridge and IBM’s MCP
+                  Context Forge open source project.
                 </p>
               </SectionBody>
             </Section>

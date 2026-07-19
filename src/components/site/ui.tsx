@@ -55,8 +55,15 @@ export function A({
       </Link>
     )
   }
+  // External links open in a new tab so visitors never leave the site.
+  const external = !href.startsWith('mailto:')
   return (
-    <a href={href} className={className}>
+    <a
+      href={href}
+      className={className}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
+    >
       {children}
     </a>
   )
