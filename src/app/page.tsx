@@ -62,22 +62,11 @@ export default function Page() {
               <SectionBody>
                 <p>
                   I build things on my own time, like{' '}
-                  <A href="/projects/snapshelf">SnapShelf</A> and{' '}
-                  <A href="/projects/darkfleet">DarkFleet</A>. You can find all
-                  of them <A href="/projects">here</A>.
-                </p>
-              </SectionBody>
-            </Section>
-          </div>
-
-          <div className="lg:w-1/2 lg:px-4">
-            <Section>
-              <SectionTitle link="/hackathons">Hackathons</SectionTitle>
-              <SectionBody>
-                <p>
-                  I compete in hackathons around London, building projects like{' '}
+                  <A href="/projects/snapshelf">SnapShelf</A>, and compete in
+                  hackathons around London, winning with projects like{' '}
                   <A href="/projects/truevoice">TrueVoice</A> and{' '}
-                  <A href="/projects/offbabel">OffBabel</A> in a weekend.
+                  <A href="/projects/offbabel">OffBabel</A>. You can find all
+                  of them <A href="/projects">here</A>.
                 </p>
               </SectionBody>
             </Section>
@@ -157,7 +146,7 @@ function HomepageImage({ className = '' }: { className?: string }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/images/oriol-market.jpeg"
+      src="/images/oriol-home.jpg"
       alt="Oriol Morros"
       className={`${className} w-full`}
     />
