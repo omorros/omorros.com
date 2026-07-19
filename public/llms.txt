@@ -5,8 +5,7 @@
 ## Pages
 
 - [Home](https://omorros.com): introduction, work summary, and life story
-- [Projects](https://omorros.com/projects): personal projects like SnapShelf and BK-Shoot
-- [Hackathons](https://omorros.com/hackathons): hackathon projects and wins, including TrueVoice (overall winner, Voice AI Hack London 2026), OffBabel (Cosine and ExoLabs track winner, On-Device Agent Hackathon), Basket (track winner, Tokens LDN Multi-Agent Hackathon), and WILDSCAN (overall winner, Unicorn Mafia and Techbible hack night)
+- [Projects](https://omorros.com/projects): personal projects like SnapShelf and BK-Shoot, plus hackathon builds and wins, including TrueVoice (overall winner, Voice AI Hack London 2026), OffBabel (Cosine and ExoLabs track winner, On-Device Agent Hackathon), Basket (track winner, Tokens LDN Multi-Agent Hackathon), and WILDSCAN (overall winner, Unicorn Mafia and Techbible hack night)
 - [Journal](https://omorros.com/journal): personal stories, like playing basketball as a scholarship athlete
 
 ## Contact

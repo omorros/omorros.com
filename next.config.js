@@ -1,5 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  redirects: async () => [
+    {
+      source: '/hackathons',
+      destination: '/projects',
+      permanent: true,
+    },
+  ],
   images: {
     remotePatterns: [
       {
