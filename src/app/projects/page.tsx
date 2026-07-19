@@ -6,21 +6,41 @@ import { projects } from '@/data/projects'
 
 export const metadata: Metadata = {
   title: 'Projects',
-  description: 'Personal projects by Oriol Morros.',
+  description:
+    'Personal projects and hackathon builds by Oriol Morros, including four hackathon wins around London.',
 }
 
 // Page structure and classes follow pages/projects.js on samselikoff.com.
 
-const FEATURED = ['snapshelf', 'bk-shoot']
+// Relevance order, mixing personal and hackathon work. Reorder these
+// lists to change what shows up first.
+const FEATURED = [
+  'truevoice',
+  'offbabel',
+  'wildscan',
+  'basket',
+  'snapshelf',
+  'bk-shoot',
+]
 const MORE = [
+  'darkfleet',
+  'gaslit',
+  'atlas',
   'deep-learning-cnn-comparison',
-  'personal-web-portfolio',
   'wikipedia-scraper',
-  'university-library-system',
+  'university-library',
 ]
 
 function bySlug(slug: string) {
   return projects.find((p) => p.slug === slug)
+}
+
+function CategoryBadge({ category }: { category: 'personal' | 'hackathon' }) {
+  return (
+    <span className="inline-block rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-medium uppercase tracking-wide text-gray-500">
+      {category === 'hackathon' ? 'Hackathon' : 'Personal'}
+    </span>
+  )
 }
 
 function CardImage({ slug }: { slug: string }) {
@@ -32,9 +52,7 @@ function CardImage({ slug }: { slug: string }) {
     p.caseStudy?.screenshots?.[0] ||
     '/images/card-placeholder.svg'
   const subtitle =
-    p.caseStudy?.awards?.[0]?.title ??
-    p.event ??
-    (p.year ? `Personal project · ${p.year}` : 'Personal project')
+    p.caseStudy?.awards?.[0]?.title ?? p.event ?? (p.year ? p.year : undefined)
   const mediaClass = `rounded-lg shadow-lg w-full aspect-[16/10] object-cover group-hover:shadow-xl transition-shadow ${p.caseStudy?.cardImagePos ?? ''}`
   return (
     <Link href={`/projects/${p.slug}`} className="group block">
@@ -60,7 +78,10 @@ function CardImage({ slug }: { slug: string }) {
             aria-hidden="true"
           />
         </p>
-        <p className="text-sm text-gray-700">{subtitle}</p>
+        <p className="mt-1 flex items-center gap-2 text-sm text-gray-700">
+          <CategoryBadge category={p.category} />
+          {subtitle && <span>{subtitle}</span>}
+        </p>
       </div>
     </Link>
   )
@@ -69,12 +90,18 @@ function CardImage({ slug }: { slug: string }) {
 function SmallCard({ slug }: { slug: string }) {
   const p = bySlug(slug)
   if (!p) return null
+  const subtitle = p.caseStudy?.awards?.[0]?.title ?? p.event ?? p.year
   return (
     <Link
       href={`/projects/${p.slug}`}
-      className="flex items-center justify-center h-24 px-4 mt-4 font-medium leading-snug text-center text-gray-600 bg-white rounded shadow hover:text-gray-700"
+      className="flex flex-col items-center justify-center h-24 px-4 mt-4 leading-snug text-center bg-white rounded shadow group"
     >
-      <p>{p.title}</p>
+      <p className="font-medium text-gray-600 group-hover:text-gray-700">
+        {p.title}
+      </p>
+      {subtitle && (
+        <p className="mt-1 text-xs text-gray-500 line-clamp-2">{subtitle}</p>
+      )}
     </Link>
   )
 }
@@ -90,35 +117,28 @@ export default function ProjectsPage() {
         <Spacer size="lg" />
 
         <Lead>
-          My favourite personal build is{' '}
-          <A href="/projects/snapshelf">SnapShelf</A>, an app that tracks your
-          kitchen inventory from photos and barcodes so less food goes to
-          waste.
+          I never really stop building. Most of these start as problems from
+          my own life, like <A href="/projects/snapshelf">SnapShelf</A>, and
+          automations that make it a little easier.
         </Lead>
 
         <Lead>
-          Before that I built <A href="/projects/bk-shoot">BK-Shoot</A>, a
-          basketball shot tracker made of Arduino sensors and an Android app,
-          tested on about 2,000 real shots.
-        </Lead>
-
-        <Lead>
-          The rest ranges from deep learning experiments to scrapers and
-          university systems. All of them are on{' '}
-          <A href={`https://github.com/omorros`}>my GitHub</A>.
+          The rest come from hackathon weekends around London, where I go to
+          learn, try new tools, and meet people. A few ended in wins. All of
+          them are on <A href={`https://github.com/omorros`}>my GitHub</A>.
         </Lead>
 
         <div className="md:mt-4">
-          <div className="md:flex md:-mx-4">
+          <div className="md:flex md:flex-wrap md:-mx-4">
             {FEATURED.map((slug) => (
-              <div key={slug} className="mt-12 md:w-1/2 md:mx-4">
+              <div key={slug} className="mt-12 md:w-1/2 md:px-4">
                 <CardImage slug={slug} />
               </div>
             ))}
           </div>
 
           <div className="mt-16 mb-32 md:mt-24">
-            <p className="text-2xl font-semibold md:text-2xl">Previous work</p>
+            <p className="text-2xl font-semibold md:text-2xl">More projects</p>
 
             <div className="flex flex-wrap mt-4 -mx-2">
               {MORE.map((slug) => (

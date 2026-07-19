@@ -8,14 +8,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .filter((p) => p.slug)
     .map((p) => ({
       url: `${siteConfig.url}/projects/${p.slug}`,
-      lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }))
 
   const journalPages = journal.map((e) => ({
     url: `${siteConfig.url}/journal/${e.slug}`,
-    lastModified: new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.5,
   }))
@@ -23,25 +21,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: siteConfig.url,
-      lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 1,
     },
     {
       url: `${siteConfig.url}/projects`,
-      lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${siteConfig.url}/hackathons`,
-      lastModified: new Date(),
+      url: `${siteConfig.url}/work`,
       changeFrequency: 'monthly',
-      priority: 0.8,
+      priority: 0.7,
     },
     {
       url: `${siteConfig.url}/journal`,
-      lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
     },

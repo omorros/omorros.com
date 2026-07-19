@@ -1,8 +1,26 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { Container, Spacer, Title } from '@/components/site/ui'
+import { A, Container, Spacer, Title } from '@/components/site/ui'
 import { ZoomImage } from '@/components/site/ZoomImage'
 import { journal } from '@/data/journal'
+
+// Renders [text](url) in journal paragraphs as inline links.
+function withLinks(text: string) {
+  const parts = text.split(/\[([^\]]+)\]\(([^)]+)\)/g)
+  if (parts.length === 1) return text
+  const out: React.ReactNode[] = []
+  for (let i = 0; i < parts.length; i += 3) {
+    if (parts[i]) out.push(parts[i])
+    if (parts[i + 1] && parts[i + 2]) {
+      out.push(
+        <A key={i} href={parts[i + 2]}>
+          {parts[i + 1]}
+        </A>
+      )
+    }
+  }
+  return out
+}
 
 interface PageProps {
   params: { slug: string }
@@ -34,7 +52,7 @@ export default function JournalEntryPage({ params }: PageProps) {
 
         <div className="mt-8 space-y-6 max-w-measure text-lg text-gray-700 md:text-xl">
           {entry.body.map((paragraph, i) => (
-            <p key={i}>{paragraph}</p>
+            <p key={i}>{withLinks(paragraph)}</p>
           ))}
         </div>
 
@@ -53,7 +71,7 @@ export default function JournalEntryPage({ params }: PageProps) {
         )}
 
         {entry.photos && entry.photos.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-12 mb-32">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-12">
             {entry.photos.map((photo) => (
               <figure key={photo.src}>
                 <ZoomImage
@@ -71,7 +89,40 @@ export default function JournalEntryPage({ params }: PageProps) {
           </div>
         )}
 
-        {!entry.photos?.length && <div className="mb-32" />}
+        {entry.bodyAfter && entry.bodyAfter.length > 0 && (
+          <div className="mt-12 space-y-6 max-w-measure text-lg text-gray-700 md:text-xl">
+            {entry.bodyAfter.map((paragraph, i) => (
+              <p key={i}>{withLinks(paragraph)}</p>
+            ))}
+          </div>
+        )}
+
+        {entry.photosAfterCaption && entry.photosAfter && (
+          <p className="mt-12 -mb-6 text-sm text-gray-700">
+            {entry.photosAfterCaption}
+          </p>
+        )}
+
+        {entry.photosAfter && entry.photosAfter.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-12">
+            {entry.photosAfter.map((photo) => (
+              <figure key={photo.src}>
+                <ZoomImage
+                  src={photo.src}
+                  alt={photo.caption ?? entry.title}
+                  className="w-full h-auto block rounded-lg shadow-lg"
+                />
+                {photo.caption && (
+                  <figcaption className="mt-2 text-sm text-gray-700">
+                    {photo.caption}
+                  </figcaption>
+                )}
+              </figure>
+            ))}
+          </div>
+        )}
+
+        <div className="pb-32" />
       </Container>
     </main>
   )

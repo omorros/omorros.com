@@ -1,5 +1,3 @@
-export const FEATURED_SLUGS = ['truevoice', 'wildscan', 'offbabel', 'darkfleet', 'bk-shoot', 'snapshelf'] as const
-
 export interface Project {
   title: string
   description: string
@@ -17,7 +15,7 @@ export interface Project {
     photos?: { src: string; caption?: string }[]
     videoUrl?: string
     thumbnail?: string
-    // Personal photo shown on the projects and hackathons cards.
+    // Personal photo shown on the projects cards.
     // Falls back to thumbnail when not set.
     cardImage?: string
     // Optional Tailwind object-position class to frame the card crop,
@@ -325,6 +323,16 @@ export const projects: Project[] = [
       videoUrl: '/images/bk-shoot/testing.mp4',
       cardImage: '/images/bk-shoot/card.jpg',
       cardVideo: '/images/bk-shoot/card.mp4',
+      photos: [
+        {
+          src: '/images/bk-shoot/breadboard.jpg',
+          caption: 'First prototype on the breadboard, testing the sensors and LEDs late at night.',
+        },
+        {
+          src: '/images/bk-shoot/mounted-board.jpg',
+          caption: 'Everything wired and glued onto the board: Arduino, IR sensor, and the Bluetooth module.',
+        },
+      ],
       screenshots: [
         'https://raw.githubusercontent.com/omorros/bk-shoot/main/testing/01_setup_guide.png',
         'https://raw.githubusercontent.com/omorros/bk-shoot/main/hardware/circuit_image.png',
@@ -376,49 +384,6 @@ export const projects: Project[] = [
             ['Classes', '14 (Fruits & Vegetables)'],
             ['Split (Train/Val/Test)', '84,582 / 18,119 / 18,141'],
             ['Resolution', '224×224 RGB']
-          ]
-        }
-      ]
-    }
-  },
-  {
-    title: 'Personal Web Portfolio',
-    description: 'Single-page portfolio with custom full-page navigation, cursor-reactive gradients, and 95+ Lighthouse scores.',
-    tags: ['TypeScript', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
-    link: 'https://github.com/omorros/omorros.com',
-    slug: 'personal-web-portfolio',
-    category: 'personal',
-    year: '2026',
-    caseStudy: {
-      challenge: 'Traditional scrolling portfolios feel generic and fail to guide user attention effectively.',
-      approach: 'Built a single-page app with custom full-page navigation, cursor-reactive gradient backgrounds, and GPU-accelerated section transitions. Scores 95+ on all Lighthouse metrics.',
-      features: [
-        { title: 'Custom Navigation Engine', description: 'Debounce-protected handler manages full-page transitions via scroll, swipe, and keyboard.' },
-        { title: '60fps Animations', description: 'Framer Motion transitions and GPU-accelerated CSS transforms for smooth performance.' },
-        { title: 'Cursor-Following Glow', description: '500px radial glow follows the cursor and adapts color to the active section theme.' },
-        { title: '95+ Lighthouse Scores', description: 'SVG gradients and Next.js App Router for optimal bundle splitting and performance.' }
-      ],
-      tables: [
-        {
-          title: 'Technology Stack',
-          headers: ['Category', 'Technology', 'Purpose'],
-          rows: [
-            ['Framework', 'Next.js 14', 'App Router architecture'],
-            ['Language', 'TypeScript', 'Type safety'],
-            ['Styling', 'Tailwind CSS', 'Utility-first styling'],
-            ['Animation', 'Framer Motion', 'Complex state transitions'],
-            ['Deployment', 'Vercel', 'Edge network hosting']
-          ]
-        },
-        {
-          title: 'Design System',
-          headers: ['Section', 'Primary Color', 'Theme Hex'],
-          rows: [
-            ['Home', 'Green/Purple', '#27c029 / #8f46db'],
-            ['About', 'Magenta', '#9e005d'],
-            ['Education', 'Orange', '#ff6b35'],
-            ['Skills', 'Burgundy', '#83394c'],
-            ['Projects', 'Deep Blue', '#001b70']
           ]
         }
       ]
