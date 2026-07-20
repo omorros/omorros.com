@@ -57,7 +57,6 @@ export const projects: Project[] = [
         { title: 'Reads Sign Language', description: 'It uses MediaPipe hand tracking and a KNN model to read your BSL fingerspelling as you sign.' },
         { title: 'Remembers Mistakes', description: 'It saves the mistakes you make and brings them back later so you get more practice on the hard ones.' },
       ],
-      thumbnail: '/images/offbabel/presenting.png',
       screenshots: [
         'https://raw.githubusercontent.com/omorros/OffBabel/main/docs/img/home.png',
         'https://raw.githubusercontent.com/omorros/OffBabel/main/docs/img/speak.png',
@@ -67,22 +66,50 @@ export const projects: Project[] = [
       videoUrl: '/images/offbabel/bsl-test.mp4',
       cardImage: '/images/offbabel/robot.jpg',
       photos: [
-        {
-          src: '/images/offbabel/robot.jpg',
-          caption: 'The Reachy Mini running OffBabel between our two laptops, with the hackathon in full swing behind it.',
-        },
+        { src: '/images/offbabel/robot.jpg' },
+        { src: '/images/offbabel/presenting.png' },
       ],
       awards: [
         {
           title: 'Cosine and ExoLabs Track Winner - On-Device Agent Hackathon',
-          description: 'The event had no overall prize, just tracks. OffBabel won two of them, Cosine and ExoLabs, with the second announced at the last minute.',
+          description: 'The event had no overall prize, just tracks. OffBabel won two of them, Cosine and ExoLabs.',
         },
       ],
     },
   },
   {
+    title: 'SupConnect',
+    description: 'An AI voice agent that answers buyer calls for secondhand clothing suppliers at any hour, qualifies the deal, and leaves a ready lead for the morning.',
+    tags: ['TypeScript', 'Next.js', 'ElevenLabs', 'WebSockets'],
+    link: 'https://github.com/omorros/SupConnect',
+    slug: 'supconnect',
+    category: 'hackathon',
+    event: 'Fleek × a16z Hackathon · London 2026',
+    year: '2026',
+    caseStudy: {
+      challenge: 'Secondhand clothing suppliers sell across time zones. When a buyer calls at 3am and nobody picks up, the sale walks to whoever answers first.',
+      approach: 'We built a voice agent that picks up every call, answers only from the supplier\'s own catalogue, fills in the deal details live as the buyer talks, and leaves a structured lead in the dashboard by morning. The model does the talking, but deterministic code makes every decision.',
+      features: [
+        { title: 'Never Misses a Call', description: 'It answers 24/7 in the browser, by voice or text, on the same pipeline.' },
+        { title: 'Sticks to the Catalogue', description: 'It only answers from supplier-approved knowledge. If it does not know, it says so instead of inventing a price.' },
+        { title: 'The Model Talks, the Code Decides', description: 'Lead status, escalations, and next actions come from a deterministic state machine, never from the LLM.' },
+        { title: 'Numbers You Can Trust', description: 'A guardrail rejects any number in the summary that did not come from the catalogue, and falls back to a plain template.' },
+      ],
+      thumbnail: 'https://raw.githubusercontent.com/omorros/SupConnect/main/docs/img/idle.png',
+      cardImage: '/images/supconnect/building.jpg',
+      screenshots: [
+        'https://raw.githubusercontent.com/omorros/SupConnect/main/docs/img/call.png',
+        'https://raw.githubusercontent.com/omorros/SupConnect/main/docs/img/summary.png',
+      ],
+      photos: [
+        { src: '/images/supconnect/building.jpg' },
+        { src: '/images/supconnect/venue.jpg' },
+      ],
+    },
+  },
+  {
     title: 'TrueVoice',
-    description: 'Clinical voice intelligence platform that flags discrepancies between patient words and vocal biomarkers in real time during medical consultations.',
+    description: 'A platform that listens during medical consultations and flags when a patient sounds worse than their words say.',
     tags: ['TypeScript', 'Next.js', 'Python', 'Claude API'],
     link: 'https://github.com/omorros/TrueVoice',
     slug: 'truevoice',
@@ -90,13 +117,13 @@ export const projects: Project[] = [
     event: 'Voice AI Hack · London 2026',
     year: '2026',
     caseStudy: {
-      challenge: 'Patients routinely minimize symptoms during consultations, leaving clinicians with an incomplete picture. Voice biomarkers carry that signal but sit on a separate diagnostic surface from the live transcript.',
-      approach: 'Built a real-time clinical platform fusing medical-grade transcription with three parallel voice biomarker streams (distress, mood/energy, affect), reconciled by a concordance engine that surfaces minimisation flags in under a second.',
+      challenge: 'Patients often play down their symptoms when talking to a doctor. The signs are there in their voice, but the doctor has no way to catch them during the conversation.',
+      approach: 'I built a platform that transcribes the consultation while reading three signals from the patient\'s voice: distress, mood, and emotion. When the words and the voice do not match, it flags it to the clinician in under a second.',
       features: [
-        { title: 'Concordance Engine', description: 'Matches minimisation phrases against live biomarker evidence to flag word/voice discrepancies in <1s.' },
-        { title: 'Three Biomarker Streams', description: 'Parallel distress, mood/energy, and affect signals via Thymia Sentinel.' },
-        { title: 'Two Consultation Modes', description: 'Telehealth (separate devices) and in-person (single microphone) with diarized transcription.' },
-        { title: 'Evidence Reports', description: 'End-of-consultation summaries synthesised by Claude with cited concordance gaps.' }
+        { title: 'Catches the Mismatch', description: 'It compares what the patient says with how their voice sounds, and flags the gap to the clinician in under a second.' },
+        { title: 'Three Voice Signals', description: 'Distress, mood, and emotion are read from the voice in parallel, using Thymia\'s Sentinel models.' },
+        { title: 'Works in Any Consultation', description: 'Telehealth with separate devices or in person with one microphone, and the transcript keeps track of who is speaking.' },
+        { title: 'Reports With Evidence', description: 'At the end, Claude writes a summary that points to every moment where the words and the voice did not match.' }
       ],
       thumbnail: '/images/truevoice/presenting.jpg',
       cardImage: '/images/truevoice/team-check.jpg',
@@ -107,14 +134,8 @@ export const projects: Project[] = [
         'https://raw.githubusercontent.com/omorros/TrueVoice/main/docs/images/report.png'
       ],
       photos: [
-        {
-          src: '/images/truevoice/team-check.jpg',
-          caption: 'Holding the winner cheque after taking first place.',
-        },
-        {
-          src: '/images/truevoice/credits.jpg',
-          caption: 'The Speechmatics golden ticket, another 1,000 pounds in credits on top of the cheque.',
-        },
+        { src: '/images/truevoice/team-check.jpg' },
+        { src: '/images/truevoice/credits.jpg' },
       ],
       awards: [
         {
@@ -126,7 +147,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Basket',
-    description: 'A team of five AI agents that spots product reformulations by watching complaints on the web, so brands find out in weeks instead of waiting for quarterly sales data.',
+    description: 'A team of five AI agents that watches the web for complaints when a product quietly changes its recipe, so brands find out in weeks instead of months.',
     tags: ['Python', 'FastAPI', 'Next.js', 'ClickHouse'],
     link: 'https://github.com/omorros/Basket',
     slug: 'basket',
@@ -135,7 +156,7 @@ export const projects: Project[] = [
     year: '2026',
     caseStudy: {
       challenge: 'When a brand quietly changes a recipe, the backlash lands on the web within days but only shows up in sales data months later. By the time a category manager sees it in a quarterly review, the damage is done.',
-      approach: 'Basket is a pipeline of five agents run by a FastAPI orchestrator. Give it a product name and it finds the reformulation date, pulls complaints from news and the web, classifies them with traceable rules, rolls them up week by week in ClickHouse, and publishes a sourced alert the moment complaints spike.',
+      approach: 'I built a pipeline of five agents. Give it a product name and it finds when the recipe changed, pulls complaints from news and the web, classifies them with rules you can trace, counts them week by week, and publishes an alert with sources the moment complaints spike.',
       features: [
         { title: 'Five-Agent Pipeline', description: 'A date finder, a retriever, a classifier, an aggregator, and a publisher, each with one job, coordinated by an orchestrator.' },
         { title: 'Finds the Turning Point', description: 'ClickHouse rolls complaints up by week and flags the inflection where a spike starts.' },
@@ -148,14 +169,8 @@ export const projects: Project[] = [
         'https://raw.githubusercontent.com/omorros/Basket/main/docs/pipeline.png',
       ],
       photos: [
-        {
-          src: '/images/basket/demo.jpg',
-          caption: 'Running the live demo in front of everyone at the Tokens LDN Multi-Agent Hackathon.',
-        },
-        {
-          src: '/images/basket/chatting.jpg',
-          caption: 'Talking builds with another hacker between sessions.',
-        },
+        { src: '/images/basket/demo.jpg' },
+        { src: '/images/basket/chatting.jpg' },
       ],
       awards: [
         {
@@ -167,7 +182,7 @@ export const projects: Project[] = [
   },
   {
     title: 'WILDSCAN',
-    description: 'Autonomous six-agent system that detects wildlife trafficking on regional marketplaces via automated scraping, multilingual code-word matching, vision species ID, and risk scoring.',
+    description: 'AI agents that scan online marketplaces for wildlife trafficking, decoding the coded language sellers hide behind in eight languages.',
     tags: ['Python', 'LangGraph', 'Next.js', 'PostGIS'],
     link: 'https://github.com/omorros/WILDSCAN',
     slug: 'wildscan',
@@ -175,13 +190,13 @@ export const projects: Project[] = [
     event: 'Unicorn Mafia × Techbible Hack Night · London 2026',
     year: '2026',
     caseStudy: {
-      challenge: 'Wildlife trafficking moves through fragmented regional marketplaces in dozens of languages, faster than human investigators can monitor. Existing tooling stops at translation.',
-      approach: 'Built a six-agent LangGraph pipeline running on Bright Data Web MCP, paired with a 500-term coded-language lexicon across 8 languages and deterministic risk scoring against CITES/IUCN classifications.',
+      challenge: 'Wildlife traffickers sell openly on regional marketplaces, hiding behind coded words in dozens of languages. Human investigators cannot keep up with the volume.',
+      approach: 'I built a pipeline of six agents that scrapes listings, spots coded terms from a 500 word lexicon in eight languages, identifies the species from photos, and scores every listing against records of real seizures.',
       features: [
-        { title: '6-Agent LangGraph Pipeline', description: 'Scanner, Triage, Linguist, Image Analyst, Species Classifier, and Risk Scorer running fully autonomously.' },
-        { title: 'Multilingual Lexicon', description: '500 coded trafficking terms across 8 languages with fuzzy matching for obfuscated listings.' },
-        { title: 'Deterministic Risk Scoring', description: '0-100 scores from 8 weighted signals, correlated against 6,000 historical seizure records.' },
-        { title: 'Globe Visualization', description: 'Real-time Mapbox globe plotting detections geographically with on-demand intelligence briefs.' }
+        { title: 'Six Agents, One Hunt', description: 'A scanner, a triage agent, a linguist, an image analyst, a species classifier, and a risk scorer run the whole pipeline on their own, built with LangGraph.' },
+        { title: 'Speaks the Sellers\' Code', description: 'It knows 500 coded trafficking terms across eight languages, and still catches them when sellers misspell them on purpose.' },
+        { title: 'Scores You Can Check', description: 'Every listing gets a 0-100 risk score from eight weighted signals, checked against 6,000 records of real seizures.' },
+        { title: 'A Live Globe', description: 'Every detection lands on a Mapbox globe in real time, with an intelligence brief one click away.' }
       ],
       thumbnail: 'https://raw.githubusercontent.com/omorros/WILDSCAN/main/docs/images/landing.png',
       screenshots: [
@@ -199,7 +214,7 @@ export const projects: Project[] = [
   },
   {
     title: 'DarkFleet',
-    description: 'AI-powered maritime surveillance system that consolidates seven data sources to detect illegal fishing vessels via deterministic risk scoring and Claude-generated intelligence briefs.',
+    description: 'A dashboard that tracks fishing vessels across seven public data sources and flags the ones most likely to be fishing illegally.',
     tags: ['Python', 'Claude API', 'PostGIS', 'Mapbox'],
     link: 'https://github.com/omorros/DarkFleet',
     slug: 'darkfleet',
@@ -207,26 +222,20 @@ export const projects: Project[] = [
     event: 'Claude Hackathon · Imperial College London 2026',
     year: '2026',
     caseStudy: {
-      challenge: 'Illegal fishing fleets hide across fragmented signal sources - AIS dark gaps, RFMO records, sanctions lists, ownership chains. No analyst can correlate them in real time.',
-      approach: 'Unified seven open data sources (Global Fishing Watch, WDPA, RFMO registries, OpenSanctions, and more) under a single risk dashboard with 7-signal weighted scoring and a Claude-driven analyst persona for follow-up investigation.',
+      challenge: 'Illegal fishing is a 23 billion dollar business, and the fleets hide by spreading their tracks across separate data sources: switched off transponders, changed flags, opaque owners. No analyst can cross check all of it in real time.',
+      approach: 'I pulled seven open data sources into one dashboard that scores every vessel on seven risk signals and ranks the global fleet. An analyst can then ask Claude follow up questions about any ship and get a full report.',
       features: [
-        { title: '7-Signal Risk Engine', description: 'Encounters, AIS dark gaps, RFMO status, loitering, flag changes, ownership opacity, and sanctions matches.' },
-        { title: 'Tiered Alerts', description: 'Red ≥80, Amber ≥60, Clear <60 - ranked across the global fleet in real time.' },
-        { title: 'Claude as Analyst', description: 'Streaming chat persona answers analyst follow-ups and produces structured vessel assessments.' },
-        { title: 'Incident Reports', description: 'Auto-generated PDF briefs synthesising every signal into a single shareable artifact.' }
+        { title: 'Seven Risk Signals', description: 'Encounters at sea, gaps in the tracking signal, flag changes, opaque owners, loitering, licence status, and sanctions, all scored together.' },
+        { title: 'Ranked Alerts', description: 'Every vessel comes out red, amber, or clear, ranked across the global fleet in real time.' },
+        { title: 'Ask Claude About Any Ship', description: 'An analyst can ask follow-up questions about any vessel and get a structured assessment back.' },
+        { title: 'One-Click Reports', description: 'Everything it knows about a vessel turns into a PDF brief you can share.' }
       ],
       thumbnail: 'https://raw.githubusercontent.com/omorros/DarkFleet/main/docs/screenshots/globe-overview.png',
       cardImage: '/images/darkfleet/selfie.jpg',
       cardImagePos: 'object-[center_55%]',
       photos: [
-        {
-          src: '/images/darkfleet/selfie.jpg',
-          caption: 'Hacking away with DarkFleet running on the laptop at Imperial College.',
-        },
-        {
-          src: '/images/darkfleet/claude-sign.jpg',
-          caption: 'With the Claude banner and the thinking caps we got for placing 6th of 64 teams.',
-        },
+        { src: '/images/darkfleet/selfie.jpg' },
+        { src: '/images/darkfleet/claude-sign.jpg' },
       ],
       screenshots: [
         'https://raw.githubusercontent.com/omorros/DarkFleet/main/docs/screenshots/vessel-detail-red.png',
@@ -244,7 +253,7 @@ export const projects: Project[] = [
   },
   {
     title: 'GASLIT',
-    description: 'Belief-layer security system that intercepts memory poisoning attacks against AI agents using four coordinated agents, HMAC verification, and adaptive retrieval contracts.',
+    description: 'A security layer that catches attempts to poison an AI agent\'s memory before the agent starts believing them.',
     tags: ['Python', 'FastAPI', 'Next.js', 'MongoDB'],
     link: 'https://github.com/omorros/GASLIT',
     slug: 'gaslit',
@@ -252,8 +261,14 @@ export const projects: Project[] = [
     event: 'MongoDB Agentic Evolution · London 2026',
     year: '2026',
     caseStudy: {
-      challenge: 'Memory poisoning attacks bypass traditional kernel sandboxes and LLM guardrails because individual queries appear benign. The malicious pattern only emerges across an agent\'s long-term memory.',
-      approach: 'Built a belief-layer interceptor sitting between MongoDB and the LLM context, with four specialized agents coordinating through change streams to detect injection attempts via cohort statistical analysis, HMAC verification, and adaptive retrieval contracts.',
+      challenge: 'You can attack an AI agent by slowly feeding it false memories. Each message looks harmless on its own, so normal guardrails let it through, and the pattern only shows up across the agent\'s memory over time.',
+      approach: 'I built a layer that sits between the agent\'s memory database and the model and checks every memory before the agent uses it. Four agents cross check new entries against the rest, verify nothing has been tampered with, and quarantine anything suspicious.',
+      features: [
+        { title: 'Checks at the Last Moment', description: 'It inspects each memory right when the agent retrieves it, after the attack has already slipped past guardrails that only look at single messages.' },
+        { title: 'Four Agents on Guard', description: 'The agents never call each other directly. They coordinate entirely through the same MongoDB database they are protecting.' },
+        { title: 'Slow Poison Shows Up as Drift', description: 'It fingerprints the queries that touch each memory, so an attack spread across weeks still stands out statistically.' },
+        { title: 'A Human Decides', description: 'The system never acts on its own. Every flag becomes a quarantine report for a person to review.' },
+      ],
       thumbnail: 'https://raw.githubusercontent.com/omorros/GASLIT/main/docs/screenshots/landing.png',
       screenshots: [
         'https://raw.githubusercontent.com/omorros/GASLIT/main/docs/screenshots/agents.png',
@@ -265,7 +280,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Atlas',
-    description: 'Real-time treasury control room that reads every transaction, scores every counterparty, and spawns autonomous research agents to brief human decision-makers on complex cases.',
+    description: 'A control room that watches a company\'s payments in real time and sends AI agents to investigate the suspicious ones.',
     tags: ['Python', 'FastAPI', 'Next.js', 'Claude API'],
     link: 'https://github.com/omorros/Atlas',
     slug: 'atlas',
@@ -273,8 +288,14 @@ export const projects: Project[] = [
     event: 'Cursor × Briefcase · London 2026',
     year: '2026',
     caseStudy: {
-      challenge: 'Treasury teams drown in transaction noise while genuine counterparty risk hides in long-tail signals that no single deterministic rule or single LLM pass can catch.',
-      approach: 'Built a hybrid pipeline combining deterministic rules with Claude Haiku triage and Claude Sonnet analysis; complex cases auto-spawn a Cursor Cloud Agent to run forensic research and produce a memo for the human reviewer.',
+      challenge: 'Finance teams see thousands of transactions a day. The genuinely risky ones hide in the noise, and no single rule or model catches them all.',
+      approach: 'I built a pipeline where simple rules and a fast model triage every transaction, a stronger model analyses the unclear ones, and the hardest cases spawn a research agent that writes a memo for the human reviewer.',
+      features: [
+        { title: 'Cheap Checks First', description: 'Simple rules and a fast model handle the flood of transactions, so the expensive model only sees the ones worth a closer look.' },
+        { title: 'The Company on a Globe', description: 'Every counterparty is plotted on a live globe with its health status, pulsing as new transactions come in.' },
+        { title: 'Agents That Investigate', description: 'The hardest cases spawn a background agent that digs through public records and web sources, then drops a memo for the reviewer.' },
+        { title: 'Never Moves the Money', description: 'Atlas only recommends. Every decision ends with a person in finance, not the machine.' },
+      ],
       thumbnail: 'https://raw.githubusercontent.com/omorros/Atlas/main/docs/screenshots/landing.png',
       screenshots: [
         'https://raw.githubusercontent.com/omorros/Atlas/main/docs/screenshots/warroom.png',
@@ -286,52 +307,47 @@ export const projects: Project[] = [
   },
   {
     title: 'SnapShelf',
-    description: 'Mobile grocery tracker with AI-powered item scanning, expiry reminders, and a trust-first workflow to reduce food waste.',
+    description: 'An app that tracks the food in your kitchen from photos and barcodes, and reminds you before it expires.',
     tags: ['TypeScript', 'React Native', 'Python', 'PostgreSQL'],
     link: 'https://github.com/omorros/SnapShelf',
     slug: 'snapshelf',
     category: 'personal',
     year: '2026',
     caseStudy: {
-      challenge: 'Household food waste is driven by forgotten inventory. Existing tracking apps fail because manual data entry is too tedious to sustain.',
-      approach: 'Built a React Native app using GPT-4o Vision and barcode scanning for instant item capture. A draft-to-inventory workflow lets AI suggest entries while users retain control over their data.',
+      challenge: 'Most food waste at home happens because you forget what you have. Tracking apps fail because typing everything in is too much work to keep up.',
+      approach: 'I built a mobile app where you photograph or scan your groceries and AI fills in the rest. Its suggestions land in a review list first, so you confirm with one tap and stay in control of your inventory.',
       features: [
-        { title: 'AI-Powered Capture', description: 'GPT-4o Vision identifies items from photos; OpenFoodFacts handles barcode lookups.' },
-        { title: 'Trust-First Workflow', description: 'AI suggestions land in a staging area for quick user confirmation before entering inventory.' },
-        { title: 'Smart Expiry Prediction', description: 'Uses historical data and category heuristics to automatically estimate shelf life.' },
-        { title: 'Production Backend', description: 'FastAPI + SQLAlchemy with comprehensive Pytest coverage and JWT security.' }
+        { title: 'Point and Shoot', description: 'GPT-4o Vision names the food in your photo, and barcodes get looked up on OpenFoodFacts.' },
+        { title: 'You Confirm Everything', description: 'The AI\'s suggestions land in a review list first, so nothing enters your inventory without a one-tap yes from you.' },
+        { title: 'Guesses the Expiry', description: 'It estimates how long each item lasts from its category and what it has seen before, then reminds you in time.' },
+        { title: 'A Real Backend', description: 'FastAPI and PostgreSQL behind the app, with proper tests and JWT login.' }
       ]
     }
   },
   {
     title: 'BK-Shoot',
-    description: 'Low-cost IoT device that detects basketball makes/misses in real time using IR + vibration sensor fusion.',
+    description: 'A 25 euro sensor rig on the basketball hoop that counts your makes and misses in real time, straight to your phone.',
     tags: ['C++', 'IoT', 'Arduino', 'Android'],
     link: 'https://github.com/omorros/bk-shoot',
     slug: 'bk-shoot',
     category: 'personal',
     year: '2021',
     caseStudy: {
-      challenge: 'Basketball analytics rely on expensive proprietary systems, making real-time shooting metrics inaccessible to amateur players.',
-      approach: 'Engineered a <€25 IoT device fusing IR and vibration sensors to classify makes, misses, and swishes at ~95% accuracy. Stats stream via Bluetooth to a custom Android app.',
+      challenge: 'Shot tracking exists for pro teams, but it costs thousands. Amateur players have no way to know their real shooting numbers.',
+      approach: 'I combined an infrared sensor and a vibration sensor on an Arduino to tell makes from misses at around 95 percent accuracy, and streamed every shot over Bluetooth to an Android app I built. Tested with 20 players and around 2,000 real shots.',
       features: [
-        { title: 'Sensor Fusion Algorithm', description: 'Custom C++ algorithm correlates IR triggers and vibration spikes within a 1000ms window.' },
-        { title: 'Cost-Effective Hardware', description: 'Built with Arduino Uno, IR sensors, and vibration modules for under €25.' },
-        { title: 'Full-Stack System', description: 'Designed circuitry, embedded firmware, Bluetooth protocol, and Android app end-to-end.' },
-        { title: 'Field-Validated', description: 'Tested with 20+ participants and ~2,000 shots achieving statistical significance.' }
+        { title: 'Two Sensors, One Answer', description: 'My C++ code matches the infrared trigger with the vibration spike inside a one second window to call make or miss.' },
+        { title: 'Under 25 Euros of Parts', description: 'An Arduino Uno, an infrared sensor, and a vibration module. That is the whole rig.' },
+        { title: 'Built End to End', description: 'I designed the circuit, wrote the firmware, defined the Bluetooth protocol, and built the Android app.' },
+        { title: 'Tested on a Real Court', description: '20 players and around 2,000 shots, at about 95 percent detection accuracy.' }
       ],
       videoUrl: '/images/bk-shoot/testing.mp4',
-      cardImage: '/images/bk-shoot/card.jpg',
-      cardVideo: '/images/bk-shoot/card.mp4',
+      cardImage: '/images/bk-shoot/mounted-board.jpg',
+      cardImagePos: 'object-[center_35%]',
+      cardVideo: '/images/bk-shoot/testing.mp4',
       photos: [
-        {
-          src: '/images/bk-shoot/breadboard.jpg',
-          caption: 'First prototype on the breadboard, testing the sensors and LEDs late at night.',
-        },
-        {
-          src: '/images/bk-shoot/mounted-board.jpg',
-          caption: 'Everything wired and glued onto the board: Arduino, IR sensor, and the Bluetooth module.',
-        },
+        { src: '/images/bk-shoot/breadboard.jpg' },
+        { src: '/images/bk-shoot/mounted-board.jpg' },
       ],
       screenshots: [
         'https://raw.githubusercontent.com/omorros/bk-shoot/main/testing/01_setup_guide.png',
@@ -351,20 +367,20 @@ export const projects: Project[] = [
   },
   {
     title: 'CNN Architecture Comparison',
-    description: 'Benchmarked three CNN architectures on 120K+ food images, proving EfficientNetB0 matches ResNet-50 while being 5.9x smaller.',
+    description: 'Three neural networks compared on 120,000 food photos, showing a small model can match a big one at the same accuracy while being six times smaller.',
     tags: ['Jupyter Notebook', 'Python', 'TensorFlow', 'Deep Learning'],
     link: 'https://github.com/omorros/deep-learning-cnn-comparison',
     slug: 'deep-learning-cnn-comparison',
     category: 'personal',
     year: '2026',
     caseStudy: {
-      challenge: 'Determining whether lightweight CNNs can match heavy architectures for domain-specific image classification while minimizing compute cost.',
-      approach: 'Benchmarked three CNN architectures on 120K+ food images. EfficientNetB0 matched ResNet-50\'s 99.75% accuracy while being 5.9x smaller and 35% faster to train.',
+      challenge: 'Bigger models usually win, but they cost more to train and run. I wanted to know how much model you actually need for one specific job, recognising food.',
+      approach: 'I trained three architectures on 120,000 food images and compared them. The small one matched the big one at 99.75 percent accuracy while being six times smaller and a third faster to train.',
       features: [
-        { title: '120K+ Image Pipeline', description: 'Merged three Kaggle sources with SHA-256 deduplication and stratified splitting.' },
-        { title: '99.75% Accuracy', description: 'EfficientNetB0 matched ResNet-50 via transfer learning on domain-specific data.' },
-        { title: '5.9x Model Compression', description: 'EfficientNetB0 achieved parity at 40 MB vs ResNet-50\'s 211 MB.' },
-        { title: 'Class-Weighted Training', description: 'Maintained >0.98 F1 scores even on minority classes with 113:1 imbalance.' }
+        { title: '120,000 Images, Cleaned', description: 'I merged three Kaggle datasets, removed every duplicate by hashing the files, and split what was left carefully by class.' },
+        { title: '99.75 Percent Accuracy', description: 'EfficientNetB0 matched ResNet-50 once both were fine-tuned on the food images.' },
+        { title: 'Six Times Smaller', description: 'The winning model is 40 MB against ResNet-50\'s 211 MB, at the same accuracy.' },
+        { title: 'Fair to the Rare Classes', description: 'Even classes with 113 times fewer images kept F1 scores above 0.98, thanks to class weighting.' }
       ],
       tables: [
         {
@@ -391,48 +407,48 @@ export const projects: Project[] = [
   },
   {
     title: 'Wikipedia Scraper',
-    description: 'Async crawler with 100 concurrent workers, O(1) URL deduplication, and a 20-second global deadline.',
+    description: 'A crawler that reads as much of Wikipedia as it can in 20 seconds, with 100 workers running in parallel.',
     tags: ['Python', 'Asyncio', 'Aiohttp', 'BeautifulSoup'],
     link: 'https://github.com/omorros/wikipedia_scraper',
     slug: 'wikipedia-scraper',
     category: 'personal',
     year: '2025',
     caseStudy: {
-      challenge: 'Efficiently crawling large-scale websites requires balancing speed with resource management under strict time constraints.',
-      approach: 'Built a high-concurrency async crawler with 100 workers, O(1) URL deduplication, and a global 20-second deadline using Python\'s asyncio and aiohttp.',
+      challenge: 'Crawling a big site fast means keeping a hundred connections busy without ever fetching the same page twice, and stopping exactly on a deadline.',
+      approach: 'I wrote an async crawler where 100 workers share one queue and one set of seen URLs, and a global deadline cancels everything at exactly 20 seconds.',
       features: [
-        { title: '100 Concurrent Workers', description: 'Saturates network bandwidth and masks I/O latency with massive parallelism.' },
-        { title: '20s Deadline Enforcement', description: 'Global deadline propagation cancels all pending tasks exactly at the time limit.' },
-        { title: 'URL Deduplication', description: 'Hash set guarantees O(1) lookup time, preventing redundant processing and infinite loops.' },
-        { title: 'Non-Blocking Architecture', description: 'Full async event loop with robust link normalization and protocol handling.' }
+        { title: '100 Workers at Once', description: 'A hundred connections stay busy at the same time, so the crawler never sits waiting on a single page.' },
+        { title: 'Stops on the Dot', description: 'A global deadline cancels every pending task at exactly 20 seconds.' },
+        { title: 'Never Fetches Twice', description: 'One shared set of seen URLs means no page downloads twice and no loop runs forever.' },
+        { title: 'One Event Loop, No Threads', description: 'Everything is async, with careful link cleanup so odd URLs do not crash a worker.' }
       ]
     }
   },
   {
     title: 'University Library System',
-    description: 'Java MVC console app with inheritance hierarchies, polymorphic loan rules, and custom CSV persistence.',
+    description: 'A university library system built in Java, with different borrowing rules for each type of user and no database behind it.',
     tags: ['Java', 'OOP', 'JUnit', 'File I/O'],
     link: 'https://github.com/omorros/UniversityLibrarySystem',
     slug: 'university-library-system',
     category: 'personal',
     year: '2025',
     caseStudy: {
-      challenge: 'Modelling complex entity relationships and enforcing role-specific business rules with file-based persistence and no database.',
-      approach: 'Developed a Java MVC console app using inheritance hierarchies, polymorphic loan rules, and a custom CSV persistence engine.',
+      challenge: 'The module asked for a full library system with different rules for each type of user, students, children, and adults, built without a database.',
+      approach: 'I designed it as a Java MVC app where books and users share common base classes, borrowing limits are enforced per role, and everything saves to CSV files through a loader I wrote myself.',
       features: [
-        { title: 'MVC + OOP Architecture', description: 'Model-View-Controller with abstract base classes and composition patterns.' },
-        { title: 'CSV Persistence Engine', description: 'Custom DataLoader serializes complex object graphs, decoupling logic from storage.' },
-        { title: 'Role-Based Loan Rules', description: 'Polymorphic constraints enforce per-role limits (10 Adult, 3 Child) and suspension states.' },
-        { title: 'JUnit + Functional Tests', description: 'White-box unit tests for core logic combined with end-to-end workflow testing.' }
+        { title: 'Classic MVC Design', description: 'Books and users share abstract base classes, and every screen talks to the model through a controller.' },
+        { title: 'Different Rules Per Role', description: 'Adults can borrow ten items, children three, and the system enforces it, suspensions included.' },
+        { title: 'No Database Needed', description: 'Everything saves to CSV files through a loader I wrote myself.' },
+        { title: 'Properly Tested', description: 'JUnit tests cover the core logic, and end-to-end tests walk the full user flows.' }
       ],
-      reportUrl: '/reports/MOD004883_Component2_Report_2270056.pdf',
+      reportUrl: '/reports/university-library-report.pdf',
       screenshots: [
         '/images/university-library/ui.jpg'
       ],
       awards: [
         {
           title: 'Distinction Grade (80%)',
-          description: 'Achieved a First-Class mark for software architecture quality, clean code practices, and comprehensive documentation.'
+          description: 'Marked at 80 percent, a First-Class grade, for the architecture, the clean code, and the documentation.'
         }
       ],
       tables: [

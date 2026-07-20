@@ -53,7 +53,9 @@ export default function WorkPage() {
           role="Software Engineer"
           title="Eli by Techbible"
         >
-          <p>Building infrastructure for AI agents.</p>
+          <p>
+            Building infrastructure for AI agents to manage SaaS and payments.
+          </p>
         </Entry>
 
         <Entry
@@ -86,12 +88,15 @@ export default function WorkPage() {
           title="IBM MCP Context Forge"
         >
           <p>
-            I contributed to{' '}
+            I have 18 merged pull requests in{' '}
             <A href="https://github.com/IBM/mcp-context-forge">
               MCP Context Forge
             </A>
             , IBM’s open source gateway for the Model Context Protocol, with
             over 4,000 stars on GitHub.
+          </p>
+          <p className="text-base">
+            <A href="https://github.com/omorros/open-source">Case studies</A>
           </p>
         </Entry>
 
