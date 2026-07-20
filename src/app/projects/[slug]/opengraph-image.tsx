@@ -1,9 +1,8 @@
 import { ImageResponse } from 'next/og'
-import { siteConfig } from '@/lib/constants'
+import { projects } from '@/data/projects'
 
 export const runtime = 'edge'
 
-export const alt = `${siteConfig.name} · ${siteConfig.subtitle}`
 export const size = {
   width: 1200,
   height: 630,
@@ -11,10 +10,20 @@ export const size = {
 
 export const contentType = 'image/png'
 
-// The card is a mini browser window showing the site itself: traffic
-// lights, URL bar, then the homepage hero with name, subtitle, nav
-// links, and the headshot. Light theme, matching the real site.
-export default async function Image() {
+// Same browser-window card as the site-wide OG image, with the
+// project in the window: URL bar shows the project path, then the
+// title, one-liner, and the award or event line.
+export default async function Image({
+  params,
+}: {
+  params: { slug: string }
+}) {
+  const project = projects.find((p) => p.slug === params.slug)
+  const title = project?.title ?? 'Projects'
+  const description = project?.description ?? ''
+  const badge =
+    project?.caseStudy?.awards?.[0]?.title ?? project?.event ?? project?.year
+
   return new ImageResponse(
     (
       <div
@@ -96,11 +105,11 @@ export default async function Image() {
               }}
             >
               <span style={{ color: '#9ca3af', display: 'flex' }}>🔒</span>
-              omorros.com
+              omorros.com/projects/{params.slug}
             </div>
           </div>
 
-          {/* Page content: homepage hero */}
+          {/* Page content: project hero */}
           <div
             style={{
               flexGrow: 1,
@@ -109,10 +118,16 @@ export default async function Image() {
               padding: '0 80px',
             }}
           >
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                maxWidth: 980,
+              }}
+            >
               <div
                 style={{
-                  fontSize: 84,
+                  fontSize: 80,
                   fontWeight: 600,
                   letterSpacing: '-0.03em',
                   lineHeight: 1.05,
@@ -120,53 +135,41 @@ export default async function Image() {
                   display: 'flex',
                 }}
               >
-                Oriol Morros Vilaseca
+                {title}
               </div>
-              <div
-                style={{
-                  marginTop: 22,
-                  fontSize: 30,
-                  color: '#6b7280',
-                  display: 'flex',
-                }}
-              >
-                Software Engineer · London, UK
-              </div>
-              <div
-                style={{
-                  marginTop: 40,
-                  display: 'flex',
-                  gap: 34,
-                  fontSize: 26,
-                  fontWeight: 500,
-                  color: '#3b82f6',
-                }}
-              >
-                <span
+              {description && (
+                <div
                   style={{
-                    borderBottom: '3px solid #93c5fd',
-                    paddingBottom: 3,
+                    marginTop: 24,
+                    fontSize: 29,
+                    lineHeight: 1.4,
+                    color: '#6b7280',
+                    display: 'flex',
                   }}
                 >
-                  Projects
-                </span>
-                <span
+                  {description}
+                </div>
+              )}
+              {badge && (
+                <div
                   style={{
-                    borderBottom: '3px solid #93c5fd',
-                    paddingBottom: 3,
+                    marginTop: 36,
+                    fontSize: 25,
+                    fontWeight: 500,
+                    color: '#3b82f6',
+                    display: 'flex',
                   }}
                 >
-                  Work
-                </span>
-                <span
-                  style={{
-                    borderBottom: '3px solid #93c5fd',
-                    paddingBottom: 3,
-                  }}
-                >
-                  Journal
-                </span>
-              </div>
+                  <span
+                    style={{
+                      borderBottom: '3px solid #93c5fd',
+                      paddingBottom: 3,
+                    }}
+                  >
+                    {badge}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
