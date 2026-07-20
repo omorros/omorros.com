@@ -60,9 +60,8 @@ export default function Page() {
               <SectionTitle link="/projects">Projects</SectionTitle>
               <SectionBody>
                 <p>
-                  Things I build on my own time, like{' '}
-                  <A href="/projects/snapshelf">SnapShelf</A>, and hackathon
-                  winners like <A href="/projects/truevoice">TrueVoice</A> and{' '}
+                  Things I build on my own time, and hackathon winners like{' '}
+                  <A href="/projects/truevoice">TrueVoice</A> and{' '}
                   <A href="/projects/offbabel">OffBabel</A>.
                 </p>
               </SectionBody>
@@ -74,8 +73,8 @@ export default function Page() {
               <SectionTitle link="/journal">Journal</SectionTitle>
               <SectionBody>
                 <p>
-                  Life away from the keyboard: basketball, growing a TikTok to
-                  1.5M followers, and more.
+                  Life away from the keyboard: basketball, a TikTok with 1.5M
+                  followers, and more.
                 </p>
               </SectionBody>
             </Section>
@@ -86,8 +85,8 @@ export default function Page() {
               <SectionTitle link="/work">Work</SectionTitle>
               <SectionBody>
                 <p>
-                  Before Eli: the University of Cambridge and IBM’s MCP
-                  Context Forge open source project.
+                  The professional side: where I work, what I&apos;ve shipped,
+                  and how I got here.
                 </p>
               </SectionBody>
             </Section>
@@ -100,9 +99,9 @@ export default function Page() {
           <Title size="sm">Life</Title>
           <Lead>
             I grew up in Manresa, a small city near Barcelona, and moved to
-            England in 2023 to study in Cambridge.
+            England in 2023 to study university.
           </Lead>
-          <Lead>I currently live in London + absolutely love it here!</Lead>
+          <Lead>Now I live in London and absolutely love it here!</Lead>
         </Container>
       </div>
 

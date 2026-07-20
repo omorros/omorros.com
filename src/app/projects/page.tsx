@@ -19,11 +19,12 @@ const FEATURED = [
   'offbabel',
   'wildscan',
   'basket',
-  'snapshelf',
+  'darkfleet',
   'bk-shoot',
 ]
 const MORE = [
-  'darkfleet',
+  'supconnect',
+  'snapshelf',
   'gaslit',
   'atlas',
   'deep-learning-cnn-comparison',
