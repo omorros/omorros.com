@@ -78,6 +78,36 @@ export const projects: Project[] = [
     },
   },
   {
+    title: 'SupConnect',
+    description: 'An AI voice agent that answers buyer calls for secondhand clothing suppliers at any hour, qualifies the deal, and leaves a ready lead for the morning.',
+    tags: ['TypeScript', 'Next.js', 'ElevenLabs', 'WebSockets'],
+    link: 'https://github.com/omorros/SupConnect',
+    slug: 'supconnect',
+    category: 'hackathon',
+    event: 'Fleek × a16z Hackathon · London 2026',
+    year: '2026',
+    caseStudy: {
+      challenge: 'Secondhand clothing suppliers sell across time zones. When a buyer calls at 3am and nobody picks up, the sale walks to whoever answers first.',
+      approach: 'We built a voice agent that picks up every call, answers only from the supplier\'s own catalogue, fills in the deal details live as the buyer talks, and leaves a structured lead in the dashboard by morning. The model does the talking, but deterministic code makes every decision.',
+      features: [
+        { title: 'Never Misses a Call', description: 'It answers 24/7 in the browser, by voice or text, on the same pipeline.' },
+        { title: 'Sticks to the Catalogue', description: 'It only answers from supplier-approved knowledge. If it does not know, it says so instead of inventing a price.' },
+        { title: 'The Model Talks, the Code Decides', description: 'Lead status, escalations, and next actions come from a deterministic state machine, never from the LLM.' },
+        { title: 'Numbers You Can Trust', description: 'A guardrail rejects any number in the summary that did not come from the catalogue, and falls back to a plain template.' },
+      ],
+      thumbnail: 'https://raw.githubusercontent.com/omorros/SupConnect/main/docs/img/idle.png',
+      cardImage: '/images/supconnect/building.jpg',
+      screenshots: [
+        'https://raw.githubusercontent.com/omorros/SupConnect/main/docs/img/call.png',
+        'https://raw.githubusercontent.com/omorros/SupConnect/main/docs/img/summary.png',
+      ],
+      photos: [
+        { src: '/images/supconnect/building.jpg' },
+        { src: '/images/supconnect/venue.jpg' },
+      ],
+    },
+  },
+  {
     title: 'TrueVoice',
     description: 'A platform that listens during medical consultations and flags when a patient sounds worse than their words say.',
     tags: ['TypeScript', 'Next.js', 'Python', 'Claude API'],
