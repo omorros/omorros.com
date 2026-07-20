@@ -5,6 +5,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 import { siteConfig } from '@/lib/constants'
 import { Nav } from '@/components/site/Nav'
+import { Footer } from '@/components/site/Footer'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -119,6 +120,7 @@ export default function RootLayout({
         />
         <Nav />
         {children}
+        <Footer />
         <Analytics />
         <SpeedInsights />
       </body>
