@@ -11,6 +11,9 @@ export const size = {
 
 export const contentType = 'image/png'
 
+// The card is a mini browser window showing the site itself: traffic
+// lights, URL bar, then the homepage hero with name, subtitle, nav
+// links, and the headshot. Light theme, matching the real site.
 export default async function Image() {
   return new ImageResponse(
     (
@@ -18,109 +21,154 @@ export default async function Image() {
         style={{
           width: '100%',
           height: '100%',
-          background: '#000',
-          color: '#fff',
+          background: '#e5e7eb',
           display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          padding: '64px 72px',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 44,
           fontFamily: 'system-ui, -apple-system, "Segoe UI", sans-serif',
         }}
       >
-        {/* Top row: domain + availability */}
         <div
           style={{
+            width: '100%',
+            height: '100%',
+            background: '#ffffff',
+            borderRadius: 20,
+            border: '1px solid #d1d5db',
+            boxShadow: '0 25px 60px rgba(0,0,0,0.18)',
             display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            fontSize: 18,
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            fontFamily: 'ui-monospace, "SF Mono", Menlo, monospace',
+            flexDirection: 'column',
+            overflow: 'hidden',
           }}
         >
-          <span style={{ color: '#9ca3af' }}>omorros.com</span>
-          <span
+          {/* Browser chrome */}
+          <div
             style={{
               display: 'flex',
               alignItems: 'center',
               gap: 10,
-              color: '#d1d5db',
-              border: '1px solid #262626',
-              borderRadius: 999,
-              padding: '8px 18px',
-              fontSize: 15,
+              padding: '18px 24px',
+              borderBottom: '1px solid #e5e7eb',
+              background: '#f9fafb',
             }}
           >
-            <span
+            <div
               style={{
-                width: 10,
-                height: 10,
+                width: 14,
+                height: 14,
                 borderRadius: '50%',
-                background: '#22c55e',
+                background: '#f87171',
                 display: 'flex',
               }}
             />
-            Available
-          </span>
-        </div>
-
-        {/* Center: name + positioning */}
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 18,
-          }}
-        >
-          <div
-            style={{
-              fontSize: 96,
-              fontWeight: 600,
-              letterSpacing: '-0.03em',
-              lineHeight: 1.02,
-              color: '#fff',
-            }}
-          >
-            Oriol Morros Vilaseca
+            <div
+              style={{
+                width: 14,
+                height: 14,
+                borderRadius: '50%',
+                background: '#fbbf24',
+                display: 'flex',
+              }}
+            />
+            <div
+              style={{
+                width: 14,
+                height: 14,
+                borderRadius: '50%',
+                background: '#34d399',
+                display: 'flex',
+              }}
+            />
+            <div
+              style={{
+                marginLeft: 22,
+                flexGrow: 1,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                background: '#ffffff',
+                border: '1px solid #e5e7eb',
+                borderRadius: 999,
+                padding: '9px 20px',
+                fontSize: 21,
+                color: '#6b7280',
+              }}
+            >
+              <span style={{ color: '#9ca3af', display: 'flex' }}>🔒</span>
+              omorros.com
+            </div>
           </div>
+
+          {/* Page content: homepage hero */}
           <div
             style={{
-              fontSize: 32,
-              lineHeight: 1.3,
-              color: '#d1d5db',
-              letterSpacing: '-0.01em',
+              flexGrow: 1,
               display: 'flex',
-              alignItems: 'baseline',
-              gap: 14,
+              alignItems: 'center',
+              padding: '0 80px',
             }}
           >
-            <span>Software Engineer</span>
-            <span style={{ color: '#525252' }}>|</span>
-            <span style={{ color: '#fff', fontWeight: 500 }}>
-              Building infrastructure for AI agents.
-            </span>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div
+                style={{
+                  fontSize: 84,
+                  fontWeight: 600,
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1.05,
+                  color: '#1f2937',
+                  display: 'flex',
+                }}
+              >
+                Oriol Morros Vilaseca
+              </div>
+              <div
+                style={{
+                  marginTop: 22,
+                  fontSize: 30,
+                  color: '#6b7280',
+                  display: 'flex',
+                }}
+              >
+                Software Engineer · London, UK
+              </div>
+              <div
+                style={{
+                  marginTop: 40,
+                  display: 'flex',
+                  gap: 34,
+                  fontSize: 26,
+                  fontWeight: 500,
+                  color: '#3b82f6',
+                }}
+              >
+                <span
+                  style={{
+                    borderBottom: '3px solid #93c5fd',
+                    paddingBottom: 3,
+                  }}
+                >
+                  Projects
+                </span>
+                <span
+                  style={{
+                    borderBottom: '3px solid #93c5fd',
+                    paddingBottom: 3,
+                  }}
+                >
+                  Work
+                </span>
+                <span
+                  style={{
+                    borderBottom: '3px solid #93c5fd',
+                    paddingBottom: 3,
+                  }}
+                >
+                  Journal
+                </span>
+              </div>
+            </div>
           </div>
-        </div>
-
-        {/* Bottom: credibility strip */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 18,
-            fontSize: 18,
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            fontFamily: 'ui-monospace, "SF Mono", Menlo, monospace',
-            color: '#9ca3af',
-          }}
-        >
-          <span>
-            <span style={{ color: '#fff' }}>18</span> PRs to IBM MCP Context Forge
-          </span>
-          <span style={{ color: '#404040' }}>·</span>
-          <span>Eli by Techbible</span>
         </div>
       </div>
     ),
