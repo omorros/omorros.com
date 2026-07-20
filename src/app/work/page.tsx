@@ -12,13 +12,11 @@ function Entry({
   when,
   role,
   title,
-  images,
   children,
 }: {
   when: string
   role?: string
   title: string
-  images?: { src: string; alt: string; caption?: string }[]
   children: React.ReactNode
 }) {
   return (
@@ -31,33 +29,6 @@ function Entry({
       <div className="mt-3 space-y-4 max-w-measure text-lg text-gray-700 md:text-xl">
         {children}
       </div>
-      {images && images.length > 0 && (
-        <div
-          className={
-            images.length > 1
-              ? 'mt-5 grid grid-cols-2 gap-4 max-w-xl'
-              : 'mt-5 max-w-sm'
-          }
-        >
-          {images.map((img) => (
-            <figure key={img.src}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={img.src}
-                alt={img.alt}
-                className={`w-full rounded-lg border border-gray-200 shadow-sm ${
-                  images.length > 1 ? 'aspect-video object-cover object-top' : ''
-                }`}
-              />
-              {img.caption && (
-                <figcaption className="mt-1.5 text-sm text-gray-500">
-                  {img.caption}
-                </figcaption>
-              )}
-            </figure>
-          ))}
-        </div>
-      )}
     </section>
   )
 }
@@ -102,18 +73,6 @@ export default function WorkPage() {
           when="Feb – Apr 2026"
           role="Web Developer"
           title="Festival Sant Fruitós"
-          images={[
-            {
-              src: '/images/work/festival-old.jpg',
-              alt: 'The old festival website',
-              caption: 'Before',
-            },
-            {
-              src: '/images/work/festival-new.jpg',
-              alt: 'The rebuilt festival website',
-              caption: 'After',
-            },
-          ]}
         >
           <p>
             I rebuilt the classical music festival’s legacy WordPress site on
