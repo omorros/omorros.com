@@ -9,28 +9,25 @@ export const size = {
 
 export const contentType = 'image/png'
 
-// Home-screen icon: same OM monogram as the favicon, square canvas
+// Home-screen icon: same slash, full-bleed white square
 // (iOS applies its own corner rounding).
 export default function AppleIcon() {
   return new ImageResponse(
     (
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          background: '#3b82f6',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: '#ffffff',
-          fontSize: 84,
-          fontWeight: 700,
-          letterSpacing: '-0.04em',
-          fontFamily: 'system-ui, -apple-system, "Segoe UI", sans-serif',
-        }}
+      <svg
+        width="180"
+        height="180"
+        viewBox="0 0 64 64"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        OM
-      </div>
+        <rect width="64" height="64" fill="#ffffff" />
+        <path
+          d="M40 14 L24 50"
+          stroke="#111827"
+          strokeWidth="8"
+          strokeLinecap="round"
+        />
+      </svg>
     ),
     {
       ...size,

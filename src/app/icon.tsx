@@ -9,28 +9,32 @@ export const size = {
 
 export const contentType = 'image/png'
 
-// Tab icon: OM monogram in the site's link blue.
+// Tab icon: a single slash on white. The / in every URL.
 export default function Icon() {
   return new ImageResponse(
     (
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          background: '#3b82f6',
-          borderRadius: 14,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: '#ffffff',
-          fontSize: 30,
-          fontWeight: 700,
-          letterSpacing: '-0.04em',
-          fontFamily: 'system-ui, -apple-system, "Segoe UI", sans-serif',
-        }}
+      <svg
+        width="64"
+        height="64"
+        viewBox="0 0 64 64"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        OM
-      </div>
+        <rect
+          width="63"
+          height="63"
+          x="0.5"
+          y="0.5"
+          rx="14"
+          fill="#ffffff"
+          stroke="#d1d5db"
+        />
+        <path
+          d="M40 14 L24 50"
+          stroke="#111827"
+          strokeWidth="8"
+          strokeLinecap="round"
+        />
+      </svg>
     ),
     {
       ...size,
