@@ -28,7 +28,7 @@ const MORE = [
   'atlas',
   'deep-learning-cnn-comparison',
   'wikipedia-scraper',
-  'university-library',
+  'university-library-system',
 ]
 
 function bySlug(slug: string) {
@@ -78,7 +78,8 @@ function CardImage({ slug }: { slug: string }) {
             aria-hidden="true"
           />
         </p>
-        <p className="mt-1 flex items-center gap-2 text-sm text-gray-700">
+        <p className="mt-1 text-sm text-gray-700">{p.description}</p>
+        <p className="mt-2 flex items-center gap-2 text-sm text-gray-500">
           <CategoryBadge category={p.category} />
           {subtitle && <span>{subtitle}</span>}
         </p>

@@ -53,7 +53,9 @@ export default function WorkPage() {
           role="Software Engineer"
           title="Eli by Techbible"
         >
-          <p>Building infrastructure for AI agents.</p>
+          <p>
+            Building infrastructure for AI agents to manage SaaS and payments.
+          </p>
         </Entry>
 
         <Entry

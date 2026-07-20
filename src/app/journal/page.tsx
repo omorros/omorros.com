@@ -20,8 +20,8 @@ export default function JournalPage() {
         <Spacer size="lg" />
 
         <Lead>
-          Stories from away from the keyboard. Basketball, travel, and
-          whatever else feels worth telling.
+          Life away from the keyboard: basketball, social media, and whatever
+          else feels worth telling.
         </Lead>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12 mt-16 mb-32">

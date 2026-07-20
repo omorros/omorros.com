@@ -114,6 +114,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
             muted
             loop
             playsInline
+            controls
             className="w-full h-auto block"
           />
         </div>
@@ -121,14 +122,14 @@ export default function ProjectDetailPage({ params }: PageProps) {
 
       {cs?.challenge && (
         <section className="mt-14">
-          <SectionHeading>Challenge</SectionHeading>
+          <SectionHeading>The problem</SectionHeading>
           <p className="max-w-measure text-foreground-muted">{cs.challenge}</p>
         </section>
       )}
 
       {cs?.approach && (
         <section className="mt-14">
-          <SectionHeading>Approach</SectionHeading>
+          <SectionHeading>What I built</SectionHeading>
           <p className="max-w-measure text-foreground-muted">{cs.approach}</p>
         </section>
       )}
@@ -164,6 +165,22 @@ export default function ProjectDetailPage({ params }: PageProps) {
         </section>
       )}
 
+      {cs?.photos && cs.photos.length > 0 && (
+        <section className="mt-14">
+          <SectionHeading>Photos</SectionHeading>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {cs.photos.map((photo) => (
+              <ZoomImage
+                key={photo.src}
+                src={photo.src}
+                alt={project.title}
+                className="w-full h-auto block rounded-lg border border-border-soft"
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
       {galleryScreens.length > 0 && (
         <section className="mt-14">
           <SectionHeading>Gallery</SectionHeading>
@@ -179,28 +196,6 @@ export default function ProjectDetailPage({ params }: PageProps) {
                   className="w-full h-auto block"
                 />
               </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {cs?.photos && cs.photos.length > 0 && (
-        <section className="mt-14">
-          <SectionHeading>Photos</SectionHeading>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {cs.photos.map((photo) => (
-              <figure key={photo.src}>
-                <ZoomImage
-                  src={photo.src}
-                  alt={photo.caption ?? ''}
-                  className="w-full h-auto block rounded-lg border border-border-soft"
-                />
-                {photo.caption && (
-                  <figcaption className="mt-2 text-sm text-foreground-muted">
-                    {photo.caption}
-                  </figcaption>
-                )}
-              </figure>
             ))}
           </div>
         </section>
@@ -238,6 +233,23 @@ export default function ProjectDetailPage({ params }: PageProps) {
           </div>
         </section>
       ))}
+
+      {project.link && (
+        <section className="mt-14">
+          <p className="max-w-measure text-foreground-muted">
+            The full engineering is on{' '}
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent hover:underline"
+            >
+              GitHub
+            </a>
+            .
+          </p>
+        </section>
+      )}
 
       <nav
         className="mt-16 pt-8 border-t border-border-soft flex justify-between gap-4 text-sm"
