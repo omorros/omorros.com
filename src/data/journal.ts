@@ -66,7 +66,7 @@ export const journal: JournalEntry[] = [
       { src: '/images/journal/basketball/manresa-jumpshot.jpg' },
     ],
     bodyAfter: [
-      'In 2023 I moved to England, and basketball came with me: at ARU in Cambridge I played as a scholarship athlete while doing my degree. Training, games, and deadlines all at once taught me more about managing my time than any course did.',
+      'In 2023 I moved to England, and basketball came with me: I played as a scholarship athlete all through my degree. Training, games, and deadlines all at once taught me more about managing my time than any course did.',
       'I am not playing competitively anymore, but the game is still a big part of who I am.',
     ],
     photosAfter: [
