@@ -9,7 +9,7 @@ export const size = {
 
 export const contentType = 'image/png'
 
-// Tab icon: a single slash on white. The / in every URL.
+// Tab icon: a tilde on white. In every terminal, ~ means home.
 export default function Icon() {
   return new ImageResponse(
     (
@@ -29,9 +29,10 @@ export default function Icon() {
           stroke="#d1d5db"
         />
         <path
-          d="M40 14 L24 50"
+          d="M14 36 Q 23 26 32 34 Q 41 42 50 32"
           stroke="#111827"
-          strokeWidth="8"
+          strokeWidth="7"
+          fill="none"
           strokeLinecap="round"
         />
       </svg>

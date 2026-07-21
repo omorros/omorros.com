@@ -14,9 +14,9 @@ export function Nav() {
         <div className="flex justify-between pb-4 md:pb-0 md:border-b md:border-gray-200 md:justify-start">
           <Link
             href="/"
-            className="text-sm font-light tracking-wide uppercase md:text-base lg:text-xl"
+            className="text-base font-semibold tracking-tight md:text-lg lg:text-xl"
           >
-            Oriol<span className="font-bold">Morros</span>
+            <span className="font-bold">~/</span>omorros
           </Link>
           <div className="flex items-center ml-auto">
             {LINKS.map((l) => (

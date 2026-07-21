@@ -9,7 +9,7 @@ export const size = {
 
 export const contentType = 'image/png'
 
-// Home-screen icon: same slash, full-bleed white square
+// Home-screen icon: same tilde, full-bleed white square
 // (iOS applies its own corner rounding).
 export default function AppleIcon() {
   return new ImageResponse(
@@ -22,9 +22,10 @@ export default function AppleIcon() {
       >
         <rect width="64" height="64" fill="#ffffff" />
         <path
-          d="M40 14 L24 50"
+          d="M14 36 Q 23 26 32 34 Q 41 42 50 32"
           stroke="#111827"
-          strokeWidth="8"
+          strokeWidth="7"
+          fill="none"
           strokeLinecap="round"
         />
       </svg>
