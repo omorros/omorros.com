@@ -8,6 +8,6 @@ export const siteConfig = {
   links: {
     github: 'https://github.com/omorros',
     linkedin: 'https://linkedin.com/in/oriolmorros',
-    email: 'oriolmorros25@gmail.com',
+    email: 'hola@omorros.com',
   },
 }
