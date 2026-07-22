@@ -344,7 +344,7 @@ export const projects: Project[] = [
       videoUrl: '/images/bk-shoot/testing.mp4',
       cardImage: '/images/bk-shoot/mounted-board.jpg',
       cardImagePos: 'object-[center_35%]',
-      cardVideo: '/images/bk-shoot/testing.mp4',
+      cardVideo: '/images/bk-shoot/card.mp4',
       photos: [
         { src: '/images/bk-shoot/breadboard.jpg' },
         { src: '/images/bk-shoot/mounted-board.jpg' },
@@ -369,7 +369,7 @@ export const projects: Project[] = [
     title: 'CNN Architecture Comparison',
     description: 'Three neural networks compared on 120,000 food photos, showing a small model can match a big one at the same accuracy while being six times smaller.',
     tags: ['Jupyter Notebook', 'Python', 'TensorFlow', 'Deep Learning'],
-    link: 'https://github.com/omorros/deep-learning-cnn-comparison',
+    link: 'https://github.com/omorros/food-cv-exp1-cnn-comparison',
     slug: 'deep-learning-cnn-comparison',
     category: 'personal',
     year: '2026',
