@@ -67,7 +67,7 @@ export const projects: Project[] = [
       cardImage: '/images/offbabel/robot.jpg',
       photos: [
         { src: '/images/offbabel/robot.jpg' },
-        { src: '/images/offbabel/presenting.png' },
+        { src: '/images/offbabel/presenting.jpg' },
       ],
       awards: [
         {
