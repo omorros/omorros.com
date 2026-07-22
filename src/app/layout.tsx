@@ -21,7 +21,11 @@ const jsonLd = {
   alternateName: 'Oriol Morros',
   url: siteConfig.url,
   description: siteConfig.description,
-  sameAs: [siteConfig.links.github, siteConfig.links.linkedin],
+  sameAs: [
+    siteConfig.links.github,
+    siteConfig.links.linkedin,
+    'https://www.tiktok.com/@uriisss_',
+  ],
   jobTitle: 'Software Engineer',
   worksFor: {
     '@type': 'Organization',

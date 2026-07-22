@@ -32,7 +32,7 @@ export const journal: JournalEntry[] = [
     tagline: 'Growing a TikTok to 1.5 million followers in months.',
     cardImage: '/images/journal/tiktok/profile.png',
     body: [
-      'I started posting on TikTok as @uriisss_ back in 2020, all of it in Spanish. The account really took off between 2022 and 2023, and it was not luck: I studied how the algorithm worked, what made people engage, and treated every video as an experiment, until I understood what it took to go viral almost every time. In a matter of months it grew to 1.5 million followers and almost 40 million likes.',
+      'I started posting on [TikTok](https://www.tiktok.com/@uriisss_) as @uriisss_ back in 2020, all of it in Spanish. The account really took off between 2022 and 2023, and it was not luck: I studied how the algorithm worked, what made people engage, and treated every video as an experiment, until I understood what it took to go viral almost every time. In a matter of months it grew to 1.5 million followers and almost 40 million likes.',
       'At its peak the numbers stopped feeling real. In my best month, February, my videos got 86 million views in 28 days.',
     ],
     bodyAfter: [
