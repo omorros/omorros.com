@@ -21,8 +21,13 @@ const jsonLd = {
   alternateName: 'Oriol Morros',
   url: siteConfig.url,
   description: siteConfig.description,
-  sameAs: [siteConfig.links.github, siteConfig.links.linkedin],
+  sameAs: [
+    siteConfig.links.github,
+    siteConfig.links.linkedin,
+    'https://www.tiktok.com/@uriisss_',
+  ],
   jobTitle: 'Software Engineer',
+  email: `mailto:${siteConfig.links.email}`,
   worksFor: {
     '@type': 'Organization',
     name: 'Eli by Techbible',
@@ -31,6 +36,13 @@ const jsonLd = {
     '@type': 'CollegeOrUniversity',
     name: 'Anglia Ruskin University',
   },
+  award: [
+    'Overall Winner, Voice AI Hack London 2026 (TrueVoice)',
+    'Overall Winner, Unicorn Mafia x Techbible Hack Night 2026 (WILDSCAN)',
+    'Cosine and ExoLabs Track Winner, On-Device Agent Hackathon London 2026 (OffBabel)',
+    'Track Winner, Tokens LDN Multi-Agent Hackathon 2026 (Basket)',
+    'First-Class Honours, BSc Software Engineering, ARU Cambridge',
+  ],
   birthPlace: {
     '@type': 'Place',
     name: 'Manresa, Spain',

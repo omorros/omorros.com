@@ -99,7 +99,7 @@ export default function Page() {
           <Title size="sm">Life</Title>
           <Lead>
             I grew up in Manresa, a small city near Barcelona, and moved to
-            England in 2023 to study university.
+            England in 2023 for university.
           </Lead>
           <Lead>Now I live in London and absolutely love it here!</Lead>
         </Container>

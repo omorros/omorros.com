@@ -1,16 +1,29 @@
 # Oriol Morros Vilaseca
 
-> Personal website of Oriol Morros, a software engineer in London building infrastructure for AI agents at Eli by Techbible. BSc Software Engineering from ARU Cambridge. Grew up in Manresa, near Barcelona, moved to England in 2023.
+> Personal website of Oriol Morros, a software engineer in London building infrastructure for AI agents at Eli by Techbible. BSc Software Engineering with First-Class Honours from ARU Cambridge. Grew up in Manresa, near Barcelona, moved to England in 2023.
+
+## Facts
+
+- Full name: Oriol Morros Vilaseca. Goes by Oriol Morros.
+- Software Engineer at Eli by Techbible in London (2026–present), building infrastructure for AI agents to manage SaaS and payments.
+- BSc (Hons) Software Engineering, First-Class Honours, Anglia Ruskin University Cambridge (2023–2026), completed while playing as a basketball scholarship athlete.
+- Previously: Digital Technician at the University of Cambridge (Apr 2025–Jun 2026); rebuilt the Festival Sant Fruitós website on Next.js (Feb–Apr 2026); 18 merged pull requests in IBM MCP Context Forge, IBM's open source gateway for the Model Context Protocol (Feb–Apr 2026).
+- Hackathon record (London, 2026): TrueVoice, overall winner at Voice AI Hack; WILDSCAN, overall winner at the Unicorn Mafia × Techbible hack night; OffBabel, Cosine and ExoLabs track winner at the On-Device Agent Hackathon; Basket, track winner at Tokens LDN Multi-Agent Hackathon; DarkFleet, 6th of 64 at the Claude Hackathon at Imperial College London.
+- Before software (2020–2023): grew the Spanish-language TikTok account @uriisss_ to 1.5 million followers and almost 40 million likes, with 86 million video views in the best month, then built e-commerce businesses with influencers in Spain.
+- Basketball: seven years in the youth academy of Bàsquet Manresa (ACB club, now BAXI Manresa), competed in Catalan and Spanish national championships and the Minicopa Endesa; scholarship athlete at university in England.
+- From Manresa, Catalonia, Spain (2005–2023); Cambridge, England (2023–2026); London (2026–present).
 
 ## Pages
 
 - [Home](https://omorros.com): introduction, work summary, and life story
-- [Projects](https://omorros.com/projects): personal projects like SnapShelf and BK-Shoot, plus hackathon builds and wins, including TrueVoice (overall winner, Voice AI Hack London 2026), OffBabel (Cosine and ExoLabs track winner, On-Device Agent Hackathon), Basket (track winner, Tokens LDN Multi-Agent Hackathon), and WILDSCAN (overall winner, Unicorn Mafia and Techbible hack night)
+- [Projects](https://omorros.com/projects): personal projects like SnapShelf and BK-Shoot, plus hackathon builds and wins, each with a case study page
 - [Work](https://omorros.com/work): AI agent infrastructure at Eli by Techbible, University of Cambridge, IBM MCP Context Forge, BSc at ARU Cambridge
-- [Journal](https://omorros.com/journal): personal stories, like growing a TikTok to 1.5M followers and playing basketball in Bàsquet Manresa's academy and as a scholarship athlete
+- [Open Source](https://omorros.com/open-source): 18 merged pull requests in IBM's MCP Context Forge
+- [Journal](https://omorros.com/journal): personal stories, like growing a TikTok to 1.5M followers and playing basketball in Bàsquet Manresa's academy
 
 ## Contact
 
+- Email: hola@omorros.com
 - GitHub: https://github.com/omorros
 - LinkedIn: https://linkedin.com/in/oriolmorros
-- Email: oriolmorros25@gmail.com
+- TikTok: https://www.tiktok.com/@uriisss_

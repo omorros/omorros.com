@@ -96,7 +96,7 @@ export default function WorkPage() {
             over 4,000 stars on GitHub.
           </p>
           <p className="text-base">
-            <A href="https://github.com/omorros/open-source">Case studies</A>
+            <A href="/open-source">Case studies</A>
           </p>
         </Entry>
 
