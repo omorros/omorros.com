@@ -49,7 +49,7 @@ export default function WorkPage() {
         </Lead>
 
         <Entry
-          when="2026 – Present"
+          when="May 2026 – Present"
           role="Software Engineer"
           title="Eli by Techbible"
         >

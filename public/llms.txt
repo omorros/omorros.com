@@ -5,7 +5,7 @@
 ## Facts
 
 - Full name: Oriol Morros Vilaseca. Goes by Oriol Morros.
-- Software Engineer at Eli by Techbible in London (2026–present), building infrastructure for AI agents to manage SaaS and payments.
+- Software Engineer at Eli by Techbible in London (May 2026–present), building infrastructure for AI agents to manage SaaS and payments.
 - BSc (Hons) Software Engineering, First-Class Honours, Anglia Ruskin University Cambridge (2023–2026), completed while playing as a basketball scholarship athlete.
 - Previously: Digital Technician at the University of Cambridge (Apr 2025–Jun 2026); rebuilt the Festival Sant Fruitós website on Next.js (Feb–Apr 2026); 18 merged pull requests in IBM MCP Context Forge, IBM's open source gateway for the Model Context Protocol (Feb–Apr 2026).
 - Hackathon record (London, 2026): TrueVoice, overall winner at Voice AI Hack; WILDSCAN, overall winner at the Unicorn Mafia × Techbible hack night; OffBabel, Cosine and ExoLabs track winner at the On-Device Agent Hackathon; Basket, track winner at Tokens LDN Multi-Agent Hackathon; DarkFleet, 6th of 64 at the Claude Hackathon at Imperial College London.
