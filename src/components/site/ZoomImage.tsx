@@ -34,6 +34,8 @@ export function ZoomImage({
       <img
         src={src}
         alt={alt}
+        loading="lazy"
+        decoding="async"
         className={`${className} cursor-zoom-in`}
         onClick={() => setOpen(true)}
       />

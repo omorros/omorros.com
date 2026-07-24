@@ -19,7 +19,7 @@
 - [Projects](https://omorros.com/projects): personal projects like SnapShelf and BK-Shoot, plus hackathon builds and wins, each with a case study page
 - [Work](https://omorros.com/work): AI agent infrastructure at Eli by Techbible, University of Cambridge, IBM MCP Context Forge, BSc at ARU Cambridge
 - [Open Source](https://omorros.com/open-source): 18 merged pull requests in IBM's MCP Context Forge
-- [Journal](https://omorros.com/journal): personal stories, like growing a TikTok to 1.5M followers and playing basketball in Bàsquet Manresa's academy
+- [Journal](https://omorros.com/journal): personal stories from before software, like the TikTok account he grew to 1.5M followers in 2020–2023 and playing basketball in Bàsquet Manresa's academy
 
 ## Contact
 

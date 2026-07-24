@@ -87,6 +87,8 @@ function CountryPopup({
                 key={src}
                 src={src}
                 alt={country.name}
+                loading="lazy"
+                decoding="async"
                 className="w-full aspect-[4/3] object-cover rounded-lg"
               />
             ))}

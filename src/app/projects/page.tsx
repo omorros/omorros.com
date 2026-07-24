@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 import { A, Container, Lead, Spacer, Title } from '@/components/site/ui'
@@ -54,7 +55,6 @@ function CardImage({ slug }: { slug: string }) {
     '/images/card-placeholder.svg'
   const subtitle =
     p.caseStudy?.awards?.[0]?.title ?? p.event ?? (p.year ? p.year : undefined)
-  const mediaClass = `rounded-lg shadow-lg w-full aspect-[16/10] object-cover group-hover:shadow-xl transition-shadow ${p.caseStudy?.cardImagePos ?? ''}`
   return (
     <Link href={`/projects/${p.slug}`} className="group block">
       {p.caseStudy?.cardVideo ? (
@@ -65,11 +65,20 @@ function CardImage({ slug }: { slug: string }) {
           muted
           loop
           playsInline
-          className={mediaClass}
+          className={`rounded-lg shadow-lg w-full aspect-[16/10] object-cover group-hover:shadow-xl transition-shadow ${p.caseStudy?.cardImagePos ?? ''}`}
         />
       ) : (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={src} alt={p.title} className={mediaClass} />
+        <div className="relative overflow-hidden rounded-lg shadow-lg aspect-[16/10] group-hover:shadow-xl transition-shadow">
+          <Image
+            src={src}
+            alt={p.title}
+            fill
+            quality={90}
+            sizes="(min-width: 1024px) 368px, (min-width: 768px) 248px, calc(100vw - 48px)"
+            unoptimized={src.endsWith('.svg')}
+            className={`object-cover ${p.caseStudy?.cardImagePos ?? ''}`}
+          />
+        </div>
       )}
       <div className="mt-3">
         <p className="font-semibold text-gray-900 group-hover:text-blue-500 transition-colors">

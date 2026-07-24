@@ -3,7 +3,7 @@ export const siteConfig = {
   subtitle: 'Software Engineer · London, UK',
   title: 'Oriol Morros Vilaseca | Software Engineer',
   description:
-    'Software engineer in London. I build infrastructure for AI agents at Eli by Techbible.',
+    'I’m Oriol Morros, a software engineer in London building infrastructure for AI agents at Eli by Techbible. Projects, open source, and writing.',
   url: 'https://omorros.com',
   links: {
     github: 'https://github.com/omorros',

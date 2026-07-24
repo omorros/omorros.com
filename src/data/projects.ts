@@ -125,7 +125,7 @@ export const projects: Project[] = [
         { title: 'Works in Any Consultation', description: 'Telehealth with separate devices or in person with one microphone, and the transcript keeps track of who is speaking.' },
         { title: 'Reports With Evidence', description: 'At the end, Claude writes a summary that points to every moment where the words and the voice did not match.' }
       ],
-      thumbnail: '/images/truevoice/presenting.jpg',
+      thumbnail: '/images/truevoice/team-check.jpg',
       cardImage: '/images/truevoice/team-check.jpg',
       screenshots: [
         'https://raw.githubusercontent.com/omorros/TrueVoice/main/docs/images/landing.png',
@@ -134,7 +134,7 @@ export const projects: Project[] = [
         'https://raw.githubusercontent.com/omorros/TrueVoice/main/docs/images/report.png'
       ],
       photos: [
-        { src: '/images/truevoice/team-check.jpg' },
+        { src: '/images/truevoice/presenting.jpg' },
         { src: '/images/truevoice/credits.jpg' },
       ],
       awards: [

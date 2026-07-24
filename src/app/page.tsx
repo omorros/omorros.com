@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 import { siteConfig } from '@/lib/constants'
@@ -73,8 +74,8 @@ export default function Page() {
               <SectionTitle link="/journal">Journal</SectionTitle>
               <SectionBody>
                 <p>
-                  Life away from the keyboard: basketball, a TikTok with 1.5M
-                  followers, and more.
+                  Life away from the keyboard: basketball, moving from Manresa
+                  to London, and more.
                 </p>
               </SectionBody>
             </Section>
@@ -111,6 +112,7 @@ export default function Page() {
             src="/images/life/london.jpg"
             title="London"
             date="2026–Present"
+            sizes="(min-width: 1280px) 1152px, 100vw"
           />
           <div className="flex xl:mt-10 xl:-mx-6">
             <div className="w-1/2 xl:px-6">
@@ -118,7 +120,9 @@ export default function Page() {
                 src="/images/life/cambridge.jpg"
                 title="Cambridge"
                 date="2023–2026"
-                aspect="aspect-square object-[center_60%]"
+                aspect="aspect-square"
+                pos="object-[center_60%]"
+                sizes="(min-width: 1280px) 528px, 50vw"
               />
             </div>
             <div className="w-1/2 xl:px-6">
@@ -126,7 +130,9 @@ export default function Page() {
                 src="/images/life/manresa.jpg"
                 title="Manresa"
                 date="2005–2023"
-                aspect="aspect-square object-[90%_center]"
+                aspect="aspect-square"
+                pos="object-[90%_center]"
+                sizes="(min-width: 1280px) 528px, 50vw"
               />
             </div>
           </div>
@@ -140,11 +146,15 @@ export default function Page() {
 
 function HomepageImage({ className = '' }: { className?: string }) {
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
+    <Image
       src="/images/oriol-home.jpg"
       alt="Oriol Morros"
-      className={`${className} w-full`}
+      width={1536}
+      height={1024}
+      priority
+      quality={90}
+      sizes="(min-width: 1024px) 768px, (min-width: 640px) 528px, 100vw"
+      className={`${className} w-full h-auto`}
     />
   )
 }
@@ -191,20 +201,28 @@ function ImageCard({
   title,
   date,
   aspect = 'aspect-[16/9]',
+  pos = '',
+  sizes,
 }: {
   src: string
   title: string
   date: string
   aspect?: string
+  pos?: string
+  sizes: string
 }) {
   return (
     <div className="relative">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        className={`object-cover w-full h-full xl:rounded-lg ${aspect}`}
-        src={src}
-        alt={title}
-      />
+      <div className={`relative overflow-hidden xl:rounded-lg ${aspect}`}>
+        <Image
+          src={src}
+          alt={title}
+          fill
+          quality={90}
+          sizes={sizes}
+          className={`object-cover ${pos}`}
+        />
+      </div>
       <div className="absolute bottom-0 w-full py-2 pl-3 text-white md:pl-4 md:py-4 bg-gradient-to-t from-black-85 xl:bg-none xl:static xl:text-gray-900 xl:px-0">
         <p className="text-sm font-semibold sm:text-base xl:text-lg xl:font-medium">
           {title}
