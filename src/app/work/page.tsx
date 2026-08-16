@@ -1,12 +1,23 @@
-import type { Metadata } from 'next'
 import { A, Container, Lead, Spacer, Title } from '@/components/site/ui'
+import { JsonLd } from '@/components/site/JsonLd'
 import { siteConfig } from '@/lib/constants'
+import { createPageMetadata } from '@/lib/metadata'
+import { getWebPageJsonLd } from '@/lib/structured-data'
 
-export const metadata: Metadata = {
+const description =
+  'What Oriol Morros works on: AI agent infrastructure at Eli by Techbible, and the road there.'
+
+export const metadata = createPageMetadata({
   title: 'Work',
-  description:
-    'What Oriol Morros works on: AI agent infrastructure at Eli by Techbible, and the road there.',
-}
+  description,
+  path: '/work',
+})
+
+const workJsonLd = getWebPageJsonLd({
+  name: 'Work | Oriol Morros Vilaseca',
+  description,
+  path: '/work',
+})
 
 function Entry({
   when,
@@ -36,6 +47,7 @@ function Entry({
 export default function WorkPage() {
   return (
     <main className="pb-8">
+      <JsonLd data={workJsonLd} />
       <Container>
         <Spacer size="xl" />
 

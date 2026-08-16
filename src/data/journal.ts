@@ -5,6 +5,8 @@
 export interface JournalEntry {
   slug: string
   title: string
+  // Last significant content, structured-data, or link update (YYYY-MM-DD).
+  lastModified: string
   // One line under the title on the index card and the story page.
   tagline?: string
   // Square photo for the index card.
@@ -29,6 +31,7 @@ export const journal: JournalEntry[] = [
   {
     slug: 'social-media',
     title: '1.5M Followers',
+    lastModified: '2026-08-16',
     tagline:
       'How I grew a TikTok to 1.5 million followers, before software.',
     cardImage: '/images/journal/tiktok/profile.png',
@@ -55,6 +58,7 @@ export const journal: JournalEntry[] = [
   {
     slug: 'basketball',
     title: 'Basketball',
+    lastModified: '2026-08-16',
     tagline: "Seven years in Bàsquet Manresa's academy, then a scholarship in England.",
     cardImage: '/images/journal/basketball/aru-dunk-bench.jpg',
     cardImagePos: 'object-[40%_center]',

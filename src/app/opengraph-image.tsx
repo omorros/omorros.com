@@ -11,6 +11,8 @@ export const size = {
 
 export const contentType = 'image/png'
 
+const hostname = new URL(siteConfig.url).hostname
+
 // The card is a mini browser window showing the site itself: traffic
 // lights, URL bar, then the homepage hero with name, subtitle, nav
 // links, and the headshot. Light theme, matching the real site.
@@ -96,7 +98,7 @@ export default async function Image() {
               }}
             >
               <span style={{ color: '#9ca3af', display: 'flex' }}>🔒</span>
-              omorros.com
+              {hostname}
             </div>
           </div>
 

@@ -2,9 +2,20 @@ import type { Metadata } from 'next'
 import { Container, Lead, Spacer, Title } from '@/components/site/ui'
 import { TravelMap } from '@/components/site/TravelMap'
 
+const description =
+  'A map of the countries Oriol Morros has lived in and visited.'
+
 export const metadata: Metadata = {
   title: 'Traveling',
-  description: 'A map of the countries Oriol Morros has lived in and visited.',
+  description,
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
 }
 
 export default function TravelPage() {

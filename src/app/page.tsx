@@ -2,6 +2,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 import { siteConfig } from '@/lib/constants'
+import { createPageMetadata } from '@/lib/metadata'
+import { getHomeJsonLd } from '@/lib/structured-data'
+import { JsonLd } from '@/components/site/JsonLd'
 import { GitHub, LinkedIn, Mail } from '@/components/site/logos'
 import { A, Container, Lead, Spacer, Title } from '@/components/site/ui'
 
@@ -13,9 +16,20 @@ const SOCIAL = [
   { href: `mailto:${siteConfig.links.email}`, label: 'Email', Icon: Mail },
 ]
 
+export const metadata = createPageMetadata({
+  title: siteConfig.title,
+  description: siteConfig.description,
+  path: '/',
+  absoluteTitle: true,
+  kind: 'profile',
+})
+
+const homeJsonLd = getHomeJsonLd()
+
 export default function Page() {
   return (
     <main>
+      <JsonLd data={homeJsonLd} />
       <Container>
         <Spacer size="xl" />
 
@@ -146,16 +160,18 @@ export default function Page() {
 
 function HomepageImage({ className = '' }: { className?: string }) {
   return (
-    <Image
-      src="/images/oriol-home.jpg"
-      alt="Oriol Morros"
-      width={1536}
-      height={1024}
-      priority
-      quality={90}
-      sizes="(min-width: 1024px) 768px, (min-width: 640px) 528px, 100vw"
-      className={`${className} w-full h-auto`}
-    />
+    <div className={`${className} aspect-[3/2] overflow-hidden`}>
+      <Image
+        src="/images/oriol-home.jpg"
+        alt="Oriol Morros"
+        width={1536}
+        height={1024}
+        priority
+        quality={90}
+        sizes="(min-width: 1024px) 768px, (min-width: 640px) 528px, 100vw"
+        className="h-full w-full scale-[1.3] object-cover"
+      />
+    </div>
   )
 }
 

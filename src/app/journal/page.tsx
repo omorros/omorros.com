@@ -1,18 +1,37 @@
-import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 import { Container, Lead, Spacer, Title } from '@/components/site/ui'
+import { JsonLd } from '@/components/site/JsonLd'
 import { journal } from '@/data/journal'
+import { createPageMetadata } from '@/lib/metadata'
+import { getCollectionJsonLd } from '@/lib/structured-data'
 
-export const metadata: Metadata = {
+const description = 'Stories from Oriol Morros away from the keyboard.'
+
+export const metadata = createPageMetadata({
   title: 'Journal',
-  description: 'Stories from Oriol Morros away from the keyboard.',
-}
+  description,
+  path: '/journal',
+})
+
+const journalJsonLd = getCollectionJsonLd({
+  name: 'Journal | Oriol Morros Vilaseca',
+  description,
+  path: '/journal',
+  itemType: 'BlogPosting',
+  items: journal.map((entry) => ({
+    name: entry.title,
+    description: entry.tagline ?? entry.body[0],
+    path: `/journal/${entry.slug}`,
+    image: entry.cardImage,
+  })),
+})
 
 export default function JournalPage() {
   return (
     <main className="pb-8">
+      <JsonLd data={journalJsonLd} />
       <Container>
         <Spacer size="xl" />
 

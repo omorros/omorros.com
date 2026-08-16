@@ -4,6 +4,8 @@ export interface Project {
   tags: string[]
   link: string
   slug?: string
+  // Last significant content, structured-data, or link update (YYYY-MM-DD).
+  lastModified: string
   category: 'personal' | 'hackathon'
   event?: string
   year?: string
@@ -45,6 +47,7 @@ export const projects: Project[] = [
     tags: ['Python', 'React', 'Local LLM', 'MediaPipe'],
     link: 'https://github.com/omorros/OffBabel',
     slug: 'offbabel',
+    lastModified: '2026-08-16',
     category: 'hackathon',
     event: 'Localhost: On-Device Agent Hackathon · London 2026',
     year: '2026',
@@ -83,6 +86,7 @@ export const projects: Project[] = [
     tags: ['TypeScript', 'Next.js', 'ElevenLabs', 'WebSockets'],
     link: 'https://github.com/omorros/SupConnect',
     slug: 'supconnect',
+    lastModified: '2026-08-16',
     category: 'hackathon',
     event: 'Fleek × a16z Hackathon · London 2026',
     year: '2026',
@@ -113,6 +117,7 @@ export const projects: Project[] = [
     tags: ['TypeScript', 'Next.js', 'Python', 'Claude API'],
     link: 'https://github.com/omorros/TrueVoice',
     slug: 'truevoice',
+    lastModified: '2026-08-16',
     category: 'hackathon',
     event: 'Voice AI Hack · London 2026',
     year: '2026',
@@ -151,6 +156,7 @@ export const projects: Project[] = [
     tags: ['Python', 'FastAPI', 'Next.js', 'ClickHouse'],
     link: 'https://github.com/omorros/Basket',
     slug: 'basket',
+    lastModified: '2026-08-16',
     category: 'hackathon',
     event: 'Tokens LDN Multi-Agent Hackathon · London 2026',
     year: '2026',
@@ -186,6 +192,7 @@ export const projects: Project[] = [
     tags: ['Python', 'LangGraph', 'Next.js', 'PostGIS'],
     link: 'https://github.com/omorros/WILDSCAN',
     slug: 'wildscan',
+    lastModified: '2026-08-16',
     category: 'hackathon',
     event: 'Unicorn Mafia × Techbible Hack Night · London 2026',
     year: '2026',
@@ -218,6 +225,7 @@ export const projects: Project[] = [
     tags: ['Python', 'Claude API', 'PostGIS', 'Mapbox'],
     link: 'https://github.com/omorros/DarkFleet',
     slug: 'darkfleet',
+    lastModified: '2026-08-16',
     category: 'hackathon',
     event: 'Claude Hackathon · Imperial College London 2026',
     year: '2026',
@@ -257,6 +265,7 @@ export const projects: Project[] = [
     tags: ['Python', 'FastAPI', 'Next.js', 'MongoDB'],
     link: 'https://github.com/omorros/GASLIT',
     slug: 'gaslit',
+    lastModified: '2026-08-16',
     category: 'hackathon',
     event: 'MongoDB Agentic Evolution · London 2026',
     year: '2026',
@@ -284,6 +293,7 @@ export const projects: Project[] = [
     tags: ['Python', 'FastAPI', 'Next.js', 'Claude API'],
     link: 'https://github.com/omorros/Atlas',
     slug: 'atlas',
+    lastModified: '2026-08-16',
     category: 'hackathon',
     event: 'Cursor × Briefcase · London 2026',
     year: '2026',
@@ -311,6 +321,7 @@ export const projects: Project[] = [
     tags: ['TypeScript', 'React Native', 'Python', 'PostgreSQL'],
     link: 'https://github.com/omorros/SnapShelf',
     slug: 'snapshelf',
+    lastModified: '2026-08-16',
     category: 'personal',
     year: '2026',
     caseStudy: {
@@ -330,6 +341,7 @@ export const projects: Project[] = [
     tags: ['C++', 'IoT', 'Arduino', 'Android'],
     link: 'https://github.com/omorros/bk-shoot',
     slug: 'bk-shoot',
+    lastModified: '2026-08-16',
     category: 'personal',
     year: '2021',
     caseStudy: {
@@ -371,6 +383,7 @@ export const projects: Project[] = [
     tags: ['Jupyter Notebook', 'Python', 'TensorFlow', 'Deep Learning'],
     link: 'https://github.com/omorros/food-cv-exp1-cnn-comparison',
     slug: 'deep-learning-cnn-comparison',
+    lastModified: '2026-08-16',
     category: 'personal',
     year: '2026',
     caseStudy: {
@@ -411,6 +424,7 @@ export const projects: Project[] = [
     tags: ['Python', 'Asyncio', 'Aiohttp', 'BeautifulSoup'],
     link: 'https://github.com/omorros/wikipedia_scraper',
     slug: 'wikipedia-scraper',
+    lastModified: '2026-08-16',
     category: 'personal',
     year: '2025',
     caseStudy: {
@@ -430,6 +444,7 @@ export const projects: Project[] = [
     tags: ['Java', 'OOP', 'JUnit', 'File I/O'],
     link: 'https://github.com/omorros/UniversityLibrarySystem',
     slug: 'university-library-system',
+    lastModified: '2026-08-16',
     category: 'personal',
     year: '2025',
     caseStudy: {

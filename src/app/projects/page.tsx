@@ -1,15 +1,20 @@
-import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 import { A, Container, Lead, Spacer, Title } from '@/components/site/ui'
+import { JsonLd } from '@/components/site/JsonLd'
 import { projects } from '@/data/projects'
+import { createPageMetadata } from '@/lib/metadata'
+import { getCollectionJsonLd } from '@/lib/structured-data'
 
-export const metadata: Metadata = {
+const description =
+  'Personal projects and award-winning hackathon builds by Oriol Morros.'
+
+export const metadata = createPageMetadata({
   title: 'Projects',
-  description:
-    'Personal projects and hackathon builds by Oriol Morros, including four hackathon wins around London.',
-}
+  description,
+  path: '/projects',
+})
 
 // Page structure and classes follow pages/projects.js on samselikoff.com.
 
@@ -36,6 +41,28 @@ const MORE = [
 function bySlug(slug: string) {
   return projects.find((p) => p.slug === slug)
 }
+
+const projectsJsonLd = getCollectionJsonLd({
+  name: 'Projects by Oriol Morros',
+  description,
+  path: '/projects',
+  itemType: 'SoftwareSourceCode',
+  items: [...FEATURED, ...MORE].flatMap((slug) => {
+    const project = bySlug(slug)
+    if (!project) return []
+    return [
+      {
+        name: project.title,
+        description: project.description,
+        path: `/projects/${slug}`,
+        image:
+          project.caseStudy?.thumbnail ??
+          project.caseStudy?.cardImage ??
+          project.caseStudy?.screenshots?.[0],
+      },
+    ]
+  }),
+})
 
 function CategoryBadge({ category }: { category: 'personal' | 'hackathon' }) {
   return (
@@ -120,6 +147,7 @@ function SmallCard({ slug }: { slug: string }) {
 export default function ProjectsPage() {
   return (
     <main className="pb-8">
+      <JsonLd data={projectsJsonLd} />
       <Container>
         <Spacer size="xl" />
 
