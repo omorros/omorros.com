@@ -26,6 +26,9 @@ navigation on detail pages, not the listing).
 - `description`: one sentence, outcome-first, understandable by a
   non-technical recruiter. Lead with what it does and for whom, include an
   honest number if one exists. Never start with the tech stack.
+- `lastModified`: today in `YYYY-MM-DD` format. Bump it only when the page's
+  main content, structured data, or links change significantly, never just
+  because the site was rebuilt or redeployed.
 - `tags`: ~4 plain-text stack keywords (recruiters pattern-match text).
 - `event`: format `'Event Name · City Year'` — do not also rely on `year`
   being displayed with it (the OG badge uses event alone).

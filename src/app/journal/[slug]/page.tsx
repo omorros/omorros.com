@@ -1,8 +1,11 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { A, Container, Spacer, Title } from '@/components/site/ui'
+import { JsonLd } from '@/components/site/JsonLd'
 import { ZoomImage } from '@/components/site/ZoomImage'
 import { journal } from '@/data/journal'
+import { createPageMetadata } from '@/lib/metadata'
+import { getJournalEntryJsonLd } from '@/lib/structured-data'
 
 // Renders [text](url) in journal paragraphs as inline links.
 function withLinks(text: string) {
@@ -32,19 +35,23 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: PageProps): Metadata {
   const entry = journal.find((e) => e.slug === params.slug)
-  if (!entry) return {}
-  return {
+  if (!entry) notFound()
+  return createPageMetadata({
     title: entry.title,
     description: entry.tagline ?? entry.body[0],
-  }
+    path: `/journal/${entry.slug}`,
+    kind: 'article',
+  })
 }
 
 export default function JournalEntryPage({ params }: PageProps) {
   const entry = journal.find((e) => e.slug === params.slug)
   if (!entry) notFound()
+  const entryJsonLd = getJournalEntryJsonLd(entry)
 
   return (
     <main className="pb-8">
+      <JsonLd data={entryJsonLd} />
       <Container>
         <Spacer size="xl" />
 

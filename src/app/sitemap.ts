@@ -3,47 +3,33 @@ import { siteConfig } from '@/lib/constants'
 import { projects } from '@/data/projects'
 import { journal } from '@/data/journal'
 
+const staticPages = [
+  { path: '/', lastModified: '2026-08-16' },
+  { path: '/projects', lastModified: '2026-08-16' },
+  { path: '/work', lastModified: '2026-08-16' },
+  { path: '/open-source', lastModified: '2026-08-16' },
+  { path: '/journal', lastModified: '2026-08-16' },
+  { path: '/journal/travel', lastModified: '2026-08-16' },
+] as const
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const projectPages = projects
     .filter((p) => p.slug)
     .map((p) => ({
       url: `${siteConfig.url}/projects/${p.slug}`,
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
+      lastModified: p.lastModified,
     }))
 
   const journalPages = journal.map((e) => ({
     url: `${siteConfig.url}/journal/${e.slug}`,
-    changeFrequency: 'monthly' as const,
-    priority: 0.5,
+    lastModified: e.lastModified,
   }))
 
   return [
-    {
-      url: siteConfig.url,
-      changeFrequency: 'monthly',
-      priority: 1,
-    },
-    {
-      url: `${siteConfig.url}/projects`,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${siteConfig.url}/work`,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${siteConfig.url}/open-source`,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${siteConfig.url}/journal`,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
+    ...staticPages.map(({ path, lastModified }) => ({
+      url: new URL(path, `${siteConfig.url}/`).toString(),
+      lastModified,
+    })),
     ...projectPages,
     ...journalPages,
   ]

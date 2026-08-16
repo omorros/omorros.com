@@ -1,15 +1,27 @@
-import type { Metadata } from 'next'
 import { A, Container, Lead, Spacer, Title } from '@/components/site/ui'
+import { JsonLd } from '@/components/site/JsonLd'
+import { createPageMetadata } from '@/lib/metadata'
+import { getWebPageJsonLd } from '@/lib/structured-data'
 
-export const metadata: Metadata = {
+const description =
+  "Oriol Morros's open source work: 18 merged pull requests in IBM's MCP Context Forge."
+
+export const metadata = createPageMetadata({
   title: 'Open Source',
-  description:
-    "Oriol Morros's open source work: 18 merged pull requests in IBM's MCP Context Forge.",
-}
+  description,
+  path: '/open-source',
+})
+
+const openSourceJsonLd = getWebPageJsonLd({
+  name: 'Open Source | Oriol Morros Vilaseca',
+  description,
+  path: '/open-source',
+})
 
 export default function OpenSourcePage() {
   return (
     <main className="pb-32">
+      <JsonLd data={openSourceJsonLd} />
       <Container>
         <Spacer size="xl" />
 

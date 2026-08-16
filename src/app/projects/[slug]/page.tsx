@@ -1,8 +1,11 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { JsonLd } from '@/components/site/JsonLd'
 import { projects } from '@/data/projects'
 import { ZoomImage } from '@/components/site/ZoomImage'
+import { createPageMetadata } from '@/lib/metadata'
+import { getProjectJsonLd } from '@/lib/structured-data'
 
 interface PageProps {
   params: { slug: string }
@@ -14,11 +17,14 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: PageProps): Metadata {
   const project = projects.find((p) => p.slug === params.slug)
-  if (!project) return {}
-  return {
+  if (!project) notFound()
+  return createPageMetadata({
     title: project.title,
     description: project.description,
-  }
+    path: `/projects/${project.slug}`,
+    image: `/projects/${project.slug}/opengraph-image`,
+    imageAlt: `Browser-style project preview for ${project.title} by Oriol Morros`,
+  })
 }
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
@@ -40,6 +46,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
   const idx = slugged.findIndex((p) => p.slug === project.slug)
   const prev = idx > 0 ? slugged[idx - 1] : null
   const next = idx >= 0 && idx < slugged.length - 1 ? slugged[idx + 1] : null
+  const projectJsonLd = getProjectJsonLd(project)
 
   const metaLine = [
     project.category === 'hackathon' ? 'Hackathon' : 'Personal project',
@@ -51,6 +58,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
 
   return (
     <main className="max-w-2xl mx-auto px-6 pt-16 md:pt-24">
+      <JsonLd data={projectJsonLd} />
       <header>
         <p className="text-sm text-foreground-faint">{metaLine}</p>
         <h1 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight text-foreground">

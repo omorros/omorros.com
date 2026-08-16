@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og'
 import { projects } from '@/data/projects'
+import { siteConfig } from '@/lib/constants'
 
 export const runtime = 'edge'
 
@@ -9,6 +10,8 @@ export const size = {
 }
 
 export const contentType = 'image/png'
+
+const hostname = new URL(siteConfig.url).hostname
 
 // Same browser-window card as the site-wide OG image, with the
 // project in the window: URL bar shows the project path, then the
@@ -105,7 +108,7 @@ export default async function Image({
               }}
             >
               <span style={{ color: '#9ca3af', display: 'flex' }}>🔒</span>
-              omorros.com/projects/{params.slug}
+              {hostname}/projects/{params.slug}
             </div>
           </div>
 

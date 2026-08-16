@@ -2,7 +2,7 @@
 
 > Personal website of Oriol Morros, a software engineer in London building infrastructure for AI agents at Eli by Techbible. BSc Software Engineering with First-Class Honours from ARU Cambridge. Grew up in Manresa, near Barcelona, moved to England in 2023.
 
-## Facts
+Key facts:
 
 - Full name: Oriol Morros Vilaseca. Goes by Oriol Morros.
 - Software Engineer at Eli by Techbible in London (May 2026–present), building infrastructure for AI agents to manage SaaS and payments.
@@ -13,17 +13,18 @@
 - Basketball: seven years in the youth academy of Bàsquet Manresa (ACB club, now BAXI Manresa), competed in Catalan and Spanish national championships and the Minicopa Endesa; scholarship athlete at university in England.
 - From Manresa, Catalonia, Spain (2005–2023); Cambridge, England (2023–2026); London (2026–present).
 
-## Pages
+## Core pages
 
-- [Home](https://omorros.com): introduction, work summary, and life story
-- [Projects](https://omorros.com/projects): personal projects like SnapShelf and BK-Shoot, plus hackathon builds and wins, each with a case study page
-- [Work](https://omorros.com/work): AI agent infrastructure at Eli by Techbible, University of Cambridge, IBM MCP Context Forge, BSc at ARU Cambridge
-- [Open Source](https://omorros.com/open-source): 18 merged pull requests in IBM's MCP Context Forge
-- [Journal](https://omorros.com/journal): personal stories from before software, like the TikTok account he grew to 1.5M followers in 2020–2023 and playing basketball in Bàsquet Manresa's academy
+- [Home](https://www.omorros.com/): introduction, work summary, and life story
+- [Projects](https://www.omorros.com/projects): personal projects like SnapShelf and BK-Shoot, plus hackathon builds and wins, each with a case study page
+- [Work](https://www.omorros.com/work): AI agent infrastructure at Eli by Techbible, University of Cambridge, IBM MCP Context Forge, BSc at ARU Cambridge
+- [Open Source](https://www.omorros.com/open-source): 18 merged pull requests in IBM's MCP Context Forge
+- [Journal](https://www.omorros.com/journal): personal stories from before software, like the TikTok account he grew to 1.5M followers in 2020–2023 and playing basketball in Bàsquet Manresa's academy
+- [Travel](https://www.omorros.com/journal/travel): an interactive map of the countries Oriol has lived in and visited
 
 ## Contact
 
-- Email: hola@omorros.com
-- GitHub: https://github.com/omorros
-- LinkedIn: https://linkedin.com/in/oriolmorros
-- TikTok: https://www.tiktok.com/@uriisss_
+- [Email](mailto:hola@omorros.com): hola@omorros.com
+- [GitHub](https://github.com/omorros): github.com/omorros
+- [LinkedIn](https://linkedin.com/in/oriolmorros): linkedin.com/in/oriolmorros
+- [TikTok](https://www.tiktok.com/@uriisss_): tiktok.com/@uriisss_
