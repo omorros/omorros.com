@@ -1,28 +1,26 @@
+import type { Metadata } from 'next'
 import { Container, Lead, Spacer, Title } from '@/components/site/ui'
-import { JsonLd } from '@/components/site/JsonLd'
 import { TravelMap } from '@/components/site/TravelMap'
-import { createPageMetadata } from '@/lib/metadata'
-import { getWebPageJsonLd } from '@/lib/structured-data'
 
 const description =
   'A map of the countries Oriol Morros has lived in and visited.'
 
-export const metadata = createPageMetadata({
+export const metadata: Metadata = {
   title: 'Traveling',
   description,
-  path: '/journal/travel',
-})
-
-const travelJsonLd = getWebPageJsonLd({
-  name: 'Traveling | Oriol Morros Vilaseca',
-  description,
-  path: '/journal/travel',
-})
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
+}
 
 export default function TravelPage() {
   return (
     <main className="pb-32">
-      <JsonLd data={travelJsonLd} />
       <Container>
         <Spacer size="xl" />
 

@@ -7,7 +7,6 @@ const EXPECTED_PATHS = [
   '/work',
   '/open-source',
   '/journal',
-  '/journal/travel',
   '/projects/offbabel',
   '/projects/supconnect',
   '/projects/truevoice',
@@ -204,7 +203,10 @@ async function auditSitemap() {
   expect(!/<changefreq(?:\s|>)/i.test(xml), 'sitemap.xml: contains ignored <changefreq>')
 
   const blocks = xml.match(/<url(?:\s[^>]*)?>[\s\S]*?<\/url\s*>/gi) || []
-  expect(blocks.length === 21, `sitemap.xml: expected 21 routes, found ${blocks.length}`)
+  expect(
+    blocks.length === EXPECTED_PATHS.length,
+    `sitemap.xml: expected ${EXPECTED_PATHS.length} routes, found ${blocks.length}`,
+  )
   const foundPaths = []
 
   blocks.forEach((block, index) => {
@@ -627,6 +629,35 @@ async function auditNotFoundRoutes() {
   )
 }
 
+async function auditHiddenRoutes() {
+  const path = '/journal/travel'
+  const response = await get(auditUrl(path), `${path} hidden page`, {
+    accept: 'text/html,*/*;q=0.8',
+  })
+  if (!response) return
+
+  const html = await response.text()
+  const metas = tags(html, 'meta')
+  const links = tags(html, 'link')
+  const robots = one(
+    metadataValues(metas, 'name', 'robots'),
+    `${path} hidden-page robots`,
+  )
+
+  if (robots) {
+    expect(/\bnoindex\b/.test(robots), `${path}: hidden page must be noindex`)
+    expect(/\bnofollow\b/.test(robots), `${path}: hidden page must be nofollow`)
+  }
+  expect(
+    linksByRel(links, 'canonical').length === 0,
+    `${path}: hidden page must not emit a canonical`,
+  )
+  expect(
+    !jsonLdBlocks(html).join('\n').includes(`${canonicalUrl(path)}#webpage`),
+    `${path}: hidden page must not publish page-level JSON-LD`,
+  )
+}
+
 async function main() {
   console.log(`Metadata audit target: ${auditBase}`)
   console.log(`Canonical origin: ${CANONICAL_ORIGIN}`)
@@ -635,7 +666,12 @@ async function main() {
   const pages = await mapLimit(EXPECTED_PATHS, 4, auditPage)
   auditUniqueMetadata(pages)
   const imageCount = await auditImages(pages)
-  await Promise.all([auditRobotsAndLlms(), auditCrawlers(), auditNotFoundRoutes()])
+  await Promise.all([
+    auditRobotsAndLlms(),
+    auditCrawlers(),
+    auditNotFoundRoutes(),
+    auditHiddenRoutes(),
+  ])
 
   if (failures.length) {
     console.error(`\nMetadata audit failed with ${failures.length} issue(s):`)
@@ -643,7 +679,9 @@ async function main() {
     console.error(`\n${checks} checks completed.`)
     process.exitCode = 1
   } else {
-    console.log(`Metadata audit passed: 21 pages, ${imageCount} social images, ${checks} checks.`)
+    console.log(
+      `Metadata audit passed: ${EXPECTED_PATHS.length} public pages, 1 hidden page, ${imageCount} social images, ${checks} checks.`,
+    )
   }
 }
 

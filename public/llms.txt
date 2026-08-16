@@ -20,7 +20,6 @@ Key facts:
 - [Work](https://www.omorros.com/work): AI agent infrastructure at Eli by Techbible, University of Cambridge, IBM MCP Context Forge, BSc at ARU Cambridge
 - [Open Source](https://www.omorros.com/open-source): 18 merged pull requests in IBM's MCP Context Forge
 - [Journal](https://www.omorros.com/journal): personal stories from before software, like the TikTok account he grew to 1.5M followers in 2020–2023 and playing basketball in Bàsquet Manresa's academy
-- [Travel](https://www.omorros.com/journal/travel): an interactive map of the countries Oriol has lived in and visited
 
 ## Contact
 

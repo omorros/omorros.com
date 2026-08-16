@@ -9,7 +9,6 @@ const staticPages = [
   { path: '/work', lastModified: '2026-08-16' },
   { path: '/open-source', lastModified: '2026-08-16' },
   { path: '/journal', lastModified: '2026-08-16' },
-  { path: '/journal/travel', lastModified: '2026-08-16' },
 ] as const
 
 export default function sitemap(): MetadataRoute.Sitemap {
