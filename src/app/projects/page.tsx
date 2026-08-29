@@ -22,10 +22,10 @@ export const metadata = createPageMetadata({
 // lists to change what shows up first.
 const FEATURED = [
   'truevoice',
-  'offbabel',
+  'lantern',
   'wildscan',
-  'basket',
-  'darkfleet',
+  'offbabel',
+  'echo',
   'bk-shoot',
 ]
 const MORE = [

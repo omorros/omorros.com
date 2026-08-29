@@ -10,9 +10,9 @@ const EXPECTED_PATHS = [
   '/projects/offbabel',
   '/projects/supconnect',
   '/projects/truevoice',
-  '/projects/basket',
+  '/projects/lantern',
+  '/projects/echo',
   '/projects/wildscan',
-  '/projects/darkfleet',
   '/projects/gaslit',
   '/projects/atlas',
   '/projects/snapshelf',
@@ -278,8 +278,8 @@ function auditJsonLd(path, documents) {
   if (people[0]) {
     expect(people[0]['@id'] === personId, `${label}: unstable Person @id`)
     expect(people[0].url === canonicalUrl('/'), `${label}: wrong Person URL`)
-    expect(people[0].jobTitle === 'Software Engineer', `${label}: stale job title`)
-    expect(people[0].worksFor?.name === 'Eli by Techbible', `${label}: stale employer`)
+    expect(people[0].jobTitle === 'Full Stack Engineer', `${label}: stale job title`)
+    expect(people[0].worksFor?.name === 'Really Good Culture', `${label}: stale employer`)
     expect(!Object.hasOwn(people[0], 'award'), `${label}: Person duplicates awards`)
   }
 
@@ -597,7 +597,10 @@ async function auditCrawlers() {
       crawlerCanonical && new URL(crawlerCanonical).toString() === canonicalUrl('/'),
       `crawler ${name}: canonical metadata is missing`,
     )
-    expect(html.includes('Eli by Techbible'), `crawler ${name}: current role is missing`)
+    expect(
+      html.includes('software engineer in London'),
+      `crawler ${name}: homepage introduction is missing`,
+    )
   })
 }
 

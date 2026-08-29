@@ -16,6 +16,11 @@ export interface Project {
     screenshots?: string[]
     photos?: { src: string; caption?: string }[]
     videoUrl?: string
+    // YouTube demo. Leads the page when there is no thumbnail,
+    // otherwise it lands in its own Demo section.
+    youtubeId?: string
+    // Local poster frame, so nothing loads from YouTube until play.
+    youtubePoster?: string
     thumbnail?: string
     // Personal photo shown on the projects cards.
     // Falls back to thumbnail when not set.
@@ -41,6 +46,81 @@ export interface Project {
 
 
 export const projects: Project[] = [
+  {
+    title: 'Lantern',
+    description: 'A dispatch tool that briefs firefighters on a burning building before they arrive, from its old property listing.',
+    tags: ['Python', 'Next.js', 'FastAPI', 'OpenAI'],
+    link: 'https://github.com/omorros/Lantern',
+    slug: 'lantern',
+    lastModified: '2026-08-29',
+    category: 'hackathon',
+    event: '{Tech: Europe} \u00d7 VEED Hackathon \u00b7 London 2026',
+    year: '2026',
+    caseStudy: {
+      challenge: 'When firefighters arrive at a house fire they know nothing about the inside. No floor plan, no idea which room someone is trapped in, so they find out by crawling through the smoke. Last year 271 people died in fires in England, and nearly eight in ten of them died at home.',
+      approach: 'We built a dispatch console that fills in the building while the caller is still on the line: an agent finds the house in old sold listings, reads the floor plan and the photos, and turns them into a briefing with the way in, the room the victim was reported in, and a route from the kerb. Every fact on the brief says whether it came from the call, from the listing, or from a model, so nobody mistakes a guess for the truth.',
+      features: [
+        { title: 'Finds the House Online', description: 'An agent drives a real browser, searches sold property listings, and pulls the floor plan and the photos from the day the house was last on the market.' },
+        { title: 'Reads the Call as It Happens', description: 'The address, the hazard, and where the person was last seen come straight out of the live transcript in milliseconds, and the brief moves when the caller says something new.' },
+        { title: 'A Route, Not Just a Plan', description: 'It says which door to go through and which rooms to cross to reach the victim, because crews given a route move faster than crews handed a floor plan.' },
+        { title: 'Rooms You Can Walk First', description: 'The photos of the rooms that matter become 3D scenes with the hazards pinned, and a 30 second briefing video reaches the crew before the truck leaves.' }
+      ],
+      thumbnail: '/images/lantern/presenting.jpg',
+      cardImage: '/images/lantern/team-veed.jpg',
+      photos: [
+        { src: '/images/lantern/team-veed.jpg' },
+        { src: '/images/lantern/team-building.jpg' },
+        { src: '/images/lantern/h-company.jpg' },
+        { src: '/images/lantern/working.jpg' },
+      ],
+      awards: [
+        {
+          title: 'Overall Winner - {Tech: Europe} x VEED Hackathon 2026',
+          description: 'First across the whole event, a one day hackathon with 80 people at the Summer Lock-In in London.'
+        },
+        {
+          title: 'Best Use of fal',
+          description: 'A second prize at the same event, for turning the listing photos into 3D rooms and generating the crew briefing video.'
+        }
+      ]
+    }
+  },
+  {
+    title: 'Echo',
+    description: 'A hardware recorder that turns a meeting into searchable notes, action items and answers about what was decided.',
+    tags: ['Python', 'C++', 'ESP32-S3', 'FastAPI'],
+    link: 'https://github.com/omorros/Echo',
+    slug: 'echo',
+    lastModified: '2026-08-29',
+    category: 'hackathon',
+    event: 'Superlinked \u00d7 Alibaba Cloud Qwen Hackathon \u00b7 London 2026',
+    year: '2026',
+    caseStudy: {
+      challenge: 'Meetings disappear. Someone takes half a page of notes, the decisions stay in one person\'s head, and a week later nobody can say what was agreed or who is meant to be doing it.',
+      approach: 'We built a recorder you press once: an ESP32-S3 board streams the audio to a backend that separates the speakers, writes the notes, pulls out the action items and makes every past meeting searchable. A dial on the device picks the kind of meeting, and that choice decides which model writes the notes.',
+      features: [
+        { title: 'One Button, One Dial', description: 'Press the button to start recording, turn the dial to say what kind of meeting it is, and the little screen tells you it is listening.' },
+        { title: 'Knows Who Said What', description: 'The audio comes back split by speaker, so the notes can say who agreed to what instead of just what was said.' },
+        { title: 'Searches Every Meeting', description: 'Ask what was decided about something and it looks back through everything you have recorded, not only the last call.' },
+        { title: 'Two Clouds, One Job', description: 'Each step goes to whichever provider does it best, Superlinked or Alibaba Cloud Qwen, and either one takes over when the other fails.' }
+      ],
+      thumbnail: '/images/echo/device.jpg',
+      cardImage: '/images/echo/winners.jpg',
+      youtubeId: 'Gh3SKQ_0ZHw',
+      youtubePoster: '/images/echo/demo-poster.jpg',
+      photos: [
+        { src: '/images/echo/winners.jpg' },
+        { src: '/images/echo/alibaba-office.jpg' },
+        { src: '/images/echo/visitor-pass.jpg' },
+      ],
+      awards: [
+        {
+          title: 'Track Winner - Superlinked x Alibaba Cloud Qwen 2026',
+          description: 'Only 25 people were selected for the day, which ran at the Alibaba Cloud offices in London.'
+        }
+      ]
+    }
+  },
   {
     title: 'OffBabel',
     description: 'An offline language tutor that runs on a Reachy Mini robot. You learn by speaking Spanish or English, or by fingerspelling British Sign Language, and it all works without internet.',
@@ -151,42 +231,6 @@ export const projects: Project[] = [
     }
   },
   {
-    title: 'Basket',
-    description: 'A team of five AI agents that watches the web for complaints when a product quietly changes its recipe, so brands find out in weeks instead of months.',
-    tags: ['Python', 'FastAPI', 'Next.js', 'ClickHouse'],
-    link: 'https://github.com/omorros/Basket',
-    slug: 'basket',
-    lastModified: '2026-08-16',
-    category: 'hackathon',
-    event: 'Tokens LDN Multi-Agent Hackathon · London 2026',
-    year: '2026',
-    caseStudy: {
-      challenge: 'When a brand quietly changes a recipe, the backlash lands on the web within days but only shows up in sales data months later. By the time a category manager sees it in a quarterly review, the damage is done.',
-      approach: 'I built a pipeline of five agents. Give it a product name and it finds when the recipe changed, pulls complaints from news and the web, classifies them with rules you can trace, counts them week by week, and publishes an alert with sources the moment complaints spike.',
-      features: [
-        { title: 'Five-Agent Pipeline', description: 'A date finder, a retriever, a classifier, an aggregator, and a publisher, each with one job, coordinated by an orchestrator.' },
-        { title: 'Finds the Turning Point', description: 'ClickHouse rolls complaints up by week and flags the inflection where a spike starts.' },
-        { title: 'Every Claim Has a Source', description: 'Complaints are classified with traceable rules and every published alert links back to the original mentions.' },
-        { title: 'Survives Demo Day', description: 'Local fallbacks kick in if any external service goes down, so the pipeline keeps running.' },
-      ],
-      thumbnail: 'https://raw.githubusercontent.com/omorros/Basket/main/docs/hero.png',
-      cardImage: '/images/basket/demo.jpg',
-      screenshots: [
-        'https://raw.githubusercontent.com/omorros/Basket/main/docs/pipeline.png',
-      ],
-      photos: [
-        { src: '/images/basket/demo.jpg' },
-        { src: '/images/basket/chatting.jpg' },
-      ],
-      awards: [
-        {
-          title: 'Track Winner - Tokens LDN Multi-Agent Hackathon 2026',
-          description: 'First place on our track at the Tokens LDN Multi-Agent Hackathon in London, 2026.',
-        },
-      ],
-    },
-  },
-  {
     title: 'WILDSCAN',
     description: 'AI agents that scan online marketplaces for wildlife trafficking, decoding the coded language sellers hide behind in eight languages.',
     tags: ['Python', 'LangGraph', 'Next.js', 'PostGIS'],
@@ -215,46 +259,6 @@ export const projects: Project[] = [
         {
           title: 'Overall Winner - Unicorn Mafia x Techbible Hack Night 2026',
           description: 'Built in 90 minutes; awarded the overall prize at the London hack night (Web MCP Agents track), March 2026.'
-        }
-      ]
-    }
-  },
-  {
-    title: 'DarkFleet',
-    description: 'A dashboard that tracks fishing vessels across seven public data sources and flags the ones most likely to be fishing illegally.',
-    tags: ['Python', 'Claude API', 'PostGIS', 'Mapbox'],
-    link: 'https://github.com/omorros/DarkFleet',
-    slug: 'darkfleet',
-    lastModified: '2026-08-16',
-    category: 'hackathon',
-    event: 'Claude Hackathon · Imperial College London 2026',
-    year: '2026',
-    caseStudy: {
-      challenge: 'Illegal fishing is a 23 billion dollar business, and the fleets hide by spreading their tracks across separate data sources: switched off transponders, changed flags, opaque owners. No analyst can cross check all of it in real time.',
-      approach: 'I pulled seven open data sources into one dashboard that scores every vessel on seven risk signals and ranks the global fleet. An analyst can then ask Claude follow up questions about any ship and get a full report.',
-      features: [
-        { title: 'Seven Risk Signals', description: 'Encounters at sea, gaps in the tracking signal, flag changes, opaque owners, loitering, licence status, and sanctions, all scored together.' },
-        { title: 'Ranked Alerts', description: 'Every vessel comes out red, amber, or clear, ranked across the global fleet in real time.' },
-        { title: 'Ask Claude About Any Ship', description: 'An analyst can ask follow-up questions about any vessel and get a structured assessment back.' },
-        { title: 'One-Click Reports', description: 'Everything it knows about a vessel turns into a PDF brief you can share.' }
-      ],
-      thumbnail: 'https://raw.githubusercontent.com/omorros/DarkFleet/main/docs/screenshots/globe-overview.png',
-      cardImage: '/images/darkfleet/selfie.jpg',
-      cardImagePos: 'object-[center_55%]',
-      photos: [
-        { src: '/images/darkfleet/selfie.jpg' },
-        { src: '/images/darkfleet/claude-sign.jpg' },
-      ],
-      screenshots: [
-        'https://raw.githubusercontent.com/omorros/DarkFleet/main/docs/screenshots/vessel-detail-red.png',
-        'https://raw.githubusercontent.com/omorros/DarkFleet/main/docs/screenshots/vessel-detail-amber.png',
-        'https://raw.githubusercontent.com/omorros/DarkFleet/main/docs/screenshots/ai-chat.png',
-        'https://raw.githubusercontent.com/omorros/DarkFleet/main/docs/screenshots/incident-report.png'
-      ],
-      awards: [
-        {
-          title: '6th of 64 - Claude Hackathon, Imperial College London',
-          description: 'Top-10 finish out of 64 teams at the Anthropic-sponsored hackathon at Imperial College London.'
         }
       ]
     }
