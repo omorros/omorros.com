@@ -38,8 +38,8 @@ export default function Page() {
         <Spacer size="lg" />
 
         <Lead>
-          I’m Oriol Morros, a software engineer building infrastructure for AI
-          agents at Eli by Techbible in London.
+          I’m Oriol Morros, a software engineer in London, building retail
+          intelligence tools at RGC.
         </Lead>
       </Container>
 

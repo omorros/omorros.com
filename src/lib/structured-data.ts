@@ -45,11 +45,11 @@ export function getSiteJsonLd(): JsonLdObject {
           siteConfig.links.linkedin,
           'https://www.tiktok.com/@uriisss_',
         ],
-        jobTitle: 'Software Engineer',
+        jobTitle: 'Full Stack Engineer',
         email: siteConfig.links.email,
         worksFor: {
           '@type': 'Organization',
-          name: 'Eli by Techbible',
+          name: 'Really Good Culture',
         },
         alumniOf: {
           '@type': 'CollegeOrUniversity',

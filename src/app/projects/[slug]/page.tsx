@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { JsonLd } from '@/components/site/JsonLd'
 import { projects } from '@/data/projects'
 import { ZoomImage } from '@/components/site/ZoomImage'
+import { YouTubeEmbed } from '@/components/site/YouTubeEmbed'
 import { createPageMetadata } from '@/lib/metadata'
 import { getProjectJsonLd } from '@/lib/structured-data'
 
@@ -41,6 +42,16 @@ export default function ProjectDetailPage({ params }: PageProps) {
   // Hero is the thumbnail when set; with no thumbnail the demo video leads.
   const heroMedia = cs?.thumbnail
   const galleryScreens = cs?.screenshots?.filter((s) => s !== heroMedia) ?? []
+  // Three photos go in a row of three; anything else pairs up.
+  const photoCols =
+    cs?.photos?.length === 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'
+  const demoVideo = cs?.youtubeId ? (
+    <YouTubeEmbed
+      id={cs.youtubeId}
+      poster={cs.youtubePoster ?? '/images/card-placeholder.svg'}
+      title={`${project.title} demo`}
+    />
+  ) : null
 
   const slugged = projects.filter((p) => p.slug)
   const idx = slugged.findIndex((p) => p.slug === project.slug)
@@ -114,6 +125,8 @@ export default function ProjectDetailPage({ params }: PageProps) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={heroMedia} alt={project.title} className="w-full h-auto block" />
         </div>
+      ) : demoVideo ? (
+        <div className="mt-10">{demoVideo}</div>
       ) : cs?.videoUrl ? (
         <div className="mt-10 rounded-lg overflow-hidden border border-border-soft bg-background-soft">
           <video
@@ -156,6 +169,13 @@ export default function ProjectDetailPage({ params }: PageProps) {
         </section>
       )}
 
+      {demoVideo && heroMedia && (
+        <section className="mt-14">
+          <SectionHeading>Demo</SectionHeading>
+          {demoVideo}
+        </section>
+      )}
+
       {cs?.videoUrl && heroMedia && (
         <section className="mt-14">
           <SectionHeading>Demo</SectionHeading>
@@ -176,7 +196,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
       {cs?.photos && cs.photos.length > 0 && (
         <section className="mt-14">
           <SectionHeading>Photos</SectionHeading>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className={`grid grid-cols-1 ${photoCols} gap-4`}>
             {cs.photos.map((photo) => (
               <ZoomImage
                 key={photo.src}
