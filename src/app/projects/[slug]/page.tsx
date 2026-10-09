@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { JsonLd } from '@/components/site/JsonLd'
 import { projects } from '@/data/projects'
+import Image from 'next/image'
 import { ZoomImage } from '@/components/site/ZoomImage'
 import { YouTubeEmbed } from '@/components/site/YouTubeEmbed'
 import { createPageMetadata } from '@/lib/metadata'
@@ -45,6 +46,10 @@ export default function ProjectDetailPage({ params }: PageProps) {
   // Three photos go in a row of three; anything else pairs up.
   const photoCols =
     cs?.photos?.length === 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'
+  const photoSizes =
+    cs?.photos?.length === 3
+      ? '(min-width: 672px) 198px, (min-width: 640px) calc(33vw - 27px), calc(100vw - 48px)'
+      : '(min-width: 672px) 304px, (min-width: 640px) calc(50vw - 32px), calc(100vw - 48px)'
   const demoVideo = cs?.youtubeId ? (
     <YouTubeEmbed
       id={cs.youtubeId}
@@ -122,8 +127,16 @@ export default function ProjectDetailPage({ params }: PageProps) {
 
       {heroMedia ? (
         <div className="mt-10 rounded-lg overflow-hidden border border-border-soft bg-background-soft">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={heroMedia} alt={project.title} className="w-full h-auto block" />
+          <Image
+            src={heroMedia}
+            alt={project.title}
+            width={0}
+            height={0}
+            priority
+            quality={90}
+            sizes="(min-width: 672px) 624px, calc(100vw - 48px)"
+            className="w-full h-auto block"
+          />
         </div>
       ) : demoVideo ? (
         <div className="mt-10">{demoVideo}</div>
@@ -202,6 +215,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
                 key={photo.src}
                 src={photo.src}
                 alt={project.title}
+                sizes={photoSizes}
                 className="w-full h-auto block rounded-lg border border-border-soft"
               />
             ))}
@@ -221,6 +235,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
                 <ZoomImage
                   src={src}
                   alt={`${project.title} screenshot`}
+                  sizes="(min-width: 672px) 304px, (min-width: 640px) calc(50vw - 32px), calc(100vw - 48px)"
                   className="w-full h-auto block"
                 />
               </div>
