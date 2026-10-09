@@ -20,6 +20,7 @@ const EXPECTED_PATHS = [
   '/projects/deep-learning-cnn-comparison',
   '/projects/wikipedia-scraper',
   '/projects/university-library-system',
+  '/journal/eat-hack',
   '/journal/social-media',
   '/journal/basketball',
 ]
@@ -278,7 +279,7 @@ function auditJsonLd(path, documents) {
   if (people[0]) {
     expect(people[0]['@id'] === personId, `${label}: unstable Person @id`)
     expect(people[0].url === canonicalUrl('/'), `${label}: wrong Person URL`)
-    expect(people[0].jobTitle === 'Full Stack Engineer', `${label}: stale job title`)
+    expect(people[0].jobTitle === 'AI Engineer', `${label}: stale job title`)
     expect(people[0].worksFor?.name === 'Really Good Culture', `${label}: stale employer`)
     expect(!Object.hasOwn(people[0], 'award'), `${label}: Person duplicates awards`)
   }
@@ -305,7 +306,7 @@ function auditJsonLd(path, documents) {
   }
 
   if (path === '/projects' || path === '/journal') {
-    const expectedCount = path === '/projects' ? 13 : 2
+    const expectedCount = path === '/projects' ? 13 : 3
     const lists = nodesOfType(nodes, 'ItemList')
     expect(nodesOfType(nodes, 'CollectionPage').length === 1, `${label}: missing CollectionPage`)
     expect(lists.length === 1, `${label}: expected exactly one ItemList`)
@@ -341,7 +342,7 @@ function auditJsonLd(path, documents) {
     return
   }
 
-  if (/^\/journal\/(social-media|basketball)$/.test(path)) {
+  if (/^\/journal\/(eat-hack|social-media|basketball)$/.test(path)) {
     const posts = nodesOfType(nodes, 'BlogPosting')
     expect(posts.length === 1, `${label}: expected one BlogPosting`)
     if (posts[0]) {
@@ -356,7 +357,7 @@ function auditJsonLd(path, documents) {
 
 function expectedOgType(path) {
   if (path === '/') return 'profile'
-  return /^\/journal\/(social-media|basketball)$/.test(path) ? 'article' : 'website'
+  return /^\/journal\/(eat-hack|social-media|basketball)$/.test(path) ? 'article' : 'website'
 }
 
 async function auditPage(path) {
@@ -406,7 +407,7 @@ async function auditPage(path) {
     const suffix = ' | Oriol Morros Vilaseca'
     expect(
       path === '/'
-        ? title === 'Oriol Morros Vilaseca | Software Engineer'
+        ? title === 'Oriol Morros Vilaseca | AI Engineer'
         : title.endsWith(suffix) && title.length > suffix.length,
       `${path}: unexpected title format (${title})`,
     )
@@ -598,7 +599,7 @@ async function auditCrawlers() {
       `crawler ${name}: canonical metadata is missing`,
     )
     expect(
-      html.includes('software engineer in London'),
+      html.includes('AI engineer in London'),
       `crawler ${name}: homepage introduction is missing`,
     )
   })
