@@ -45,7 +45,7 @@ export function getSiteJsonLd(): JsonLdObject {
           siteConfig.links.linkedin,
           'https://www.tiktok.com/@uriisss_',
         ],
-        jobTitle: 'Full Stack Engineer',
+        jobTitle: 'AI Engineer',
         email: siteConfig.links.email,
         worksFor: {
           '@type': 'Organization',
@@ -281,6 +281,7 @@ export function getJournalEntryJsonLd(entry: JournalEntry): JsonLdObject {
         url: pageUrl,
         headline: entry.title,
         description,
+        dateModified: entry.lastModified,
         ...(image ? { image } : {}),
         author: personReference,
         inLanguage: 'en-GB',

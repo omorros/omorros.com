@@ -38,7 +38,7 @@ export default function Page() {
         <Spacer size="lg" />
 
         <Lead>
-          I’m Oriol Morros, a software engineer in London, building retail
+          I’m Oriol Morros, an AI engineer in London, building retail
           intelligence tools at RGC.
         </Lead>
       </Container>
@@ -88,8 +88,8 @@ export default function Page() {
               <SectionTitle link="/journal">Journal</SectionTitle>
               <SectionBody>
                 <p>
-                  Life away from the keyboard: basketball, moving from Manresa
-                  to London, and more.
+                  Life away from the keyboard: basketball, hosting a
+                  hackathon, moving from Manresa to London, and more.
                 </p>
               </SectionBody>
             </Section>
@@ -163,13 +163,13 @@ function HomepageImage({ className = '' }: { className?: string }) {
     <div className={`${className} aspect-[3/2] overflow-hidden`}>
       <Image
         src="/images/oriol-home.jpg"
-        alt="Oriol Morros"
-        width={1536}
-        height={1024}
+        alt="Oriol Morros working at a laptop during EAT HACK"
+        width={2400}
+        height={1600}
         priority
         quality={90}
         sizes="(min-width: 1024px) 768px, (min-width: 640px) 528px, 100vw"
-        className="h-full w-full scale-[1.3] object-cover"
+        className="h-full w-full object-cover"
       />
     </div>
   )

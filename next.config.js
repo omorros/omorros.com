@@ -8,6 +8,8 @@ const nextConfig = {
     },
   ],
   images: {
+    // AVIF first, WebP fallback: same visual quality at a fraction of the JPEG size.
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',

@@ -132,7 +132,7 @@ export default async function Image() {
                   display: 'flex',
                 }}
               >
-                Software Engineer · London, UK
+                AI Engineer · London, UK
               </div>
               <div
                 style={{
