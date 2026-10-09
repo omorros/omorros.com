@@ -5,7 +5,7 @@ import { createPageMetadata } from '@/lib/metadata'
 import { getWebPageJsonLd } from '@/lib/structured-data'
 
 const description =
-  'What Oriol Morros works on: full-stack engineering at Really Good Culture, and the road there.'
+  'What Oriol Morros works on: AI engineering at Really Good Culture, and the road there.'
 
 export const revalidate = 3600
 
@@ -111,16 +111,16 @@ export default function WorkPage() {
         <Spacer size="lg" />
 
         <Lead>
-          I’m a full stack engineer at Really Good Culture in London.
+          I’m an AI engineer at Really Good Culture in London.
         </Lead>
 
         <Entry
           when="Jul 2026 – Present"
-          role="Full Stack Engineer"
+          role="AI Engineer"
           duration={formatTenure([{ start: '2026-07' }], currentMonth)}
           title="Really Good Culture"
         >
-          <p>Building predictive retail intelligence tools across the full stack.</p>
+          <p>Building predictive retail intelligence tools.</p>
         </Entry>
 
         <Entry
