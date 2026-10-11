@@ -124,10 +124,10 @@ export default function WorkPage() {
         </Entry>
 
         <Entry
-          when="May 2026 – Aug 2026"
+          when="May 2026 – Sep 2026"
           role="Software Engineer"
           duration={formatTenure(
-            [{ start: '2026-05', end: '2026-08' }],
+            [{ start: '2026-05', end: '2026-09' }],
             currentMonth,
           )}
           title="Eli by Techbible"

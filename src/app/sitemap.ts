@@ -6,7 +6,7 @@ import { journal } from '@/data/journal'
 const staticPages = [
   { path: '/', lastModified: '2026-10-10' },
   { path: '/projects', lastModified: '2026-08-16' },
-  { path: '/work', lastModified: '2026-10-09' },
+  { path: '/work', lastModified: '2026-10-11' },
   { path: '/open-source', lastModified: '2026-08-16' },
   { path: '/journal', lastModified: '2026-10-10' },
 ] as const
