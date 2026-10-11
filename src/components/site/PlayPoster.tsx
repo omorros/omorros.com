@@ -37,7 +37,7 @@ export function PlayPoster({
       <span className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform group-hover:scale-105">
         <svg
           viewBox="0 0 24 24"
-          className="ml-1 h-7 w-7 fill-gray-900"
+          className="h-7 w-7 fill-gray-900"
           aria-hidden="true"
         >
           <path d="M8 5v14l11-7z" />
