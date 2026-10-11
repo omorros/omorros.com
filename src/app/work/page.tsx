@@ -191,13 +191,6 @@ export default function WorkPage() {
           </p>
         </Entry>
 
-        <Entry when="2023 – 2026" title="BSc Software Engineering, ARU Cambridge">
-          <p>
-            I finished with First-Class Honours while playing as a{' '}
-            <A href="/journal/basketball">basketball scholarship athlete</A>.
-          </p>
-        </Entry>
-
         <Entry when="2020 – 2023" title="Social media and e-commerce">
           <p>
             Before software, I grew a TikTok to 1.5M followers and built
