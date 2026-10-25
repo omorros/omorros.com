@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { JsonLd } from '@/components/site/JsonLd'
+import { BackLink } from '@/components/site/BackLink'
 import { projects } from '@/data/projects'
 import Image from 'next/image'
 import { ZoomImage } from '@/components/site/ZoomImage'
@@ -76,6 +77,11 @@ export default function ProjectDetailPage({ params }: PageProps) {
     <main className="max-w-2xl mx-auto px-6 pt-16 md:pt-24">
       <JsonLd data={projectJsonLd} />
       <header>
+        <div className="mb-8">
+          <BackLink
+            fallback={project.category === 'hackathon' ? '/hackathons' : '/projects'}
+          />
+        </div>
         <p className="text-sm text-foreground-faint">{metaLine}</p>
         <h1 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight text-foreground">
           {project.title}

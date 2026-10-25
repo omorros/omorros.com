@@ -47,6 +47,45 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    title: 'Hamyway City',
+    description: 'An AI delivery desk that reads a messy complaint thread and sends one safe message, asks a question, or hands the case to a person.',
+    tags: ['TypeScript', 'Next.js', 'Claude API', 'ElevenLabs'],
+    link: 'https://github.com/arvin-shafiei/hamyway-city',
+    slug: 'hamyway-city',
+    lastModified: '2026-10-25',
+    category: 'hackathon',
+    event: 'Dwelly Real-World Agents Hackathon \u00b7 London 2026',
+    year: '2026',
+    caseStudy: {
+      challenge: 'A delivery desk sits between the customer, the carrier and the shop, and owns almost none of the decisions. Things go wrong when a reply promises a refund nobody approved, or takes a side when the scan and the customer disagree.',
+      approach: 'We built an agent that reads a delivery problem the way a coordinator would, works out who owns the decision, and takes one next step: a message to the right team, a question, nothing at all, or a handover to a person. I built the voice side: voice notes from drivers, and calls the agent can make from the console.',
+      features: [
+        { title: 'Knows When to Stop', description: 'It can send one message, ask a question, do nothing, or hand the case to a person. In the last scored run it passed 46 of 48 cases without breaking a single never-do rule.' },
+        { title: 'No Promises It Cannot Keep', description: 'Every message it wants to send is checked first for refunds, delivery times or safety answers the desk has no right to give.' },
+        { title: 'Calls in Your Language', description: 'A driver who cannot type can leave a voice note. When a call is the right move, the agent rings the person in the browser, answers in their language and checks any promise before it says it.' },
+        { title: 'Hears the Order Numbers', description: 'I feed each case\'s own order numbers and names to the speech model, which cut word errors on those messages from 22 percent to 5.' }
+      ],
+      thumbnail: '/images/hamyway-city/team.jpg',
+      cardImage: '/images/hamyway-city/team.jpg',
+      screenshots: [
+        '/images/hamyway-city/console-home.jpg',
+        '/images/hamyway-city/case-run-voice.jpg',
+        '/images/hamyway-city/decisions.jpg',
+        '/images/hamyway-city/city-aerial.jpg'
+      ],
+      photos: [
+        { src: '/images/hamyway-city/building.jpg' },
+        { src: '/images/hamyway-city/winners.jpg' },
+      ],
+      awards: [
+        {
+          title: 'People\'s Choice - Real-World Agents Hackathon 2026',
+          description: 'Won the People\'s Choice prize at Dwelly\'s Real-World Agents Hackathon in London on 10 October 2026. We entered in the Delivery and Logistics track.'
+        }
+      ]
+    }
+  },
+  {
     title: 'Lantern',
     description: 'A dispatch tool that briefs firefighters on a burning building before they arrive, from its old property listing.',
     tags: ['Python', 'Next.js', 'FastAPI', 'OpenAI'],
@@ -120,6 +159,42 @@ export const projects: Project[] = [
         }
       ]
     }
+  },
+  {
+    title: 'Basket',
+    description: 'A team of five AI agents that watches the web for complaints when a product quietly changes its recipe, so brands find out in weeks instead of months.',
+    tags: ['Python', 'FastAPI', 'Next.js', 'ClickHouse'],
+    link: 'https://github.com/omorros/Basket',
+    slug: 'basket',
+    lastModified: '2026-10-25',
+    category: 'hackathon',
+    event: 'Tokens LDN Multi-Agent Hackathon · London 2026',
+    year: '2026',
+    caseStudy: {
+      challenge: 'When a brand quietly changes a recipe, the backlash lands on the web within days but only shows up in sales data months later. By the time a category manager sees it in a quarterly review, the damage is done.',
+      approach: 'I built a pipeline of five agents. Give it a product name and it finds when the recipe changed, pulls complaints from news and the web, classifies them with rules you can trace, counts them week by week, and publishes an alert with sources the moment complaints spike.',
+      features: [
+        { title: 'Five-Agent Pipeline', description: 'A date finder, a retriever, a classifier, an aggregator, and a publisher, each with one job, coordinated by an orchestrator.' },
+        { title: 'Finds the Turning Point', description: 'ClickHouse rolls complaints up by week and flags the inflection where a spike starts.' },
+        { title: 'Every Claim Has a Source', description: 'Complaints are classified with traceable rules and every published alert links back to the original mentions.' },
+        { title: 'Survives Demo Day', description: 'Local fallbacks kick in if any external service goes down, so the pipeline keeps running.' },
+      ],
+      thumbnail: 'https://raw.githubusercontent.com/omorros/Basket/main/docs/hero.png',
+      cardImage: '/images/basket/demo.jpg',
+      screenshots: [
+        'https://raw.githubusercontent.com/omorros/Basket/main/docs/pipeline.png',
+      ],
+      photos: [
+        { src: '/images/basket/demo.jpg' },
+        { src: '/images/basket/chatting.jpg' },
+      ],
+      awards: [
+        {
+          title: '1st Place, Best Use of Tavily - Tokens LDN Multi-Agent Hackathon 2026',
+          description: 'Tavily gave three prizes for the best use of its search API, and Basket took first.',
+        },
+      ],
+    },
   },
   {
     title: 'OffBabel',
@@ -493,3 +568,7 @@ export const projects: Project[] = [
     }
   },
 ]
+
+export function getProjectBySlug(slug: string) {
+  return projects.find((p) => p.slug === slug)
+}

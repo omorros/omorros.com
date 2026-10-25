@@ -7,6 +7,7 @@ import { siteConfig } from '@/lib/constants'
 import { getSiteJsonLd } from '@/lib/structured-data'
 import { JsonLd } from '@/components/site/JsonLd'
 import { Nav } from '@/components/site/Nav'
+import { NavigationTracker } from '@/components/site/BackLink'
 import { Footer } from '@/components/site/Footer'
 
 const inter = Inter({
@@ -42,6 +43,7 @@ export default function RootLayout({
       <body className="font-sans text-base antialiased text-gray-800 bg-white">
         <JsonLd data={siteJsonLd} />
         <Nav />
+        <NavigationTracker />
         {children}
         <Footer />
         <Analytics />

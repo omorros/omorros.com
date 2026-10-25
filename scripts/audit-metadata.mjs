@@ -7,11 +7,14 @@ const EXPECTED_PATHS = [
   '/work',
   '/open-source',
   '/journal',
+  '/hackathons',
   '/projects/offbabel',
   '/projects/supconnect',
   '/projects/truevoice',
   '/projects/lantern',
   '/projects/echo',
+  '/projects/hamyway-city',
+  '/projects/basket',
   '/projects/wildscan',
   '/projects/gaslit',
   '/projects/atlas',
@@ -305,8 +308,9 @@ function auditJsonLd(path, documents) {
     return
   }
 
-  if (path === '/projects' || path === '/journal') {
-    const expectedCount = path === '/projects' ? 13 : 3
+  const collectionCounts = { '/projects': 9, '/hackathons': 7, '/journal': 3 }
+  if (Object.hasOwn(collectionCounts, path)) {
+    const expectedCount = collectionCounts[path]
     const lists = nodesOfType(nodes, 'ItemList')
     expect(nodesOfType(nodes, 'CollectionPage').length === 1, `${label}: missing CollectionPage`)
     expect(lists.length === 1, `${label}: expected exactly one ItemList`)

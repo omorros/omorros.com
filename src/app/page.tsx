@@ -75,7 +75,8 @@ export default function Page() {
               <SectionTitle link="/projects">Projects</SectionTitle>
               <SectionBody>
                 <p>
-                  Things I build on my own time, and hackathon winners like{' '}
+                  Things I build on my own time, and{' '}
+                  <A href="/hackathons">hackathon winners</A> like{' '}
                   <A href="/projects/truevoice">TrueVoice</A> and{' '}
                   <A href="/projects/offbabel">OffBabel</A>.
                 </p>
