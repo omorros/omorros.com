@@ -400,7 +400,7 @@ export const projects: Project[] = [
     tags: ['TypeScript', 'React Native', 'Python', 'PostgreSQL'],
     link: 'https://github.com/omorros/SnapShelf',
     slug: 'snapshelf',
-    lastModified: '2026-08-16',
+    lastModified: '2026-10-25',
     category: 'personal',
     year: '2026',
     caseStudy: {
@@ -411,7 +411,15 @@ export const projects: Project[] = [
         { title: 'You Confirm Everything', description: 'The AI\'s suggestions land in a review list first, so nothing enters your inventory without a one-tap yes from you.' },
         { title: 'Guesses the Expiry', description: 'It estimates how long each item lasts from its category and what it has seen before, then reminds you in time.' },
         { title: 'A Real Backend', description: 'FastAPI and PostgreSQL behind the app, with proper tests and JWT login.' }
-      ]
+      ],
+      thumbnail: '/images/snapshelf/cover.jpg',
+      cardImage: '/images/snapshelf/cover.jpg',
+      screenshots: [
+        '/images/snapshelf/inventory.jpg',
+        '/images/snapshelf/scan.jpg',
+        '/images/snapshelf/recipes.jpg',
+        '/images/snapshelf/recipe-detail.jpg',
+      ],
     }
   },
   {
