@@ -1,5 +1,5 @@
 import type { JournalEntry } from '@/data/journal'
-import { heroImage, type Project } from '@/data/projects'
+import { shareImage, type Project } from '@/data/projects'
 import { siteConfig } from '@/lib/constants'
 import { absoluteUrl } from '@/lib/metadata'
 
@@ -202,7 +202,7 @@ export function getProjectJsonLd(project: Project): JsonLdObject {
   const pageUrl = absoluteUrl(`/projects/${project.slug}`)
   const pageId = `${pageUrl}#webpage`
   const projectId = `${pageUrl}#software`
-  const image = absoluteAssetUrl(heroImage(project)?.src)
+  const image = absoluteAssetUrl(shareImage(project)?.src)
   const awards = project.caseStudy?.awards?.map((award) => award.title) ?? []
 
   return {

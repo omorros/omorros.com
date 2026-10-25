@@ -1,7 +1,12 @@
 // Types for project data. Each project lives in its own file next to this one
 // and is registered in index.ts.
 
-import type { Flow } from '@/components/site/flow-diagram'
+import type { Flow } from '@/components/site/flow-diagram/types'
+
+// Project files import both helpers from here. defineFlow comes from the
+// diagram's types, not its index, so project data never pulls in the
+// client component.
+export { defineFlow } from '@/components/site/flow-diagram/types'
 
 export interface Project {
   title: string
@@ -86,6 +91,8 @@ export type CaseStudy = CaseStudyMedia & (ClassicBody | StoryBody)
 export interface Story {
   // One line that carries the whole idea.
   insight: string
+  // Facts at a glance beyond the event and result, which come from the
+  // project (glanceFacts in derive.ts): 'Built in', 'Stack'.
   facts: { label: string; value: string }[]
   context: string
   flow: Flow

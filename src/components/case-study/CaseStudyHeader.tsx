@@ -1,5 +1,5 @@
 import { BackLink } from '@/components/site/BackLink'
-import { backHref, type Project } from '@/data/projects'
+import { backHref, glanceFacts, type Project } from '@/data/projects'
 
 // Back link, meta line, title, the story's insight, awards, links, then the
 // story's at a glance strip or, for the older layout, the tags.
@@ -71,7 +71,7 @@ export function CaseStudyHeader({ project }: { project: Project }) {
 
       {story ? (
         <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-border-soft pt-6 sm:grid-cols-3">
-          {story.facts.map((f) => (
+          {glanceFacts(project, story).map((f) => (
             <div key={f.label}>
               <dt className="text-xs text-foreground-faint">{f.label}</dt>
               <dd className="mt-0.5 text-sm font-medium text-foreground">{f.value}</dd>

@@ -11,7 +11,7 @@ import {
 } from '@/components/case-study'
 import { JsonLd } from '@/components/site/JsonLd'
 import { getProjectBySlug, pagerFor, projects } from '@/data/projects'
-import { missingFiles } from '@/data/projects/check-files'
+import { fileProblems } from '@/data/projects/check-files'
 import { createPageMetadata } from '@/lib/metadata'
 import { getProjectJsonLd } from '@/lib/structured-data'
 
@@ -20,8 +20,8 @@ interface PageProps {
 }
 
 export function generateStaticParams() {
-  const missing = missingFiles(projects)
-  if (missing.length > 0) throw new Error(`Missing project files:\n- ${missing.join('\n- ')}`)
+  const problems = fileProblems(projects)
+  if (problems.length > 0) throw new Error(`Project files have ${problems.length} problem(s):\n- ${problems.join('\n- ')}`)
   return projects.map((p) => ({ slug: p.slug }))
 }
 

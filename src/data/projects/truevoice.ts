@@ -1,5 +1,4 @@
-import { defineFlow } from '@/components/site/flow-diagram'
-import { defineProject } from './schema'
+import { defineFlow, defineProject } from './schema'
 
 export default defineProject({
   title: 'TrueVoice',
@@ -27,8 +26,6 @@ export default defineProject({
     story: {
       insight: "Patients minimise. Voices don't.",
       facts: [
-        { label: 'Event', value: 'Voice AI Hack, London' },
-        { label: 'Result', value: 'Overall winner' },
         { label: 'Built in', value: 'One day' },
         { label: 'Stack', value: 'Python, FastAPI, WebRTC, Next.js, Claude' },
       ],

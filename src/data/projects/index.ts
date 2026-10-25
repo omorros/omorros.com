@@ -1,6 +1,7 @@
-// Every project on the site, one file each. To add one: create its file,
-// import it below, and put it in exactly one group. To remove one: delete the
-// file and its two lines here.
+// Every project on the site, one file each, named after its slug. To add one:
+// create its file, import it below, and put it in exactly one group. To remove
+// one: delete the file and its two lines here. A file left out of every group
+// fails the build (check-files.ts), and so does bad data (validate.ts).
 
 import type { Project } from './schema'
 import { validateProjects } from './validate'
@@ -21,7 +22,17 @@ import wikipediaScraper from './wikipedia-scraper'
 import universityLibrarySystem from './university-library-system'
 
 export type { CaseStudy, ClassicBody, Img, Project, Story } from './schema'
-export { allAwardsBadge, badge, cardImage, eventName, heroImage, listItem, PLACEHOLDER_IMAGE } from './derive'
+export {
+  allAwardsBadge,
+  badge,
+  cardImage,
+  eventName,
+  glanceFacts,
+  listItem,
+  PLACEHOLDER_IMAGE,
+  prizes,
+  shareImage,
+} from './derive'
 
 // The table of contents. The order inside a group is the order on the page.
 export const groups = {
@@ -71,4 +82,4 @@ export function pagerFor(slug: string) {
   }
 }
 
-validateProjects(groups, groups.featured, hackathonProjects)
+validateProjects(groups, hackathonProjects)

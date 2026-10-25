@@ -1,15 +1,12 @@
 import { HACKATHON_COUNT, HACKATHON_WINS } from '@/data/hackathons'
-import { eventName, hackathonProjects } from '@/data/projects'
+import { eventName, hackathonProjects, prizes } from '@/data/projects'
 
 // The site summary for AI assistants, served at /llms.txt by
 // src/app/llms.txt/route.ts. Edit the prose here; the hackathon record and
 // counts come from the project data, so they never fall behind.
 
 function hackathonRecord() {
-  const wins = hackathonProjects.map((p) => {
-    const prizes = (p.caseStudy.awards ?? []).flatMap((a) => a.prizes ?? [])
-    return `${p.title}, ${prizes.join(' and ')} at ${eventName(p)}`
-  })
+  const wins = hackathonProjects.map((p) => `${p.title}, ${prizes(p).join(' and ')} at ${eventName(p)}`)
   return `- Hackathon record (London, 2026), ${HACKATHON_WINS} prizes at ${HACKATHON_COUNT} hackathons: ${wins.join('; ')}.`
 }
 
