@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { JsonLd } from '@/components/site/JsonLd'
 import { BackLink } from '@/components/site/BackLink'
+import { FlowDiagram } from '@/components/site/FlowDiagram'
 import { projects } from '@/data/projects'
 import Image from 'next/image'
 import { ZoomImage } from '@/components/site/ZoomImage'
@@ -41,6 +42,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
   if (!project) notFound()
 
   const cs = project.caseStudy
+  const story = cs?.story
   // Hero is the thumbnail when set; with no thumbnail the demo video leads.
   const heroMedia = cs?.thumbnail
   const galleryScreens = cs?.screenshots?.filter((s) => s !== heroMedia) ?? []
@@ -86,6 +88,11 @@ export default function ProjectDetailPage({ params }: PageProps) {
         <h1 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight text-foreground">
           {project.title}
         </h1>
+        {story && (
+          <p className="mt-3 text-2xl font-semibold tracking-tight text-foreground text-balance md:text-3xl">
+            {story.insight}
+          </p>
+        )}
         <p className="mt-4 max-w-measure text-foreground-muted text-lg">
           {project.description}
         </p>
@@ -126,9 +133,35 @@ export default function ProjectDetailPage({ params }: PageProps) {
           )}
         </div>
 
-        <p className="mt-4 text-xs text-foreground-faint">
-          {project.tags.join(' · ')}
-        </p>
+        {story ? (
+          <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-border-soft pt-6 sm:grid-cols-3">
+            {story.facts.map((f) => (
+              <div key={f.label}>
+                <dt className="text-xs text-foreground-faint">{f.label}</dt>
+                <dd className="mt-0.5 text-sm font-medium text-foreground">{f.value}</dd>
+              </div>
+            ))}
+            {story.team && story.team.length > 0 && (
+              <div>
+                <dt className="text-xs text-foreground-faint">Team</dt>
+                <dd className="mt-0.5 text-sm font-medium text-foreground">
+                  {story.team.map((m, i) => (
+                    <span key={m.url}>
+                      {i > 0 && (i === story.team!.length - 1 ? ' and ' : ', ')}
+                      <a href={m.url} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+                        {m.name}
+                      </a>
+                    </span>
+                  ))}
+                </dd>
+              </div>
+            )}
+          </dl>
+        ) : (
+          <p className="mt-4 text-xs text-foreground-faint">
+            {project.tags.join(' · ')}
+          </p>
+        )}
       </header>
 
       {heroMedia ? (
@@ -160,21 +193,69 @@ export default function ProjectDetailPage({ params }: PageProps) {
         </div>
       ) : null}
 
-      {cs?.challenge && (
+      {story && (
+        <>
+          <section className="mt-14">
+            <SectionHeading>Why it matters</SectionHeading>
+            <p className="max-w-measure text-foreground-muted">{story.context}</p>
+          </section>
+
+          <section className="mt-14">
+            <SectionHeading>How it works</SectionHeading>
+            <FlowDiagram
+              nodes={story.flow.nodes}
+              edges={story.flow.edges}
+              caption={story.flow.caption}
+            />
+          </section>
+
+          <section className="mt-14">
+            <SectionHeading>Decisions we made</SectionHeading>
+            <ol className="space-y-7">
+              {story.decisions.map((d) => (
+                <li key={d.title} className="max-w-measure">
+                  <p className="font-medium text-foreground">{d.title}</p>
+                  <p className="mt-1 text-foreground-muted">{d.why}</p>
+                  <p className="mt-2 text-sm text-foreground-faint">
+                    <span className="font-medium text-foreground-muted">Trade-off.</span>{' '}
+                    {d.tradeoff}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          {story.moment && (
+            <section className="mt-14">
+              <SectionHeading>{story.moment.title}</SectionHeading>
+              <p className="max-w-measure text-foreground-muted">{story.moment.text}</p>
+            </section>
+          )}
+
+          {story.limits && (
+            <section className="mt-14">
+              <SectionHeading>What it isn&apos;t</SectionHeading>
+              <p className="max-w-measure text-foreground-muted">{story.limits}</p>
+            </section>
+          )}
+        </>
+      )}
+
+      {!story && cs?.challenge && (
         <section className="mt-14">
           <SectionHeading>The problem</SectionHeading>
           <p className="max-w-measure text-foreground-muted">{cs.challenge}</p>
         </section>
       )}
 
-      {cs?.approach && (
+      {!story && cs?.approach && (
         <section className="mt-14">
           <SectionHeading>What I built</SectionHeading>
           <p className="max-w-measure text-foreground-muted">{cs.approach}</p>
         </section>
       )}
 
-      {cs?.features && cs.features.length > 0 && (
+      {!story && cs?.features && cs.features.length > 0 && (
         <section className="mt-14">
           <SectionHeading>What it does</SectionHeading>
           <ul className="space-y-4">

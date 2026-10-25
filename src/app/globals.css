@@ -52,6 +52,38 @@ html.night {
   color-scheme: dark;
 }
 
+/* Flow diagrams (FlowDiagram.tsx): a box takes its stream's colour when the
+   scene reaches it, its steps tick on in turn, and its live line appears. */
+[data-flow] [data-node] {
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+[data-flow] [data-node][data-on='1'] {
+  border-color: var(--tone);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--tone) 14%, transparent);
+}
+[data-flow] [data-step] {
+  transition: color 0.3s ease;
+}
+[data-flow] [data-step][data-on='1'] {
+  color: rgb(var(--foreground));
+}
+[data-flow] [data-step] [data-dot] {
+  transition: background-color 0.3s ease;
+}
+[data-flow] [data-step][data-on='1'] [data-dot] {
+  background-color: var(--tone);
+}
+[data-flow] [data-live] {
+  color: var(--tone);
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity 0.4s ease 0.15s, transform 0.4s ease 0.15s;
+}
+[data-flow] [data-node][data-on='1'] [data-live] {
+  opacity: 1;
+  transform: none;
+}
+
 /* Only while the lights change, so normal hovers keep their own timing. */
 html.theme-fade,
 html.theme-fade * {

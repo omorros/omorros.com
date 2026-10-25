@@ -41,7 +41,52 @@ export interface Project {
       headers: string[]
       rows: string[][]
     }[]
+    // The newer case study format. When set, it replaces the problem,
+    // what I built and what it does sections.
+    story?: Story
   }
+}
+
+// What travels along a connection, which also colours it.
+export type FlowTone = 'audio' | 'words' | 'voice' | 'flag'
+
+export interface FlowNode {
+  id: string
+  label: string
+  note: string
+  // Small technical detail: formats, models, limits.
+  detail?: string
+  // Steps inside the box that light up in turn.
+  steps?: string[]
+  // What the box shows when the scene reaches it.
+  live?: string
+  tone?: FlowTone
+  // Position on a left to right grid; phones read it top to bottom.
+  col: number
+  row: number
+  // A third-party service rather than something Oriol built.
+  service?: boolean
+}
+
+// From, to, and optionally what travels along it (defaults to the
+// source box's tone).
+export type FlowEdge = [string, string] | [string, string, FlowTone]
+
+export interface Story {
+  // One line that carries the whole idea.
+  insight: string
+  facts: { label: string; value: string }[]
+  context: string
+  flow: { nodes: FlowNode[]; edges: FlowEdge[]; caption: string }
+  // Teammates, credited by name with a link at the top. Projects are told as
+  // the team's work: no individual roles or commit counts.
+  team?: { name: string; url: string }[]
+  decisions: { title: string; why: string; tradeoff: string }[]
+  // A short story from the build, told in its own section.
+  moment?: { title: string; text: string }
+  // Only for limits a reader would not assume. Hackathon builds being
+  // prototypes without logins goes without saying.
+  limits?: string
 }
 
 
@@ -272,7 +317,7 @@ export const projects: Project[] = [
     tags: ['TypeScript', 'Next.js', 'Python', 'Claude API'],
     link: 'https://github.com/omorros/TrueVoice',
     slug: 'truevoice',
-    lastModified: '2026-08-16',
+    lastModified: '2026-10-25',
     category: 'hackathon',
     event: 'Voice AI Hack · London 2026',
     year: '2026',
@@ -297,6 +342,62 @@ export const projects: Project[] = [
         { src: '/images/truevoice/presenting.jpg' },
         { src: '/images/truevoice/credits.jpg' },
       ],
+      story: {
+        insight: "Patients minimise. Voices don't.",
+        facts: [
+          { label: 'Event', value: 'Voice AI Hack, London' },
+          { label: 'Result', value: 'Overall winner' },
+          { label: 'Built in', value: 'One day' },
+          { label: 'Stack', value: 'Python, FastAPI, WebRTC, Next.js, Claude' },
+        ],
+        context: 'People often tell their doctor they are fine when they are not. The words go in the notes, but the strain in their voice is easy to miss in a short appointment. TrueVoice listens to both while the consultation happens, and points out the moments where they disagree.',
+        flow: {
+          nodes: [
+            { id: 'mic', label: "Patient's mic", note: 'Captured once, used twice', detail: '16 kHz · 40 ms frames', tone: 'audio', col: 0, row: 1 },
+            { id: 'api', label: 'Backend', note: 'Sends every frame two ways', detail: 'FastAPI · WebSockets', tone: 'audio', col: 1, row: 1 },
+            { id: 'stt', label: 'Speechmatics', note: 'Live medical transcript', detail: 'diarised · medical', live: '"I\'m fine, honestly."', tone: 'words', col: 2, row: 0, service: true },
+            { id: 'voice', label: 'Thymia', note: 'Signals in the voice', detail: 'Helios · Apollo · Psyche', live: 'distress: high', tone: 'voice', col: 2, row: 2, service: true },
+            { id: 'match', label: 'Mismatch check', note: 'Both within a minute', steps: ['phrase matched', 'voice over threshold'], tone: 'flag', col: 3, row: 1 },
+            { id: 'gp', label: "Doctor's screen", note: 'A live flag with a note', detail: 'Claude Haiku · 2 s limit', live: 'Says fine, sounds distressed', tone: 'flag', col: 4, row: 1 },
+            { id: 'report', label: 'Report', note: 'When the doctor asks', detail: 'Claude Sonnet', live: 'Summary ready', tone: 'flag', col: 4, row: 2 },
+          ],
+          edges: [
+            ['mic', 'api'],
+            ['api', 'stt', 'words'],
+            ['api', 'voice', 'voice'],
+            ['stt', 'match'],
+            ['voice', 'match'],
+            ['match', 'gp'],
+            ['gp', 'report'],
+          ],
+          caption: 'Solid boxes are what we built. Dashed ones are outside services.',
+        },
+        team: [
+          { name: 'Joan Torres Gordo', url: 'https://www.linkedin.com/in/joan-torres-gordo-274887272/' },
+          { name: 'Indigo Luksch', url: 'https://www.linkedin.com/in/indigo-luksch-85925b234/' },
+        ],
+        decisions: [
+          {
+            title: 'Our own call, not a video app',
+            why: 'Each browser captures its microphone once and uses it twice: one copy goes into a peer-to-peer video call, the other goes straight to the voice analysis as clean 16 kHz audio from the speaker\'s own device.',
+            tradeoff: 'We had to build the call ourselves, including the signalling and a relay server so it connects through home routers. It cost us a lot of time, and very nearly the submission.',
+          },
+          {
+            title: 'Rules raise the flag, the model only words it',
+            why: 'A flag fires only when a phrase like "I\'m fine" turns up and a voice signal crosses its threshold within the same minute. Claude only writes the one-line note, with a two-second limit and a plain sentence to fall back on.',
+            tradeoff: 'Easy to explain and test, but a fixed list of 23 English phrases misses anything said another way.',
+          },
+          {
+            title: 'A fast model live, a stronger one after',
+            why: 'Claude Haiku writes the notes during the appointment, where a slow note is a useless one. Claude Sonnet writes the summary only when the doctor asks for it.',
+            tradeoff: 'The live notes stay short and plain, and the depth goes into the report.',
+          },
+        ],
+        moment: {
+          title: 'The last ten minutes',
+          text: 'Minutes before the deadline, the video call stopped working. We spent the rest of the time fixing it and got it connecting again with about five minutes left. We still had not recorded the demo, so we recorded it from the script we had ready, uploaded it, and submitted with about a minute to spare. We won overall, and the call we nearly lost was a big part of why.',
+        },
+      },
       awards: [
         {
           title: 'Overall Winner - Voice AI Hack London 2026',
