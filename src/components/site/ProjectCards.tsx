@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
-import { getProjectBySlug } from '@/data/projects'
+import { allAwardsBadge, badge, cardImage, type Project } from '@/data/projects'
 
 // Cards shared by the projects and hackathons pages.
 
@@ -14,29 +14,17 @@ function CategoryBadge({ category }: { category: 'personal' | 'hackathon' }) {
 }
 
 export function CardImage({
-  slug,
+  project: p,
   showCategory = true,
   allAwards = false,
 }: {
-  slug: string
+  project: Project
   showCategory?: boolean
   // Lists every award instead of the first, for builds with two prizes.
   allAwards?: boolean
 }) {
-  const p = getProjectBySlug(slug)
-  if (!p) return null
-  const src =
-    p.caseStudy?.cardImage ||
-    p.caseStudy?.thumbnail ||
-    p.caseStudy?.screenshots?.[0] ||
-    '/images/card-placeholder.svg'
-  const awards = p.caseStudy?.awards ?? []
-  const subtitle =
-    (allAwards && awards.length > 0
-      ? awards.map((a) => a.title).join(' \u00b7 ')
-      : awards[0]?.title) ??
-    p.event ??
-    (p.year ? p.year : undefined)
+  const src = cardImage(p)
+  const subtitle = allAwards ? allAwardsBadge(p) : badge(p)
   return (
     <Link href={`/projects/${p.slug}`} className="group block">
       {p.caseStudy?.cardVideo ? (
@@ -80,10 +68,8 @@ export function CardImage({
   )
 }
 
-export function SmallCard({ slug }: { slug: string }) {
-  const p = getProjectBySlug(slug)
-  if (!p) return null
-  const subtitle = p.caseStudy?.awards?.[0]?.title ?? p.event ?? p.year
+export function SmallCard({ project: p }: { project: Project }) {
+  const subtitle = badge(p)
   return (
     <Link
       href={`/projects/${p.slug}`}

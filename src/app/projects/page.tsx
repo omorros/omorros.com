@@ -3,7 +3,7 @@ import { JsonLd } from '@/components/site/JsonLd'
 import { HackathonWinsCta } from '@/components/site/HackathonWinsCta'
 import { CardImage, SmallCard } from '@/components/site/ProjectCards'
 import { HACKATHON_PRIZES } from '@/data/hackathons'
-import { getProjectBySlug } from '@/data/projects'
+import { groups, listItem, projectHref } from '@/data/projects'
 import { createPageMetadata } from '@/lib/metadata'
 import { getCollectionJsonLd } from '@/lib/structured-data'
 
@@ -18,42 +18,12 @@ export const metadata = createPageMetadata({
 
 // Page structure and classes follow pages/projects.js on samselikoff.com.
 
-// Relevance order, mixing personal and hackathon work. Reorder these
-// lists to change what shows up first.
-const FEATURED = [
-  'truevoice',
-  'lantern',
-  'wildscan',
-  'offbabel',
-  'snapshelf',
-  'bk-shoot',
-]
-const MORE = [
-  'deep-learning-cnn-comparison',
-  'wikipedia-scraper',
-  'university-library-system',
-]
-
 const projectsJsonLd = getCollectionJsonLd({
   name: 'Projects by Oriol Morros',
   description,
   path: '/projects',
   itemType: 'SoftwareSourceCode',
-  items: [...FEATURED, ...MORE].flatMap((slug) => {
-    const project = getProjectBySlug(slug)
-    if (!project) return []
-    return [
-      {
-        name: project.title,
-        description: project.description,
-        path: `/projects/${slug}`,
-        image:
-          project.caseStudy?.thumbnail ??
-          project.caseStudy?.cardImage ??
-          project.caseStudy?.screenshots?.[0],
-      },
-    ]
-  }),
+  items: [...groups.featured, ...groups.more].map(listItem),
 })
 
 export default function ProjectsPage() {
@@ -69,7 +39,7 @@ export default function ProjectsPage() {
 
         <Lead>
           I never really stop building. Most of these start as problems from
-          my own life, like <A href="/projects/snapshelf">SnapShelf</A>, or
+          my own life, like <A href={projectHref('snapshelf')}>SnapShelf</A>, or
           small automations that make it a little easier. A lot of them I
           build to learn new tools, concepts, and approaches.
         </Lead>
@@ -83,9 +53,9 @@ export default function ProjectsPage() {
 
         <div className="md:mt-4">
           <div className="md:flex md:flex-wrap md:-mx-4">
-            {FEATURED.map((slug) => (
-              <div key={slug} className="mt-12 md:w-1/2 md:px-4">
-                <CardImage slug={slug} />
+            {groups.featured.map((project) => (
+              <div key={project.slug} className="mt-12 md:w-1/2 md:px-4">
+                <CardImage project={project} />
               </div>
             ))}
           </div>
@@ -98,9 +68,9 @@ export default function ProjectsPage() {
             <p className="text-2xl font-semibold md:text-2xl">More projects</p>
 
             <div className="flex flex-wrap mt-4 -mx-2">
-              {MORE.map((slug) => (
-                <div key={slug} className="w-full px-2 md:w-1/3">
-                  <SmallCard slug={slug} />
+              {groups.more.map((project) => (
+                <div key={project.slug} className="w-full px-2 md:w-1/3">
+                  <SmallCard project={project} />
                 </div>
               ))}
             </div>

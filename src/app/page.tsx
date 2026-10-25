@@ -7,6 +7,7 @@ import { getHomeJsonLd } from '@/lib/structured-data'
 import { JsonLd } from '@/components/site/JsonLd'
 import { GitHub, LinkedIn, Mail } from '@/components/site/logos'
 import { A, Container, Lead, Spacer, Title } from '@/components/site/ui'
+import { projectHref } from '@/data/projects'
 
 // Layout, spacing and type classes follow the samselikoff.com homepage.
 
@@ -77,8 +78,8 @@ export default function Page() {
                 <p>
                   Things I build on my own time, and{' '}
                   <A href="/hackathons">hackathon winners</A> like{' '}
-                  <A href="/projects/truevoice">TrueVoice</A> and{' '}
-                  <A href="/projects/offbabel">OffBabel</A>.
+                  <A href={projectHref('truevoice')}>TrueVoice</A> and{' '}
+                  <A href={projectHref('offbabel')}>OffBabel</A>.
                 </p>
               </SectionBody>
             </Section>

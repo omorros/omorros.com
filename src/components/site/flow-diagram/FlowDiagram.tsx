@@ -1,79 +1,39 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import type { FlowEdge, FlowNode, FlowTone } from '@/data/projects'
+import { useEffect, useId, useRef, useState } from 'react'
+import { connect, depths, type Box } from './geometry'
+import { SWATCHES } from './palette'
+import type { Flow } from './types'
 
-// A small system diagram in the site's own style. Steps sit on a grid that
+// A small system diagram in the site's own style. Boxes sit on a grid that
 // reads left to right, and phones read the same grid top to bottom. A short
-// scene loops through it: packets travel along the connections in the colour
-// of what they carry, and each box lights up and shows what it is doing as
-// the scene reaches it.
-
-const TONES: Record<FlowTone, { color: string; label: string }> = {
-  audio: { color: 'rgb(var(--gray-500))', label: 'Audio' },
-  words: { color: '#3b82f6', label: 'Words' },
-  voice: { color: '#8b5cf6', label: 'Voice' },
-  flag: { color: '#f59e0b', label: 'Flag' },
-}
+// scene loops through it: packets travel along the lines in the colour of
+// what they carry, and each box lights up and shows what it is doing as the
+// scene reaches it. The lit-up states are styled in globals.css ([data-flow]).
 
 // Seconds per hop, how long the finished scene holds, and the trail spacing.
 const HOP = 0.85
 const HOLD = 2
 const TRAIL = [0, 0.05, 0.1, 0.15]
 
-type Box = { left: number; top: number; width: number; height: number }
-type Line = { key: string; from: string; to: string; tone: FlowTone; d: string }
+type Line = { key: string; from: string; to: string; color: string; d: string }
 
-// Lines follow the reading direction: left to right on wide screens, top to
-// bottom on phones. Boxes side by side in that direction connect across.
-function connect(a: Box, b: Box, vertical: boolean): string {
-  const dx = b.left + b.width / 2 - (a.left + a.width / 2)
-  const dy = b.top + b.height / 2 - (a.top + a.height / 2)
-  const across = vertical ? Math.abs(dy) < 8 : Math.abs(dx) >= 8
-  if (across) {
-    const sx = a.left + a.width
-    const sy = a.top + a.height / 2
-    const ex = b.left - 6
-    const ey = b.top + b.height / 2
-    const k = (ex - sx) / 2
-    return `M${sx} ${sy} C${sx + k} ${sy} ${ex - k} ${ey} ${ex} ${ey}`
-  }
-  const sx = a.left + a.width / 2
-  const sy = a.top + a.height
-  const ex = b.left + b.width / 2
-  const ey = b.top - 6
-  const k = (ey - sy) / 2
-  return `M${sx} ${sy} C${sx} ${sy + k} ${ex} ${ey - k} ${ex} ${ey}`
-}
-
-// How many hops each box sits from the start, by its longest way in.
-function depths(nodes: FlowNode[], edges: FlowEdge[]) {
-  const depth = new Map(nodes.map((n) => [n.id, 0]))
-  for (let pass = 0; pass < nodes.length; pass++) {
-    for (const [from, to] of edges) {
-      depth.set(to, Math.max(depth.get(to) ?? 0, (depth.get(from) ?? 0) + 1))
-    }
-  }
-  return depth
-}
-
-export function FlowDiagram({
-  nodes,
-  edges,
-  caption,
-}: {
-  nodes: FlowNode[]
-  edges: FlowEdge[]
-  caption: string
-}) {
+export function FlowDiagram({ flow }: { flow: Flow }) {
+  const { nodes, edges, tones, caption } = flow
   const boxRef = useRef<HTMLDivElement>(null)
+  const elapsed = useRef(0)
   const [lines, setLines] = useState<Line[]>([])
   const [size, setSize] = useState({ w: 0, h: 0 })
   const [drawn, setDrawn] = useState(false)
+  const arrowId = `flow-arrow-${useId().replace(/:/g, '')}`
   const cols = Math.max(...nodes.map((n) => n.col)) + 1
   const rows = Math.max(...nodes.map((n) => n.row)) + 1
-  const toneOf = (id: string) => nodes.find((n) => n.id === id)?.tone ?? 'audio'
-  const used = Array.from(new Set(edges.map(([from, , tone]) => tone ?? toneOf(from))))
+
+  const toneOf = (id: string) => nodes.find((n) => n.id === id)?.tone
+  const colorOf = (tone?: string) => SWATCHES[(tone && tones[tone]?.swatch) || 'grey']
+  // The legend lists the tones that travel along lines, in order, if labelled.
+  const legend = Array.from(new Set(edges.map(([from, , tone]) => tone ?? toneOf(from))))
+    .flatMap((t) => (t && tones[t]?.label ? [{ label: tones[t].label, color: colorOf(t) }] : []))
 
   // Measure the boxes and draw the lines between them.
   useEffect(() => {
@@ -88,19 +48,24 @@ export function FlowDiagram({
       }
       setSize({ w: box.offsetWidth, h: box.offsetHeight })
       setLines(
-        edges.flatMap(([from, to, tone]) => {
+        edges.flatMap(([from, to, tone], i) => {
           const a = rect(from)
           const b = rect(to)
-          const t = tone ?? nodes.find((n) => n.id === from)?.tone ?? 'audio'
-          return a && b ? [{ key: `${from}-${to}`, from, to, tone: t, d: connect(a, b, vertical) }] : []
+          const color = SWATCHES[(tones[tone ?? toneOf(from) ?? '']?.swatch) || 'grey']
+          return a && b ? [{ key: `e${i}`, from, to, color, d: connect(a, b, vertical) }] : []
         }),
       )
     }
     measure()
+    // Watch every box too: one growing taller moves its lines without
+    // changing the size of the whole diagram.
     const resize = new ResizeObserver(measure)
     resize.observe(box)
+    box.querySelectorAll('[data-node]').forEach((el) => resize.observe(el))
     return () => resize.disconnect()
-  }, [nodes, edges])
+    // toneOf reads nodes, which arrive with edges from the same flow.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nodes, edges, tones])
 
   // The scene: one clock, written straight to the DOM, paused off screen.
   useEffect(() => {
@@ -109,34 +74,35 @@ export function FlowDiagram({
     const depth = depths(nodes, edges)
     const deepest = Math.max(...Array.from(depth.values()))
     const cycle = deepest * HOP + HOLD
-    const nodeEls = new Map(
-      nodes.map((n) => [n.id, box.querySelector<HTMLElement>(`[data-node="${n.id}"]`)]),
-    )
-    const paths = lines.map((l) => box.querySelector<SVGPathElement>(`path[data-edge="${l.key}"]`))
-    const dots = lines.map((l) => Array.from(box.querySelectorAll<SVGCircleElement>(`circle[data-for="${l.key}"]`)))
-    const lengths = paths.map((p) => p?.getTotalLength() ?? 0)
+    const boxes = nodes.map((n) => {
+      const el = box.querySelector<HTMLElement>(`[data-node="${n.id}"]`)
+      const steps = el ? Array.from(el.querySelectorAll<HTMLElement>('[data-step]')) : []
+      return { el, steps, at: (depth.get(n.id) ?? 0) * HOP }
+    })
+    const packets = lines.map((l) => ({
+      path: box.querySelector<SVGPathElement>(`path[data-edge="${l.key}"]`),
+      dots: Array.from(box.querySelectorAll<SVGCircleElement>(`circle[data-for="${l.key}"]`)),
+      start: (depth.get(l.from) ?? 0) * HOP + 0.1,
+      end: (depth.get(l.to) ?? 0) * HOP,
+    }))
+    const lengths = packets.map((p) => p.path?.getTotalLength() ?? 0)
 
     const show = (t: number) => {
-      for (const n of nodes) {
-        const el = nodeEls.get(n.id)
-        if (!el) continue
-        const at = (depth.get(n.id) ?? 0) * HOP
-        el.dataset.on = t >= at ? '1' : '0'
-        el.querySelectorAll<HTMLElement>('[data-step]').forEach((s, k) => {
-          s.dataset.on = t >= at + 0.3 + k * 0.35 ? '1' : '0'
+      for (const b of boxes) {
+        if (!b.el) continue
+        b.el.dataset.on = t >= b.at ? '1' : '0'
+        b.steps.forEach((s, k) => {
+          s.dataset.on = t >= b.at + 0.3 + k * 0.35 ? '1' : '0'
         })
       }
-      lines.forEach((l, i) => {
-        const start = (depth.get(l.from) ?? 0) * HOP + 0.1
-        const end = (depth.get(l.to) ?? 0) * HOP
-        const path = paths[i]
-        dots[i].forEach((dot, k) => {
-          const p = (t - start) / (end - start) - TRAIL[k]
-          if (!path || p < 0 || p > 1) {
+      packets.forEach((p, i) => {
+        p.dots.forEach((dot, k) => {
+          const progress = (t - p.start) / (p.end - p.start) - TRAIL[k]
+          if (!p.path || progress < 0 || progress > 1) {
             dot.style.opacity = '0'
             return
           }
-          const pt = path.getPointAtLength(p * lengths[i])
+          const pt = p.path.getPointAtLength(progress * lengths[i])
           dot.setAttribute('cx', pt.x.toFixed(1))
           dot.setAttribute('cy', pt.y.toFixed(1))
           dot.style.opacity = String(1 - k * 0.25)
@@ -151,12 +117,12 @@ export function FlowDiagram({
     }
 
     let frame = 0
-    let elapsed = 0
     let previous = 0
     const tick = (ms: number) => {
-      if (previous) elapsed += Math.min(0.1, (ms - previous) / 1000)
+      // The clock lives in a ref, so re-measuring keeps the scene's place.
+      if (previous) elapsed.current += Math.min(0.1, (ms - previous) / 1000)
       previous = ms
-      show(elapsed % cycle)
+      show(elapsed.current % cycle)
       frame = requestAnimationFrame(tick)
     }
     const io = new IntersectionObserver(
@@ -198,7 +164,7 @@ export function FlowDiagram({
             height={size.h}
           >
             <defs>
-              <marker id="flow-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <marker id={arrowId} viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
                 <path d="M1 1 L7 4 L1 7" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
               </marker>
             </defs>
@@ -211,7 +177,7 @@ export function FlowDiagram({
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={1.25}
-                markerEnd="url(#flow-arrow)"
+                markerEnd={`url(#${arrowId})`}
                 style={{
                   strokeDasharray: 1,
                   strokeDashoffset: drawn ? 0 : 1,
@@ -226,8 +192,7 @@ export function FlowDiagram({
                   data-for={l.key}
                   data-packet={k === 0 ? 'head' : 'trail'}
                   r={3.2 - k * 0.6}
-                  fill={TONES[l.tone].color}
-                  style={{ opacity: 0 }}
+                  style={{ fill: l.color, opacity: 0 }}
                 />
               )),
             )}
@@ -241,7 +206,7 @@ export function FlowDiagram({
               className={`relative self-center rounded-lg border px-3 py-2.5 [grid-column:var(--r)] [grid-row:var(--c)] sm:[grid-column:var(--c)] sm:[grid-row:var(--r)] ${
                 n.service ? 'border-dashed border-gray-300 bg-background' : 'border-gray-300 bg-surface shadow-sm'
               }`}
-              style={{ ['--c' as string]: n.col + 1, ['--r' as string]: n.row + 1, ['--tone' as string]: TONES[n.tone ?? 'audio'].color }}
+              style={{ ['--c' as string]: n.col + 1, ['--r' as string]: n.row + 1, ['--tone' as string]: colorOf(n.tone) }}
             >
               <p className="text-sm font-medium leading-snug text-foreground">{n.label}</p>
               <p className="mt-0.5 text-xs leading-snug text-foreground-faint">{n.note}</p>
@@ -267,14 +232,12 @@ export function FlowDiagram({
       </div>
       <figcaption className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-foreground-faint">
         <span data-flow-legend className="flex flex-wrap items-center gap-x-4 gap-y-1">
-          {used
-            .filter((t) => t !== 'audio')
-            .map((t) => (
-              <span key={t} className="inline-flex items-center gap-1.5">
-                <span className="h-2 w-2 rounded-full" style={{ background: TONES[t].color }} />
-                {TONES[t].label}
-              </span>
-            ))}
+          {legend.map((t) => (
+            <span key={t.label} className="inline-flex items-center gap-1.5">
+              <span className="h-2 w-2 rounded-full" style={{ background: t.color }} />
+              {t.label}
+            </span>
+          ))}
         </span>
         <span>{caption}</span>
       </figcaption>

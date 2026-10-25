@@ -1,13 +1,17 @@
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import {
+  CaseStudyHeader,
+  ClassicBody,
+  DataTables,
+  HeroMedia,
+  MediaSections,
+  ProjectPager,
+  StoryBody,
+} from '@/components/case-study'
 import { JsonLd } from '@/components/site/JsonLd'
-import { BackLink } from '@/components/site/BackLink'
-import { FlowDiagram } from '@/components/site/FlowDiagram'
-import { projects } from '@/data/projects'
-import Image from 'next/image'
-import { ZoomImage } from '@/components/site/ZoomImage'
-import { YouTubeEmbed } from '@/components/site/YouTubeEmbed'
+import { getProjectBySlug, pagerFor, projects } from '@/data/projects'
+import { missingFiles } from '@/data/projects/check-files'
 import { createPageMetadata } from '@/lib/metadata'
 import { getProjectJsonLd } from '@/lib/structured-data'
 
@@ -16,11 +20,13 @@ interface PageProps {
 }
 
 export function generateStaticParams() {
-  return projects.filter((p) => p.slug).map((p) => ({ slug: p.slug! }))
+  const missing = missingFiles(projects)
+  if (missing.length > 0) throw new Error(`Missing project files:\n- ${missing.join('\n- ')}`)
+  return projects.map((p) => ({ slug: p.slug }))
 }
 
 export function generateMetadata({ params }: PageProps): Metadata {
-  const project = projects.find((p) => p.slug === params.slug)
+  const project = getProjectBySlug(params.slug)
   if (!project) notFound()
   return createPageMetadata({
     title: project.title,
@@ -31,338 +37,20 @@ export function generateMetadata({ params }: PageProps): Metadata {
   })
 }
 
-function SectionHeading({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 className="text-xl font-semibold text-foreground mb-4">{children}</h2>
-  )
-}
-
 export default function ProjectDetailPage({ params }: PageProps) {
-  const project = projects.find((p) => p.slug === params.slug)
+  const project = getProjectBySlug(params.slug)
   if (!project) notFound()
-
   const cs = project.caseStudy
-  const story = cs?.story
-  // Hero is the thumbnail when set; with no thumbnail the demo video leads.
-  const heroMedia = cs?.thumbnail
-  const galleryScreens = cs?.screenshots?.filter((s) => s !== heroMedia) ?? []
-  // Three photos go in a row of three; anything else pairs up.
-  const photoCols =
-    cs?.photos?.length === 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'
-  const photoSizes =
-    cs?.photos?.length === 3
-      ? '(min-width: 672px) 198px, (min-width: 640px) calc(33vw - 27px), calc(100vw - 48px)'
-      : '(min-width: 672px) 304px, (min-width: 640px) calc(50vw - 32px), calc(100vw - 48px)'
-  const demoVideo = cs?.youtubeId ? (
-    <YouTubeEmbed
-      id={cs.youtubeId}
-      poster={cs.youtubePoster ?? '/images/card-placeholder.svg'}
-      title={`${project.title} demo`}
-    />
-  ) : null
-
-  const slugged = projects.filter((p) => p.slug)
-  const idx = slugged.findIndex((p) => p.slug === project.slug)
-  const prev = idx > 0 ? slugged[idx - 1] : null
-  const next = idx >= 0 && idx < slugged.length - 1 ? slugged[idx + 1] : null
-  const projectJsonLd = getProjectJsonLd(project)
-
-  const metaLine = [
-    project.category === 'hackathon' ? 'Hackathon' : 'Personal project',
-    project.year,
-    project.event,
-  ]
-    .filter(Boolean)
-    .join(' · ')
+  const { prev, next } = pagerFor(project.slug)
 
   return (
     <main className="max-w-2xl mx-auto px-6 pt-16 md:pt-24">
-      <JsonLd data={projectJsonLd} />
-      <header>
-        <div className="mb-8">
-          <BackLink
-            fallback={project.category === 'hackathon' ? '/hackathons' : '/projects'}
-          />
-        </div>
-        <p className="text-sm text-foreground-faint">{metaLine}</p>
-        <h1 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight text-foreground">
-          {project.title}
-        </h1>
-        {story && (
-          <p className="mt-3 text-2xl font-semibold tracking-tight text-foreground text-balance md:text-3xl">
-            {story.insight}
-          </p>
-        )}
-        <p className="mt-4 max-w-measure text-foreground-muted text-lg">
-          {project.description}
-        </p>
-
-        {cs?.awards && cs.awards.length > 0 && (
-          <ul className="mt-4 space-y-2">
-            {cs.awards.map((a) => (
-              <li key={a.title} className="max-w-measure">
-                <p className="text-sm text-accent">{a.title}</p>
-                {a.description && (
-                  <p className="text-sm text-foreground-muted">{a.description}</p>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
-
-        <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-          {project.link && (
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:underline"
-            >
-              View code on GitHub
-            </a>
-          )}
-          {cs?.reportUrl && (
-            <a
-              href={cs.reportUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:underline"
-            >
-              Read the report
-            </a>
-          )}
-        </div>
-
-        {story ? (
-          <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-border-soft pt-6 sm:grid-cols-3">
-            {story.facts.map((f) => (
-              <div key={f.label}>
-                <dt className="text-xs text-foreground-faint">{f.label}</dt>
-                <dd className="mt-0.5 text-sm font-medium text-foreground">{f.value}</dd>
-              </div>
-            ))}
-            {story.team && story.team.length > 0 && (
-              <div>
-                <dt className="text-xs text-foreground-faint">Team</dt>
-                <dd className="mt-0.5 text-sm font-medium text-foreground">
-                  {story.team.map((m, i) => (
-                    <span key={m.url}>
-                      {i > 0 && (i === story.team!.length - 1 ? ' and ' : ', ')}
-                      <a href={m.url} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
-                        {m.name}
-                      </a>
-                    </span>
-                  ))}
-                </dd>
-              </div>
-            )}
-          </dl>
-        ) : (
-          <p className="mt-4 text-xs text-foreground-faint">
-            {project.tags.join(' · ')}
-          </p>
-        )}
-      </header>
-
-      {heroMedia ? (
-        <div className="mt-10 rounded-lg overflow-hidden border border-border-soft bg-background-soft">
-          <Image
-            src={heroMedia}
-            alt={project.title}
-            width={0}
-            height={0}
-            priority
-            quality={90}
-            sizes="(min-width: 672px) 624px, calc(100vw - 48px)"
-            className="w-full h-auto block"
-          />
-        </div>
-      ) : demoVideo ? (
-        <div className="mt-10">{demoVideo}</div>
-      ) : cs?.videoUrl ? (
-        <div className="mt-10 rounded-lg overflow-hidden border border-border-soft bg-background-soft">
-          <video
-            src={cs.videoUrl}
-            autoPlay
-            muted
-            loop
-            playsInline
-            controls
-            className="w-full h-auto block"
-          />
-        </div>
-      ) : null}
-
-      {story && (
-        <>
-          <section className="mt-14">
-            <SectionHeading>Why it matters</SectionHeading>
-            <p className="max-w-measure text-foreground-muted">{story.context}</p>
-          </section>
-
-          <section className="mt-14">
-            <SectionHeading>How it works</SectionHeading>
-            <FlowDiagram
-              nodes={story.flow.nodes}
-              edges={story.flow.edges}
-              caption={story.flow.caption}
-            />
-          </section>
-
-          <section className="mt-14">
-            <SectionHeading>Decisions we made</SectionHeading>
-            <ol className="space-y-7">
-              {story.decisions.map((d) => (
-                <li key={d.title} className="max-w-measure">
-                  <p className="font-medium text-foreground">{d.title}</p>
-                  <p className="mt-1 text-foreground-muted">{d.why}</p>
-                  <p className="mt-2 text-sm text-foreground-faint">
-                    <span className="font-medium text-foreground-muted">Trade-off.</span>{' '}
-                    {d.tradeoff}
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </section>
-
-          {story.moment && (
-            <section className="mt-14">
-              <SectionHeading>{story.moment.title}</SectionHeading>
-              <p className="max-w-measure text-foreground-muted">{story.moment.text}</p>
-            </section>
-          )}
-
-          {story.limits && (
-            <section className="mt-14">
-              <SectionHeading>What it isn&apos;t</SectionHeading>
-              <p className="max-w-measure text-foreground-muted">{story.limits}</p>
-            </section>
-          )}
-        </>
-      )}
-
-      {!story && cs?.challenge && (
-        <section className="mt-14">
-          <SectionHeading>The problem</SectionHeading>
-          <p className="max-w-measure text-foreground-muted">{cs.challenge}</p>
-        </section>
-      )}
-
-      {!story && cs?.approach && (
-        <section className="mt-14">
-          <SectionHeading>What I built</SectionHeading>
-          <p className="max-w-measure text-foreground-muted">{cs.approach}</p>
-        </section>
-      )}
-
-      {!story && cs?.features && cs.features.length > 0 && (
-        <section className="mt-14">
-          <SectionHeading>What it does</SectionHeading>
-          <ul className="space-y-4">
-            {cs.features.map((f) => (
-              <li key={f.title} className="max-w-measure">
-                <span className="font-medium text-foreground">{f.title}.</span>{' '}
-                <span className="text-foreground-muted">{f.description}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
-      {demoVideo && heroMedia && (
-        <section className="mt-14">
-          <SectionHeading>Demo</SectionHeading>
-          {demoVideo}
-        </section>
-      )}
-
-      {cs?.videoUrl && heroMedia && (
-        <section className="mt-14">
-          <SectionHeading>Demo</SectionHeading>
-          <div className="rounded-lg overflow-hidden border border-border-soft bg-background-soft">
-            <video
-              src={cs.videoUrl}
-              autoPlay
-              muted
-              loop
-              playsInline
-              controls
-              className="w-full h-auto block"
-            />
-          </div>
-        </section>
-      )}
-
-      {cs?.photos && cs.photos.length > 0 && (
-        <section className="mt-14">
-          <SectionHeading>Photos</SectionHeading>
-          <div className={`grid grid-cols-1 ${photoCols} gap-4`}>
-            {cs.photos.map((photo) => (
-              <ZoomImage
-                key={photo.src}
-                src={photo.src}
-                alt={project.title}
-                sizes={photoSizes}
-                className="w-full h-auto block rounded-lg border border-border-soft"
-              />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {galleryScreens.length > 0 && (
-        <section className="mt-14">
-          <SectionHeading>Gallery</SectionHeading>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {galleryScreens.map((src) => (
-              <div
-                key={src}
-                className="rounded-lg overflow-hidden border border-border-soft bg-background-soft"
-              >
-                <ZoomImage
-                  src={src}
-                  alt={`${project.title} screenshot`}
-                  sizes="(min-width: 672px) 304px, (min-width: 640px) calc(50vw - 32px), calc(100vw - 48px)"
-                  className="w-full h-auto block"
-                />
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {cs?.tables?.map((t) => (
-        <section key={t.title} className="mt-14">
-          <SectionHeading>{t.title}</SectionHeading>
-          <div className="overflow-x-auto rounded-lg border border-border-soft">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border-soft bg-background-soft">
-                  {t.headers.map((h) => (
-                    <th
-                      key={h}
-                      className="text-left px-4 py-3 font-medium text-foreground"
-                    >
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {t.rows.map((row, i) => (
-                  <tr key={i} className="border-b border-border-soft last:border-0">
-                    {row.map((cell, j) => (
-                      <td key={j} className="px-4 py-3 text-foreground-muted">
-                        {cell}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      ))}
+      <JsonLd data={getProjectJsonLd(project)} />
+      <CaseStudyHeader project={project} />
+      <HeroMedia project={project} />
+      {cs.story ? <StoryBody story={cs.story} /> : <ClassicBody body={cs} />}
+      <MediaSections project={project} />
+      {cs.tables && <DataTables tables={cs.tables} />}
 
       {project.link && (
         <section className="mt-14">
@@ -381,31 +69,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
         </section>
       )}
 
-      <nav
-        className="mt-16 pt-8 border-t border-border-soft flex justify-between gap-4 text-sm"
-        aria-label="Project navigation"
-      >
-        {prev ? (
-          <Link
-            href={`/projects/${prev.slug}`}
-            className="text-accent hover:underline"
-          >
-            ← {prev.title}
-          </Link>
-        ) : (
-          <span />
-        )}
-        {next ? (
-          <Link
-            href={`/projects/${next.slug}`}
-            className="text-accent hover:underline text-right"
-          >
-            {next.title} →
-          </Link>
-        ) : (
-          <span />
-        )}
-      </nav>
+      <ProjectPager prev={prev} next={next} />
     </main>
   )
 }
