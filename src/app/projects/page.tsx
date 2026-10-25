@@ -2,7 +2,7 @@ import { A, Container, Lead, Spacer, Title } from '@/components/site/ui'
 import { JsonLd } from '@/components/site/JsonLd'
 import { HackathonWinsCta } from '@/components/site/HackathonWinsCta'
 import { CardImage, SmallCard } from '@/components/site/ProjectCards'
-import { HACKATHON_WINS } from '@/data/hackathons'
+import { HACKATHON_PRIZES } from '@/data/hackathons'
 import { getProjectBySlug } from '@/data/projects'
 import { createPageMetadata } from '@/lib/metadata'
 import { getCollectionJsonLd } from '@/lib/structured-data'
@@ -91,7 +91,7 @@ export default function ProjectsPage() {
           </div>
 
           <div className="mt-16 md:mt-24">
-            <HackathonWinsCta wins={HACKATHON_WINS} />
+            <HackathonWinsCta prizes={HACKATHON_PRIZES} />
           </div>
 
           <div className="mt-16 mb-32 md:mt-24">

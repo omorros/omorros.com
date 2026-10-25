@@ -75,6 +75,13 @@ const config: Config = {
       borderWidth: {
         3: '3px',
       },
+      // The prize ticker: the list is rendered twice, so -50% loops seamlessly.
+      keyframes: {
+        ticker: { to: { transform: 'translateX(-50%)' } },
+      },
+      animation: {
+        ticker: 'ticker 38s linear infinite',
+      },
     },
   },
   plugins: [],
