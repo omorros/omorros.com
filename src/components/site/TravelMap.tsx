@@ -16,7 +16,7 @@ const byName = new Map(countries.map((c) => [c.name, c]))
 
 const FILL = '#3b82f6' // blue-500
 const FILL_HOVER = '#2563eb' // blue-600
-const FILL_NONE = '#f3f4f6' // gray-100
+const FILL_NONE = 'rgb(var(--gray-100))'
 
 const WORLD = { coordinates: [10, 40] as [number, number], zoom: 1 }
 const EUROPE = { coordinates: [12, 51] as [number, number], zoom: 4.5 }
@@ -52,7 +52,7 @@ function CountryPopup({
       aria-label={country.name}
     >
       <div
-        className="w-full max-w-md rounded-xl bg-white shadow-xl p-6"
+        className="w-full max-w-md rounded-xl bg-surface shadow-xl p-6"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between">
@@ -114,7 +114,7 @@ export function TravelMap() {
 
   return (
     <div>
-      <div className="relative rounded-lg border border-gray-200 bg-white overflow-hidden">
+      <div className="relative rounded-lg border border-gray-200 bg-surface overflow-hidden">
         <ComposableMap
           projection="geoMercator"
           projectionConfig={{ scale: 140 }}
@@ -162,13 +162,13 @@ export function TravelMap() {
                         style={{
                           default: {
                             fill: visit ? FILL : FILL_NONE,
-                            stroke: '#e5e7eb',
+                            stroke: 'rgb(var(--gray-200))',
                             strokeWidth: 0.4 / position.zoom,
                             outline: 'none',
                           },
                           hover: {
                             fill: visit ? FILL_HOVER : FILL_NONE,
-                            stroke: '#e5e7eb',
+                            stroke: 'rgb(var(--gray-200))',
                             strokeWidth: 0.4 / position.zoom,
                             outline: 'none',
                             cursor: visit ? 'pointer' : 'default',
@@ -195,21 +195,21 @@ export function TravelMap() {
         <div className="absolute top-3 right-3 flex items-center gap-1.5">
           <button
             onClick={() => setPosition(isEurope ? WORLD : EUROPE)}
-            className="rounded-full border border-gray-200 bg-white/90 px-3 py-1 text-xs font-medium text-gray-700 hover:text-blue-500 hover:border-blue-300 transition-colors"
+            className="rounded-full border border-gray-200 bg-surface/90 px-3 py-1 text-xs font-medium text-gray-700 hover:text-blue-500 hover:border-blue-300 transition-colors"
           >
             {isEurope ? 'World' : 'Europe'}
           </button>
           <button
             onClick={() => zoomBy(1.5)}
             aria-label="Zoom in"
-            className="rounded-full border border-gray-200 bg-white/90 p-1.5 text-gray-700 hover:text-blue-500 hover:border-blue-300 transition-colors"
+            className="rounded-full border border-gray-200 bg-surface/90 p-1.5 text-gray-700 hover:text-blue-500 hover:border-blue-300 transition-colors"
           >
             <Plus className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={() => zoomBy(1 / 1.5)}
             aria-label="Zoom out"
-            className="rounded-full border border-gray-200 bg-white/90 p-1.5 text-gray-700 hover:text-blue-500 hover:border-blue-300 transition-colors"
+            className="rounded-full border border-gray-200 bg-surface/90 p-1.5 text-gray-700 hover:text-blue-500 hover:border-blue-300 transition-colors"
           >
             <Minus className="w-3.5 h-3.5" />
           </button>
@@ -226,7 +226,7 @@ export function TravelMap() {
           <button
             key={c.name}
             onClick={() => setSelected(c)}
-            className="rounded-full border border-gray-200 bg-white px-3 py-1 text-sm text-gray-700 hover:border-blue-300 hover:text-blue-500 transition-colors"
+            className="rounded-full border border-gray-200 bg-surface px-3 py-1 text-sm text-gray-700 hover:border-blue-300 hover:text-blue-500 transition-colors"
           >
             {flagEmoji(c.alpha2)} {c.name}
           </button>

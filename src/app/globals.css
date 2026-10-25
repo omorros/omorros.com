@@ -6,6 +6,17 @@
    CSS vars as rgb triplets so Tailwind alpha modifiers work. */
 
 :root {
+  --gray-50: 251 251 252;
+  --gray-100: 247 248 249;
+  --gray-200: 227 230 232;
+  --gray-300: 207 211 216;
+  --gray-400: 187 193 201;
+  --gray-500: 166 175 185;
+  --gray-600: 128 135 143;
+  --gray-700: 91 95 101;
+  --gray-800: 53 56 59;
+  --gray-900: 30 32 33;
+  --surface: 255 255 255;
   --background: 255 255 255;
   --background-soft: 249 250 251;   /* gray-50 */
   --foreground: 17 24 39;           /* gray-900 */
@@ -16,11 +27,42 @@
   --accent: 37 99 235;              /* blue-600 */
 }
 
+/* Night mode, the easter egg: the gray scale runs the other way on a
+   near-black page with a violet tint. */
+html.night {
+  --gray-50: 21 22 28;
+  --gray-100: 27 29 36;
+  --gray-200: 44 47 56;
+  --gray-300: 64 68 79;
+  --gray-400: 88 93 106;
+  --gray-500: 132 138 152;
+  --gray-600: 156 162 176;
+  --gray-700: 184 189 201;
+  --gray-800: 216 219 227;
+  --gray-900: 238 240 244;
+  --surface: 24 25 32;
+  --background: 13 14 18;
+  --background-soft: 20 21 27;
+  --foreground: 238 240 244;
+  --foreground-muted: 184 189 201;
+  --foreground-faint: 146 152 166;
+  --border: 44 47 56;
+  --border-soft: 32 34 42;
+  --accent: 96 165 250;
+  color-scheme: dark;
+}
+
+/* Only while the lights change, so normal hovers keep their own timing. */
+html.theme-fade,
+html.theme-fade * {
+  transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease !important;
+}
+
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 
 html {
-  background: #fff;
+  background: rgb(var(--background));
   color-scheme: light;
 }
 

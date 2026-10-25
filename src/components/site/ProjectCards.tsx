@@ -87,7 +87,7 @@ export function SmallCard({ slug }: { slug: string }) {
   return (
     <Link
       href={`/projects/${p.slug}`}
-      className="flex flex-col items-center justify-center h-24 px-4 mt-4 leading-snug text-center bg-white rounded shadow group"
+      className="flex flex-col items-center justify-center h-24 px-4 mt-4 leading-snug text-center bg-surface rounded shadow group"
     >
       <p className="font-medium text-gray-600 group-hover:text-gray-700">
         {p.title}

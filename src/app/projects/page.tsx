@@ -1,7 +1,6 @@
-import Link from 'next/link'
-import { ChevronRight } from 'lucide-react'
 import { A, Container, Lead, Spacer, Title } from '@/components/site/ui'
 import { JsonLd } from '@/components/site/JsonLd'
+import { HackathonWinsCta } from '@/components/site/HackathonWinsCta'
 import { CardImage, SmallCard } from '@/components/site/ProjectCards'
 import { HACKATHON_WINS } from '@/data/hackathons'
 import { getProjectBySlug } from '@/data/projects'
@@ -91,21 +90,9 @@ export default function ProjectsPage() {
             ))}
           </div>
 
-          <Link
-            href="/hackathons"
-            className="group block px-6 py-8 mt-16 border border-gray-200 rounded-lg bg-gray-100 md:px-8 md:py-10 md:mt-24 hover:border-gray-300 transition-colors"
-          >
-            <p className="text-2xl font-semibold text-gray-900 md:text-3xl">
-              {HACKATHON_WINS} hackathon wins in 2026.
-            </p>
-            <p className="mt-2 font-medium text-blue-500">
-              See them all
-              <ChevronRight
-                className="inline w-4 h-4 ml-1 align-[-2px] group-hover:translate-x-0.5 transition-transform"
-                aria-hidden="true"
-              />
-            </p>
-          </Link>
+          <div className="mt-16 md:mt-24">
+            <HackathonWinsCta wins={HACKATHON_WINS} />
+          </div>
 
           <div className="mt-16 mb-32 md:mt-24">
             <p className="text-2xl font-semibold md:text-2xl">More projects</p>
