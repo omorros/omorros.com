@@ -10,7 +10,7 @@ const thumb = { src: '/thumb.jpg', alt: 'thumb' }
 const card = { src: '/card.jpg', alt: 'card' }
 
 const project = (caseStudy: object, extra: object = {}) =>
-  ({ slug: 'p', title: 'P', caseStudy: { challenge: '', approach: '', ...caseStudy }, ...extra }) as unknown as Project
+  ({ slug: 'p', title: 'P', caseStudy, ...extra }) as unknown as Project
 
 test('the share image prefers the thumbnail, then the card image, then the first screenshot', () => {
   assert.equal(shareImage(project({ thumbnail: thumb, cardImage: card, screenshots: [shot] })), thumb)
@@ -37,7 +37,7 @@ test('the badge is the first award, then the event, then the year', () => {
 })
 
 test("the facts at a glance start with the event and the prizes, then the story's own", () => {
-  const story = { facts: [{ label: 'Built in', value: 'One day' }] } as unknown as Story
+  const story = { facts: [{ label: 'Stack', value: 'Python' }] } as unknown as Story
   const awards = [
     { title: 'Overall Winner', description: '', prizes: ['Overall Winner'] },
     { title: 'Best Use of fal', description: '', prizes: ['Best Use of fal'] },
@@ -45,7 +45,7 @@ test("the facts at a glance start with the event and the prizes, then the story'
   assert.deepEqual(glanceFacts(project({ awards }, { event: 'Voice AI Hack · London 2026' }), story), [
     { label: 'Event', value: 'Voice AI Hack, London' },
     { label: 'Result', value: 'Overall Winner and Best Use of fal' },
-    { label: 'Built in', value: 'One day' },
+    { label: 'Stack', value: 'Python' },
   ])
   assert.deepEqual(glanceFacts(project({}), story), story.facts)
 })

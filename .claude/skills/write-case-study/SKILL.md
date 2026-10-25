@@ -1,6 +1,6 @@
 ---
 name: write-case-study
-description: Use when writing, rewriting or migrating a project page on omorros.com (src/data/projects/<slug>.ts), moving a project from the old problem, what I built, what it does layout to the story format, or when Oriol gives feedback on a project page or its diagram.
+description: Use when writing or rewriting a project page on omorros.com (src/data/projects/<slug>.ts), or when Oriol gives feedback on a project page or its diagram.
 ---
 
 # Writing a case study
@@ -31,7 +31,7 @@ code does.
 Collect what the sources cannot answer as questions for Oriol (step 6).
 Always ask for, unless already given:
 
-- Each teammate's full name and link (LinkedIn or their own site). Never put a first name or a GitHub handle on the page as a stand-in. A team build always lists its team, because `team` is what makes the page say "we": until Oriol gives the links, the draft is not finished, and the report says so.
+- Each teammate's name as Oriol wants it shown, and a link (LinkedIn or their own site). A team build always lists its team, because `team` is what makes the page say "we": list the names from the notes, leave `url` out until Oriol gives the link, and never use a GitHub profile as a stand-in.
 - A true moment from the build, when the notes have none.
 - Which photo shows the team with the prize, and product screenshots when the project has none.
 
@@ -42,17 +42,14 @@ Always ask for, unless already given:
 | `description` | Under the title, on cards, in search | One sentence: what it does and for whom, readable by a recruiter. Never starts with the stack. |
 | `story.insight` | Big line under the title | One sentence that carries the whole idea ("Patients minimise. Voices don't."). |
 | `event`, `awards[].prizes` | Event and Result at a glance | Derived. Event reads `Name · Place Year`. Never add Event or Result to `facts` (the build fails). |
-| `story.facts` | The rest of at a glance | Two or three: Built in, Stack (five or six items). |
-| `story.team` | Team at a glance | `{ name, url }` per teammate. Leave it out for a solo build. It switches the page to "we". |
+| `story.facts` | The rest of at a glance | Stack (five or six items), plus another fact only when it helps (Dataset, Platform). Never Built in: build time ranges from a day to months of evenings (the build fails). |
+| `story.team` | Team at a glance | `{ name, url? }` per teammate. Leave it out for a solo build. It switches the page to "we". |
 | `story.context` | Why it matters | Three or four sentences of human or scientific context. |
 | `story.flow` | How it works | Section 4. |
 | `story.decisions` | Decisions we made / I made | Two or three. `why` says what was done and why; `tradeoff` says honestly what it cost. |
 | `story.moment` | Its own section | Only a true story from Oriol or the notes. None: leave it out and ask. |
 | `story.limits` | What it isn't | Almost never: only a limit a reader would not assume. |
 | `awards` | Under the description | `title`, plain `description`, exact prize names in `prizes` (they feed the ticker and the win count). Verified like everything else. |
-
-Migrating from the old layout: delete `challenge`, `approach` and
-`features`; the type allows a story or the old fields, never both.
 
 ## 3. Voice
 
@@ -66,17 +63,17 @@ Migrating from the old layout: delete `challenge`, `approach` and
 
 Import `defineFlow` with `defineProject` from `./schema`.
 
-- Five to eight boxes on a grid of at most 5 columns by 3 rows, read left to right. Lines go to a later column, or down within one.
+- Five to eight boxes on a grid of at most 5 columns by 3 rows, read left to right. Lines go to a later column, or down within one. Phones turn the rows into columns about 100px wide, so prefer two rows, and keep every word in a box short enough to fit (the browser checks fail on text that spills out). A non-breaking space keeps a number with its unit (`2\u00a0s`).
 - Solid boxes are what the team built. `service: true` (dashed) marks outside services.
 - Each box: `label` (what it is), `note` (what it does, one line), `detail` (small mono line: formats, models, limits), `steps` (two or three that tick on), `live` (what the box puts out when the scene reaches it, as the product really shows it: a transcript line, a score, a status the screen displays).
 - `tones`: three or four kinds of thing that travel (TrueVoice: audio, words, voice, flag). Label the ones a reader must tell apart; they become the legend, which lists only tones that travel along a line. Swatches: grey, blue, violet, amber, green, rose.
-- Caption: "Solid boxes are what we built. Dashed ones are outside services." ("I" for solo.)
+- Caption: "Solid boxes are what we built. Dashed ones are outside services." ("I" for solo.) With no dashed box, say so instead ("Every box is something I built.").
 
 ## 5. Images
 
 - `thumbnail` (hero) and `cardImage`: a real photo, ideally the team with the prize. Open every photo before choosing.
-- `photos`: two, three or four event photos, not repeating the hero. `screenshots`: product shots for the gallery at the bottom.
-- Local files only, in `public/images/<slug>/`, resized: `sips --resampleWidth 1600 -s format jpeg -s formatOptions 80 in.png --out out.jpg`.
+- `photos`: two, three or four event photos, not repeating the hero; a single extra photo is left out, since it cannot make a grid. `screenshots`: product shots for the gallery at the bottom.
+- Local files only, in `public/images/<slug>/`, resized: `sips --resampleWidth 1600 -s format jpeg -s formatOptions 80 in.png --out out.jpg` (keep the original when that makes it bigger). Strip location data from phone photos. A file the page no longer uses is deleted: the build fails on leftovers.
 - Every image gets its own `alt` that describes what is in the picture.
 - `cardFocus` (a CSS object-position such as `'center 35%'`) when the card crop cuts a face.
 - Leave out any image that contradicts the product.
@@ -107,9 +104,9 @@ every page.
 | Mistake | Instead |
 |---|---|
 | Keeping the old page's copy because it was already live | Verify it like new copy; drop what has no source |
-| A teammate as a first name linked to GitHub | Ask Oriol for the full name and LinkedIn |
+| A teammate linked to their GitHub profile | The name alone until Oriol gives a LinkedIn or site |
 | `live: 'ADDRESS heard'`, written to fill the box | An output the product really shows |
 | Trusting a green test run | Look at both screenshots |
 | A moment written from thin evidence | Leave it out and ask Oriol |
-| Leaving `team` out of a team build while the links are missing | Keep the draft open and ask; the page would say "I" |
+| Leaving `team` out of a team build while the links are missing | List the names without `url`; the page would otherwise say "I" |
 | A "What it isn't" section by default | Only for a limit nobody would assume |

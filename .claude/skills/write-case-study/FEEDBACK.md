@@ -7,8 +7,9 @@ Oriol gives feedback on a project page.
 
 Pilot: TrueVoice (`src/data/projects/truevoice.ts`, `caseStudy.story`),
 rendered by `src/components/case-study/StoryBody.tsx` and
-`src/components/site/flow-diagram/`. Projects without a `story` still use the
-old layout (problem, what I built, what it does) until they are migrated.
+`src/components/site/flow-diagram/`. Every project now uses the story format; the
+old layout (problem, what I built, what it does) was removed after the
+rollout.
 
 ## The format, as it stands
 
@@ -18,7 +19,7 @@ Order on the page:
    One sentence that carries the whole idea ("Patients minimise. Voices
    don't."). Then the one-line description and the award.
 2. **At a glance** strip: event and result (derived from the project's
-   `event` and award prizes), then the story's own facts (built in, stack),
+   `event` and award prizes), then the story's own facts (stack),
    and **Team** with each teammate's name linked (LinkedIn or their own site).
 3. Hero image: a real photo, ideally the team with the prize.
 4. **Why it matters**: the human or scientific context, plainly.
@@ -55,6 +56,12 @@ Left out by default (see the rules).
   hackathon build obviously is (a prototype, no login, not validated). It
   reads as padding and pulls the page down. Use "What it isn't" only for a
   limit a reader would genuinely not assume.
+- **No build time.** Some projects took a day, others months of an evening
+  or two a month, so "Built in" says nothing useful. Keep the stack and the
+  team. The build rejects a "Built in" fact.
+- **Teammates as Oriol names them** ("Bill", not the LinkedIn name), linked
+  to LinkedIn or their own site. Until Oriol gives a link, the name stands
+  alone.
 - **No new claims about Oriol** ("my best work came out of hackathons" was
   rejected). Keep Oriol's own wording whenever it is given.
 - **Copy style**: plain English, short sentences, no em dashes, no AI
@@ -132,3 +139,28 @@ errors and sideways scroll.
   result facts are now derived, after TrueVoice's result had drifted into
   three wordings. Basket's prize reads "Best Use of Tavily, 1st place".
   Solo projects say "I", team projects "we".
+- 2026-10-25: The write-case-study skill was written and tested: a fresh
+  agent migrating Lantern without it kept unverified award text, linked
+  teammates by GitHub handle, invented diagram text and never looked at the
+  page; with it, it did none of those.
+- 2026-10-25: Lantern reviewed. Show Bill as "Bill". No 3D rooms (the
+  Hunyuan World code never merged). No story moment. The H Company photo is
+  Abai, a friend who works at H Company and was at the hackathon.
+- 2026-10-25: Remove "Built in" from every page: build time varies from one
+  day to months. Roll the format out to every project; Oriol reviews them
+  all afterwards.
+- 2026-10-25: Rolled out to all 15 projects by six agents in parallel, each
+  following the skill. Their findings: old pages overstated facts (WILDSCAN's
+  500 words in 8 languages were 100 in 5; the CNN page's numbers came from an
+  earlier run; Basket has no LLM, so not "five AI agents"), team builds were
+  written as "I" (GASLIT, Atlas), and on phones long words spilled out of
+  diagram boxes. The diagram now runs edge to edge on phones, the browser
+  checks fail on spilled text, and the build fails on unused image files.
+- 2026-10-25: WILDSCAN: Oriol wants the landing page screenshot back as the
+  cover, as before the rollout. Keep a cover Oriol chose unless he asks to
+  change it.
+- 2026-10-25: Hamyway City: asked where Jev was. It was in the diagram, but
+  not credited on voice, where it checks every promise on a call; the gate
+  now names Claude, which the README says scores safety instead of Jev.
+  Name each outside service in every box where it really runs.
+  Then: draw it too. Voice now has its own line into the Jev box.

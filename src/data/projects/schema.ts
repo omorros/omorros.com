@@ -68,37 +68,22 @@ export interface CaseStudyMedia {
   }[]
 }
 
-// The older layout: the problem, what I built, what it does. Projects move to
-// a story one at a time, and this goes once none are left.
-export interface ClassicBody {
-  challenge: string
-  approach: string
-  features?: { title: string; description: string }[]
-  story?: never
-}
-
-// The newer layout, told as a story.
-export interface StoryBody {
-  story: Story
-  challenge?: never
-  approach?: never
-  features?: never
-}
-
-// A case study has its media plus exactly one body.
-export type CaseStudy = CaseStudyMedia & (ClassicBody | StoryBody)
+// A case study: the story, with its media, awards and tables around it.
+export type CaseStudy = CaseStudyMedia & { story: Story }
 
 export interface Story {
   // One line that carries the whole idea.
   insight: string
   // Facts at a glance beyond the event and result, which come from the
-  // project (glanceFacts in derive.ts): 'Built in', 'Stack'.
+  // project (glanceFacts in derive.ts): 'Stack', and others when they help.
+  // No 'Built in': Oriol asked not to show build time.
   facts: { label: string; value: string }[]
   context: string
   flow: Flow
-  // Teammates, credited by name with a link at the top. Projects are told as
-  // the team's work: no individual roles or commit counts.
-  team?: { name: string; url: string }[]
+  // Teammates, credited by name at the top, linked to LinkedIn or their own
+  // site once Oriol gives the link. Projects are told as the team's work: no
+  // individual roles or commit counts.
+  team?: { name: string; url?: string }[]
   decisions: { title: string; why: string; tradeoff: string }[]
   // A short story from the build, told in its own section.
   moment?: { title: string; text: string }

@@ -26,7 +26,6 @@ export default defineProject({
     story: {
       insight: "Patients minimise. Voices don't.",
       facts: [
-        { label: 'Built in', value: 'One day' },
         { label: 'Stack', value: 'Python, FastAPI, WebRTC, Next.js, Claude' },
       ],
       context: 'People often tell their doctor they are fine when they are not. The words go in the notes, but the strain in their voice is easy to miss in a short appointment. TrueVoice listens to both while the consultation happens, and points out the moments where they disagree.',
@@ -43,7 +42,7 @@ export default defineProject({
           { id: 'stt', label: 'Speechmatics', note: 'Live medical transcript', detail: 'diarised · medical', live: '"I\'m fine, honestly."', tone: 'words', col: 2, row: 0, service: true },
           { id: 'voice', label: 'Thymia', note: 'Signals in the voice', detail: 'Helios · Apollo · Psyche', live: 'distress: high', tone: 'voice', col: 2, row: 2, service: true },
           { id: 'match', label: 'Mismatch check', note: 'Both within a minute', steps: ['phrase matched', 'voice over threshold'], tone: 'flag', col: 3, row: 1 },
-          { id: 'gp', label: "Doctor's screen", note: 'A live flag with a note', detail: 'Claude Haiku · 2 s limit', live: 'Says fine, sounds distressed', tone: 'flag', col: 4, row: 1 },
+          { id: 'gp', label: "Doctor's screen", note: 'A live flag with a note', detail: 'Claude Haiku · 2\u00a0s limit', live: 'Says fine, sounds distressed', tone: 'flag', col: 4, row: 1 },
           { id: 'report', label: 'Report', note: 'When the doctor asks', detail: 'Claude Sonnet', live: 'Summary ready', tone: 'flag', col: 4, row: 2 },
         ],
         edges: [

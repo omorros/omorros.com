@@ -1,4 +1,4 @@
-import { defineProject } from './schema'
+import { defineFlow, defineProject } from './schema'
 
 export default defineProject({
   title: 'Lantern',
@@ -6,38 +6,85 @@ export default defineProject({
   tags: ['Python', 'Next.js', 'FastAPI', 'OpenAI'],
   link: 'https://github.com/omorros/Lantern',
   slug: 'lantern',
-  lastModified: '2026-08-29',
+  lastModified: '2026-10-25',
   category: 'hackathon',
-  event: '{Tech: Europe} \u00d7 VEED Hackathon \u00b7 London 2026',
+  event: '{Tech: Europe} × VEED Hackathon · London 2026',
   year: '2026',
   caseStudy: {
-    challenge: 'When firefighters arrive at a house fire they know nothing about the inside. No floor plan, no idea which room someone is trapped in, so they find out by crawling through the smoke. Last year 271 people died in fires in England, and nearly eight in ten of them died at home.',
-    approach: 'We built a dispatch console that fills in the building while the caller is still on the line: an agent finds the house in old sold listings, reads the floor plan and the photos, and turns them into a briefing with the way in, the room the victim was reported in, and a route from the kerb. Every fact on the brief says whether it came from the call, from the listing, or from a model, so nobody mistakes a guess for the truth.',
-    features: [
-      { title: 'Finds the House Online', description: 'An agent drives a real browser, searches sold property listings, and pulls the floor plan and the photos from the day the house was last on the market.' },
-      { title: 'Reads the Call as It Happens', description: 'The address, the hazard, and where the person was last seen come straight out of the live transcript in milliseconds, and the brief moves when the caller says something new.' },
-      { title: 'A Route, Not Just a Plan', description: 'It says which door to go through and which rooms to cross to reach the victim, because crews given a route move faster than crews handed a floor plan.' },
-      { title: 'Rooms You Can Walk First', description: 'The photos of the rooms that matter become 3D scenes with the hazards pinned, and a 30 second briefing video reaches the crew before the truck leaves.' }
-    ],
-    thumbnail: { src: '/images/lantern/presenting.jpg', alt: "Presenting Lantern beside a screen showing a building's rooms" },
-    cardImage: { src: '/images/lantern/team-veed.jpg', alt: 'The Lantern team under the VEED neon sign at the {Tech: Europe} × VEED Hackathon' },
+    thumbnail: { src: '/images/lantern/team-veed.jpg', alt: 'The three Lantern teammates with their arms around each other under the VEED neon sign' },
+    cardImage: { src: '/images/lantern/team-veed.jpg', alt: 'The three Lantern teammates with their arms around each other under the VEED neon sign' },
     photos: [
-      { src: '/images/lantern/team-veed.jpg', alt: 'The Lantern team under the VEED neon sign at the {Tech: Europe} × VEED Hackathon' },
+      { src: '/images/lantern/presenting.jpg', alt: "Presenting Lantern beside a screen showing photos of a building's rooms" },
       { src: '/images/lantern/team-building.jpg', alt: 'The team building Lantern around a table of laptops and drinks' },
-      { src: '/images/lantern/h-company.jpg', alt: 'Two people smiling with thumbs up at the hackathon' },
+      { src: '/images/lantern/h-company.jpg', alt: 'With Abai, a friend from H Company who was at the hackathon, both giving a thumbs up' },
       { src: '/images/lantern/working.jpg', alt: 'Working on Lantern on a laptop during the hackathon' },
     ],
+    story: {
+      insight: 'Know the building before you go through the door.',
+      facts: [
+        { label: 'Stack', value: 'Python, FastAPI, Next.js, Playwright, OpenAI, fal' },
+      ],
+      context: 'Firefighters often go into a burning building blind: no floor plan, no idea where the fire started or which room the person they are looking for is in. Yet the outside of almost every UK building is on Street View, and the inside of many homes was photographed for an old property listing. Lantern joins the two during the 999 call. Size-up is the fire service word for the quick read of a building on arrival; we moved it to before the truck leaves.',
+      flow: defineFlow({
+        tones: {
+          call: { swatch: 'blue', label: 'The call' },
+          building: { swatch: 'violet', label: 'The building' },
+          brief: { swatch: 'amber', label: 'The brief' },
+        },
+        nodes: [
+          { id: 'stt', label: 'Speech to text', note: 'The caller, as it happens', detail: 'OpenAI · gpt-4o-mini-transcribe', live: '"The kitchen\'s on fire."', tone: 'call', col: 0, row: 1, service: true },
+          { id: 'extract', label: 'GLiNER2', note: 'Finds the address, fire and casualty', detail: 'Pioneer · every fragment', live: 'Casualty: back bedroom', tone: 'call', col: 1, row: 1, service: true },
+          { id: 'outside', label: 'Outside', note: 'Reads the street and the plot', detail: 'Google Maps · gpt-5', live: 'Door on the left, no rear access', tone: 'building', col: 2, row: 0 },
+          { id: 'agent', label: 'Listing agent', note: 'Finds the house in old sold listings', detail: 'Holo 3.1 · Playwright', steps: ['listing found', 'floor plan pulled'], live: '12 photos and a floor plan', tone: 'building', col: 2, row: 2 },
+          { id: 'rooms', label: 'Room graph', note: 'Every room, its doors, its photos', detail: 'gpt-5 points · code draws', live: '8 rooms, 3 ways in', tone: 'building', col: 3, row: 2 },
+          { id: 'route', label: 'Route', note: 'From the kerb to the casualty', detail: 'along the room graph', live: 'Front door, 5 waypoints', tone: 'brief', col: 4, row: 1 },
+          { id: 'brief', label: 'Crew brief', note: 'Each line marked by its source', detail: 'VEED and Kling on fal', live: '30s brief ready', tone: 'brief', col: 4, row: 2 },
+        ],
+        edges: [
+          ['stt', 'extract'],
+          ['extract', 'outside'],
+          ['extract', 'agent'],
+          ['extract', 'route'],
+          ['outside', 'route'],
+          ['agent', 'rooms'],
+          ['rooms', 'route'],
+          ['route', 'brief'],
+        ],
+        caption: 'Solid boxes are what we built. Dashed ones are outside services.',
+      }),
+      team: [
+        { name: 'Mykyta Yakivets', url: 'https://www.linkedin.com/in/mykyta-yakivets/' },
+        { name: 'Bill', url: 'https://www.linkedin.com/in/ton-hoang-nguyen/' },
+      ],
+      decisions: [
+        {
+          title: 'The model points, code draws the rooms',
+          why: 'gpt-5 reads the floor plan and points at each room label on a grid. The rooms themselves are worked out without it: the walls are thickened until the door gaps close, then each room is filled outwards from its label.',
+          tradeoff: 'More code than asking the model for boxes, and the wall thickness is one fixed number. When the fill fails, we fall back to the box the model drew.',
+        },
+        {
+          title: 'Every line says where it came from',
+          why: 'Each line of the crew brief is marked call, street, listing or plan: what the caller said this minute, what Street View shows, what an old listing shows, or our own inference from those. Listing and plan lines are shown fainter.',
+          tradeoff: 'A listing can be years out of date, so the layout, one of the most useful parts of the brief, always arrives marked as the least certain.',
+        },
+        {
+          title: 'A saved result behind every stage',
+          why: 'We picked five sold houses, ran each one through the whole live pipeline on the day, and saved every stage. If a service fails or a key is missing during the demo, that stage replays its saved result and the brief still arrives.',
+          tradeoff: 'Those five houses are all the agent was tested on, so we have no success rate to quote.',
+        },
+      ],
+    },
     awards: [
       {
-        title: 'Overall Winner - {Tech: Europe} x VEED Hackathon 2026',
+        title: 'Overall Winner - {Tech: Europe} \u00d7 VEED Hackathon 2026',
         prizes: ['Overall Winner'],
-        description: 'First across the whole event, a one day hackathon with 80 people at the Summer Lock-In in London.'
+        description: 'First place overall at the {Tech: Europe} \u00d7 VEED Summer Lock-In in London.',
       },
       {
         title: 'Best Use of fal',
         prizes: ['Best Use of fal'],
-        description: 'A second prize at the same event, for turning the listing photos into 3D rooms and generating the crew briefing video.'
-      }
-    ]
-  }
+        description: 'A second prize at the same event. The crew brief video is made on fal.',
+      },
+    ],
+  },
 })

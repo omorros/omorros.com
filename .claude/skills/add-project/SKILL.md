@@ -38,7 +38,7 @@ Every win must be in one of those two groups, so the counts include it.
 
 ## Steps
 
-1. **Ask Oriol** for what is missing: the repo URL; the event as `Name · Place Year`, or none for a personal project; the result and the exact prize names; solo or team, with each teammate's full name and link; the photos; which group.
+1. **Ask Oriol** for what is missing: the repo URL; the event as `Name · Place Year`, or none for a personal project; the result and the exact prize names; solo or team, with each teammate's name as Oriol wants it shown and a link; the photos; which group.
 2. **Create `<slug>.ts`** with the shape of `truevoice.ts`: title, description, tags (about four stack keywords), link, slug, `lastModified` (today, `YYYY-MM-DD`), category, event, year, caseStudy.
 3. **Write the page.** REQUIRED SUB-SKILL: use write-case-study. It covers the copy, the diagram, the images and the checks.
 4. **Add it to `index.ts`**: one import, one entry in its group. The order inside a group is the order on the page.
@@ -55,7 +55,7 @@ Every win must be in one of those two groups, so the counts include it.
 ## The build already catches
 
 A file in no group, a file not named after its slug, a missing image, an
-image with no alt, a win outside `featured` and `hackathons`, a win marked
+unused file in the project's image folder, an image with no alt, a win outside `featured` and `hackathons`, a win marked
 `personal`, a /hackathons card with no prize, an event not written
 `Name · Place Year`, Event or Result typed into facts, a featured count other
 than six, an odd photo grid, and diagram mistakes (a line to a missing box, a

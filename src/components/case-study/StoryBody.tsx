@@ -2,7 +2,7 @@ import { FlowDiagram } from '@/components/site/flow-diagram'
 import type { Story } from '@/data/projects'
 import { SectionHeading } from './SectionHeading'
 
-// The newer layout: why it matters, how it works, the decisions, a moment
+// The story: why it matters, how it works, the decisions, a moment
 // from the build, and limits only when a reader would not assume them.
 // Team builds speak as "we", solo builds as "I".
 export function StoryBody({ story }: { story: Story }) {

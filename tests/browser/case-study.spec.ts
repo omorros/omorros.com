@@ -1,11 +1,9 @@
 import { expect, test, type Locator, type Page } from '@playwright/test'
-import { glanceFacts, projects, type Project, type Story } from '@/data/projects'
+import { glanceFacts, projects, type Story } from '@/data/projects'
 import { PHONE, sidewaysScroll } from './helpers'
 
-// Every project written in the story format: the page shows what the data
-// says, keeps to the writing rules, and its diagram fits and plays.
-
-const storyProjects = projects.filter((p): p is Project & { caseStudy: { story: Story } } => Boolean(p.caseStudy.story))
+// Every project page: it shows what the data says, keeps to the writing
+// rules, and its diagram fits and plays.
 
 const overlap = (a: DOMRect, b: DOMRect) =>
   !(a.right <= b.left || b.right <= a.left || a.bottom <= b.top || b.bottom <= a.top)
@@ -35,10 +33,19 @@ async function expectDiagramFits(page: Page, story: Story) {
     for (let j = i + 1; j < nodes.length; j++) expect(overlap(nodes[i], nodes[j]), `boxes ${i} and ${j} overlap`).toBe(false)
     expect(nodes[i].left >= frame.x - 1 && nodes[i].right <= frame.x + frame.width + 1, `box ${i} sticks out`).toBe(true)
   }
+  // No text runs out of its box: long words wrap inside it.
+  const spill = await diagram.locator('[data-node]').evaluateAll((els) =>
+    els.flatMap((box) =>
+      Array.from(box.querySelectorAll('p, li')).flatMap((t) =>
+        t.scrollWidth > t.clientWidth + 1 ? [`${box.getAttribute('data-node')}: "${t.textContent}"`] : [],
+      ),
+    ),
+  )
+  expect(spill, 'text spilling out of a box').toEqual([])
   expect(await sidewaysScroll(page)).toBe(0)
 }
 
-for (const project of storyProjects) {
+for (const project of projects) {
   const story = project.caseStudy.story
   const path = `/projects/${project.slug}`
 
@@ -54,7 +61,8 @@ for (const project of storyProjects) {
         await expect(facts).toContainText(f.value)
       }
       for (const member of story.team ?? []) {
-        await expect(facts.locator(`a[href="${member.url}"]`)).toHaveText(member.name)
+        if (member.url) await expect(facts.locator(`a[href="${member.url}"]`)).toHaveText(member.name)
+        else await expect(facts).toContainText(member.name)
       }
     })
 

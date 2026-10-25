@@ -12,6 +12,8 @@ const box = (id: string, col: number, row: number, tone?: string) => ({ id, labe
 const flow = (nodes: ReturnType<typeof box>[], edges: string[][]) =>
   ({ tones: { t: { swatch: 'grey' } }, nodes, edges, caption: '' }) as unknown as Flow
 
+const story = { flow: flow([box('a', 0, 0), box('b', 1, 0)], [['a', 'b']]), facts: [], decisions: [{}, {}] }
+
 const project = (slug: string, caseStudy: object = {}) =>
   ({
     slug,
@@ -22,7 +24,7 @@ const project = (slug: string, caseStudy: object = {}) =>
     lastModified: '2026-10-25',
     category: 'hackathon',
     event: 'Hack · London 2026',
-    caseStudy: { challenge: '', approach: '', awards: [{ title: 'Win', description: '', prizes: ['Win'] }], ...caseStudy },
+    caseStudy: { story, awards: [{ title: 'Win', description: '', prizes: ['Win'] }], ...caseStudy },
   }) as unknown as Project
 
 const six = ['a', 'b', 'c', 'd', 'e', 'f'].map((slug) => project(slug))
@@ -79,6 +81,23 @@ describe('diagrams', () => {
   test('a story with one decision', () => {
     const story = { flow: flow([box('a', 0, 0), box('b', 1, 0)], [['a', 'b']]), facts: [], decisions: [{}] } as unknown as Story
     assertProblem(storyProblems('s', story), /1 decisions; use two or three/)
+  })
+
+  test('how long it took to build', () => {
+    const facts = [{ label: 'Built in', value: 'One day' }]
+    const story = { flow: flow([box('a', 0, 0), box('b', 1, 0)], [['a', 'b']]), facts, decisions: [{}, {}] } as unknown as Story
+    assertProblem(storyProblems('s', story), /"Built in" is not shown/)
+  })
+
+  test('how long it took, however it is capitalised', () => {
+    const facts = [{ label: 'Built In', value: 'One day' }]
+    const story = { flow: flow([box('a', 0, 0), box('b', 1, 0)], [['a', 'b']]), facts, decisions: [{}, {}] } as unknown as Story
+    assertProblem(storyProblems('s', story), /"Built In" is not shown/)
+  })
+
+  test('a team with nobody in it', () => {
+    const story = { flow: flow([box('a', 0, 0), box('b', 1, 0)], [['a', 'b']]), facts: [], team: [], decisions: [{}, {}] } as unknown as Story
+    assertProblem(storyProblems('s', story), /team is empty/)
   })
 
   test('a story fact the project already gives', () => {

@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import {
   CaseStudyHeader,
-  ClassicBody,
   DataTables,
   HeroMedia,
   MediaSections,
@@ -48,7 +47,7 @@ export default function ProjectDetailPage({ params }: PageProps) {
       <JsonLd data={getProjectJsonLd(project)} />
       <CaseStudyHeader project={project} />
       <HeroMedia project={project} />
-      {cs.story ? <StoryBody story={cs.story} /> : <ClassicBody body={cs} />}
+      <StoryBody story={cs.story} />
       <MediaSections project={project} />
       {cs.tables && <DataTables tables={cs.tables} />}
 

@@ -52,16 +52,23 @@ export function flowProblems(where: string, flow: Story['flow']): string[] {
 
 // Facts the at a glance strip already takes from the project (derive.ts).
 const DERIVED_FACTS = ['Event', 'Result']
+// Facts Oriol asked not to show. Build time varies from one day to months of
+// evenings, so it says nothing useful.
+const HIDDEN_FACTS = ['built in', 'build time']
 
 export function storyProblems(where: string, story: Story): string[] {
   const problems = flowProblems(`${where} diagram`, story.flow)
   if (story.decisions.length < 2 || story.decisions.length > 3) {
     problems.push(`${where}: ${story.decisions.length} decisions; use two or three`)
   }
+  if (story.team && story.team.length === 0) {
+    problems.push(`${where}: the team is empty; list the teammates, or leave team out for a solo build`)
+  }
   for (const f of story.facts) {
     if (DERIVED_FACTS.includes(f.label)) {
       problems.push(`${where}: the "${f.label}" fact comes from the project's event and prizes; remove it from facts`)
     }
+    if (HIDDEN_FACTS.includes(f.label.trim().toLowerCase())) problems.push(`${where}: "${f.label}" is not shown on project pages; remove it from facts`)
   }
   return problems
 }
@@ -116,7 +123,7 @@ export function projectProblems(groups: Record<string, Project[]>, hackathons: P
     if (photos !== 0 && (photos < 2 || photos > 4)) {
       problems.push(`"${p.slug}": ${photos} photos; use two, three or four so the grid stays even`)
     }
-    if (cs.story) problems.push(...storyProblems(`"${p.slug}"`, cs.story))
+    problems.push(...storyProblems(`"${p.slug}"`, cs.story))
   }
   return problems
 }

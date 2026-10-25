@@ -21,7 +21,7 @@ import deepLearningCnnComparison from './deep-learning-cnn-comparison'
 import wikipediaScraper from './wikipedia-scraper'
 import universityLibrarySystem from './university-library-system'
 
-export type { CaseStudy, ClassicBody, Img, Project, Story } from './schema'
+export type { CaseStudy, Img, Project, Story } from './schema'
 export {
   allAwardsBadge,
   badge,

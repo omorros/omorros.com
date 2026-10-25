@@ -6,6 +6,9 @@ import { backHref, groups, hackathonProjects } from '@/data/projects'
 
 const back = (page: Page) => page.getByRole('link', { name: /Back/ }).first()
 
+// Back only uses the history once the page has hydrated, so wait for it.
+const open = (page: Page, path: string) => page.goto(path, { waitUntil: 'networkidle' })
+
 const personal = groups.featured.find((p) => p.category === 'personal')!
 const hackathon = hackathonProjects[hackathonProjects.length - 1]
 
@@ -15,7 +18,7 @@ for (const [start, fallback] of [
   ['/hackathons', '/projects'],
 ]) {
   test(`landing on ${start} from outside, Back goes to ${fallback}`, async ({ page }) => {
-    await page.goto(start)
+    await open(page, start)
     await back(page).click()
     await expect(page).toHaveURL(fallback)
   })
@@ -23,7 +26,7 @@ for (const [start, fallback] of [
 
 test('from /projects, Back returns to the same place on the list', async ({ page }) => {
   const first = groups.featured[0]
-  await page.goto('/projects')
+  await open(page, '/projects')
   const card = page.locator(`a[href="/projects/${first.slug}"].group`)
   await card.scrollIntoViewIfNeeded()
   await page.mouse.wheel(0, 300)
@@ -38,7 +41,7 @@ test('from /projects, Back returns to the same place on the list', async ({ page
 })
 
 test('from /hackathons, Back returns to /hackathons', async ({ page }) => {
-  await page.goto('/hackathons')
+  await open(page, '/hackathons')
   await page.locator(`a[href="/projects/${hackathon.slug}"].group`).click()
   await expect(page).toHaveURL(`/projects/${hackathon.slug}`)
   await back(page).click()

@@ -54,3 +54,10 @@ test('an image that is not in public/', () => {
     '"a" points at /images/a/gone.jpg, which is not in public/',
   ])
 })
+
+test('an image in the project folder that the project does not use', () => {
+  const root = site({ 'a.ts': projectFile }, ['/images/a/cover.jpg', '/images/a/old.jpg'])
+  assert.deepEqual(fileProblems([project('a', { thumbnail: { src: '/images/a/cover.jpg', alt: 'a' } })], root), [
+    'public/images/a/old.jpg is not used by "a"; delete it or put it on the page',
+  ])
+})

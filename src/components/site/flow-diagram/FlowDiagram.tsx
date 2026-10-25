@@ -148,13 +148,14 @@ export function FlowDiagram({ flow }: { flow: Flow }) {
   }, [lines, nodes, edges])
 
   return (
-    // Wider than the text column on large screens, like a magazine figure.
-    <figure className="lg:-mx-28">
-      <div className="rounded-xl border border-border-soft bg-background-soft p-4 [background-image:radial-gradient(rgb(var(--gray-200))_1px,transparent_1px)] [background-size:14px_14px] sm:p-6">
+    // Edge to edge on phones, where three columns of boxes need every pixel,
+    // and wider than the text column on large screens, like a magazine figure.
+    <figure className="-mx-6 sm:mx-0 lg:-mx-28">
+      <div className="border-y border-border-soft bg-background-soft px-3 py-4 [background-image:radial-gradient(rgb(var(--gray-200))_1px,transparent_1px)] [background-size:14px_14px] sm:rounded-xl sm:border sm:p-6">
         <div
           ref={boxRef}
           data-flow
-          className="relative grid gap-x-3 gap-y-8 [grid-template-columns:repeat(var(--rows),minmax(0,1fr))] sm:gap-x-6 sm:gap-y-5 sm:[grid-template-columns:repeat(var(--cols),minmax(0,1fr))]"
+          className="relative grid gap-x-2 gap-y-8 [grid-template-columns:repeat(var(--rows),minmax(0,1fr))] sm:gap-x-6 sm:gap-y-5 sm:[grid-template-columns:repeat(var(--cols),minmax(0,1fr))]"
           style={{ ['--cols' as string]: cols, ['--rows' as string]: rows }}
         >
           <svg
@@ -203,12 +204,12 @@ export function FlowDiagram({ flow }: { flow: Flow }) {
               key={n.id}
               data-node={n.id}
               data-on="0"
-              className={`relative self-center rounded-lg border px-3 py-2.5 [grid-column:var(--r)] [grid-row:var(--c)] sm:[grid-column:var(--c)] sm:[grid-row:var(--r)] ${
+              className={`relative self-center rounded-lg border px-2 py-2.5 hyphens-auto sm:px-3 sm:hyphens-manual [grid-column:var(--r)] [grid-row:var(--c)] sm:[grid-column:var(--c)] sm:[grid-row:var(--r)] ${
                 n.service ? 'border-dashed border-gray-300 bg-background' : 'border-gray-300 bg-surface shadow-sm'
               }`}
               style={{ ['--c' as string]: n.col + 1, ['--r' as string]: n.row + 1, ['--tone' as string]: colorOf(n.tone) }}
             >
-              <p className="text-sm font-medium leading-snug text-foreground">{n.label}</p>
+              <p className="text-[13px] font-medium leading-snug text-foreground sm:text-sm">{n.label}</p>
               <p className="mt-0.5 text-xs leading-snug text-foreground-faint">{n.note}</p>
               {n.detail && <p className="mt-1.5 font-mono text-[10px] leading-snug text-foreground-faint">{n.detail}</p>}
               {n.steps && (
@@ -230,7 +231,7 @@ export function FlowDiagram({ flow }: { flow: Flow }) {
           ))}
         </div>
       </div>
-      <figcaption className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-foreground-faint">
+      <figcaption className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 px-6 text-xs text-foreground-faint sm:px-0">
         <span data-flow-legend className="flex flex-wrap items-center gap-x-4 gap-y-1">
           {legend.map((t) => (
             <span key={t.label} className="inline-flex items-center gap-1.5">
