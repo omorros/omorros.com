@@ -37,18 +37,15 @@ const config: Config = {
     extend: {
       colors: {
         'black-85': 'rgba(0,0,0,0.85)',
-        gray: {
-          50: '#fbfbfc',
-          100: '#F7F8F9',
-          200: '#E3E6E8',
-          300: '#CFD3D8',
-          400: '#BBC1C9',
-          500: '#A6AFB9',
-          600: '#80878F',
-          700: '#5B5F65',
-          800: '#35383B',
-          900: '#1E2021',
-        },
+        // Grays and surfaces live in CSS variables (globals.css) so night
+        // mode can flip them in one place.
+        gray: Object.fromEntries(
+          [50, 100, 200, 300, 400, 500, 600, 700, 800, 900].map((n) => [
+            n,
+            `rgb(var(--gray-${n}) / <alpha-value>)`,
+          ]),
+        ),
+        surface: 'rgb(var(--surface) / <alpha-value>)',
         background: {
           DEFAULT: 'rgb(var(--background) / <alpha-value>)',
           soft: 'rgb(var(--background-soft) / <alpha-value>)',
@@ -77,6 +74,13 @@ const config: Config = {
       },
       borderWidth: {
         3: '3px',
+      },
+      // The prize ticker: the list is rendered twice, so -50% loops seamlessly.
+      keyframes: {
+        ticker: { to: { transform: 'translateX(-50%)' } },
+      },
+      animation: {
+        ticker: 'ticker 38s linear infinite',
       },
     },
   },

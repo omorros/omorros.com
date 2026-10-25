@@ -54,7 +54,8 @@ export default function JournalPage() {
                   fill
                   quality={90}
                   sizes="(min-width: 1024px) 368px, (min-width: 640px) 264px, calc(100vw - 48px)"
-                  className={`object-cover ${e.cardImagePos ?? ''}`}
+                  className="object-cover"
+                  style={{ objectPosition: e.cardFocus }}
                 />
               </div>
               <div className="mt-3">

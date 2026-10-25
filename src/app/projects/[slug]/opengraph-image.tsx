@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og'
-import { projects } from '@/data/projects'
+import { badge as projectBadge, projects } from '@/data/projects'
 import { siteConfig } from '@/lib/constants'
 
 export const runtime = 'edge'
@@ -25,7 +25,7 @@ export default async function Image({
   const title = project?.title ?? 'Projects'
   const description = project?.description ?? ''
   const badge =
-    project?.caseStudy?.awards?.[0]?.title ?? project?.event ?? project?.year
+    project ? projectBadge(project) : undefined
 
   return new ImageResponse(
     (

@@ -124,10 +124,10 @@ export default function WorkPage() {
         </Entry>
 
         <Entry
-          when="May 2026 – Aug 2026"
+          when="May 2026 – Sep 2026"
           role="Software Engineer"
           duration={formatTenure(
-            [{ start: '2026-05', end: '2026-08' }],
+            [{ start: '2026-05', end: '2026-09' }],
             currentMonth,
           )}
           title="Eli by Techbible"
@@ -188,13 +188,6 @@ export default function WorkPage() {
           </p>
           <p className="text-base">
             <A href="/open-source">Case studies</A>
-          </p>
-        </Entry>
-
-        <Entry when="2023 – 2026" title="BSc Software Engineering, ARU Cambridge">
-          <p>
-            I finished with First-Class Honours while playing as a{' '}
-            <A href="/journal/basketball">basketball scholarship athlete</A>.
           </p>
         </Entry>
 

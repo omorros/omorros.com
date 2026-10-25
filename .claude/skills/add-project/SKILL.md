@@ -1,102 +1,63 @@
 ---
 name: add-project
-description: Add a new project to omorros.com end to end — data entry, photos, featured-or-more placement, OG banner check, and commit. Use when Oriol built or won something new and wants it on the site.
+description: Use when Oriol built or won something new and wants it on omorros.com, or when a project should be removed, renamed, or moved between /projects, /hackathons and the unlisted pages.
 ---
 
-Add a project to the site following the house structure and voice. The OG
-banner is generated automatically per project — no design work needed, only
-a verification step at the end.
+# Adding a project
 
-## 1. Gather inputs
+Each project is one file, `src/data/projects/<slug>.ts`, named after its
+slug. `src/data/projects/index.ts` puts it in a group, and the group decides
+where it shows. Everything else is derived from the files and groups: the
+card lists, the prize ticker and win count on /projects, the hackathon count,
+/hackathons, the previous and next links, the sitemap entry, llms.txt, the
+share image. Mistakes fail the build with a message that says what to fix.
 
-Ask Oriol for whatever is missing:
+## Where things live
 
-- GitHub repo URL (fetch its README for material: `curl -s https://raw.githubusercontent.com/omorros/<repo>/main/README.md`)
-- Event name, city, year (hackathons) — or none (personal project)
-- Result: win/placement or nothing. No award section if no result — the
-  event name in the meta line carries credibility on its own.
-- Event photos (file paths). Solo or team build ("I built" vs "We built").
+| File | Holds |
+|---|---|
+| `src/data/projects/<slug>.ts` | The project: `export default defineProject({ ... })` |
+| `src/data/projects/index.ts` | Imports and `groups`, the only list of projects |
+| `src/data/projects/schema.ts` | Types, `defineProject`, `defineFlow` |
+| `src/data/projects/derive.ts` | Card image, badge, prizes, facts at a glance, share image |
+| `src/data/projects/validate.ts`, `check-files.ts` | The build checks |
+| `public/images/<slug>/` | The project's images |
+| `tests/unit/`, `tests/browser/` | `npm test`, `npm run test:browser` |
 
-## 2. Write the entry in `src/data/projects.ts`
+## Groups
 
-Follow the `Project` interface at the top of that file. Place hackathon
-projects near other recent hackathons (array order drives prev/next
-navigation on detail pages, not the listing).
+| Group | Shows as | Rules |
+|---|---|---|
+| `featured` | Big cards on /projects | Exactly six. Adding one means moving one to `more` or `hackathons`: Oriol's call. |
+| `hackathons` | Cards on /hackathons only | Wins: category `hackathon` with prizes. |
+| `more` | Small cards on /projects | No prizes. |
+| `unlisted` | A page with no card | No prizes. |
 
-- `description`: one sentence, outcome-first, understandable by a
-  non-technical recruiter. Lead with what it does and for whom, include an
-  honest number if one exists. Never start with the tech stack.
-- `lastModified`: today in `YYYY-MM-DD` format. Bump it only when the page's
-  main content, structured data, or links change significantly, never just
-  because the site was rebuilt or redeployed.
-- `tags`: ~4 plain-text stack keywords (recruiters pattern-match text).
-- `event`: format `'Event Name · City Year'` — do not also rely on `year`
-  being displayed with it (the OG badge uses event alone).
-- `caseStudy.challenge`: the problem in 1-2 plain sentences. A hook number
-  helps ("Illegal fishing is a 23 billion dollar business...").
-- `caseStudy.approach`: what was built, 1-2 sentences, first person.
-- `caseStudy.features`: exactly 4, each a short plain title plus one
-  sentence in Oriol's voice.
-- `caseStudy.awards`: only if there was a result. Plain description, no
-  resume-speak.
+/hackathons lists every win from `featured` then `hackathons`, in that order.
+Every win must be in one of those two groups, so the counts include it.
 
-## 3. Voice rules (critical — this is what makes it his)
+## Steps
 
-Match the register of the OffBabel and Basket entries in `projects.ts` and
-the journal entries in `journal.ts`. First person, plain sentences,
-concrete numbers, technical nouns kept but wrapped in normal sentences.
+1. **Ask Oriol** for what is missing: the repo URL; the event as `Name · Place Year`, or none for a personal project; the result and the exact prize names; solo or team, with each teammate's name as Oriol wants it shown and a link; the photos; which group.
+2. **Create `<slug>.ts`** with the shape of `truevoice.ts`: title, description, tags (about four stack keywords), link, slug, `lastModified` (today, `YYYY-MM-DD`), category, event, year, caseStudy.
+3. **Write the page.** REQUIRED SUB-SKILL: use write-case-study. It covers the copy, the diagram, the images and the checks.
+4. **Add it to `index.ts`**: one import, one entry in its group. The order inside a group is the order on the page.
+5. **Bump the listing dates** in `src/app/sitemap.ts` (`/projects`, `/hackathons`) when the project shows on them.
+6. **Link to it from copy** with `projectHref('<slug>')`, so a typo fails the type check.
+7. **Check** as write-case-study says, then open `/projects/<slug>/opengraph-image` and confirm the badge text fits.
+8. **Report and wait** for Oriol's approval, then commit: one sentence, no em dashes, no AI attribution. Never push or open a PR without asking.
 
-Good feature bullet:
-`{ title: 'Remembers Mistakes', description: 'It saves the mistakes you make and brings them back later so you get more practice on the hard ones.' }`
+## Removing or moving
 
-Bad (AI spec-sheet voice — never write this):
-`{ title: 'Trust-First Workflow', description: 'AI suggestions land in a staging area for quick user confirmation before entering inventory.' }`
+- Remove: delete the file, its two lines in `index.ts`, and `public/images/<slug>/`. Fix any `projectHref` the type check flags.
+- Move: change its group in `index.ts`. To rename a slug, rename the file and the image folder too.
 
-Tells to avoid: Title-Case Compound Names ("Concordance Engine"),
-"comprehensive", "robust", "seamless", "leverages", noun stacks, em dashes.
+## The build already catches
 
-## 4. Media
-
-- Screenshots: use `raw.githubusercontent.com` URLs from the repo. Verify
-  each returns 200 with curl before adding.
-- `thumbnail`: the hero on the detail page. App home screen or best
-  screenshot. If there is a demo video and no thumbnail, the video becomes
-  the hero (autoplay muted with controls) — that is fine and often better.
-- Event photos: copy to `public/images/<slug>/`, descriptive filenames.
-  If over ~1 MB or wider than 1600px:
-  `sips --resampleWidth 1600 -s format jpeg -s formatOptions 80 in.png --out out.jpg`
-- `cardImage`: prefer a real photo (Oriol, team, hardware) over a
-  screenshot. The card crops to landscape 16:10; use `cardImagePos`
-  (e.g. `'object-[center_35%]'`) to frame the subject if needed.
-- `photos`: the event pics, `{ src: '...' }` only — no captions, the site
-  does not render them.
-
-## 5. Featured or More (`src/app/projects/page.tsx`)
-
-Add the slug to `FEATURED` or `MORE`. Criteria:
-
-- FEATURED: won something (or flagship personal build) AND has a strong
-  real photo for the card. Keep FEATURED at 6 — adding one means demoting
-  the weakest current one to the top of MORE.
-- MORE: no result yet, or no good imagery yet.
-
-Recommend a placement with reasoning, but it is Oriol's call — ask.
-
-## 6. Verify (dev server assumed running on :3000; never run `next build` while it is)
-
-```
-npx tsc --noEmit
-curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/projects/<slug>
-curl -s http://localhost:3000/projects | grep -c <slug>
-curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/projects/<slug>/opengraph-image
-```
-
-The last one is the banner: generated by
-`src/app/projects/[slug]/opengraph-image.tsx` (browser-window design,
-badge shows award title if present, else event). Download it and view it
-to confirm the text fits — long award titles can crowd the card.
-
-## 7. Commit
-
-Feature branch. One brief sentence, no em dashes, no AI co-author line.
-Push and let Oriol open the PR and merge unless he says otherwise.
+A file in no group, a file not named after its slug, a missing image, an
+unused file in the project's image folder, an image with no alt, a win outside `featured` and `hackathons`, a win marked
+`personal`, a /hackathons card with no prize, an event not written
+`Name · Place Year`, Event or Result typed into facts, a featured count other
+than six, an odd photo grid, and diagram mistakes (a line to a missing box, a
+backwards line, a loose box, two boxes in one cell, an undeclared tone). Read
+the message and fix the data; never loosen a check to get past it.

@@ -1,29 +1,15 @@
 #!/usr/bin/env node
 
 const CANONICAL_ORIGIN = 'https://www.omorros.com'
-const EXPECTED_PATHS = [
-  '/',
-  '/projects',
-  '/work',
-  '/open-source',
-  '/journal',
-  '/projects/offbabel',
-  '/projects/supconnect',
-  '/projects/truevoice',
-  '/projects/lantern',
-  '/projects/echo',
-  '/projects/wildscan',
-  '/projects/gaslit',
-  '/projects/atlas',
-  '/projects/snapshelf',
-  '/projects/bk-shoot',
-  '/projects/deep-learning-cnn-comparison',
-  '/projects/wikipedia-scraper',
-  '/projects/university-library-system',
-  '/journal/eat-hack',
-  '/journal/social-media',
-  '/journal/basketball',
-]
+// The top-level pages. Every other public page is found by following links
+// from these (see discoverPaths), so adding or removing a project or journal
+// entry needs no change here.
+const STATIC_PATHS = ['/', '/projects', '/work', '/open-source', '/journal', '/hackathons']
+const HIDDEN_PATHS = ['/journal/travel']
+// Pages that list items for search engines, and the links that count as items.
+const COLLECTIONS = { '/projects': /^\/projects\//, '/hackathons': /^\/projects\//, '/journal': /^\/journal\// }
+let EXPECTED_PATHS = []
+const collectionCounts = {}
 
 const CRAWLERS = {
   Googlebot:
@@ -305,8 +291,8 @@ function auditJsonLd(path, documents) {
     return
   }
 
-  if (path === '/projects' || path === '/journal') {
-    const expectedCount = path === '/projects' ? 13 : 3
+  if (Object.hasOwn(collectionCounts, path)) {
+    const expectedCount = collectionCounts[path]
     const lists = nodesOfType(nodes, 'ItemList')
     expect(nodesOfType(nodes, 'CollectionPage').length === 1, `${label}: missing CollectionPage`)
     expect(lists.length === 1, `${label}: expected exactly one ItemList`)
@@ -634,7 +620,7 @@ async function auditNotFoundRoutes() {
 }
 
 async function auditHiddenRoutes() {
-  const path = '/journal/travel'
+  const [path] = HIDDEN_PATHS
   const response = await get(auditUrl(path), `${path} hidden page`, {
     accept: 'text/html,*/*;q=0.8',
   })
@@ -662,10 +648,41 @@ async function auditHiddenRoutes() {
   )
 }
 
+// Internal links to project and journal pages in a piece of HTML.
+function itemLinks(html) {
+  return [...new Set([...html.matchAll(/href="(\/(?:projects|journal)\/[a-z0-9-]+)"/g)].map((m) => m[1]))]
+    .filter((path) => !HIDDEN_PATHS.includes(path))
+}
+
+// Every public page reachable from the top-level pages, plus how many items
+// each listing page shows, so the audit checks what the site actually renders.
+async function discoverPaths() {
+  const seen = new Set(STATIC_PATHS)
+  const queue = [...STATIC_PATHS]
+  while (queue.length) {
+    const path = queue.shift()
+    const response = await get(auditUrl(path), `${path} (crawl)`, { accept: 'text/html,*/*;q=0.8' })
+    if (!response) continue
+    const html = await response.text()
+    for (const link of itemLinks(html)) {
+      if (!seen.has(link)) {
+        seen.add(link)
+        queue.push(link)
+      }
+    }
+    if (Object.hasOwn(COLLECTIONS, path)) {
+      const main = html.split(/<main\b/)[1]?.split('</main>')[0] ?? ''
+      collectionCounts[path] = itemLinks(main).filter((link) => COLLECTIONS[path].test(link)).length
+    }
+  }
+  return [...seen]
+}
+
 async function main() {
   console.log(`Metadata audit target: ${auditBase}`)
   console.log(`Canonical origin: ${CANONICAL_ORIGIN}`)
 
+  EXPECTED_PATHS = await discoverPaths()
   await auditSitemap()
   const pages = await mapLimit(EXPECTED_PATHS, 4, auditPage)
   auditUniqueMetadata(pages)

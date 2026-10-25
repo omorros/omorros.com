@@ -7,6 +7,9 @@ import { siteConfig } from '@/lib/constants'
 import { getSiteJsonLd } from '@/lib/structured-data'
 import { JsonLd } from '@/components/site/JsonLd'
 import { Nav } from '@/components/site/Nav'
+import { NavigationTracker } from '@/components/site/BackLink'
+import { NightMode } from '@/components/site/NightMode'
+import { nightScript } from '@/lib/night'
 import { Footer } from '@/components/site/Footer'
 
 const inter = Inter({
@@ -35,13 +38,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en-GB" className={inter.variable}>
+    <html lang="en-GB" className={inter.variable} suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: nightScript }} />
         <link rel="describedby" href={`${siteConfig.url}/llms.txt`} />
       </head>
-      <body className="font-sans text-base antialiased text-gray-800 bg-white">
+      <body className="font-sans text-base antialiased text-gray-800">
         <JsonLd data={siteJsonLd} />
+        <NightMode />
         <Nav />
+        <NavigationTracker />
         {children}
         <Footer />
         <Analytics />

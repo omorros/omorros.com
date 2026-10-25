@@ -1,4 +1,17 @@
-# Oriol Morros Vilaseca
+import { HACKATHON_COUNT, HACKATHON_WINS } from '@/data/hackathons'
+import { eventName, hackathonProjects, prizes } from '@/data/projects'
+
+// The site summary for AI assistants, served at /llms.txt by
+// src/app/llms.txt/route.ts. Edit the prose here; the hackathon record and
+// counts come from the project data, so they never fall behind.
+
+function hackathonRecord() {
+  const wins = hackathonProjects.map((p) => `${p.title}, ${prizes(p).join(' and ')} at ${eventName(p)}`)
+  return `- Hackathon record (London, 2026), ${HACKATHON_WINS} prizes at ${HACKATHON_COUNT} hackathons: ${wins.join('; ')}.`
+}
+
+export function llmsTxt() {
+  return `# Oriol Morros Vilaseca
 
 > Personal website of Oriol Morros, an AI engineer in London building retail intelligence tools at Really Good Culture. BSc Software Engineering with First-Class Honours from ARU Cambridge. Grew up in Manresa, near Barcelona, moved to England in 2023.
 
@@ -7,8 +20,8 @@ Key facts:
 - Full name: Oriol Morros Vilaseca. Goes by Oriol Morros.
 - AI Engineer at Really Good Culture in London (Jul 2026–present).
 - BSc (Hons) Software Engineering, First-Class Honours, Anglia Ruskin University Cambridge (2023–2026), completed while playing as a basketball scholarship athlete.
-- Previously: Software Engineer at Eli by Techbible (May–Aug 2026), building infrastructure for AI agents to manage SaaS and payments; Digital Technician at the University of Cambridge (Apr 2025–Jun 2026); rebuilt the Festival Sant Fruitós website on Next.js (Feb–Apr 2026); 18 merged pull requests in IBM MCP Context Forge, IBM's open source gateway for the Model Context Protocol (Feb–Apr 2026).
-- Hackathon record (London, 2026): Lantern, overall winner and Best Use of fal at the {Tech: Europe} x VEED hackathon; Echo, track winner at the Superlinked x Alibaba Cloud Qwen hackathon; TrueVoice, overall winner at Voice AI Hack; WILDSCAN, overall winner at the Unicorn Mafia × Techbible hack night; OffBabel, Cosine and ExoLabs track winner at the On-Device Agent Hackathon.
+- Previously: Software Engineer at Eli by Techbible (May–Sep 2026), building infrastructure for AI agents to manage SaaS and payments; Digital Technician at the University of Cambridge (Apr 2025–Jun 2026); rebuilt the Festival Sant Fruitós website on Next.js (Feb–Apr 2026); 18 merged pull requests in IBM MCP Context Forge, IBM's open source gateway for the Model Context Protocol (Feb–Apr 2026).
+${hackathonRecord()}
 - Hosting: co-hosted EAT HACK, the world's first AI and eating hackathon, with Gianni Austin at Really Good Culture in London on 3 October 2026, with 50 builders selected from over 200 applications and 18 FMCG brand partners.
 - Before software (2020–2023): grew the Spanish-language TikTok account @uriisss_ to 1.5 million followers and almost 40 million likes, with 86 million video views in the best month, then built e-commerce businesses with influencers in Spain.
 - Basketball: seven years in the youth academy of Bàsquet Manresa (ACB club, now BAXI Manresa), competed in Catalan and Spanish national championships and the Minicopa Endesa; scholarship athlete at university in England.
@@ -18,7 +31,8 @@ Key facts:
 
 - [Home](https://www.omorros.com/): introduction, work summary, and life story
 - [Projects](https://www.omorros.com/projects): personal projects like SnapShelf and BK-Shoot, plus hackathon builds and wins, each with a case study page
-- [Work](https://www.omorros.com/work): Really Good Culture, AI agent infrastructure at Eli by Techbible, University of Cambridge, IBM MCP Context Forge, BSc at ARU Cambridge
+- [Hackathons](https://www.omorros.com/hackathons): ${HACKATHON_WINS} wins at ${HACKATHON_COUNT} hackathons in London in 2026, each with a case study page
+- [Work](https://www.omorros.com/work): Really Good Culture, AI agent infrastructure at Eli by Techbible, University of Cambridge, Festival Sant Fruitós, IBM MCP Context Forge
 - [Open Source](https://www.omorros.com/open-source): 18 merged pull requests in IBM's MCP Context Forge
 - [Journal](https://www.omorros.com/journal): personal stories, like co-hosting EAT HACK, the world's first AI and eating hackathon, at Really Good Culture in October 2026, the TikTok account he grew to 1.5M followers in 2020–2023, and playing basketball in Bàsquet Manresa's academy
 - [EAT HACK](https://www.omorros.com/journal/eat-hack): the story of co-hosting the world's first AI and eating hackathon with Gianni Austin, with the recap video and photos
@@ -29,3 +43,5 @@ Key facts:
 - [GitHub](https://github.com/omorros): github.com/omorros
 - [LinkedIn](https://linkedin.com/in/oriolmorros): linkedin.com/in/oriolmorros
 - [TikTok](https://www.tiktok.com/@uriisss_): tiktok.com/@uriisss_
+`
+}

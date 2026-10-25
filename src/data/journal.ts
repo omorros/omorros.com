@@ -47,7 +47,8 @@ export interface JournalEntry {
   shareImage?: string
   shareImageAlt?: string
   // Optional Tailwind object-position class for the card crop.
-  cardImagePos?: string
+  // Where the card crop centres, as a CSS object-position ('40% center').
+  cardFocus?: string
   // Story paragraphs, rendered in order.
   body: string[]
   // Optional paragraphs rendered after the photo grid, for stories that
@@ -92,7 +93,7 @@ export const journal: JournalEntry[] = [
       'We even had to change the format after we had announced it. The original plan gave builders points for trying products and filming reviews, but after feedback and some reflection we realised it was not worth it, so we pivoted. The day ended up with two tracks: Human Truth, on why people choose what they choose, and Retail Futures, on what retail should do next.',
       'And then there was The Shelf. 18 FMCG brands partnered with us: not the big household names, but innovative, unique challenger brands. Together they brought over 1,000 units of product, so everyone could eat and drink all day.',
       'The best part was the synergy with Gianni. He owned the brand partnerships, the proposals, the budget, and procurement. I owned the challenge and the tracks, the sign-ups on Luma, choosing the 50 builders, and every message before, during, and after the event. We came up with the big ideas together and covered for each other wherever it was needed, and that is what made it work.',
-      'None of this was just the two of us. Thank you to Sophie Yau and our co-founders, David and Adam, for backing us and the pivot, and to Adam for an amazing presentation. Thank you to Phil, Joana, Ege, Cristian, Mateo, and Sahil for judging, handing out lunch and stickers, and looking after everyone all day. And a huge thank you to [Layla Syed Wilkinson](https://www.linkedin.com/in/laylasyed/), our photographer and videographer, for the incredible photos and video.',
+      'None of this was just the two of us. Thank you to Sophie Yau and our co-founders, David and Adam, for backing us and the pivot, and to Adam for an amazing presentation. Thank you to Phil, Joana, Ege, Cristian, Mateo, and Sahil for judging, handing out lunch and stickers, and looking after everyone all day. And a huge thank you to [Layla Syed Wilkinson](https://laylasyed.com/), our photographer and videographer, for the incredible photos and video.',
     ],
     // Everyone first, then The Shelf, the day itself, and the team.
     photos: [
@@ -187,7 +188,7 @@ export const journal: JournalEntry[] = [
     lastModified: '2026-08-16',
     tagline: "Seven years in Bàsquet Manresa's academy, then a scholarship in England.",
     cardImage: '/images/journal/basketball/aru-dunk-bench.jpg',
-    cardImagePos: 'object-[40%_center]',
+    cardFocus: '40% center',
     body: [
       'I started playing basketball at school in Manresa when I was a kid, and never really stopped. I ended up joining the youth academy of [Bàsquet Manresa](https://www.basquetmanresa.com), my hometown ACB club, now BAXI Manresa, where I spent seven years.',
       'With the club I competed in the Catalan and Spanish national championships, the Minicopa Endesa, and international tournaments, facing the academies of clubs like Real Madrid, Barça, Bayern Munich, Valencia, and Joventut. I was also selected for the Catalan regional pre-selection squad.',

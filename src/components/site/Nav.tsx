@@ -14,7 +14,8 @@ export function Nav() {
         <div className="flex justify-between pb-4 md:pb-0 md:border-b md:border-gray-200 md:justify-start">
           <Link
             href="/"
-            className="text-base font-semibold tracking-tight md:text-lg lg:text-xl"
+            data-night-trigger
+            className="text-base font-semibold tracking-tight select-none md:text-lg lg:text-xl"
           >
             <span className="font-bold">~/</span>omorros
           </Link>

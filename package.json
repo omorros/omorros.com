@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "audit:metadata": "node scripts/audit-metadata.mjs"
+    "audit:metadata": "node scripts/audit-metadata.mjs",
+    "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test 'tests/unit/*.test.ts'",
+    "test:browser": "playwright test"
   },
   "dependencies": {
     "@vercel/analytics": "^1.6.1",
@@ -21,6 +23,7 @@
     "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
+    "@playwright/test": "1.64.0",
     "@types/node": "^20.0.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
@@ -29,6 +32,7 @@
     "eslint": "^8.0.0",
     "eslint-config-next": "^14.2.0",
     "postcss": "^8.4.0",
+    "sharp": "0.33.5",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.0.0"
   }
