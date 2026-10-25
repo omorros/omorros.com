@@ -5,10 +5,10 @@ format, so it can become a `write-case-study` skill and be replicated across
 every project. Newest entries at the bottom of the log. Add to it every time
 Oriol gives feedback on a project page.
 
-Pilot: TrueVoice (`src/data/projects.ts`, `caseStudy.story`), rendered by
-`src/app/projects/[slug]/page.tsx` and `src/components/site/FlowDiagram.tsx`.
-Projects without a `story` still use the old layout (problem, what I built,
-what it does) until they are migrated.
+Pilot: TrueVoice (`src/data/projects/truevoice.ts`, `caseStudy.story`),
+rendered by `src/components/case-study/StoryBody.tsx` and
+`src/components/site/flow-diagram/`. Projects without a `story` still use the
+old layout (problem, what I built, what it does) until they are migrated.
 
 ## The format, as it stands
 
@@ -17,8 +17,9 @@ Order on the page:
 1. Meta line, title, then the **insight** as a big line under the title.
    One sentence that carries the whole idea ("Patients minimise. Voices
    don't."). Then the one-line description and the award.
-2. **At a glance** strip: event, result, built in, stack, and **Team** with
-   each teammate's name linked (LinkedIn or their own site).
+2. **At a glance** strip: event and result (derived from the project's
+   `event` and award prizes), then the story's own facts (built in, stack),
+   and **Team** with each teammate's name linked (LinkedIn or their own site).
 3. Hero image: a real photo, ideally the team with the prize.
 4. **Why it matters**: the human or scientific context, plainly.
 5. **How it works**: the animated flow diagram (see below).
@@ -94,15 +95,16 @@ the site's own style: light, greys, rounded boxes, site fonts, night mode.
   that are not in it was removed from SnapShelf).
 - Resize to 1600px wide (cover) or 1400px (squares), strip metadata.
 
-## Checks used on the pilot
+## Checks
 
-Playwright scripts (kept outside the repo during the pilot) checked: the
-insight, at a glance facts, section names, no old sections, no commit counts,
-team voice, teammates linked at the top, the legend, the diagram (box count,
-no overlaps, fits its frame, lines drawn, scene lights every step, packets
-move, pauses off screen, reduced motion still), no sideways scroll on
-desktop and phone, and that unmigrated projects keep the old layout. The
-skill should bring these checks into the repo.
+The pilot's Playwright scripts now live in the repo (`tests/browser/`) and
+read the project data, so every project in the story format gets them:
+insight, facts at a glance, teammates linked, section names in the right
+voice, no "My part", no commit counts, and the diagram (box and line counts,
+no overlaps, fits its frame on laptop and phone, the scene lights every box,
+packets move, pauses off screen, still under reduced motion). Every page in
+the sitemap is also checked for broken images, missing alt text, console
+errors and sideways scroll.
 
 ## Log
 
@@ -125,3 +127,8 @@ skill should bring these checks into the repo.
 - 2026-10-25: Remove "What it isn't": no login and prototype status are
   obvious for a hackathon project. Section made optional and dropped from
   TrueVoice.
+- 2026-10-25: Code restructured: one file per project, groups in index.ts,
+  validation that fails the build, browser checks in the repo. The event and
+  result facts are now derived, after TrueVoice's result had drifted into
+  three wordings. Basket's prize reads "Best Use of Tavily, 1st place".
+  Solo projects say "I", team projects "we".
