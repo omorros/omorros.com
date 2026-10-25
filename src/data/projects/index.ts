@@ -20,7 +20,7 @@ import deepLearningCnnComparison from './deep-learning-cnn-comparison'
 import wikipediaScraper from './wikipedia-scraper'
 import universityLibrarySystem from './university-library-system'
 
-export type { CaseStudy, ClassicBody, Project, Story } from './schema'
+export type { CaseStudy, ClassicBody, Img, Project, Story } from './schema'
 export { allAwardsBadge, badge, cardImage, eventName, heroImage, listItem, PLACEHOLDER_IMAGE } from './derive'
 
 // The table of contents. The order inside a group is the order on the page.
@@ -48,25 +48,15 @@ export const hackathonProjects = [...groups.featured, ...groups.hackathons].filt
   (p) => p.category === 'hackathon',
 )
 
-// Temporary: today's previous and next order on case study pages, kept until
-// that order switches to the groups above.
-export const projects: Project[] = [
-  hamywayCity,
-  lantern,
-  echo,
-  basket,
-  offbabel,
-  supconnect,
-  truevoice,
-  wildscan,
-  gaslit,
-  atlas,
-  snapshelf,
-  bkShoot,
-  deepLearningCnnComparison,
-  wikipediaScraper,
-  universityLibrarySystem,
-]
+// Where Back goes when the visitor did not arrive from the site: the page
+// that lists the project, and /projects for unlisted ones.
+export function backHref(p: Project) {
+  return hackathonProjects.some((h) => h.slug === p.slug) ? '/hackathons' : '/projects'
+}
+
+// Every project in group order, which is also the order of the previous and
+// next links on case study pages and of the sitemap.
+export const projects: Project[] = Object.values(groups).flat()
 
 export function getProjectBySlug(slug: string) {
   return projects.find((p) => p.slug === slug)
@@ -81,4 +71,4 @@ export function pagerFor(slug: string) {
   }
 }
 
-validateProjects(groups, groups.featured, hackathonProjects, projects)
+validateProjects(groups, groups.featured, hackathonProjects)

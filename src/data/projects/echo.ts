@@ -19,14 +19,14 @@ export default defineProject({
       { title: 'Searches Every Meeting', description: 'Ask what was decided about something and it looks back through everything you have recorded, not only the last call.' },
       { title: 'Two Clouds, One Job', description: 'Each step goes to whichever provider does it best, Superlinked or Alibaba Cloud Qwen, and either one takes over when the other fails.' }
     ],
-    thumbnail: '/images/echo/device.jpg',
-    cardImage: '/images/echo/winners.jpg',
+    thumbnail: { src: '/images/echo/device.jpg', alt: 'The Echo recorder, an ESP32-S3 board with a dial and a small screen, beside a laptop' },
+    cardImage: { src: '/images/echo/winners.jpg', alt: 'The winners with their prizes in front of the Qwen and Alibaba Cloud banners' },
     youtubeId: 'Gh3SKQ_0ZHw',
     youtubePoster: '/images/echo/demo-poster.jpg',
     photos: [
-      { src: '/images/echo/winners.jpg' },
-      { src: '/images/echo/alibaba-office.jpg' },
-      { src: '/images/echo/visitor-pass.jpg' },
+      { src: '/images/echo/winners.jpg', alt: 'The winners with their prizes in front of the Qwen and Alibaba Cloud banners' },
+      { src: '/images/echo/alibaba-office.jpg', alt: 'The entrance to the Alibaba office in London, where the hackathon ran' },
+      { src: '/images/echo/visitor-pass.jpg', alt: 'A visitor pass for the Alibaba office dated 14 August 2026' },
     ],
     awards: [
       {

@@ -1,4 +1,4 @@
-import type { Project } from './schema'
+import type { Img, Project } from './schema'
 
 // What a project shows in each place, decided once. Pages and cards ask these
 // instead of reading caseStudy fields themselves.
@@ -6,17 +6,16 @@ import type { Project } from './schema'
 export const PLACEHOLDER_IMAGE = '/images/card-placeholder.svg'
 
 // The image that stands for the project: case study hero, share data.
-export function heroImage(p: Project) {
-  return p.caseStudy?.thumbnail ?? p.caseStudy?.cardImage ?? p.caseStudy?.screenshots?.[0]
+export function heroImage(p: Project): Img | undefined {
+  return p.caseStudy.thumbnail ?? p.caseStudy.cardImage ?? p.caseStudy.screenshots?.[0]
 }
 
 // The image on its card, which prefers the card photo over the hero.
-export function cardImage(p: Project) {
+export function cardImage(p: Project): Img {
   return (
-    p.caseStudy?.cardImage ||
-    p.caseStudy?.thumbnail ||
-    p.caseStudy?.screenshots?.[0] ||
-    PLACEHOLDER_IMAGE
+    p.caseStudy.cardImage ??
+    p.caseStudy.thumbnail ??
+    p.caseStudy.screenshots?.[0] ?? { src: PLACEHOLDER_IMAGE, alt: p.title }
   )
 }
 
@@ -43,6 +42,6 @@ export function listItem(p: Project) {
     name: p.title,
     description: p.description,
     path: `/projects/${p.slug}`,
-    image: heroImage(p),
+    image: heroImage(p)?.src,
   }
 }

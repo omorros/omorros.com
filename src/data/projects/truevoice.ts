@@ -12,17 +12,17 @@ export default defineProject({
   event: 'Voice AI Hack · London 2026',
   year: '2026',
   caseStudy: {
-    thumbnail: '/images/truevoice/team-check.jpg',
-    cardImage: '/images/truevoice/team-check.jpg',
+    thumbnail: { src: '/images/truevoice/team-check.jpg', alt: "The TrueVoice team holding the £1,500 Voice AI Hack winner's cheque" },
+    cardImage: { src: '/images/truevoice/team-check.jpg', alt: "The TrueVoice team holding the £1,500 Voice AI Hack winner's cheque" },
     screenshots: [
-      'https://raw.githubusercontent.com/omorros/TrueVoice/main/docs/images/landing.png',
-      'https://raw.githubusercontent.com/omorros/TrueVoice/main/docs/images/dashboard.png',
-      'https://raw.githubusercontent.com/omorros/TrueVoice/main/docs/images/telehealth.png',
-      'https://raw.githubusercontent.com/omorros/TrueVoice/main/docs/images/report.png'
+      { src: '/images/truevoice/landing.jpg', alt: "TrueVoice landing page with the line Patients minimize. Voices don't." },
+      { src: '/images/truevoice/dashboard.jpg', alt: 'Live consultation dashboard with the transcript, the voice signals and the flagged gaps' },
+      { src: '/images/truevoice/telehealth.jpg', alt: "Telehealth view with the patient's live video beside the transcript and voice signals" },
+      { src: '/images/truevoice/report.jpg', alt: "End of consultation report listing two gaps between the patient's words and their fatigue scores" },
     ],
     photos: [
-      { src: '/images/truevoice/presenting.jpg' },
-      { src: '/images/truevoice/credits.jpg' },
+      { src: '/images/truevoice/presenting.jpg', alt: 'The TrueVoice team presenting to the room at Voice AI Hack' },
+      { src: '/images/truevoice/credits.jpg', alt: "The winner's cheque on the floor next to a card for prize credits" },
     ],
     story: {
       insight: "Patients minimise. Voices don't.",

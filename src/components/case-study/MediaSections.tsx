@@ -9,7 +9,7 @@ import { VideoClip } from './VideoClip'
 export function MediaSections({ project }: { project: Project }) {
   const cs = project.caseStudy
   const hero = cs.thumbnail
-  const galleryScreens = cs.screenshots?.filter((s) => s !== hero) ?? []
+  const galleryScreens = cs.screenshots?.filter((s) => s.src !== hero?.src) ?? []
   // Three photos go in a row of three; anything else pairs up.
   const photoCols = cs.photos?.length === 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'
   const photoSizes =
@@ -41,7 +41,7 @@ export function MediaSections({ project }: { project: Project }) {
               <ZoomImage
                 key={photo.src}
                 src={photo.src}
-                alt={project.title}
+                alt={photo.alt}
                 sizes={photoSizes}
                 className="w-full h-auto block rounded-lg border border-border-soft"
               />
@@ -54,14 +54,14 @@ export function MediaSections({ project }: { project: Project }) {
         <section className="mt-14">
           <SectionHeading>Gallery</SectionHeading>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {galleryScreens.map((src) => (
+            {galleryScreens.map((screen) => (
               <div
-                key={src}
+                key={screen.src}
                 className="rounded-lg overflow-hidden border border-border-soft bg-background-soft"
               >
                 <ZoomImage
-                  src={src}
-                  alt={`${project.title} screenshot`}
+                  src={screen.src}
+                  alt={screen.alt}
                   sizes="(min-width: 672px) 304px, (min-width: 640px) calc(50vw - 32px), calc(100vw - 48px)"
                   className="w-full h-auto block"
                 />

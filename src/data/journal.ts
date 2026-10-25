@@ -47,7 +47,8 @@ export interface JournalEntry {
   shareImage?: string
   shareImageAlt?: string
   // Optional Tailwind object-position class for the card crop.
-  cardImagePos?: string
+  // Where the card crop centres, as a CSS object-position ('40% center').
+  cardFocus?: string
   // Story paragraphs, rendered in order.
   body: string[]
   // Optional paragraphs rendered after the photo grid, for stories that
@@ -187,7 +188,7 @@ export const journal: JournalEntry[] = [
     lastModified: '2026-08-16',
     tagline: "Seven years in Bàsquet Manresa's academy, then a scholarship in England.",
     cardImage: '/images/journal/basketball/aru-dunk-bench.jpg',
-    cardImagePos: 'object-[40%_center]',
+    cardFocus: '40% center',
     body: [
       'I started playing basketball at school in Manresa when I was a kid, and never really stopped. I ended up joining the youth academy of [Bàsquet Manresa](https://www.basquetmanresa.com), my hometown ACB club, now BAXI Manresa, where I spent seven years.',
       'With the club I competed in the Catalan and Spanish national championships, the Minicopa Endesa, and international tournaments, facing the academies of clubs like Real Madrid, Barça, Bayern Munich, Valencia, and Joventut. I was also selected for the Catalan regional pre-selection squad.',

@@ -91,6 +91,10 @@ export function projectProblems(
       if (!/^\d{4}-\d{2}-\d{2}$/.test(p.lastModified) || Number.isNaN(Date.parse(p.lastModified))) {
         problems.push(`"${p.slug}": lastModified "${p.lastModified}" is not a YYYY-MM-DD date`)
       }
+      const cs = p.caseStudy
+      for (const image of [cs.thumbnail, cs.cardImage, ...(cs.screenshots ?? []), ...(cs.photos ?? [])]) {
+        if (image && !image.alt.trim()) problems.push(`"${p.slug}": ${image.src} has no description (alt)`)
+      }
       const photos = p.caseStudy?.photos?.length ?? 0
       if (photos !== 0 && (photos < 2 || photos > 4)) {
         problems.push(`"${p.slug}": ${photos} photos; use two, three or four so the grid stays even`)

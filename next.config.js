@@ -3,12 +3,8 @@ const nextConfig = {
   images: {
     // AVIF first, WebP fallback: same visual quality at a fraction of the JPEG size.
     formats: ['image/avif', 'image/webp'],
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'raw.githubusercontent.com',
-      },
-    ],
+    // No remote hosts: every image lives in public/, so a renamed file or a
+    // private repo elsewhere can never break the site.
   },
   headers: async () => [
     {

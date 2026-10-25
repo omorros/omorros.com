@@ -23,30 +23,32 @@ export function CardImage({
   // Lists every award instead of the first, for builds with two prizes.
   allAwards?: boolean
 }) {
-  const src = cardImage(p)
+  const image = cardImage(p)
   const subtitle = allAwards ? allAwardsBadge(p) : badge(p)
   return (
     <Link href={`/projects/${p.slug}`} className="group block">
       {p.caseStudy?.cardVideo ? (
         <video
           src={p.caseStudy.cardVideo}
-          poster={p.caseStudy?.cardImage}
+          poster={p.caseStudy.cardImage?.src}
           autoPlay
           muted
           loop
           playsInline
-          className={`rounded-lg shadow-lg w-full aspect-[16/10] object-cover group-hover:shadow-xl transition-shadow ${p.caseStudy?.cardImagePos ?? ''}`}
+          className="rounded-lg shadow-lg w-full aspect-[16/10] object-cover group-hover:shadow-xl transition-shadow"
+          style={{ objectPosition: p.caseStudy.cardFocus }}
         />
       ) : (
         <div className="relative overflow-hidden rounded-lg shadow-lg aspect-[16/10] group-hover:shadow-xl transition-shadow">
           <Image
-            src={src}
-            alt={p.title}
+            src={image.src}
+            alt={image.alt}
             fill
             quality={90}
             sizes="(min-width: 1024px) 368px, (min-width: 768px) 248px, calc(100vw - 48px)"
-            unoptimized={src.endsWith('.svg')}
-            className={`object-cover ${p.caseStudy?.cardImagePos ?? ''}`}
+            unoptimized={image.src.endsWith('.svg')}
+            className="object-cover"
+            style={{ objectPosition: p.caseStudy.cardFocus }}
           />
         </div>
       )}

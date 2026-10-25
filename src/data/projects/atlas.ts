@@ -19,12 +19,12 @@ export default defineProject({
       { title: 'Agents That Investigate', description: 'The hardest cases spawn a background agent that digs through public records and web sources, then drops a memo for the reviewer.' },
       { title: 'Never Moves the Money', description: 'Atlas only recommends. Every decision ends with a person in finance, not the machine.' },
     ],
-    thumbnail: 'https://raw.githubusercontent.com/omorros/Atlas/main/docs/screenshots/landing.png',
+    thumbnail: { src: '/images/atlas/landing.jpg', alt: 'Atlas landing page: a new cartography of counterparty risk' },
     screenshots: [
-      'https://raw.githubusercontent.com/omorros/Atlas/main/docs/screenshots/warroom.png',
-      'https://raw.githubusercontent.com/omorros/Atlas/main/docs/screenshots/brief.png',
-      'https://raw.githubusercontent.com/omorros/Atlas/main/docs/screenshots/investigation.png',
-      'https://raw.githubusercontent.com/omorros/Atlas/main/docs/screenshots/memo.png'
+      { src: '/images/atlas/warroom.jpg', alt: 'The control room globe with counterparty risk signals in the side panel' },
+      { src: '/images/atlas/brief.jpg', alt: 'An analyst brief on a flagged counterparty, beside the globe' },
+      { src: '/images/atlas/investigation.jpg', alt: "A deep investigation running on a counterparty, with the agent's steps and its assessment" },
+      { src: '/images/atlas/memo.jpg', alt: 'The investigation memo the agent writes, with key signals, analysis and recommendations' },
     ]
   }
 })

@@ -19,14 +19,14 @@ export default defineProject({
       { title: 'Every Claim Has a Source', description: 'Complaints are classified with traceable rules and every published alert links back to the original mentions.' },
       { title: 'Survives Demo Day', description: 'Local fallbacks kick in if any external service goes down, so the pipeline keeps running.' },
     ],
-    thumbnail: 'https://raw.githubusercontent.com/omorros/Basket/main/docs/hero.png',
-    cardImage: '/images/basket/demo.jpg',
+    thumbnail: { src: '/images/basket/hero.jpg', alt: 'Basket home page: catch a reformulation backlash in week two, not the quarterly review' },
+    cardImage: { src: '/images/basket/demo.jpg', alt: 'Presenting Basket to a full room at the Tokens LDN Multi-Agent Hackathon' },
     screenshots: [
-      'https://raw.githubusercontent.com/omorros/Basket/main/docs/pipeline.png',
+      { src: '/images/basket/pipeline.jpg', alt: 'The agent running its five steps on a product, from finding the recipe change to publishing the alert' },
     ],
     photos: [
-      { src: '/images/basket/demo.jpg' },
-      { src: '/images/basket/chatting.jpg' },
+      { src: '/images/basket/demo.jpg', alt: 'Presenting Basket to a full room at the Tokens LDN Multi-Agent Hackathon' },
+      { src: '/images/basket/chatting.jpg', alt: 'Two hackathon participants talking in the corridor' },
     ],
     awards: [
       {

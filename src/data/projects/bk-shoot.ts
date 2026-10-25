@@ -19,16 +19,16 @@ export default defineProject({
       { title: 'Tested on a Real Court', description: '20 players and around 2,000 shots, at about 95 percent detection accuracy.' }
     ],
     videoUrl: '/images/bk-shoot/testing.mp4',
-    cardImage: '/images/bk-shoot/mounted-board.jpg',
-    cardImagePos: 'object-[center_35%]',
+    cardImage: { src: '/images/bk-shoot/mounted-board.jpg', alt: 'The BK-Shoot rig mounted on a board: an Arduino, its wiring and the sensors' },
+    cardFocus: 'center 35%',
     cardVideo: '/images/bk-shoot/card.mp4',
     photos: [
-      { src: '/images/bk-shoot/breadboard.jpg' },
-      { src: '/images/bk-shoot/mounted-board.jpg' },
+      { src: '/images/bk-shoot/breadboard.jpg', alt: 'An early breadboard prototype lit up with coloured LEDs' },
+      { src: '/images/bk-shoot/mounted-board.jpg', alt: 'The BK-Shoot rig mounted on a board: an Arduino, its wiring and the sensors' },
     ],
     screenshots: [
-      'https://raw.githubusercontent.com/omorros/bk-shoot/main/testing/01_setup_guide.png',
-      'https://raw.githubusercontent.com/omorros/bk-shoot/main/hardware/circuit_image.png',
+      { src: '/images/bk-shoot/01_setup_guide.jpg', alt: 'Setup guide showing where each part of the rig goes on the hoop and backboard' },
+      { src: '/images/bk-shoot/circuit_image.jpg', alt: 'Circuit diagram: an Arduino Uno with Bluetooth, proximity and vibration sensors, an RGB LED and a battery' },
     ],
     awards: [
       {

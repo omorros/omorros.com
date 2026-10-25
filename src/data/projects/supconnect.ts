@@ -19,15 +19,15 @@ export default defineProject({
       { title: 'The Model Talks, the Code Decides', description: 'Lead status, escalations, and next actions come from a deterministic state machine, never from the LLM.' },
       { title: 'Numbers You Can Trust', description: 'A guardrail rejects any number in the summary that did not come from the catalogue, and falls back to a plain template.' },
     ],
-    thumbnail: 'https://raw.githubusercontent.com/omorros/SupConnect/main/docs/img/idle.png',
-    cardImage: '/images/supconnect/building.jpg',
+    thumbnail: { src: '/images/supconnect/idle.jpg', alt: "SupConnect's call screen: get a quote while they're still asleep" },
+    cardImage: { src: '/images/supconnect/building.jpg', alt: 'Three teammates building SupConnect at a laptop' },
     screenshots: [
-      'https://raw.githubusercontent.com/omorros/SupConnect/main/docs/img/call.png',
-      'https://raw.githubusercontent.com/omorros/SupConnect/main/docs/img/summary.png',
+      { src: '/images/supconnect/call.jpg', alt: "A buyer's call in progress, transcribed as the voice agent answers" },
+      { src: '/images/supconnect/summary.jpg', alt: 'The lead the agent leaves for the morning: what the buyer wants, the budget and the next step' },
     ],
     photos: [
-      { src: '/images/supconnect/building.jpg' },
-      { src: '/images/supconnect/venue.jpg' },
+      { src: '/images/supconnect/building.jpg', alt: 'Three teammates building SupConnect at a laptop' },
+      { src: '/images/supconnect/venue.jpg', alt: 'The hackathon floor, full of teams at their laptops' },
     ],
   },
 })

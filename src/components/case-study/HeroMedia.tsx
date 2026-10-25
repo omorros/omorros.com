@@ -11,8 +11,8 @@ export function HeroMedia({ project }: { project: Project }) {
     return (
       <div className="mt-10 rounded-lg overflow-hidden border border-border-soft bg-background-soft">
         <Image
-          src={cs.thumbnail}
-          alt={project.title}
+          src={cs.thumbnail.src}
+          alt={cs.thumbnail.alt}
           width={0}
           height={0}
           priority

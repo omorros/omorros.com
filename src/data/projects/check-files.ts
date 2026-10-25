@@ -8,14 +8,14 @@ export function missingFiles(projects: Project[]): string[] {
   return projects.flatMap((p) => {
     const cs = p.caseStudy
     const files = [
-      cs?.thumbnail,
-      cs?.cardImage,
-      cs?.cardVideo,
-      cs?.videoUrl,
-      cs?.youtubePoster,
-      cs?.reportUrl,
-      ...(cs?.screenshots ?? []),
-      ...(cs?.photos ?? []).map((photo) => photo.src),
+      cs.thumbnail?.src,
+      cs.cardImage?.src,
+      cs.cardVideo,
+      cs.videoUrl,
+      cs.youtubePoster,
+      cs.reportUrl,
+      ...(cs.screenshots ?? []).map((s) => s.src),
+      ...(cs.photos ?? []).map((photo) => photo.src),
     ]
     return files
       .filter((f): f is string => typeof f === 'string' && f.startsWith('/'))

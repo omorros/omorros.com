@@ -19,13 +19,13 @@ export default defineProject({
       { title: 'A Route, Not Just a Plan', description: 'It says which door to go through and which rooms to cross to reach the victim, because crews given a route move faster than crews handed a floor plan.' },
       { title: 'Rooms You Can Walk First', description: 'The photos of the rooms that matter become 3D scenes with the hazards pinned, and a 30 second briefing video reaches the crew before the truck leaves.' }
     ],
-    thumbnail: '/images/lantern/presenting.jpg',
-    cardImage: '/images/lantern/team-veed.jpg',
+    thumbnail: { src: '/images/lantern/presenting.jpg', alt: "Presenting Lantern beside a screen showing a building's rooms" },
+    cardImage: { src: '/images/lantern/team-veed.jpg', alt: 'The Lantern team under the VEED neon sign at the {Tech: Europe} × VEED Hackathon' },
     photos: [
-      { src: '/images/lantern/team-veed.jpg' },
-      { src: '/images/lantern/team-building.jpg' },
-      { src: '/images/lantern/h-company.jpg' },
-      { src: '/images/lantern/working.jpg' },
+      { src: '/images/lantern/team-veed.jpg', alt: 'The Lantern team under the VEED neon sign at the {Tech: Europe} × VEED Hackathon' },
+      { src: '/images/lantern/team-building.jpg', alt: 'The team building Lantern around a table of laptops and drinks' },
+      { src: '/images/lantern/h-company.jpg', alt: 'Two people smiling with thumbs up at the hackathon' },
+      { src: '/images/lantern/working.jpg', alt: 'Working on Lantern on a laptop during the hackathon' },
     ],
     awards: [
       {

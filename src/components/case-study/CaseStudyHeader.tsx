@@ -1,15 +1,16 @@
 import { BackLink } from '@/components/site/BackLink'
-import type { Project } from '@/data/projects'
+import { backHref, type Project } from '@/data/projects'
 
 // Back link, meta line, title, the story's insight, awards, links, then the
 // story's at a glance strip or, for the older layout, the tags.
 export function CaseStudyHeader({ project }: { project: Project }) {
   const cs = project.caseStudy
   const story = cs.story
+  // The event already carries its place and year ('Voice AI Hack · London
+  // 2026'), so the year only shows on its own when there is no event.
   const metaLine = [
     project.category === 'hackathon' ? 'Hackathon' : 'Personal project',
-    project.year,
-    project.event,
+    project.event ?? project.year,
   ]
     .filter(Boolean)
     .join(' · ')
@@ -17,9 +18,7 @@ export function CaseStudyHeader({ project }: { project: Project }) {
   return (
     <header>
       <div className="mb-8">
-        <BackLink
-          fallback={project.category === 'hackathon' ? '/hackathons' : '/projects'}
-        />
+        <BackLink fallback={backHref(project)} />
       </div>
       <p className="text-sm text-foreground-faint">{metaLine}</p>
       <h1 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight text-foreground">

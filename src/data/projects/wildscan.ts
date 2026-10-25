@@ -19,11 +19,11 @@ export default defineProject({
       { title: 'Scores You Can Check', description: 'Every listing gets a 0-100 risk score from eight weighted signals, checked against 6,000 records of real seizures.' },
       { title: 'A Live Globe', description: 'Every detection lands on a Mapbox globe in real time, with an intelligence brief one click away.' }
     ],
-    thumbnail: 'https://raw.githubusercontent.com/omorros/WILDSCAN/main/docs/images/landing.png',
+    thumbnail: { src: '/images/wildscan/landing.jpg', alt: 'WILDSCAN landing page for its multi-agent wildlife trafficking detection network' },
     screenshots: [
-      'https://raw.githubusercontent.com/omorros/WILDSCAN/main/docs/images/command-center.png',
-      'https://raw.githubusercontent.com/omorros/WILDSCAN/main/docs/images/scan-results.png',
-      'https://raw.githubusercontent.com/omorros/WILDSCAN/main/docs/images/detection-detail.png'
+      { src: '/images/wildscan/command-center.jpg', alt: 'WILDSCAN command centre with a globe, ready to scan a region' },
+      { src: '/images/wildscan/scan-results.jpg', alt: 'Scan results over Southeast Asia with flagged listings pinned on the map' },
+      { src: '/images/wildscan/detection-detail.jpg', alt: 'A flagged ivory listing with its risk score of 81 and the signals behind it' },
     ],
     awards: [
       {

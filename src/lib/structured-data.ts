@@ -202,7 +202,7 @@ export function getProjectJsonLd(project: Project): JsonLdObject {
   const pageUrl = absoluteUrl(`/projects/${project.slug}`)
   const pageId = `${pageUrl}#webpage`
   const projectId = `${pageUrl}#software`
-  const image = absoluteAssetUrl(heroImage(project))
+  const image = absoluteAssetUrl(heroImage(project)?.src)
   const awards = project.caseStudy?.awards?.map((award) => award.title) ?? []
 
   return {

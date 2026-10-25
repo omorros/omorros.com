@@ -19,17 +19,17 @@ export default defineProject({
       { title: 'Calls in Your Language', description: 'A driver who cannot type can leave a voice note. When a call is the right move, the agent rings the person in the browser, answers in their language and checks any promise before it says it.' },
       { title: 'Hears the Order Numbers', description: 'I feed each case\'s own order numbers and names to the speech model, which cut word errors on those messages from 22 percent to 5.' }
     ],
-    thumbnail: '/images/hamyway-city/team.jpg',
-    cardImage: '/images/hamyway-city/team.jpg',
+    thumbnail: { src: '/images/hamyway-city/team.jpg', alt: "The Hamyway City team on stage holding their People's Choice certificates" },
+    cardImage: { src: '/images/hamyway-city/team.jpg', alt: "The Hamyway City team on stage holding their People's Choice certificates" },
     screenshots: [
-      '/images/hamyway-city/console-home.jpg',
-      '/images/hamyway-city/case-run-voice.jpg',
-      '/images/hamyway-city/decisions.jpg',
-      '/images/hamyway-city/city-aerial.jpg'
+      { src: '/images/hamyway-city/console-home.jpg', alt: 'The delivery desk console home with case counts and live activity' },
+      { src: '/images/hamyway-city/case-run-voice.jpg', alt: "A case run with the voice strip for a driver's voice note and calls" },
+      { src: '/images/hamyway-city/decisions.jpg', alt: 'The decisions inbox, with a case the agent handed to a person and the options to choose from' },
+      { src: '/images/hamyway-city/city-aerial.jpg', alt: 'The 3D city of delivery traffic beside the live cases panel' },
     ],
     photos: [
-      { src: '/images/hamyway-city/building.jpg' },
-      { src: '/images/hamyway-city/winners.jpg' },
+      { src: '/images/hamyway-city/building.jpg', alt: 'Two teammates chatting at a table of laptops during the hackathon' },
+      { src: '/images/hamyway-city/winners.jpg', alt: "All the hackathon's winners on stage with their certificates" },
     ],
     awards: [
       {

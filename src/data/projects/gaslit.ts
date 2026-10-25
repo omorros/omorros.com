@@ -19,12 +19,12 @@ export default defineProject({
       { title: 'Slow Poison Shows Up as Drift', description: 'It fingerprints the queries that touch each memory, so an attack spread across weeks still stands out statistically.' },
       { title: 'A Human Decides', description: 'The system never acts on its own. Every flag becomes a quarantine report for a person to review.' },
     ],
-    thumbnail: 'https://raw.githubusercontent.com/omorros/GASLIT/main/docs/screenshots/landing.png',
+    thumbnail: { src: '/images/gaslit/landing.jpg', alt: "GASLIT home page: police what they're allowed to believe" },
     screenshots: [
-      'https://raw.githubusercontent.com/omorros/GASLIT/main/docs/screenshots/agents.png',
-      'https://raw.githubusercontent.com/omorros/GASLIT/main/docs/screenshots/divergence.png',
-      'https://raw.githubusercontent.com/omorros/GASLIT/main/docs/screenshots/console.jpg',
-      'https://raw.githubusercontent.com/omorros/GASLIT/main/docs/mongodb-cluster-screenshot.png'
+      { src: '/images/gaslit/agents.jpg', alt: 'The five agents GASLIT runs, from the adversary to the forensic auditor' },
+      { src: '/images/gaslit/divergence.jpg', alt: 'Same database, same prompt, different outcome: the unprotected agent pays out, the protected one blocks it' },
+      { src: '/images/gaslit/console.jpg', alt: 'The operator console running the same attack against an agent without GASLIT and one with it' },
+      { src: '/images/gaslit/mongodb-cluster-screenshot.jpg', alt: 'The MongoDB Atlas cluster behind GASLIT' },
     ]
   }
 })

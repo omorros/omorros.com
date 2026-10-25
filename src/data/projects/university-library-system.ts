@@ -20,7 +20,7 @@ export default defineProject({
     ],
     reportUrl: '/reports/university-library-report.pdf',
     screenshots: [
-      '/images/university-library/ui.jpg'
+      { src: '/images/university-library/ui.jpg', alt: 'Class diagram of the library system: users, products, loans and borrowing policies' },
     ],
     awards: [
       {

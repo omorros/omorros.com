@@ -17,23 +17,34 @@ export interface Project {
   caseStudy: CaseStudy
 }
 
+// An image and its description, which screen readers say aloud and search
+// engines read. Describe what is in the picture, not the project.
+export interface Img {
+  src: string
+  alt: string
+}
+
 // What every case study can show around its body: media, awards, tables.
 export interface CaseStudyMedia {
-  screenshots?: string[]
-  photos?: { src: string; caption?: string }[]
+  // Product screens, shown in the gallery at the bottom.
+  screenshots?: Img[]
+  // Event photos: two, three or four, so the grid stays even.
+  photos?: Img[]
   videoUrl?: string
   // YouTube demo. Leads the page when there is no thumbnail,
   // otherwise it lands in its own Demo section.
   youtubeId?: string
   // Local poster frame, so nothing loads from YouTube until play.
   youtubePoster?: string
-  thumbnail?: string
+  // The hero at the top of the case study.
+  thumbnail?: Img
   // Personal photo shown on the projects cards.
   // Falls back to thumbnail when not set.
-  cardImage?: string
-  // Optional Tailwind object-position class to frame the card crop,
-  // e.g. 'object-[center_60%]'. Defaults to center.
-  cardImagePos?: string
+  cardImage?: Img
+  // Where the card crop centres, as a CSS object-position such as
+  // 'center 35%'. A plain value, not a Tailwind class: Tailwind does not scan
+  // data files, so classes kept here never reach the CSS. Defaults to center.
+  cardFocus?: string
   // Optional short muted clip that loops on the card instead of a
   // static image. cardImage doubles as its poster frame.
   cardVideo?: string

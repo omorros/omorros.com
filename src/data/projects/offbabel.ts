@@ -20,16 +20,16 @@ export default defineProject({
       { title: 'Remembers Mistakes', description: 'It saves the mistakes you make and brings them back later so you get more practice on the hard ones.' },
     ],
     screenshots: [
-      'https://raw.githubusercontent.com/omorros/OffBabel/main/docs/img/home.png',
-      'https://raw.githubusercontent.com/omorros/OffBabel/main/docs/img/speak.png',
-      'https://raw.githubusercontent.com/omorros/OffBabel/main/docs/img/progress.png',
-      'https://raw.githubusercontent.com/omorros/OffBabel/main/docs/img/summary.png',
+      { src: '/images/offbabel/home.jpg', alt: 'OffBabel home screen, One tool, two communities, with the Speak and Sign modes' },
+      { src: '/images/offbabel/speak.jpg', alt: 'Speaking practice in Spanish while the robot thinks of its reply' },
+      { src: '/images/offbabel/progress.jpg', alt: 'Progress page with a day streak, speaking and signing mastery, and a phrase to review' },
+      { src: '/images/offbabel/summary.jpg', alt: 'A practice summary with mastery scores and a phrase to keep practising' },
     ],
     videoUrl: '/images/offbabel/bsl-test.mp4',
-    cardImage: '/images/offbabel/robot.jpg',
+    cardImage: { src: '/images/offbabel/robot.jpg', alt: 'The Reachy Mini robot on a table of laptops in the hackathon room' },
     photos: [
-      { src: '/images/offbabel/robot.jpg' },
-      { src: '/images/offbabel/presenting.jpg' },
+      { src: '/images/offbabel/robot.jpg', alt: 'The Reachy Mini robot on a table of laptops in the hackathon room' },
+      { src: '/images/offbabel/presenting.jpg', alt: 'Presenting OffBabel on stage beside the Reachy Mini robot' },
     ],
     awards: [
       {
