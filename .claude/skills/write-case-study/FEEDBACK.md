@@ -164,3 +164,7 @@ errors and sideways scroll.
   now names Claude, which the README says scores safety instead of Jev.
   Name each outside service in every box where it really runs.
   Then: draw it too. Voice now has its own line into the Jev box.
+- 2026-10-26: SnapShelf: the page only mentioned the 120 kitchen photos.
+  The CNNs were trained on three public datasets merged into 120,842 images;
+  the 120 photos were the test set. Show every dataset a project used, with
+  its role (training or testing).
