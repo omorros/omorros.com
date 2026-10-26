@@ -23,9 +23,15 @@ async function checkPage(page: Page, path: string) {
   expect(response?.status(), 'status').toBe(200)
   await expect(page.locator('h1').first()).toBeVisible()
   await scrollThrough(page)
-  // Load lazy images too, including ones a phone layout keeps off screen.
-  await page.evaluate(() => document.querySelectorAll('img').forEach((i) => (i.loading = 'eager')))
-  await page.waitForFunction(() => Array.from(document.querySelectorAll('main img')).every((i) => (i as HTMLImageElement).complete))
+  // Bring each image a visitor can see into view, as they would, and wait for
+  // it. Lazy images only load near the screen.
+  const imgs = page.locator('main img')
+  for (let i = 0; i < (await imgs.count()); i++) {
+    const img = imgs.nth(i)
+    if (!(await img.isVisible())) continue
+    await img.scrollIntoViewIfNeeded()
+    await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete), { timeout: 15_000 }).toBe(true)
+  }
 
   const images = await page.locator('main img').evaluateAll((imgs) =>
     (imgs as HTMLImageElement[]).map((i) => ({

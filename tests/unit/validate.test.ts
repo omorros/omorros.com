@@ -78,6 +78,59 @@ describe('diagrams', () => {
     assertProblem(flowProblems('f', flow([box('a', 0, 0), box('b', 1, 0)], [['a', 'b', 'nope']])), /line a to b uses the tone "nope"/)
   })
 
+  // Two modes: a and b run through the shared box s.
+  const modal = (extra: object = {}) =>
+    ({
+      tones: { t: { swatch: 'grey' } },
+      modes: { one: { label: 'One' }, two: { label: 'Two' } },
+      nodes: [
+        { ...box('a', 0, 0), modes: ['one'] },
+        { ...box('b', 0, 1), modes: ['two'] },
+        box('s', 1, 0),
+      ],
+      edges: [['a', 's'], ['b', 's']],
+      caption: '',
+      ...extra,
+    }) as unknown as Flow
+
+  test('a valid diagram with modes and a zone has no problems', () => {
+    assert.deepEqual(flowProblems('f', modal({ zones: [{ label: 'Z', nodes: ['a'] }] })), [])
+  })
+
+  test('a single mode', () => {
+    const one = modal({ modes: { one: { label: 'One' } }, nodes: [box('a', 0, 0), box('s', 1, 0)], edges: [['a', 's']] })
+    assertProblem(flowProblems('f', one), /one mode needs no tabs/)
+  })
+
+  test('a box in a mode the diagram does not declare', () => {
+    const f = modal({ nodes: [{ ...box('a', 0, 0), modes: ['three'] }, { ...box('b', 0, 1), modes: ['two'] }, box('s', 1, 0)] })
+    assertProblem(flowProblems('f', f), /"a" is in the mode "three", which is not declared/)
+  })
+
+  test('a box with no line inside one of its modes', () => {
+    const f = modal({ nodes: [{ ...box('a', 0, 0), modes: ['one'] }, { ...box('b', 0, 1), modes: ['two'] }, box('s', 1, 0), box('c', 2, 0)], edges: [['a', 's'], ['b', 's'], ['a', 'c']] })
+    assertProblem(flowProblems('f', f), /in the "Two" mode, "c" is not connected/)
+  })
+
+  test('text for a mode the box is not in', () => {
+    const f = modal({ nodes: [{ ...box('a', 0, 0), modes: ['one'], live: { two: 'x' } }, { ...box('b', 0, 1), modes: ['two'] }, box('s', 1, 0)] })
+    assertProblem(flowProblems('f', f), /"a" has text for the mode "two", which it is not in/)
+  })
+
+  test('a line between boxes that never share a mode', () => {
+    const f = modal({ nodes: [{ ...box('a', 0, 0), modes: ['one'] }, { ...box('b', 1, 1), modes: ['two'] }, box('s', 1, 0)], edges: [['a', 's'], ['b', 's'], ['a', 'b']] })
+    assertProblem(flowProblems('f', f), /the line a to b joins boxes that never share a mode/)
+  })
+
+  test('a zone that takes in a box it does not name', () => {
+    const f = modal({ nodes: [{ ...box('a', 0, 0), modes: ['one'] }, { ...box('b', 0, 1), modes: ['two'] }, box('s', 1, 0), box('c', 2, 0)], edges: [['a', 's'], ['b', 's'], ['s', 'c']], zones: [{ label: 'Z', nodes: ['a', 'c'] }] })
+    assertProblem(flowProblems('f', f), /the zone "Z" covers "s"/)
+  })
+
+  test('a zone naming a box that does not exist', () => {
+    assertProblem(flowProblems('f', modal({ zones: [{ label: 'Z', nodes: ['nope'] }] })), /the zone "Z" names "nope", which is not a box/)
+  })
+
   test('a story with one decision', () => {
     const story = { flow: flow([box('a', 0, 0), box('b', 1, 0)], [['a', 'b']]), facts: [], decisions: [{}] } as unknown as Story
     assertProblem(storyProblems('s', story), /1 decisions; use two or three/)
