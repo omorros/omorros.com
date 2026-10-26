@@ -67,6 +67,8 @@ Import `defineFlow` with `defineProject` from `./schema`.
 - Solid boxes are what the team built. `service: true` (dashed) marks outside services.
 - Each box: `label` (what it is), `note` (what it does, one line), `detail` (small mono line: formats, models, limits), `steps` (two or three that tick on), `live` (what the box puts out when the scene reaches it, as the product really shows it: a transcript line, a score, a status the screen displays).
 - `tones`: three or four kinds of thing that travel (TrueVoice: audio, words, voice, flag). Label the ones a reader must tell apart; they become the legend, which lists only tones that travel along a line. Swatches: grey, blue, violet, amber, green, rose.
+- Modes: when a visitor picks between paths that really differ in the code (TrueVoice telehealth or in person, OffBabel speak or sign), declare `modes` (label and a one-line note, in tab order) and list on each box the modes it belongs to; boxes that list none are shared. The diagram gets a tab per mode, fades what the mode does not use and plays only its path. Two stages of one pipeline, or chains that always run together, are not modes. A shared box whose example output differs by mode gives `live` per mode (`{ speak: 'missed 1x' }`).
+- Zones: `zones: [{ label: 'EXO', nodes: [...] }]` shades boxes that share a place, such as what runs on one machine. The boxes must fill a rectangle of cells on their own.
 - Caption: "Solid boxes are what we built. Dashed ones are outside services." ("I" for solo.) With no dashed box, say so instead ("Every box is something I built.").
 
 ## 5. Images

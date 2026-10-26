@@ -47,6 +47,62 @@ export function flowProblems(where: string, flow: Story['flow']): string[] {
   for (const n of nodes) {
     if (!linked.has(n.id)) problems.push(`${where}: "${n.id}" is not connected to anything`)
   }
+  problems.push(...modeProblems(where, flow, byId), ...zoneProblems(where, flow, byId))
+  return problems
+}
+
+// Each mode is a whole diagram of its own: every box in it has a line in it,
+// and every line belongs to at least one mode.
+function modeProblems(where: string, flow: Story['flow'], byId: Map<string, FlowNode>): string[] {
+  if (!flow.modes) return []
+  const problems: string[] = []
+  const modes = Object.keys(flow.modes)
+  if (modes.length < 2) problems.push(`${where}: one mode needs no tabs; drop modes or add another`)
+  const inMode = (n: FlowNode | undefined, m: string) => !!n && (!n.modes?.length || n.modes.includes(m))
+  for (const n of flow.nodes) {
+    for (const m of n.modes ?? []) {
+      if (!modes.includes(m)) problems.push(`${where}: "${n.id}" is in the mode "${m}", which is not declared`)
+    }
+    for (const m of typeof n.live === 'object' ? Object.keys(n.live) : []) {
+      if (!inMode(n, m)) problems.push(`${where}: "${n.id}" has text for the mode "${m}", which it is not in`)
+    }
+  }
+  for (const m of modes) {
+    const linked = new Set<string>()
+    for (const [from, to] of flow.edges) {
+      if (inMode(byId.get(from), m) && inMode(byId.get(to), m)) linked.add(from).add(to)
+    }
+    for (const n of flow.nodes) {
+      if (inMode(n, m) && !linked.has(n.id)) {
+        problems.push(`${where}: in the "${flow.modes[m].label}" mode, "${n.id}" is not connected to anything`)
+      }
+    }
+  }
+  for (const [from, to] of flow.edges) {
+    if (!modes.some((m) => inMode(byId.get(from), m) && inMode(byId.get(to), m))) {
+      problems.push(`${where}: the line ${from} to ${to} joins boxes that never share a mode`)
+    }
+  }
+  return problems
+}
+
+// A zone is drawn around the cells its boxes span, so no other box may sit there.
+function zoneProblems(where: string, flow: Story['flow'], byId: Map<string, FlowNode>): string[] {
+  const problems: string[] = []
+  for (const zone of flow.zones ?? []) {
+    const members = zone.nodes.flatMap((id) => {
+      const n = byId.get(id)
+      if (!n) problems.push(`${where}: the zone "${zone.label}" names "${id}", which is not a box`)
+      return n ? [n] : []
+    })
+    if (members.length === 0) continue
+    const cols = members.map((n) => n.col)
+    const rows = members.map((n) => n.row)
+    for (const n of flow.nodes) {
+      const inside = n.col >= Math.min(...cols) && n.col <= Math.max(...cols) && n.row >= Math.min(...rows) && n.row <= Math.max(...rows)
+      if (inside && !zone.nodes.includes(n.id)) problems.push(`${where}: the zone "${zone.label}" covers "${n.id}"; name it or move it`)
+    }
+  }
   return problems
 }
 

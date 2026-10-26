@@ -54,8 +54,13 @@ html.night {
 
 /* Flow diagrams (FlowDiagram.tsx): a box takes its stream's colour when the
    scene reaches it, its steps tick on in turn, and its live line appears. */
-[data-flow] [data-node] {
-  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+[data-flow] [data-node],
+[data-flow] [data-zone] {
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.3s ease;
+}
+/* Boxes and zones the picked mode does not use. */
+[data-flow] [data-dim='1'] {
+  opacity: 0.25;
 }
 [data-flow] [data-node][data-on='1'] {
   border-color: var(--tone);
