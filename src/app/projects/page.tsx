@@ -8,7 +8,7 @@ import { createPageMetadata } from '@/lib/metadata'
 import { getCollectionJsonLd } from '@/lib/structured-data'
 
 const description =
-  'Personal projects and award-winning hackathon builds by Oriol Morros.'
+  'Personal projects and award-winning hackathon builds by Oriol Morros, each with a case study of how it works and the decisions behind it.'
 
 export const metadata = createPageMetadata({
   title: 'Projects',
