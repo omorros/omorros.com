@@ -23,9 +23,10 @@ export default defineProject({
       facts: [
         { label: 'Stack', value: 'React Native, FastAPI, PostgreSQL, GPT-5.2, YOLOv8, TensorFlow' },
         { label: 'Research', value: 'BSc dissertation, Anglia Ruskin' },
-        { label: 'Dataset', value: '120 kitchen photos, on Hugging Face' },
+        { label: 'Training data', value: '120,842 images, three public datasets merged' },
+        { label: 'Test set', value: '120 kitchen photos I took, on Hugging Face' },
       ],
-      context: 'A lot of food waste at home happens because people forget what they have, and inventory apps fail because typing everything in is too much work. SnapShelf swaps the typing for a photo, which only works if the app can read a real photo of real shopping. I started it as a personal project, then took the chance to research that question for my BSc dissertation at Anglia Ruskin. I ran two experiments comparing different approaches, and built SnapShelf on the one that won.',
+      context: 'A lot of food waste at home happens because people forget what they have, and inventory apps fail because typing everything in is too much work. SnapShelf swaps the typing for a photo, which only works if the app can read a real photo of real shopping. I started it as a personal project, then took the chance to research that question for my BSc dissertation at Anglia Ruskin. In the first experiment I trained three CNNs on 120,842 images, merged from three public datasets with the duplicates removed. In the second I compared whole pipelines on 120 kitchen photos I took myself. SnapShelf is built on the approach that won.',
       flow: defineFlow({
         tones: {
           input: { swatch: 'grey' },
@@ -55,7 +56,7 @@ export default defineProject({
       decisions: [
         {
           title: 'Test the approaches before building on one',
-          why: 'The plan was one custom CNN. Vision-language models improved so fast while I read the literature that the better question became which approach to build on at all. So I compared three pipelines on 120 photos I took and labelled in a real home: GPT-5.2, a YOLOv8 detector trained on 14 kinds of produce, and YOLO finding each item with a CNN naming it, the best of three from a first experiment. Each photo was also blurred, noised and JPEG-damaged.',
+          why: 'The plan was one custom CNN. Vision-language models improved so fast while I read the literature that the better question became which approach to build on at all. So I compared three pipelines on 120 photos I took and labelled in a real home: GPT-5.2, a YOLOv8 detector trained on 14 kinds of produce, and YOLO finding each item with a CNN naming it: EfficientNetB0, the best of the three CNNs from the first experiment. Each photo was also blurred, noised and JPEG-damaged.',
           tradeoff: 'A small test: 120 photos from one home and one phone, all taken and labelled by me. My YOLO baseline was also undertrained, so its score sits below what YOLOv8 usually reaches.',
         },
         {

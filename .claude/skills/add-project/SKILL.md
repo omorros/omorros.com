@@ -9,8 +9,9 @@ Each project is one file, `src/data/projects/<slug>.ts`, named after its
 slug. `src/data/projects/index.ts` puts it in a group, and the group decides
 where it shows. Everything else is derived from the files and groups: the
 card lists, the prize ticker and win count on /projects, the hackathon count,
-/hackathons, the previous and next links, the sitemap entry, llms.txt, the
-share image. Mistakes fail the build with a message that says what to fix.
+/hackathons, the previous and next links, the sitemap entries and dates,
+llms.txt (one line per project with a card), the structured data search
+engines read (insight, team, prizes) and the share image. Mistakes fail the build with a message that says what to fix.
 
 ## Where things live
 
@@ -42,10 +43,9 @@ Every win must be in one of those two groups, so the counts include it.
 2. **Create `<slug>.ts`** with the shape of `truevoice.ts`: title, description, tags (about four stack keywords), link, slug, `lastModified` (today, `YYYY-MM-DD`), category, event, year, caseStudy.
 3. **Write the page.** REQUIRED SUB-SKILL: use write-case-study. It covers the copy, the diagram, the images and the checks.
 4. **Add it to `index.ts`**: one import, one entry in its group. The order inside a group is the order on the page.
-5. **Bump the listing dates** in `src/app/sitemap.ts` (`/projects`, `/hackathons`) when the project shows on them.
-6. **Link to it from copy** with `projectHref('<slug>')`, so a typo fails the type check.
-7. **Check** as write-case-study says, then open `/projects/<slug>/opengraph-image` and confirm the badge text fits.
-8. **Report and wait** for Oriol's approval, then commit: one sentence, no em dashes, no AI attribution. Never push or open a PR without asking.
+5. **Link to it from copy** with `projectHref('<slug>')`, so a typo fails the type check.
+6. **Check** as write-case-study says, then open `/projects/<slug>/opengraph-image` and confirm the badge text fits.
+7. **Report and wait** for Oriol's approval, then commit: one sentence, no em dashes, no AI attribution. Never push or open a PR without asking.
 
 ## Removing or moving
 

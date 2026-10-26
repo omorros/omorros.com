@@ -204,6 +204,15 @@ export function getProjectJsonLd(project: Project): JsonLdObject {
   const projectId = `${pageUrl}#software`
   const image = absoluteAssetUrl(shareImage(project)?.src)
   const awards = project.caseStudy?.awards?.map((award) => award.title) ?? []
+  const story = project.caseStudy.story
+  const stack = story.facts.find((f) => f.label === 'Stack')?.value.split(', ') ?? []
+  const keywords = Array.from(new Set([...project.tags, ...stack]))
+  // Teammates as people, linked when their profile is known.
+  const contributors = (story.team ?? []).map((m) => ({
+    '@type': 'Person',
+    name: m.name,
+    ...(m.url ? { url: m.url, sameAs: [m.url] } : {}),
+  }))
 
   return {
     '@context': 'https://schema.org',
@@ -215,6 +224,7 @@ export function getProjectJsonLd(project: Project): JsonLdObject {
         name: project.title,
         description: project.description,
         inLanguage: 'en-GB',
+        dateModified: project.lastModified,
         isPartOf: websiteReference,
         mainEntity: { '@id': projectId },
         ...(image
@@ -232,9 +242,11 @@ export function getProjectJsonLd(project: Project): JsonLdObject {
         url: pageUrl,
         name: project.title,
         description: project.description,
+        abstract: story.insight,
         codeRepository: project.link,
-        keywords: project.tags,
+        keywords,
         author: personReference,
+        ...(contributors.length > 0 ? { contributor: contributors } : {}),
         mainEntityOfPage: { '@id': pageId },
         ...(image ? { image } : {}),
         ...(awards.length > 0 ? { award: awards } : {}),

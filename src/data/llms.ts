@@ -1,5 +1,6 @@
 import { HACKATHON_COUNT, HACKATHON_WINS } from '@/data/hackathons'
-import { eventName, hackathonProjects, prizes } from '@/data/projects'
+import { eventName, groups, hackathonProjects, prizes, type Project } from '@/data/projects'
+import { siteConfig } from '@/lib/constants'
 
 // The site summary for AI assistants, served at /llms.txt by
 // src/app/llms.txt/route.ts. Edit the prose here; the hackathon record and
@@ -8,6 +9,18 @@ import { eventName, hackathonProjects, prizes } from '@/data/projects'
 function hackathonRecord() {
   const wins = hackathonProjects.map((p) => `${p.title}, ${prizes(p).join(' and ')} at ${eventName(p)}`)
   return `- Hackathon record (London, 2026), ${HACKATHON_WINS} prizes at ${HACKATHON_COUNT} hackathons: ${wins.join('; ')}.`
+}
+
+// One line per project with a card, in page order: featured, wins, then more.
+function projectLine(p: Project) {
+  const won = prizes(p)
+  const description = /[.!?]$/.test(p.description) ? p.description : `${p.description}.`
+  const result = won.length > 0 ? ` ${won.join(' and ')} at ${eventName(p)}.` : ''
+  return `- [${p.title}](${siteConfig.url}/projects/${p.slug}): ${description}${result}`
+}
+
+function projectList() {
+  return [...groups.featured, ...groups.hackathons, ...groups.more].map(projectLine).join('\n')
 }
 
 export function llmsTxt() {
@@ -30,12 +43,16 @@ ${hackathonRecord()}
 ## Core pages
 
 - [Home](https://www.omorros.com/): introduction, work summary, and life story
-- [Projects](https://www.omorros.com/projects): personal projects like SnapShelf and BK-Shoot, plus hackathon builds and wins, each with a case study page
+- [Projects](https://www.omorros.com/projects): personal projects like SnapShelf and BK-Shoot, plus hackathon builds and wins. Each case study opens with the idea, then why it matters, a diagram of how it works, and the decisions behind it with their trade-offs
 - [Hackathons](https://www.omorros.com/hackathons): ${HACKATHON_WINS} wins at ${HACKATHON_COUNT} hackathons in London in 2026, each with a case study page
 - [Work](https://www.omorros.com/work): Really Good Culture, AI agent infrastructure at Eli by Techbible, University of Cambridge, Festival Sant Fruitós, IBM MCP Context Forge
 - [Open Source](https://www.omorros.com/open-source): 18 merged pull requests in IBM's MCP Context Forge
 - [Journal](https://www.omorros.com/journal): personal stories, like co-hosting EAT HACK, the world's first AI and eating hackathon, at Really Good Culture in October 2026, the TikTok account he grew to 1.5M followers in 2020–2023, and playing basketball in Bàsquet Manresa's academy
 - [EAT HACK](https://www.omorros.com/journal/eat-hack): the story of co-hosting the world's first AI and eating hackathon with Gianni Austin, with the recap video and photos
+
+## Projects
+
+${projectList()}
 
 ## Contact
 
