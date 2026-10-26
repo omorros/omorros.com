@@ -168,3 +168,10 @@ errors and sideways scroll.
   The CNNs were trained on three public datasets merged into 120,842 images;
   the 120 photos were the test set. Show every dataset a project used, with
   its role (training or testing).
+- 2026-10-26: Show every mode a product has: a tab per mode over one
+  diagram. An assessment of the code found five: TrueVoice (telehealth, in
+  person), OffBabel (speak, sign), SnapShelf (photo, barcode), Echo (record,
+  ask) and Hamyway City (written case, live call). OffBabel: Oriol asked to
+  frame it as running inside EXO; only the tutor and its second check run on
+  EXO, so the diagram shades those two as an EXO zone and the copy says
+  everything else runs beside it on the same Mac.

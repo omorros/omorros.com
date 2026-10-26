@@ -30,6 +30,10 @@ export default defineProject({
       ],
       context: 'People often tell their doctor they are fine when they are not. The words go in the notes, but the strain in their voice is easy to miss in a short appointment. TrueVoice listens to both while the consultation happens, and points out the moments where they disagree.',
       flow: defineFlow({
+        modes: {
+          telehealth: { label: 'Telehealth', note: 'Patient and doctor join a video call, each from their own device.' },
+          inperson: { label: 'In person', note: 'One laptop on the desk listens to the whole appointment.' },
+        },
         tones: {
           audio: { swatch: 'grey' },
           words: { swatch: 'blue', label: 'Words' },
@@ -37,16 +41,18 @@ export default defineProject({
           flag: { swatch: 'amber', label: 'Flag' },
         },
         nodes: [
-          { id: 'mic', label: "Patient's mic", note: 'Captured once, used twice', detail: '16 kHz · 40 ms frames', tone: 'audio', col: 0, row: 1 },
-          { id: 'api', label: 'Backend', note: 'Sends every frame two ways', detail: 'FastAPI · WebSockets', tone: 'audio', col: 1, row: 1 },
-          { id: 'stt', label: 'Speechmatics', note: 'Live medical transcript', detail: 'diarised · medical', live: '"I\'m fine, honestly."', tone: 'words', col: 2, row: 0, service: true },
+          { id: 'call', label: 'Video call', note: 'Each device captures once, uses it twice', detail: 'WebRTC · STUN and TURN', live: 'Connecting…', tone: 'audio', col: 0, row: 0, modes: ['telehealth'] },
+          { id: 'room', label: 'Laptop mic', note: 'One mic on the desk for both voices', detail: 'audio only', tone: 'audio', col: 0, row: 2, modes: ['inperson'] },
+          { id: 'api', label: 'Backend', note: 'Sends every frame two ways', detail: 'FastAPI · 16 kHz · 40 ms frames', tone: 'audio', col: 1, row: 1 },
+          { id: 'stt', label: 'Speechmatics', note: 'Live medical transcript', detail: 'who spoke: by device, or by voice', live: '"I\'m fine, honestly."', tone: 'words', col: 2, row: 0, service: true },
           { id: 'voice', label: 'Thymia', note: 'Signals in the voice', detail: 'Helios · Apollo · Psyche', live: 'distress: high', tone: 'voice', col: 2, row: 2, service: true },
           { id: 'match', label: 'Mismatch check', note: 'Both within a minute', steps: ['phrase matched', 'voice over threshold'], tone: 'flag', col: 3, row: 1 },
           { id: 'gp', label: "Doctor's screen", note: 'A live flag with a note', detail: 'Claude Haiku · 2\u00a0s limit', live: 'Says fine, sounds distressed', tone: 'flag', col: 4, row: 1 },
           { id: 'report', label: 'Report', note: 'When the doctor asks', detail: 'Claude Sonnet', live: 'Summary ready', tone: 'flag', col: 4, row: 2 },
         ],
         edges: [
-          ['mic', 'api'],
+          ['call', 'api'],
+          ['room', 'api'],
           ['api', 'stt', 'words'],
           ['api', 'voice', 'voice'],
           ['stt', 'match'],
@@ -63,7 +69,7 @@ export default defineProject({
       decisions: [
         {
           title: 'Our own call, not a video app',
-          why: 'Each browser captures its microphone once and uses it twice: one copy goes into a peer-to-peer video call, the other goes straight to the voice analysis as clean 16 kHz audio from the speaker\'s own device.',
+          why: 'For telehealth, each browser captures its microphone once and uses it twice: one copy goes into a peer-to-peer video call, the other goes straight to the voice analysis as clean 16 kHz audio from the speaker\'s own device.',
           tradeoff: 'We had to build the call ourselves, including the signalling and a relay server so it connects through home routers. It cost us a lot of time, and very nearly the submission.',
         },
         {
